@@ -345,9 +345,9 @@ components:
           type: String,
           default: 4444333322221111
         }
-        in: header
-        required: false
-        description: This field is required only if devicedata is absent.
+      in: header
+      required: false
+      description: This field is required only if devicedata is absent.
                     One of the following,
                       A clear or encrypted payment account number (PAN)
                       An ACH routing and account number string in the format <routing>/<account> for eCheck transactions
@@ -359,8 +359,8 @@ components:
           type: string,
           required: false
         }
-        in: header
-        description: This field is required only if account is absent.
+      in: header
+      description: This field is required only if account is absent.
     CVVParam:
       x-model-version: 1.0
       name: cvv
@@ -368,8 +368,8 @@ components:
           type: number,
           required: False
         }
-        in: header
-        description: Card Verification Value (CVV)
+      in: header
+      description: Card Verification Value (CVV)
     ExpiryParam:
       x-model-version: 1.0
       name: expiry
@@ -378,8 +378,8 @@ components:
           type: number,
           required: False
         }
-        in: header
-        description: Expiration date
+      in: header
+      description: Expiration date
     SigParam:
       x-model-version: 1.0
       name: signature
@@ -388,8 +388,8 @@ components:
           type: string,
           required: False
         }
-        in: header
-        description: Signature data is the form of a Base64-encoded, Gzipped bitmap (BMP)
+      in: header
+      description: Signature data is the form of a Base64-encoded, Gzipped bitmap (BMP)
     EncryptHandleParam:
       x-model-version: 1.0
       name: encryptionhandler
@@ -398,8 +398,8 @@ components:
           type: string,
           required: False
         }
-        in: header
-        description: Encryption Handler. Either RSA, EX_APPLE_PAY, EX_GOOGLE_PAY
+      in: header
+      description: Encryption Handler. Either RSA, EX_APPLE_PAY, EX_GOOGLE_PAY
     UniqueParam:
       x-model-version: 1.0
       name: unique
@@ -408,8 +408,8 @@ components:
           type: boolean,
           required: False
         }
-        in: header
-        description: Specifies whether a unique token should be generated. Defaults to false.
+      in: header
+      description: Specifies whether a unique token should be generated. Defaults to false.
     MessageParam:
       x-model-version: 1.0
       name: message
@@ -418,8 +418,8 @@ components:
           type: string,
           required: False
         }
-        in: header
-        description: A message to send in the ping request and receive in the response. The value can be blank, however the message field must be included in the request.
+      in: header
+      description: A message to send in the ping request and receive in the response. The value can be blank, however the message field must be included in the request.
   schemas:
     ErrorCode:
       type: number
