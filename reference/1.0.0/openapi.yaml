@@ -342,8 +342,8 @@ components:
       x-model-version: 1.0
       name: account
       schema: {
-        type: String,
-        default: 4444333322221111
+          type: String,
+          default: 4444333322221111
         }
         in: header
         required: false
@@ -356,8 +356,8 @@ components:
       x-model-version: 1.0
       name: devicedata
       schema: {
-        type: string,
-        required: false
+          type: string,
+          required: false
         }
         in: header
         description: This field is required only if account is absent.
@@ -365,8 +365,8 @@ components:
       x-model-version: 1.0
       name: cvv
       schema: {
-        type: number,
-        required: False
+          type: number,
+          required: False
         }
         in: header
         description: Card Verification Value (CVV)
@@ -375,8 +375,8 @@ components:
       name: expiry
       schema:
         {
-        type: number,
-        required: False
+          type: number,
+          required: False
         }
         in: header
         description: Expiration date
@@ -385,8 +385,8 @@ components:
       name: signature
       schema:
         {
-        type: string,
-        required: False
+          type: string,
+          required: False
         }
         in: header
         description: Signature data is the form of a Base64-encoded, Gzipped bitmap (BMP)
@@ -395,8 +395,8 @@ components:
       name: encryptionhandler
       schema:
         {
-        type: string,
-        required: False
+          type: string,
+          required: False
         }
         in: header
         description: Encryption Handler. Either RSA, EX_APPLE_PAY, EX_GOOGLE_PAY
@@ -405,8 +405,8 @@ components:
       name: unique
       schema:
         {
-        type: boolean,
-        required: False
+          type: boolean,
+          required: False
         }
         in: header
         description: Specifies whether a unique token should be generated. Defaults to false.
@@ -415,8 +415,8 @@ components:
       name: message
       schema:
         {
-        type: string,
-        required: False
+          type: string,
+          required: False
         }
         in: header
         description: A message to send in the ping request and receive in the response. The value can be blank, however the message field must be included in the request.
