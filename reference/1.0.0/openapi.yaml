@@ -342,7 +342,7 @@ components:
       x-model-version: 1.0
       name: account
       schema: {
-        type: String
+        type: String,
         default: 4444333322221111
         }
         in: header
@@ -356,7 +356,7 @@ components:
       x-model-version: 1.0
       name: devicedata
       schema: {
-        type: string
+        type: string,
         required: false
         }
         in: header
@@ -365,7 +365,7 @@ components:
       x-model-version: 1.0
       name: cvv
       schema: {
-        type: number
+        type: number,
         required: False
         }
         in: header
@@ -375,7 +375,7 @@ components:
       name: expiry
       schema:
         {
-        type: number
+        type: number,
         required: False
         }
         in: header
@@ -385,7 +385,7 @@ components:
       name: signature
       schema:
         {
-        type: string
+        type: string,
         required: False
         }
         in: header
@@ -395,7 +395,7 @@ components:
       name: encryptionhandler
       schema:
         {
-        type: string
+        type: string,
         required: False
         }
         in: header
@@ -405,7 +405,7 @@ components:
       name: unique
       schema:
         {
-        type: boolean
+        type: boolean,
         required: False
         }
         in: header
@@ -415,7 +415,7 @@ components:
       name: message
       schema:
         {
-        type: string
+        type: string,
         required: False
         }
         in: header
