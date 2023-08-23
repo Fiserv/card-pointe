@@ -436,10 +436,10 @@ components:
         type:
           description: 'The type of response either from the HOST, GATEWAY, NETWORK, or APIM.'
           type: string
-          example: GATEWAY
-        code:
-          description: 'Error response code from the host, gateway, or network'
-           type: string
+        example: GATEWAY
+      code:
+        description: 'Error response code from the host, gateway, or network'
+        type: string
         message:
           description: 'Information specific to a propery or attribute.'
           type: string
