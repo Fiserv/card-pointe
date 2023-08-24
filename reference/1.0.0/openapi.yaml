@@ -219,7 +219,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/EchoResponse'
+                $ref: '#/components/response/EchoResponse'
               examples:
                 SuccessfulToken:
                   summary: Token Response
