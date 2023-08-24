@@ -849,6 +849,11 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   examples:
+    TokenResponse:
+      value:
+        message: 'No Error',
+        errorcode: 0,
+        token: 9417119164771111
     PaymentCardRequestExample:
       value:
         account: 4444333322221111
