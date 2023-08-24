@@ -91,7 +91,7 @@ paths:
             application/json:
               $ref: '#/errorcodes/InvalidAction'
         08:
-          $ref: '/errorcodes/DataNotDecimal'
+          $ref: '#/errorcodes/DataNotDecimal'
         12:
           $ref: '#/errorcodes/KeyIDNotFound'
         13:
