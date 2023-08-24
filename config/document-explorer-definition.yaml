@@ -33,19 +33,19 @@
     link: docs/getting-started.md
 - sections:
   - title: CardPointe Gateway
-    link: 
+    link: docs/documentation/CardPointeGatewayDeveloperGuides.md
 - sections:
   - title: Hosted iFrame Tokenizer
     link: 
 - sections:
   - title: CardPointe Integrated Terminal
-    link: 
+    link: docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md
 - sections:
   - title: CoPilot
-    link: 
+    link: docs/documentation/CoPilotDeveloperGuides.md
 - sections:
   - title: Mobile SDKs
-    link: 
+    link: docs/documentation/CardPointeMobileSDKs.md
 - sections:
   - title: CardSecure
     link: docs/documentation/CardSecure.md
