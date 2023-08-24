@@ -532,7 +532,7 @@ components:
     TokenizeResponse:
       x-model-version: 1.0
       description: Contains the <a href="path">Gateway Response</a>
-      properties:
+      content:
         message:
           type: String
           description: Status of the request. Returns "No Error" if the request was successful.
@@ -547,7 +547,7 @@ components:
     EchoResponse:
       x-model-version: 1.0
       description: Contains the status of connection to CardSecure server.
-      properties:
+      content:
         message:
           type: String
           description: The message value included in the request. Returns a descriptive error message if the request failed.
