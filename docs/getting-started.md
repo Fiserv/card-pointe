@@ -11,7 +11,8 @@ description: Our Developer Guides provide detailed information and best practice
 <!-- type: row -->
 
 <!-- type: card
-title: Integration Process Overview
+picture: <center> ![Icon](../../assets/images/integration-icon.png) </center>
+title: <center> Integration Process Overview </center>
 description: Provides a high-level overview of the integration and workflow
 link: ?path=/docs/documentation/IntegrationProcessOverview.md
 -->
