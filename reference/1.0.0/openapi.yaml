@@ -533,30 +533,28 @@ components:
       x-model-version: 1.0
       description: Contains the <a href="path">Gateway Response</a>
       content:
-        allOf:
-          message:
-            type: String
-            description: Status of the request. Returns "No Error" if the request was successful.
-            example: 'No Error'
-          errorcode:
-            $ref: '#/components/schemas/ErrorCode'
-            example: 0
-          token:
-            type: String
-            description: The token generated from the request data.
-            example: '9417119164771111'
+        message:
+          type: String
+          description: Status of the request. Returns "No Error" if the request was successful.
+          example: 'No Error'
+        errorcode:
+          $ref: '#/components/schemas/ErrorCode'
+          example: 0
+        token:
+          type: String
+          description: The token generated from the request data.
+          example: '9417119164771111'
     EchoResponse:
       x-model-version: 1.0
       description: Contains the status of connection to CardSecure server.
       content:
-        allOf:
-          message:
-            type: String
-            description: The message value included in the request. Returns a descriptive error message if the request failed.
-            example: 'Hello?'
-          errorcode:
-            $ref: '#/components/schemas/ErrorCode'
-            example: 0
+        message:
+          type: String
+          description: The message value included in the request. Returns a descriptive error message if the request failed.
+          example: 'Hello?'
+        errorcode:
+          $ref: '#/components/schemas/ErrorCode'
+          example: 0
   errorcodes:
     WrongVersion:
       x-model-version: 1.0
