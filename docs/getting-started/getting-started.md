@@ -51,7 +51,7 @@ link: ?path=/docs/documentation/E-CommercePayments.md
 <!-- type: card
 title: CardSecure Developer Guides
 description: Provides best practices and supplemental information for developers integrating the CardSecure API
-link: ?path=/docs/documentation/CardSecureDeveloperGuides.md
+link: ?path=/docs/documentation/CardSecure.md
 -->
 
 <!-- type: card
@@ -160,31 +160,13 @@ link: ?path=/docs/documentation/GooglePayDeveloperGuides.md
 <!-- type: card
 title: Hosted iFrame Tokenizer Developer Guide
 description: Provides information for integrating the Hosted iFrame Tokenizer with your website or application to securely capture and tokenize payment information
-link: ?path=/docs/documentation/HostediFrameTokenizerDeveloperGuide.md
+link: ?path=/docs/documentation/HostediFrameTokenizer.md
 -->
 
 <!-- type: card
 title: Hosted Payment Page (HPP) Developer Guide
 description: Provides information for integrating the CardPointe HPP with your website or application to quickly and securely accept payments
-link: ?path=/docs/documentation/HPPDeveloperGuide.md
--->
-
-<!-- type: row-end -->
-
-# Legacy Device Integrations
-
-<!-- type: row -->
-
-<!-- type: card
-title: MagTek Integration Guide (Legacy)
-description: Provides information for integrating MagTek magnetic stripe reader (MSR) devices with your application
-link: ?path=/docs/documentation/MagTekIntegrationGuide.md
--->
-
-<!-- type: card
-title: PanPad Integration Guide (Legacy)
-description: Provides instructions for integrating Ingenico terminals running the PanPad application with your point-of-sale system
-link: ?path=/docs/documentation/PanPadIntegrationGuide.md
+link: ?path=/docs/documentation/HostedPaymentPageDeveloperGuide.md
 -->
 
 <!-- type: row-end -->
