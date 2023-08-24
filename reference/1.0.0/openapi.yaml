@@ -86,107 +86,107 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/errorcodes/WrongVersion'
+                $ref: '#/components/errorcodes/WrongVersion'
         07:
           description: Invalid action
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/errorcodes/InvalidAction'
+                $ref: '#/components/errorcodes/InvalidAction'
         08:
-          $ref: '#/components/schemas/errorcodes/DataNotDecimal'
+          $ref: '#/components/errorcodes/DataNotDecimal'
         12:
-          $ref: '#/components/schemas/errorcodes/KeyIDNotFound'
+          $ref: '#/components/errorcodes/KeyIDNotFound'
         13:
-          $ref: '#/components/schemas/errorcodes/DataTooLong'
+          $ref: '#/components/errorcodes/DataTooLong'
         14:
-          $ref: '#/components/schemas/errorcodes/DataEmpty'
+          $ref: '#/components/errorcodes/DataEmpty'
         16:
-          $ref: '#/components/schemas/errorcodes/UnknownAlgo'
+          $ref: '#/components/errorcodes/UnknownAlgo'
         17:
-          $ref: '#/components/schemas/errorcodes/EncryptionFailure'
+          $ref: '#/components/errorcodes/EncryptionFailure'
         19:
-          $ref: '#/components/schemas/errorcodes/Base64Failure'
+          $ref: '#/components/errorcodes/Base64Failure'
         20:
-          $ref: '#/components/schemas/errorcodes/CryptoWrongLength'
+          $ref: '#/components/errorcodes/CryptoWrongLength'
         21:
-          $ref: '#/components/schemas/errorcodes/DataTooShort'
+          $ref: '#/components/errorcodes/DataTooShort'
         22:
-          $ref: '#/components/schemas/errorcodes/CCNWrongLength'
+          $ref: '#/components/errorcodes/CCNWrongLength'
         24:
-          $ref: '#/components/schemas/errorcodes/DecryptionFailure'
+          $ref: '#/components/errorcodes/DecryptionFailure'
         25:
-          $ref: '#/components/schemas/errorcodes/BadPadding'
+          $ref: '#/components/errorcodes/BadPadding'
         26:
-          $ref: '#/components/schemas/errorcodes/BadDecrypt'
+          $ref: '#/components/errorcodes/BadDecrypt'
         27:
-          $ref: '#/components/schemas/errorcodes/KeystoreNotInit'
+          $ref: '#/components/errorcodes/KeystoreNotInit'
         33:
-          $ref: '#/components/schemas/errorcodes/ApplicationNotInit'
+          $ref: '#/components/errorcodes/ApplicationNotInit'
         35:
-          $ref: '#/components/schemas/errorcodes/BufferTooShort'
+          $ref: '#/components/errorcodes/BufferTooShort'
         38:
-          $ref: '#/components/schemas/errorcodes/IllegalCharacter'
+          $ref: '#/components/errorcodes/IllegalCharacter'
         39:
-          $ref: '#/components/schemas/errorcodes/WrongLength'
+          $ref: '#/components/errorcodes/WrongLength'
         43:
-          $ref: '#/components/schemas/errorcodes/ServerFailed'
+          $ref: '#/components/errorcodes/ServerFailed'
         44:
-          $ref: '#/components/schemas/errorcodes/ConfigItemBad'
+          $ref: '#/components/errorcodes/ConfigItemBad'
         46:
-          $ref: '#/components/schemas/errorcodes/TokenDataProb'
+          $ref: '#/components/errorcodes/TokenDataProb'
         47:
-          $ref: '#/components/schemas/errorcodes/UnAuthHost'
+          $ref: '#/components/errorcodes/UnAuthHost'
         48:
-          $ref: '#/components/schemas/errorcodes/TokenPurged'
+          $ref: '#/components/errorcodes/TokenPurged'
         49:
-          $ref: '#/components/schemas/errorcodes/DataNotFound'
+          $ref: '#/components/errorcodes/DataNotFound'
         50:
-          $ref: '#/components/schemas/errorcodes/ErrorHashing'
+          $ref: '#/components/errorcodes/ErrorHashing'
         53:
-          $ref: '#/components/schemas/errorcodes/TokenDuplicate'
+          $ref: '#/components/errorcodes/TokenDuplicate'
         54:
-          $ref: '#/components/schemas/errorcodes/LuhnFailure'
+          $ref: '#/components/errorcodes/LuhnFailure'
         55:
-          $ref: '#/components/schemas/errorcodes/MissingSiteName'
+          $ref: '#/components/errorcodes/MissingSiteName'
         56:
-          $ref: '#/components/schemas/errorcodes/TokenFormatBad'
+          $ref: '#/components/errorcodes/TokenFormatBad'
         57:
-          $ref: '#/components/schemas/errorcodes/RequestSignatureInvalid'
+          $ref: '#/components/errorcodes/RequestSignatureInvalid'
         58:
-          $ref: '#/components/schemas/errorcodes/RequestSignatureExpired'
+          $ref: '#/components/errorcodes/RequestSignatureExpired'
         59:
-          $ref: '#/components/schemas/errorcodes/RequestSignatureMismatch'
+          $ref: '#/components/errorcodes/RequestSignatureMismatch'
         60:
-          $ref: '#/components/schemas/errorcodes/RequestSignatureInvalid'
+          $ref: '#/components/errorcodes/RequestSignatureInvalid'
         61:
-          $ref: '#/components/schemas/errorcodes/PINTranslationFail'
+          $ref: '#/components/errorcodes/PINTranslationFail'
         63:
-          $ref: '#/components/schemas/errorcodes/KeystoreImportFail'
+          $ref: '#/components/errorcodes/KeystoreImportFail'
         64:
-          $ref: '#/components/schemas/errorcodes/KeystoreUserstoreFail'
+          $ref: '#/components/errorcodes/KeystoreUserstoreFail'
         65:
-          $ref: '#/components/schemas/errorcodes/KeystoreInvalidProc'
+          $ref: '#/components/errorcodes/KeystoreInvalidProc'
         66:
-          $ref: '#/components/schemas/errorcodes/UnauthTerminal'
+          $ref: '#/components/errorcodes/UnauthTerminal'
         68:
-          $ref: '#/components/schemas/errorcodes/KeystoreRollbackFail'
+          $ref: '#/components/errorcodes/KeystoreRollbackFail'
         71:
-          $ref: '#/components/schemas/errorcodes/UnauthDecrypt'
+          $ref: '#/components/errorcodes/UnauthDecrypt'
         72:
-          $ref: '#/components/schemas/errorcodes/InvalidEMVData'
+          $ref: '#/components/errorcodes/InvalidEMVData'
         73:
-          $ref: '#/components/schemas/errorcodes/EMVDataEmpty'
+          $ref: '#/components/errorcodes/EMVDataEmpty'
         74:
-          $ref: '#/components/schemas/errorcodes/MissingReqParam'
+          $ref: '#/components/errorcodes/MissingReqParam'
         75:
-          $ref: '#/components/schemas/errorcodes/InvalidEllipticParam'
+          $ref: '#/components/errorcodes/InvalidEllipticParam'
         76:
-          $ref: '#/components/schemas/errorcodes/JSONSerializationError'
+          $ref: '#/components/errorcodes/JSONSerializationError'
         77:
-          $ref: '#/components/schemas/errorcodes/JSONDeserializationError'
+          $ref: '#/components/errorcodes/JSONDeserializationError'
         78:
-          $ref: '#/components/schemas/errorcodes/InvalidSwipeData'
+          $ref: '#/components/errorcodes/InvalidSwipeData'
         parameters:
             - {$ref: '#/components/parameters/ContentTypeHeader'}
             - {$ref: '#/components/parameters/ApiKeyHeader'}
@@ -229,107 +229,107 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/errorcodes/WrongVersion'
+                $ref: '#/components/errorcodes/WrongVersion'
         07:
           description: Invalid action
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/errorcodes/InvalidAction'
+                $ref: '#/components/errorcodes/InvalidAction'
         08:
-          $ref: '#/components/schemas/errorcodes/DataNotDecimal'
+          $ref: '#/components/errorcodes/DataNotDecimal'
         12:
-          $ref: '#/components/schemas/errorcodes/KeyIDNotFound'
+          $ref: '#/components/errorcodes/KeyIDNotFound'
         13:
-          $ref: '#/components/schemas/errorcodes/DataTooLong'
+          $ref: '#/components/errorcodes/DataTooLong'
         14:
-          $ref: '#/components/schemas/errorcodes/DataEmpty'
+          $ref: '#/components/errorcodes/DataEmpty'
         16:
-          $ref: '#/components/schemas/errorcodes/UnknownAlgo'
+          $ref: '#/components/errorcodes/UnknownAlgo'
         17:
-          $ref: '#/components/schemas/errorcodes/EncryptionFailure'
+          $ref: '#/components/errorcodes/EncryptionFailure'
         19:
-          $ref: '#/components/schemas/errorcodes/Base64Failure'
+          $ref: '#/components/errorcodes/Base64Failure'
         20:
-          $ref: '#/components/schemas/errorcodes/CryptoWrongLength'
+          $ref: '#/components/errorcodes/CryptoWrongLength'
         21:
-          $ref: '#/components/schemas/errorcodes/DataTooShort'
+          $ref: '#/components/errorcodes/DataTooShort'
         22:
-          $ref: '#/components/schemas/errorcodes/CCNWrongLength'
+          $ref: '#/components/errorcodes/CCNWrongLength'
         24:
-          $ref: '#/components/schemas/errorcodes/DecryptionFailure'
+          $ref: '#/components/errorcodes/DecryptionFailure'
         25:
-          $ref: '#/components/schemas/errorcodes/BadPadding'
+          $ref: '#/components/errorcodes/BadPadding'
         26:
-          $ref: '#/components/schemas/errorcodes/BadDecrypt'
+          $ref: '#/components/errorcodes/BadDecrypt'
         27:
-          $ref: '#/components/schemas/errorcodes/KeystoreNotInit'
+          $ref: '#/components/errorcodes/KeystoreNotInit'
         33:
-          $ref: '#/components/schemas/errorcodes/ApplicationNotInit'
+          $ref: '#/components/errorcodes/ApplicationNotInit'
         35:
-          $ref: '#/components/schemas/errorcodes/BufferTooShort'
+          $ref: '#/components/errorcodes/BufferTooShort'
         38:
-          $ref: '#/components/schemas/errorcodes/IllegalCharacter'
+          $ref: '#/components/errorcodes/IllegalCharacter'
         39:
-          $ref: '#/components/schemas/errorcodes/WrongLength'
+          $ref: '#/components/errorcodes/WrongLength'
         43:
-          $ref: '#/components/schemas/errorcodes/ServerFailed'
+          $ref: '#/components/errorcodes/ServerFailed'
         44:
-          $ref: '#/components/schemas/errorcodes/ConfigItemBad'
+          $ref: '#/components/errorcodes/ConfigItemBad'
         46:
-          $ref: '#/components/schemas/errorcodes/TokenDataProb'
+          $ref: '#/components/errorcodes/TokenDataProb'
         47:
-          $ref: '#/components/schemas/errorcodes/UnAuthHost'
+          $ref: '#/components/errorcodes/UnAuthHost'
         48:
-          $ref: '#/components/schemas/errorcodes/TokenPurged'
+          $ref: '#/components/errorcodes/TokenPurged'
         49:
-          $ref: '#/components/schemas/errorcodes/DataNotFound'
+          $ref: '#/components/errorcodes/DataNotFound'
         50:
-          $ref: '#/components/schemas/errorcodes/ErrorHashing'
+          $ref: '#/components/errorcodes/ErrorHashing'
         53:
-          $ref: '#/components/schemas/errorcodes/TokenDuplicate'
+          $ref: '#/components/errorcodes/TokenDuplicate'
         54:
-          $ref: '#/components/schemas/errorcodes/LuhnFailure'
+          $ref: '#/components/errorcodes/LuhnFailure'
         55:
-          $ref: '#/components/schemas/errorcodes/MissingSiteName'
+          $ref: '#/components/errorcodes/MissingSiteName'
         56:
-          $ref: '#/components/schemas/errorcodes/TokenFormatBad'
+          $ref: '#/components/errorcodes/TokenFormatBad'
         57:
-          $ref: '#/components/schemas/errorcodes/RequestSignatureInvalid'
+          $ref: '#/components/errorcodes/RequestSignatureInvalid'
         58:
-          $ref: '#/components/schemas/errorcodes/RequestSignatureExpired'
+          $ref: '#/components/errorcodes/RequestSignatureExpired'
         59:
-          $ref: '#/components/schemas/errorcodes/RequestSignatureMismatch'
+          $ref: '#/components/errorcodes/RequestSignatureMismatch'
         60:
-          $ref: '#/components/schemas/errorcodes/RequestSignatureInvalid'
+          $ref: '#/components/errorcodes/RequestSignatureInvalid'
         61:
-          $ref: '#/components/schemas/errorcodes/PINTranslationFail'
+          $ref: '#/components/errorcodes/PINTranslationFail'
         63:
-          $ref: '#/components/schemas/errorcodes/KeystoreImportFail'
+          $ref: '#/components/errorcodes/KeystoreImportFail'
         64:
-          $ref: '#/components/schemas/errorcodes/KeystoreUserstoreFail'
+          $ref: '#/components/errorcodes/KeystoreUserstoreFail'
         65:
-          $ref: '#/components/schemas/errorcodes/KeystoreInvalidProc'
+          $ref: '#/components/errorcodes/KeystoreInvalidProc'
         66:
-          $ref: '#/components/schemas/errorcodes/UnauthTerminal'
+          $ref: '#/components/errorcodes/UnauthTerminal'
         68:
-          $ref: '#/components/schemas/errorcodes/KeystoreRollbackFail'
+          $ref: '#/components/errorcodes/KeystoreRollbackFail'
         71:
-          $ref: '#/components/schemas/errorcodes/UnauthDecrypt'
+          $ref: '#/components/errorcodes/UnauthDecrypt'
         72:
-          $ref: '#/components/schemas/errorcodes/InvalidEMVData'
+          $ref: '#/components/errorcodes/InvalidEMVData'
         73:
-          $ref: '#/components/schemas/errorcodes/EMVDataEmpty'
+          $ref: '#/components/errorcodes/EMVDataEmpty'
         74:
-          $ref: '#/components/schemas/errorcodes/MissingReqParam'
+          $ref: '#/components/errorcodes/MissingReqParam'
         75:
-          $ref: '#/components/schemas/errorcodes/InvalidEllipticParam'
+          $ref: '#/components/errorcodes/InvalidEllipticParam'
         76:
-          $ref: '#/components/schemas/errorcodes/JSONSerializationError'
+          $ref: '#/components/errorcodes/JSONSerializationError'
         77:
-          $ref: '#/components/schemas/errorcodes/JSONDeserializationError'
+          $ref: '#/components/errorcodes/JSONDeserializationError'
         78:
-          $ref: '#/components/schemas/errorcodes/InvalidSwipeData'
+          $ref: '#/components/errorcodes/InvalidSwipeData'
         parameters:
           - $ref: '#/components/parameters/ContentTypeHeader'
           - $ref: '#/components/parameters/ApiKeyHeader'
