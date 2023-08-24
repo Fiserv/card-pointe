@@ -369,7 +369,7 @@ components:
       description: The Accept Language header contains information about the language
         preference of a user. This HTTP header is useful to multilingual sites for
         deciding the best language to serve to the client. For example en-US or fr-CA.
-   ApiKeyHeader:
+    ApiKeyHeader:
       x-model-version: 1.0
       name: Api-Key
       schema: {
@@ -378,8 +378,7 @@ components:
       }
       in: header
       required: true
-      description: API key provided to the merchant associating the requests with
-        the appropriate app in the Developer Portal.
+      description: API key provided to the merchant associating the requests with the appropriate app in the Developer Portal.
     ContentTypeHeader:
       x-model-version: 1.0
       name: Content-Type
