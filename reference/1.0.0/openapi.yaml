@@ -511,343 +511,343 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     InvalidAction:
       x-model-version: 1.0
       description: Invalid action
       content:
         application/JSON:
           schema:
-            $ref: '#components/schemas/ErrorResponse'
+            $ref: '#components/schemas/Error'
     DataNotDecimal:
       x-model-version: 1.0
       description: Data is not decimal digits
       content:
         application/JSON:
           schema:
-            $ref: '#components/schemas/ErrorResponse'
+            $ref: '#components/schemas/Error'
     KeyIDNotFound:
       x-model-version: 1.0
       description: Key ID is not found
       content:
         application/JSON:
           schema:
-            $ref: '#components/schemas/ErrorResponse'
+            $ref: '#components/schemas/Error'
     DataTooLong:
       x-model-version: 1.0
       description: Data is too long
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     DataEmpty:
       x-model-version: 1.0
       description: Data is empty
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     UnknownAlgo:
       x-model-version: 1.0
       description: Unknown Algorithm
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     EncryptionFailure:
       x-model-version: 1.0
       description: Encryption Failure
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     Base64Failure:
       x-model-version: 1.0
       description: Base 64 decode failure
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     CryptoWrongLength:
       x-model-version: 1.0
       description: Crypto data is the wrong length
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     DataTooShort:
       x-model-version: 1.0
       description: Data is too short
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     CCNWrongLength:
       x-model-version: 1.0
       description: CCN wrong length on decryption
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     DecryptionFailure:
       x-model-version: 1.0
       description: Decryption Failure
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     BadPadding:
       x-model-version: 1.0
       description: Bad PKCS 5 padding
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     BadDecrypt:
       x-model-version: 1.0
       description: Bad decryption length field
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     KeystoreNotInit:
       x-model-version: 1.0
       description: Keystore not initialized
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     ApplicationNotInit:
       x-model-version: 1.0
       description: Application not initialized
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     BufferTooShort:
       x-model-version: 1.0
       description: Buffer too short
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     IllegalCharacter:
       x-model-version: 1.0
       description: Illegal characters
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     WrongLength:
       x-model-version: 1.0
       description: Wrong message length
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     ServerFailed:
       x-model-version: 1.0
       description: Server failed
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     ConfigItemBad:
       x-model-version: 1.0
       description: Config item is bad
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     TokenDataProb:
       x-model-version: 1.0
       description: Token database problem
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     UnAuthHost:
       x-model-version: 1.0
       description: Unauthorized host
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     TokenPurged:
       x-model-version: 1.0
       description: Token Purged
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     DataNotFound:
       x-model-version: 1.0
       description: Data not found
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     ErrorHashing:
       x-model-version: 1.0
       description: Error hashing the value
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     TokenDuplicate:
       x-model-version: 1.0
       description: Token or data duplicate
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     LuhnFailure:
       x-model-version: 1.0
       description: Card number check (Luhn formula) failed
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     MissingSiteName:
       x-model-version: 1.0
       description: Missing or unknown site name
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     TokenFormatBad:
       x-model-version: 1.0
       description: Token format is bad
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     RequestSignatureInvalid:
       x-model-version: 1.0
       description: Request signature is bad
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     RequestSignatureExpired:
       x-model-version: 1.0
       description: Request signature timestamp expired
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     RequestSignatureMismatch:
       x-model-version: 1.0
       description: Request signature mismatch
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     RequestSignatureFailure:
       x-model-version: 1.0
       description: Request signature failure
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     PINTranslationFail:
       x-model-version: 1.0
       description: PIN translation fail
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     KeystoreImportFail:
       x-model-version: 1.0
       description: Keystore import failure
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     KeystoreUserstoreFail:
       x-model-version: 1.0
       description: Keystore userstore failure
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     KeystoreInvalidProc:
       x-model-version: 1.0
       description: Keystore invalid processor
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     UnauthTerminal:
       x-model-version: 1.0
       description: Unauthorized terminal
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     KeystoreRollbackFail:
       x-model-version: 1.0
       description: Keystore rollback failure
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     UnauthDecrypt:
       x-model-version: 1.0
       description: Unauthorized decrypt
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     InvalidEMVData:
       x-model-version: 1.0
       description: Invalid EMV tag data
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     EMVDataEmpty:
       x-model-version: 1.0
       description: EMV tag data empty
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     MissingReqParam:
       x-model-version: 1.0
       description: Missing required parameter
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     InvalidEllipticParam:
       x-model-version: 1.0
       description: Invalid elliptic curve type parameter
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     JSONSerializationError:
       x-model-version: 1.0
       description: JSON serialization error
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     JSONDeserializationError:
       x-model-version: 1.0
       description: JSON deserialization error
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
     InvalidSwipeData:
       x-model-version: 1.0
       description: Invalid swipe data
       content:
         application/JSON:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/Error'
   examples:
     PaymentCardRequestExample:
       value:
