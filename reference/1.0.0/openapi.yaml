@@ -338,6 +338,16 @@ paths:
           - $ref: '#/components/parameters/MessageDigestHeader'
 components:
   parameters:
+    ContentTypeHeader:
+      x-model-version: 1.0
+      name: Content-Type
+      schema:
+        type: string
+        enum: [application/json]
+        default: application/json
+      in: header
+      required: true
+      description: The content type. Valid value (application/json).
     AccountParam:
       x-model-version: 1.0
       name: account
