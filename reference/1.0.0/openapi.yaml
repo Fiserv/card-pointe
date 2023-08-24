@@ -223,7 +223,7 @@ paths:
               examples:
                 SuccessfulToken:
                   summary: Token Response
-                  $ref: '#/components/examples/EchoResponse'
+                  $ref: '#/components/examples/EchoResponseExample'
         03:
           description: Wrong version number
           content:
