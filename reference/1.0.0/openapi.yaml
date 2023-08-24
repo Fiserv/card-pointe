@@ -75,8 +75,7 @@ paths:
           description: No Error
           content:
             application/json:
-              schema:
-                $ref: '#/components/response/TokenizeResponse'
+              $ref: '#/components/response/TokenizeResponse'
               examples:
                 SuccessfulToken:
                   summary: Token Response
@@ -85,14 +84,12 @@ paths:
           description: Wrong version number
           content:
             application/json:
-              schema:
-                $ref: '#/components/errorcodes/WrongVersion'
+              $ref: '#/components/errorcodes/WrongVersion'
         07:
           description: Invalid action
           content:
             application/json:
-              schema:
-                $ref: '#/components/errorcodes/InvalidAction'
+              $ref: '#/components/errorcodes/InvalidAction'
         08:
           $ref: '#/components/errorcodes/DataNotDecimal'
         12:
@@ -218,8 +215,7 @@ paths:
           description: No Error
           content:
             application/json:
-              schema:
-                $ref: '#/components/response/EchoResponse'
+              $ref: '#/components/response/EchoResponse'
               examples:
                 SuccessfulToken:
                   summary: Token Response
@@ -228,14 +224,12 @@ paths:
           description: Wrong version number
           content:
             application/json:
-              schema:
-                $ref: '#/components/errorcodes/WrongVersion'
+              $ref: '#/components/errorcodes/WrongVersion'
         07:
           description: Invalid action
           content:
             application/json:
-              schema:
-                $ref: '#/components/errorcodes/InvalidAction'
+              $ref: '#/components/errorcodes/InvalidAction'
         08:
           $ref: '#/components/errorcodes/DataNotDecimal'
         12:
