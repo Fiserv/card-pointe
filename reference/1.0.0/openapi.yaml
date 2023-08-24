@@ -57,19 +57,19 @@ paths:
             examples:
               PaymentCard:
                 summary: TokenizeRequest with PaymentCard
-                $ref: '#/components/examples/PaymentCardRequestExample'
+                $ref: '#/examples/PaymentCardRequestExample'
               PaymentCard CardPointe Terminal Entry:
                 summary: TokenizeRequest with PaymentCard via CardPointe Terminal
-                $ref: '#/components/examples/PaymentCardTerminalRequestExample'
+                $ref: '#/examples/PaymentCardTerminalRequestExample'
               ACH Unencrypted:
                 summary: TokenizeRequest with Unencrypted ACH
-                $ref: '#/components/examples/ACHRequestExample'
+                $ref: '#/examples/ACHRequestExample'
               GooglePay:
                 summary: TokenizeRequest with GooglePay
-                $ref: '#/components/examples/GooglePayRequestExample'
+                $ref: '#/examples/GooglePayRequestExample'
               ApplePay:
                 summary: TokenizeRequest with ApplePay
-                $ref: '#/components/examples/ApplePayRequestExample'
+                $ref: '#/examples/ApplePayRequestExample'
       responses:
         00:
           description: No Error
@@ -79,7 +79,7 @@ paths:
               examples:
                 SuccessfulToken:
                   summary: Token Response
-                  $ref: '#/components/examples/TokenResponse'
+                  $ref: '#/examples/TokenResponse'
         03:
           description: Wrong version number
           content:
@@ -209,7 +209,7 @@ paths:
             examples:
               echoId:
                 summary: Echo request using Message
-                $ref: '#/components/examples/EchoRequestExample'
+                $ref: '#/examples/EchoRequestExample'
       responses:
         00:
           description: No Error
@@ -219,7 +219,7 @@ paths:
               examples:
                 SuccessfulToken:
                   summary: Token Response
-                  $ref: '#/components/examples/EchoResponseExample'
+                  $ref: '#/examples/EchoResponseExample'
         03:
           description: Wrong version number
           content:
