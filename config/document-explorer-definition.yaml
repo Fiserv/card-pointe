@@ -36,7 +36,6 @@
     link: docs/documentation/CardPointeGatewayDeveloperGuides.md
 - sections:
   - title: Hosted iFrame Tokenizer
-    link: 
 - sections:
   - title: CardPointe Integrated Terminal
     link: docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md
@@ -51,10 +50,8 @@
     link: docs/documentation/CardSecure.md
 - sections:
   - title: eCommerce Plugins
-    link: 
 - sections:
   - title: BluePay Gateway
-    link: 
 - sections:
   - title: Release notes
     sections:
