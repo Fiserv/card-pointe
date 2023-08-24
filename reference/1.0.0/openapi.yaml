@@ -428,7 +428,7 @@ components:
         errorcode:
           $ref: '#/components/errorcodes'
         message:
-          $ref: '#/compnents/errorcodes/*/description'
+          $ref: '#/components/errorcodes/*/description'
     Error:
       x-model-version: 1.0
       description: Error information
