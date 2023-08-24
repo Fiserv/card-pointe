@@ -84,106 +84,106 @@ paths:
           description: Wrong version number
           content:
             application/json:
-              $ref: '#/components/errorcodes/WrongVersion'
+              $ref: '#/errorcodes/WrongVersion'
         07:
           description: Invalid action
           content:
             application/json:
-              $ref: '#/components/errorcodes/InvalidAction'
+              $ref: '#/errorcodes/InvalidAction'
         08:
-          $ref: '#/components/errorcodes/DataNotDecimal'
+          $ref: '#/errorcodes/DataNotDecimal'
         12:
-          $ref: '#/components/errorcodes/KeyIDNotFound'
+          $ref: '#/errorcodes/KeyIDNotFound'
         13:
-          $ref: '#/components/errorcodes/DataTooLong'
+          $ref: '#/errorcodes/DataTooLong'
         14:
-          $ref: '#/components/errorcodes/DataEmpty'
+          $ref: '#/errorcodes/DataEmpty'
         16:
-          $ref: '#/components/errorcodes/UnknownAlgo'
+          $ref: '#/errorcodes/UnknownAlgo'
         17:
-          $ref: '#/components/errorcodes/EncryptionFailure'
+          $ref: '#/errorcodes/EncryptionFailure'
         19:
-          $ref: '#/components/errorcodes/Base64Failure'
+          $ref: '#/errorcodes/Base64Failure'
         20:
-          $ref: '#/components/errorcodes/CryptoWrongLength'
+          $ref: '#/errorcodes/CryptoWrongLength'
         21:
-          $ref: '#/components/errorcodes/DataTooShort'
+          $ref: '#/errorcodes/DataTooShort'
         22:
-          $ref: '#/components/errorcodes/CCNWrongLength'
+          $ref: '#/errorcodes/CCNWrongLength'
         24:
-          $ref: '#/components/errorcodes/DecryptionFailure'
+          $ref: '#/errorcodes/DecryptionFailure'
         25:
-          $ref: '#/components/errorcodes/BadPadding'
+          $ref: '#/errorcodes/BadPadding'
         26:
-          $ref: '#/components/errorcodes/BadDecrypt'
+          $ref: '#/errorcodes/BadDecrypt'
         27:
-          $ref: '#/components/errorcodes/KeystoreNotInit'
+          $ref: '#/errorcodes/KeystoreNotInit'
         33:
-          $ref: '#/components/errorcodes/ApplicationNotInit'
+          $ref: '#/errorcodes/ApplicationNotInit'
         35:
-          $ref: '#/components/errorcodes/BufferTooShort'
+          $ref: '#/errorcodes/BufferTooShort'
         38:
-          $ref: '#/components/errorcodes/IllegalCharacter'
+          $ref: '#/errorcodes/IllegalCharacter'
         39:
-          $ref: '#/components/errorcodes/WrongLength'
+          $ref: '#/errorcodes/WrongLength'
         43:
-          $ref: '#/components/errorcodes/ServerFailed'
+          $ref: '#/errorcodes/ServerFailed'
         44:
-          $ref: '#/components/errorcodes/ConfigItemBad'
+          $ref: '#/errorcodes/ConfigItemBad'
         46:
-          $ref: '#/components/errorcodes/TokenDataProb'
+          $ref: '#/errorcodes/TokenDataProb'
         47:
-          $ref: '#/components/errorcodes/UnAuthHost'
+          $ref: '#/errorcodes/UnAuthHost'
         48:
-          $ref: '#/components/errorcodes/TokenPurged'
+          $ref: '#/errorcodes/TokenPurged'
         49:
-          $ref: '#/components/errorcodes/DataNotFound'
+          $ref: '#/errorcodes/DataNotFound'
         50:
-          $ref: '#/components/errorcodes/ErrorHashing'
+          $ref: '#/errorcodes/ErrorHashing'
         53:
-          $ref: '#/components/errorcodes/TokenDuplicate'
+          $ref: '#/errorcodes/TokenDuplicate'
         54:
-          $ref: '#/components/errorcodes/LuhnFailure'
+          $ref: '#/errorcodes/LuhnFailure'
         55:
-          $ref: '#/components/errorcodes/MissingSiteName'
+          $ref: '#/errorcodes/MissingSiteName'
         56:
-          $ref: '#/components/errorcodes/TokenFormatBad'
+          $ref: '#/errorcodes/TokenFormatBad'
         57:
-          $ref: '#/components/errorcodes/RequestSignatureInvalid'
+          $ref: '#/errorcodes/RequestSignatureInvalid'
         58:
-          $ref: '#/components/errorcodes/RequestSignatureExpired'
+          $ref: '#/errorcodes/RequestSignatureExpired'
         59:
-          $ref: '#/components/errorcodes/RequestSignatureMismatch'
+          $ref: '#/errorcodes/RequestSignatureMismatch'
         60:
-          $ref: '#/components/errorcodes/RequestSignatureInvalid'
+          $ref: '#/errorcodes/RequestSignatureInvalid'
         61:
-          $ref: '#/components/errorcodes/PINTranslationFail'
+          $ref: '#/errorcodes/PINTranslationFail'
         63:
-          $ref: '#/components/errorcodes/KeystoreImportFail'
+          $ref: '#/errorcodes/KeystoreImportFail'
         64:
-          $ref: '#/components/errorcodes/KeystoreUserstoreFail'
+          $ref: '#/errorcodes/KeystoreUserstoreFail'
         65:
-          $ref: '#/components/errorcodes/KeystoreInvalidProc'
+          $ref: '#/errorcodes/KeystoreInvalidProc'
         66:
-          $ref: '#/components/errorcodes/UnauthTerminal'
+          $ref: '#/errorcodes/UnauthTerminal'
         68:
-          $ref: '#/components/errorcodes/KeystoreRollbackFail'
+          $ref: '#/errorcodes/KeystoreRollbackFail'
         71:
-          $ref: '#/components/errorcodes/UnauthDecrypt'
+          $ref: '#/errorcodes/UnauthDecrypt'
         72:
-          $ref: '#/components/errorcodes/InvalidEMVData'
+          $ref: '#/errorcodes/InvalidEMVData'
         73:
-          $ref: '#/components/errorcodes/EMVDataEmpty'
+          $ref: '#/errorcodes/EMVDataEmpty'
         74:
-          $ref: '#/components/errorcodes/MissingReqParam'
+          $ref: '#/errorcodes/MissingReqParam'
         75:
-          $ref: '#/components/errorcodes/InvalidEllipticParam'
+          $ref: '#/errorcodes/InvalidEllipticParam'
         76:
-          $ref: '#/components/errorcodes/JSONSerializationError'
+          $ref: '#/errorcodes/JSONSerializationError'
         77:
-          $ref: '#/components/errorcodes/JSONDeserializationError'
+          $ref: '#/errorcodes/JSONDeserializationError'
         78:
-          $ref: '#/components/errorcodes/InvalidSwipeData'
+          $ref: '#/errorcodes/InvalidSwipeData'
         parameters:
             - {$ref: '#/components/parameters/ContentTypeHeader'}
             - {$ref: '#/components/parameters/ApiKeyHeader'}
@@ -224,106 +224,106 @@ paths:
           description: Wrong version number
           content:
             application/json:
-              $ref: '#/components/errorcodes/WrongVersion'
+              $ref: '#/errorcodes/WrongVersion'
         07:
           description: Invalid action
           content:
             application/json:
-              $ref: '#/components/errorcodes/InvalidAction'
+              $ref: '#/errorcodes/InvalidAction'
         08:
-          $ref: '#/components/errorcodes/DataNotDecimal'
+          $ref: '#/errorcodes/DataNotDecimal'
         12:
-          $ref: '#/components/errorcodes/KeyIDNotFound'
+          $ref: '#/errorcodes/KeyIDNotFound'
         13:
-          $ref: '#/components/errorcodes/DataTooLong'
+          $ref: '#/errorcodes/DataTooLong'
         14:
-          $ref: '#/components/errorcodes/DataEmpty'
+          $ref: '#/errorcodes/DataEmpty'
         16:
-          $ref: '#/components/errorcodes/UnknownAlgo'
+          $ref: '#/errorcodes/UnknownAlgo'
         17:
-          $ref: '#/components/errorcodes/EncryptionFailure'
+          $ref: '#/errorcodes/EncryptionFailure'
         19:
-          $ref: '#/components/errorcodes/Base64Failure'
+          $ref: '#/errorcodes/Base64Failure'
         20:
-          $ref: '#/components/errorcodes/CryptoWrongLength'
+          $ref: '#/errorcodes/CryptoWrongLength'
         21:
-          $ref: '#/components/errorcodes/DataTooShort'
+          $ref: '#/errorcodes/DataTooShort'
         22:
-          $ref: '#/components/errorcodes/CCNWrongLength'
+          $ref: '#/errorcodes/CCNWrongLength'
         24:
-          $ref: '#/components/errorcodes/DecryptionFailure'
+          $ref: '#/errorcodes/DecryptionFailure'
         25:
-          $ref: '#/components/errorcodes/BadPadding'
+          $ref: '#/errorcodes/BadPadding'
         26:
-          $ref: '#/components/errorcodes/BadDecrypt'
+          $ref: '#/errorcodes/BadDecrypt'
         27:
-          $ref: '#/components/errorcodes/KeystoreNotInit'
+          $ref: '#/errorcodes/KeystoreNotInit'
         33:
-          $ref: '#/components/errorcodes/ApplicationNotInit'
+          $ref: '#/errorcodes/ApplicationNotInit'
         35:
-          $ref: '#/components/errorcodes/BufferTooShort'
+          $ref: '#/errorcodes/BufferTooShort'
         38:
-          $ref: '#/components/errorcodes/IllegalCharacter'
+          $ref: '#/errorcodes/IllegalCharacter'
         39:
-          $ref: '#/components/errorcodes/WrongLength'
+          $ref: '#/errorcodes/WrongLength'
         43:
-          $ref: '#/components/errorcodes/ServerFailed'
+          $ref: '#/errorcodes/ServerFailed'
         44:
-          $ref: '#/components/errorcodes/ConfigItemBad'
+          $ref: '#/errorcodes/ConfigItemBad'
         46:
-          $ref: '#/components/errorcodes/TokenDataProb'
+          $ref: '#/errorcodes/TokenDataProb'
         47:
-          $ref: '#/components/errorcodes/UnAuthHost'
+          $ref: '#/errorcodes/UnAuthHost'
         48:
-          $ref: '#/components/errorcodes/TokenPurged'
+          $ref: '#/errorcodes/TokenPurged'
         49:
-          $ref: '#/components/errorcodes/DataNotFound'
+          $ref: '#/errorcodes/DataNotFound'
         50:
-          $ref: '#/components/errorcodes/ErrorHashing'
+          $ref: '#/errorcodes/ErrorHashing'
         53:
-          $ref: '#/components/errorcodes/TokenDuplicate'
+          $ref: '#/errorcodes/TokenDuplicate'
         54:
-          $ref: '#/components/errorcodes/LuhnFailure'
+          $ref: '#/errorcodes/LuhnFailure'
         55:
-          $ref: '#/components/errorcodes/MissingSiteName'
+          $ref: '#/errorcodes/MissingSiteName'
         56:
-          $ref: '#/components/errorcodes/TokenFormatBad'
+          $ref: '#/errorcodes/TokenFormatBad'
         57:
-          $ref: '#/components/errorcodes/RequestSignatureInvalid'
+          $ref: '#/errorcodes/RequestSignatureInvalid'
         58:
-          $ref: '#/components/errorcodes/RequestSignatureExpired'
+          $ref: '#/errorcodes/RequestSignatureExpired'
         59:
-          $ref: '#/components/errorcodes/RequestSignatureMismatch'
+          $ref: '#/errorcodes/RequestSignatureMismatch'
         60:
-          $ref: '#/components/errorcodes/RequestSignatureInvalid'
+          $ref: '#/errorcodes/RequestSignatureInvalid'
         61:
-          $ref: '#/components/errorcodes/PINTranslationFail'
+          $ref: '#/errorcodes/PINTranslationFail'
         63:
-          $ref: '#/components/errorcodes/KeystoreImportFail'
+          $ref: '#/errorcodes/KeystoreImportFail'
         64:
-          $ref: '#/components/errorcodes/KeystoreUserstoreFail'
+          $ref: '#/errorcodes/KeystoreUserstoreFail'
         65:
-          $ref: '#/components/errorcodes/KeystoreInvalidProc'
+          $ref: '#/errorcodes/KeystoreInvalidProc'
         66:
-          $ref: '#/components/errorcodes/UnauthTerminal'
+          $ref: '#/errorcodes/UnauthTerminal'
         68:
-          $ref: '#/components/errorcodes/KeystoreRollbackFail'
+          $ref: '#/errorcodes/KeystoreRollbackFail'
         71:
-          $ref: '#/components/errorcodes/UnauthDecrypt'
+          $ref: '#/errorcodes/UnauthDecrypt'
         72:
-          $ref: '#/components/errorcodes/InvalidEMVData'
+          $ref: '#/errorcodes/InvalidEMVData'
         73:
-          $ref: '#/components/errorcodes/EMVDataEmpty'
+          $ref: '#/errorcodes/EMVDataEmpty'
         74:
-          $ref: '#/components/errorcodes/MissingReqParam'
+          $ref: '#/errorcodes/MissingReqParam'
         75:
-          $ref: '#/components/errorcodes/InvalidEllipticParam'
+          $ref: '#/errorcodes/InvalidEllipticParam'
         76:
-          $ref: '#/components/errorcodes/JSONSerializationError'
+          $ref: '#/errorcodes/JSONSerializationError'
         77:
-          $ref: '#/components/errorcodes/JSONDeserializationError'
+          $ref: '#/errorcodes/JSONDeserializationError'
         78:
-          $ref: '#/components/errorcodes/InvalidSwipeData'
+          $ref: '#/errorcodes/InvalidSwipeData'
         parameters:
           - $ref: '#/components/parameters/ContentTypeHeader'
           - $ref: '#/components/parameters/ApiKeyHeader'
@@ -471,9 +471,9 @@ components:
       description: An error code. Returns "00" if successful. All error codes contain four digits. Two zeros precede the codes.
       properties:
         errorcode:
-          $ref: '#/components/errorcodes'
+          $ref: '#/errorcodes'
         message:
-          $ref: '#/components/errorcodes'
+          $ref: '#/errorcodes'
     Error:
       x-model-version: 1.0
       description: Error information
