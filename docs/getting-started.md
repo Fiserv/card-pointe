@@ -172,24 +172,6 @@ link: ?path=/docs/documentation/HPPDeveloperGuide.md
 
 <!-- type: row-end -->
 
-# Legacy Device Integrations
-
-<!-- type: row -->
-
-<!-- type: card
-title: MagTek Integration Guide (Legacy)
-description: Provides information for integrating MagTek magnetic stripe reader (MSR) devices with your application
-link: ?path=/docs/documentation/MagTekIntegrationGuide.md
--->
-
-<!-- type: card
-title: PanPad Integration Guide (Legacy)
-description: Provides instructions for integrating Ingenico terminals running the PanPad application with your point-of-sale system
-link: ?path=/docs/documentation/PanPadIntegrationGuide.md
--->
-
-<!-- type: row-end -->
-
 # API Documentation
 
 <!-- type: row -->
