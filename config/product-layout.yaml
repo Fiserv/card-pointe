@@ -28,31 +28,29 @@
 # the delivery of this work
 ################################################################################
 header:
-  productName: REPLACEME
-  productionDescription: REPLACEME
-  whoIsItFor: REPLACEME
+  productionDescription: Cardpointe Integrated Payments makes it quick and easy to add secure, card-present payment acceptance to any software environment. Our cloud payment integrations simplify the payment acceptance process and protect transactions with a powerful combination of EMV and tokenization.  whoIsItFor: REPLACEME
+  benefits:
+  - title: PCI Scope Reduction
+    description: PCI-validated P2PE solutions, powered by CardSecure, help reduce your scope of PCI compliance by preventing sensitive account data from interacting with your application. 
+  - title: Omnichannel Payments
+    description: Ecommerce, card-present, and mobile APIs and SDKs enable you to leverage omnichannel tokens and customer profiles for a seamless payment experience across your brand.
+  - title: Flexible APIs
+    description: Our suite of APIs allows you to integrate a wide range of payment, reporting, and transaction management features depending on your needs.
   image: 
     link: "/assets/images/Fiserv_Logo.jpg"
     altText: REPLACEME™
 getStarted: /docs/getting-started.md
 featuredFeatures:
   - title: Tokenization
-    description:  Use the Cardsecure API to build a custom tokenizer to securely accept paymkent account details in your application.
+    groupName: Ecommerce
+    description:  Use the Cardsecure API to build a custom tokenizer to securely accept payment account details in your application.
+    featured: true
     tags: ["PCI", "tokenization", "security", "payments"]
-    bullets: ["Bullet 1", "Bullet 2" ]  
     relatedDocs:
       - relatedDoc: 
         title: CardSecure Developer Guide
         description: The CardSecure Developer Guide provides helpful information for integrating the CardSecure API.
         link: /docs/documentation/CardSecure.md
-      - relatedDoc: 
-        title: REPLACEME
-        description: REPLACEME
-        link: ./docs/REPLACE-ME2.md
-      - relatedDoc: 
-        title: REPLACEME
-        description: REPLACEME
-        link: ./docs/REPLACE-ME3.md
     relatedAPIs:
       - relatedAPI: 
         title: tokenize
@@ -64,3 +62,50 @@ featuredFeatures:
         description: Verify your application's connection to CardSecure.
         type: "post"        
         path: "/v1/echo"
+  - title: Customer Profiles
+    groupName: Omnicommerce
+    description:  Use the CardPointe Gateway API to create and manage secure customer profiles for a seamless omnichannel payment experience.
+    featured: true
+    tags: ["tokenization", "security", "payments"]
+    relatedDocs:
+      - relatedDoc: 
+        title: CardPointe Gateway Developer Guide
+        description: The CardSPointe Gateway Developer Guide provides helpful information for integrating the CardPointe Gateway API.
+        link: /docs/documentation/CardPointeGatewayDeveloperGuides.md
+    relatedAPIs:
+      - relatedAPI: 
+        title: profile
+        description: Create or update a stored customer profile.
+        type: "put"        
+        path: "/v1/profile"
+      - relatedAPI: 
+        title: profile
+        description: Retrieve a stored customer profile.
+        type: "get"        
+        path: "/v1/profile"
+      - relatedAPI: 
+        title: profile
+        description: Delete a stored customer profile.
+        type: "delete"        
+        path: "/v1/profile"
+  - title: Semi-Integrated Terminals
+    groupName: Card-Present
+    description: Use the CardPointe Integrated Terminal API to integrate P2PE-validated, card-present payments to your point-of-cale (POS) application.
+    featured: true
+    tags: ["card-present", "semi-integration", "P2PE"]
+    relatedDocs:
+      - relatedDoc: 
+        title: CardPointe Integrated Terminal Developer Guide
+        description: The CardPointe Integrated Terminal Developer Guide provides helpful information for integrating the Terminal API.
+        link: /docs/documentation/CardPointeIntegratedTerminalDeveloperGuide.md
+    relatedAPIs:
+      - relatedAPI: 
+        title: authCard
+        description: Tokenize and authorize a payment card in a single operation.
+        type: "post"        
+        path: "/v1/authCard"
+      - relatedAPI: 
+        title: readCard
+        description: Tokenize a payment card to use for a future payment or store in a customer profile.
+        type: "post"        
+        path: "/v1/readCard"
