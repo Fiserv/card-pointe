@@ -76,7 +76,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/TokenizeResponse'
+                $ref: '#/components/response/TokenizeResponse'
               examples:
                 SuccessfulToken:
                   summary: Token Response
