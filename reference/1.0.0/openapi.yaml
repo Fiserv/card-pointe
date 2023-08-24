@@ -75,7 +75,7 @@ paths:
           description: No Error
           content:
             application/json:
-              $ref: '#/components/response/TokenizeResponse'
+              $ref: '#/response/TokenizeResponse'
               examples:
                 SuccessfulToken:
                   summary: Token Response
@@ -215,7 +215,7 @@ paths:
           description: No Error
           content:
             application/json:
-              $ref: '#/components/response/EchoResponse'
+              $ref: '#/response/EchoResponse'
               examples:
                 SuccessfulToken:
                   summary: Token Response
