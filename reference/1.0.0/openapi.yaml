@@ -851,8 +851,8 @@ components:
   examples:
     TokenResponse:
       value:
-        message: 'No Error',
-        errorcode: 0,
+        message: 'No Error'
+        errorcode: 0
         token: 9417119164771111
     PaymentCardRequestExample:
       value:
