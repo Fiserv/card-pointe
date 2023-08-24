@@ -900,6 +900,13 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   examples:
+    EchoRequestExample:
+      value:
+        message: 'Hello?'
+    EchoResponseExample:
+      value:
+        message: 'Hello?'
+        errorcode: 0
     TokenResponse:
       value:
         message: 'No Error'
