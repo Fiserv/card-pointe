@@ -11,9 +11,10 @@ description: Our Developer Guides provide detailed information and best practice
 <!-- type: row -->
 
 <!-- type: card
-picture: <center> ![Icon](../../assets/images/integration-icon.png) </center>
+
+![Icon](../../assets/images/integration-icon.png)
 title: <center> Integration Process Overview </center>
-description: Provides a high-level overview of the integration and workflow
+description: <center> Provides a high-level overview of the integration and workflow </center>
 link: ?path=/docs/documentation/IntegrationProcessOverview.md
 -->
 
@@ -22,14 +23,14 @@ link: ?path=/docs/documentation/IntegrationProcessOverview.md
 <!-- type: row -->
 
 <!-- type: card
-title: API Basics and Best Practices
-description: Provides helpful information and important best practices to help you get the most of your integration
+title: <center> API Basics and Best Practices </center>
+description: <center> Provides helpful information and important best practices to help you get the most of your integration </center>
 link: ?path=/docs/documentation/APIBasicsAndBestPractices.md
 -->
 
 <!-- type: card
-title: API Connectivity Guide
-description: Provides an overview of our APIs and services and how your integrated solution connects to them
+title: <center> API Connectivity Guide </center>
+description: <center> Provides an overview of our APIs and services and how your integrated solution connects to them </center>
 link: ?path=/docs/documentation/APIConnectivityGuide.md
 -->
 
@@ -38,8 +39,8 @@ link: ?path=/docs/documentation/APIConnectivityGuide.md
 <!-- type: row -->
 
 <!-- type: card
-title: E-Commerce Payments Overview
-description: Provides an overview of e-commerce payments and the CardPointe products and solutions you can use to accept them
+title: <center> E-Commerce Payments Overview </center>
+description: <center> Provides an overview of e-commerce payments and the CardPointe products and solutions you can use to accept them </center>
 link: ?path=/docs/documentation/E-CommercePayments.md
 -->
 
@@ -50,14 +51,14 @@ link: ?path=/docs/documentation/E-CommercePayments.md
 <!-- type: row -->
 
 <!-- type: card
-title: CardSecure Developer Guides
-description: Provides best practices and supplemental information for developers integrating the CardSecure API
+title: <center> CardSecure Developer Guides </center>
+description: <center> Provides best practices and supplemental information for developers integrating the CardSecure API </center>
 link: ?path=/docs/documentation/CardSecure.md
 -->
 
 <!-- type: card
-title: CoPilot API Developer Guides
-description: Provides best practices and supplemental information for developers integrating the CoPilot API
+title: <center> CoPilot API Developer Guides </center>
+description: <center> Provides best practices and supplemental information for developers integrating the CoPilot API </center>
 link: ?path=/docs/documentation/CoPilotDeveloperGuides.md
 -->
 
@@ -66,8 +67,8 @@ link: ?path=/docs/documentation/CoPilotDeveloperGuides.md
 <!-- type: row -->
 
 <!-- type: card
-title: CardPointe Gateway Developer Guides
-description: Provides best practices and supplemental information for developers integrating the CardPointe Gateway API
+title: <center> CardPointe Gateway Developer Guides </center>
+description: <center> Provides best practices and supplemental information for developers integrating the CardPointe Gateway API </center>
 link: ?path=docs/documentation/CardPointeGatewayDeveloperGuides.md
 -->
 
@@ -83,14 +84,14 @@ link: ?path=docs/documentation/CardPointeGatewayDeveloperGuides.md
 <!-- type: row -->
 
 <!-- type: card
-title: CardPointe Integrated Terminal Developer Guides
-description: Provides best practices and supplemental information for developers integrating the Terminal API with your point-of-sale application
+title: <center> CardPointe Integrated Terminal Developer Guides </center>
+description: <center> Provides best practices and supplemental information for developers integrating the Terminal API with your point-of-sale application </center>
 link: ?path=/docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md
 -->
 
 <!-- type: card
-title: CardPointe Integrated Terminal Developer Guide for Clover Terminals
-description: Provides specific details for integrating Clover terminals with a new or existing CardPointe Integrated Terminal solution
+title: <center> CardPointe Integrated Terminal Developer Guide for Clover Terminals </center>
+description: <center> Provides specific details for integrating Clover terminals with a new or existing CardPointe Integrated Terminal solution </center>
 link: ?path=/docs/documentation/CardPointeIntegratedTerminalDeveloperGuideforCloverTerminals.md
 -->
 
@@ -101,8 +102,8 @@ link: ?path=/docs/documentation/CardPointeIntegratedTerminalDeveloperGuideforClo
 <!-- type: row -->
 
 <!-- type: card
-title: CardPointe Desktop SDK Developer Guide
-description: Provides information for integrating EMV and MSR payment card tokenization using a P2PE desktop card reader
+title: <center> CardPointe Desktop SDK Developer Guide </center>
+description: <center> Provides information for integrating EMV and MSR payment card tokenization using a P2PE desktop card reader </center>
 link: ?path=docs/documentation/CardPointeDesktopSDKDeveloperGuide.md
 -->
 
@@ -113,8 +114,8 @@ link: ?path=docs/documentation/CardPointeDesktopSDKDeveloperGuide.md
 <!-- type: row -->
 
 <!-- type: card
-title: CardPointe Mobile SDKs
-description: Provides an overview of the CardPointe Mobile SDKs solution for integrating secure payments in your mobile app
+title: <center> CardPointe Mobile SDKs </center>
+description: <center> Provides an overview of the CardPointe Mobile SDKs solution for integrating secure payments in your mobile app </center>
 link: ?path=docs/documentation/CardPointeMobileSDKs.md
 -->
 
@@ -123,14 +124,14 @@ link: ?path=docs/documentation/CardPointeMobileSDKs.md
 <!-- type: row -->
 
 <!-- type: card
-title: CardPointe Mobile Android SDK Developer Guide
-description: Provides information for integrating the CardPointe Mobile SDK with your Android app
+title: <center> CardPointe Mobile Android SDK Developer Guide </center>
+description: <center> Provides information for integrating the CardPointe Mobile SDK with your Android app </center>
 link: ?path=/docs/documentation/CardPointeMobileAndroidSDKDeveloperGuide.md
 -->
 
 <!-- type: card
-title: CardPointe Mobile iOS SDK Developer Guide
-description: Provides information for integrating the CardPointe Mobile SDK with your iOS app
+title: <center> CardPointe Mobile iOS SDK Developer Guide </center>
+description: <center> Provides information for integrating the CardPointe Mobile SDK with your iOS app </center>
 link: ?path=/docs/documentation/CardPointeMobileiOSSDKDeveloperGuide.md
 -->
 
@@ -141,14 +142,14 @@ link: ?path=/docs/documentation/CardPointeMobileiOSSDKDeveloperGuide.md
 <!-- type: row -->
 
 <!-- type: card
-title: Apple Pay Developer Guide
-description: Provides information for integrating Apple Pay acceptance with your iOS or web application, using CardSecure and the CardPointe Gateway
+title: <center> Apple Pay Developer Guide </center>
+description: <center> Provides information for integrating Apple Pay acceptance with your iOS or web application, using CardSecure and the CardPointe Gateway </center>
 link: ?path=/docs/documentation/ApplePayDeveloperGuide.md
 -->
 
 <!-- type: card
-title: Google Pay Developer Guides
-description: Provides information for integrating Apple Pay acceptance with your Android App using CardSecure and the CardPointe Gateway
+title: <center> Google Pay Developer Guides </center>
+description: <center> Provides information for integrating Apple Pay acceptance with your Android App using CardSecure and the CardPointe Gateway </center>
 link: ?path=/docs/documentation/GooglePayDeveloperGuides.md
 -->
 
@@ -159,14 +160,14 @@ link: ?path=/docs/documentation/GooglePayDeveloperGuides.md
 <!-- type: row -->
 
 <!-- type: card
-title: Hosted iFrame Tokenizer Developer Guide
-description: Provides information for integrating the Hosted iFrame Tokenizer with your website or application to securely capture and tokenize payment information
+title: <center> Hosted iFrame Tokenizer Developer Guide </center>
+description: <center> Provides information for integrating the Hosted iFrame Tokenizer with your website or application to securely capture and tokenize payment information </center>
 link: ?path=/docs/documentation/HostediFrameTokenizer.md
 -->
 
 <!-- type: card
-title: Hosted Payment Page (HPP) Developer Guide
-description: Provides information for integrating the CardPointe HPP with your website or application to quickly and securely accept payments
+title: <center> Hosted Payment Page (HPP) Developer Guide </center>
+description: <center> Provides information for integrating the CardPointe HPP with your website or application to quickly and securely accept payments </center>
 link: ?path=/docs/documentation/HostedPaymentPageDeveloperGuide.md
 -->
 
@@ -177,8 +178,8 @@ link: ?path=/docs/documentation/HostedPaymentPageDeveloperGuide.md
 <!-- type: row -->
 
 <!-- type: card
-title: API Documentation
-description: Visit the Developer Center for complete API reference documentation
+title: <center> API Documentation </center>
+description: <center> Visit the Developer Center for complete API reference documentation </center>
 -->
 
 <!-- type: row-end -->
@@ -188,8 +189,8 @@ description: Visit the Developer Center for complete API reference documentation
 <!-- type: row -->
 
 <!-- type: card
-title: Support Center
-description: Visit the Support Center for product support documentation and CardPointe support team contact information
+title: <center> Support Center </center>
+description: <center> Visit the Support Center for product support documentation and CardPointe support team contact information </center>
 -->
 
 <!-- type: row-end -->
