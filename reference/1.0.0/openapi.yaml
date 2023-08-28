@@ -57,133 +57,133 @@ paths:
             examples:
               PaymentCard:
                 summary: TokenizeRequest with PaymentCard
-                $ref: '#/examples/PaymentCardRequestExample'
+                $ref: '#/components/examples/PaymentCardRequestExample'
               PaymentCard CardPointe Terminal Entry:
                 summary: TokenizeRequest with PaymentCard via CardPointe Terminal
-                $ref: '#/examples/PaymentCardTerminalRequestExample'
+                $ref: '#/components/examples/PaymentCardTerminalRequestExample'
               ACH Unencrypted:
                 summary: TokenizeRequest with Unencrypted ACH
-                $ref: '#/examples/ACHRequestExample'
+                $ref: '#/components/examples/ACHRequestExample'
               GooglePay:
                 summary: TokenizeRequest with GooglePay
-                $ref: '#/examples/GooglePayRequestExample'
+                $ref: '#/components/examples/GooglePayRequestExample'
               ApplePay:
                 summary: TokenizeRequest with ApplePay
-                $ref: '#/examples/ApplePayRequestExample'
+                $ref: '#/components/examples/ApplePayRequestExample'
       responses:
         00:
           description: No Error
           content:
             application/json:
-              $ref: '#/response/TokenizeResponse'
+              $ref: '#/components/response/TokenizeResponse'
               examples:
                 SuccessfulToken:
                   summary: Token Response
-                  $ref: '#/examples/TokenResponse'
+                  $ref: '#/components/examples/TokenResponse'
         03:
           description: Wrong version number
           content:
             application/json:
-              $ref: '#/errorcodes/WrongVersion'
+              $ref: '#/components/errorcodes/WrongVersion'
         07:
           description: Invalid action
           content:
             application/json:
-              $ref: '#/errorcodes/InvalidAction'
+              $ref: '#/components/errorcodes/InvalidAction'
         08:
-          $ref: '#/errorcodes/DataNotDecimal'
+          $ref: '#/components/errorcodes/DataNotDecimal'
         12:
-          $ref: '#/errorcodes/KeyIDNotFound'
+          $ref: '#/components/errorcodes/KeyIDNotFound'
         13:
-          $ref: '#/errorcodes/DataTooLong'
+          $ref: '#/components/errorcodes/DataTooLong'
         14:
-          $ref: '#/errorcodes/DataEmpty'
+          $ref: '#/components/errorcodes/DataEmpty'
         16:
-          $ref: '#/errorcodes/UnknownAlgo'
+          $ref: '#/components/errorcodes/UnknownAlgo'
         17:
-          $ref: '#/errorcodes/EncryptionFailure'
+          $ref: '#/components/errorcodes/EncryptionFailure'
         19:
-          $ref: '#/errorcodes/Base64Failure'
+          $ref: '#/components/errorcodes/Base64Failure'
         20:
-          $ref: '#/errorcodes/CryptoWrongLength'
+          $ref: '#/components/errorcodes/CryptoWrongLength'
         21:
-          $ref: '#/errorcodes/DataTooShort'
+          $ref: '#/components/errorcodes/DataTooShort'
         22:
-          $ref: '#/errorcodes/CCNWrongLength'
+          $ref: '#/components/errorcodes/CCNWrongLength'
         24:
-          $ref: '#/errorcodes/DecryptionFailure'
+          $ref: '#/components/errorcodes/DecryptionFailure'
         25:
-          $ref: '#/errorcodes/BadPadding'
+          $ref: '#/components/errorcodes/BadPadding'
         26:
-          $ref: '#/errorcodes/BadDecrypt'
+          $ref: '#/components/errorcodes/BadDecrypt'
         27:
-          $ref: '#/errorcodes/KeystoreNotInit'
+          $ref: '#/components/errorcodes/KeystoreNotInit'
         33:
-          $ref: '#/errorcodes/ApplicationNotInit'
+          $ref: '#/components/errorcodes/ApplicationNotInit'
         35:
-          $ref: '#/errorcodes/BufferTooShort'
+          $ref: '#/components/errorcodes/BufferTooShort'
         38:
-          $ref: '#/errorcodes/IllegalCharacter'
+          $ref: '#/components/errorcodes/IllegalCharacter'
         39:
-          $ref: '#/errorcodes/WrongLength'
+          $ref: '#/components/errorcodes/WrongLength'
         43:
-          $ref: '#/errorcodes/ServerFailed'
+          $ref: '#/components/errorcodes/ServerFailed'
         44:
-          $ref: '#/errorcodes/ConfigItemBad'
+          $ref: '#/components/errorcodes/ConfigItemBad'
         46:
-          $ref: '#/errorcodes/TokenDataProb'
+          $ref: '#/components/errorcodes/TokenDataProb'
         47:
-          $ref: '#/errorcodes/UnAuthHost'
+          $ref: '#/components/errorcodes/UnAuthHost'
         48:
-          $ref: '#/errorcodes/TokenPurged'
+          $ref: '#/components/errorcodes/TokenPurged'
         49:
-          $ref: '#/errorcodes/DataNotFound'
+          $ref: '#/components/errorcodes/DataNotFound'
         50:
-          $ref: '#/errorcodes/ErrorHashing'
+          $ref: '#/components/errorcodes/ErrorHashing'
         53:
-          $ref: '#/errorcodes/TokenDuplicate'
+          $ref: '#/components/errorcodes/TokenDuplicate'
         54:
-          $ref: '#/errorcodes/LuhnFailure'
+          $ref: '#/components/errorcodes/LuhnFailure'
         55:
-          $ref: '#/errorcodes/MissingSiteName'
+          $ref: '#/components/errorcodes/MissingSiteName'
         56:
-          $ref: '#/errorcodes/TokenFormatBad'
+          $ref: '#/components/errorcodes/TokenFormatBad'
         57:
-          $ref: '#/errorcodes/RequestSignatureInvalid'
+          $ref: '#/components/errorcodes/RequestSignatureInvalid'
         58:
-          $ref: '#/errorcodes/RequestSignatureExpired'
+          $ref: '#/components/errorcodes/RequestSignatureExpired'
         59:
-          $ref: '#/errorcodes/RequestSignatureMismatch'
+          $ref: '#/components/errorcodes/RequestSignatureMismatch'
         60:
-          $ref: '#/errorcodes/RequestSignatureInvalid'
+          $ref: '#/components/errorcodes/RequestSignatureInvalid'
         61:
-          $ref: '#/errorcodes/PINTranslationFail'
+          $ref: '#/components/errorcodes/PINTranslationFail'
         63:
-          $ref: '#/errorcodes/KeystoreImportFail'
+          $ref: '#/components/errorcodes/KeystoreImportFail'
         64:
-          $ref: '#/errorcodes/KeystoreUserstoreFail'
+          $ref: '#/components/errorcodes/KeystoreUserstoreFail'
         65:
-          $ref: '#/errorcodes/KeystoreInvalidProc'
+          $ref: '#/components/errorcodes/KeystoreInvalidProc'
         66:
-          $ref: '#/errorcodes/UnauthTerminal'
+          $ref: '#/components/errorcodes/UnauthTerminal'
         68:
-          $ref: '#/errorcodes/KeystoreRollbackFail'
+          $ref: '#/components/errorcodes/KeystoreRollbackFail'
         71:
-          $ref: '#/errorcodes/UnauthDecrypt'
+          $ref: '#/components/errorcodes/UnauthDecrypt'
         72:
-          $ref: '#/errorcodes/InvalidEMVData'
+          $ref: '#/components/errorcodes/InvalidEMVData'
         73:
-          $ref: '#/errorcodes/EMVDataEmpty'
+          $ref: '#/components/errorcodes/EMVDataEmpty'
         74:
-          $ref: '#/errorcodes/MissingReqParam'
+          $ref: '#/components/errorcodes/MissingReqParam'
         75:
-          $ref: '#/errorcodes/InvalidEllipticParam'
+          $ref: '#/components/errorcodes/InvalidEllipticParam'
         76:
-          $ref: '#/errorcodes/JSONSerializationError'
+          $ref: '#/components/errorcodes/JSONSerializationError'
         77:
-          $ref: '#/errorcodes/JSONDeserializationError'
+          $ref: '#/components/errorcodes/JSONDeserializationError'
         78:
-          $ref: '#/errorcodes/InvalidSwipeData'
+          $ref: '#/components/errorcodes/InvalidSwipeData'
         parameters:
             - {$ref: '#/components/parameters/ContentTypeHeader'}
             - {$ref: '#/components/parameters/ApiKeyHeader'}
@@ -215,7 +215,7 @@ paths:
           description: No Error
           content:
             application/json:
-              $ref: '#/response/EchoResponse'
+              $ref: '#/components/response/EchoResponse'
               examples:
                 SuccessfulToken:
                   summary: Token Response
@@ -224,106 +224,106 @@ paths:
           description: Wrong version number
           content:
             application/json:
-              $ref: '#/errorcodes/WrongVersion'
+              $ref: '#/components/errorcodes/WrongVersion'
         07:
           description: Invalid action
           content:
             application/json:
-              $ref: '#/errorcodes/InvalidAction'
+              $ref: '#/components/errorcodes/InvalidAction'
         08:
-          $ref: '#/errorcodes/DataNotDecimal'
+          $ref: '#/components/errorcodes/DataNotDecimal'
         12:
-          $ref: '#/errorcodes/KeyIDNotFound'
+          $ref: '#/components/errorcodes/KeyIDNotFound'
         13:
-          $ref: '#/errorcodes/DataTooLong'
+          $ref: '#/components/errorcodes/DataTooLong'
         14:
-          $ref: '#/errorcodes/DataEmpty'
+          $ref: '#/components/errorcodes/DataEmpty'
         16:
-          $ref: '#/errorcodes/UnknownAlgo'
+          $ref: '#/components/errorcodes/UnknownAlgo'
         17:
-          $ref: '#/errorcodes/EncryptionFailure'
+          $ref: '#/components/errorcodes/EncryptionFailure'
         19:
-          $ref: '#/errorcodes/Base64Failure'
+          $ref: '#/components/errorcodes/Base64Failure'
         20:
-          $ref: '#/errorcodes/CryptoWrongLength'
+          $ref: '#/components/errorcodes/CryptoWrongLength'
         21:
-          $ref: '#/errorcodes/DataTooShort'
+          $ref: '#/components/errorcodes/DataTooShort'
         22:
-          $ref: '#/errorcodes/CCNWrongLength'
+          $ref: '#/components/errorcodes/CCNWrongLength'
         24:
-          $ref: '#/errorcodes/DecryptionFailure'
+          $ref: '#/components/errorcodes/DecryptionFailure'
         25:
-          $ref: '#/errorcodes/BadPadding'
+          $ref: '#/components/errorcodes/BadPadding'
         26:
-          $ref: '#/errorcodes/BadDecrypt'
+          $ref: '#/components/errorcodes/BadDecrypt'
         27:
-          $ref: '#/errorcodes/KeystoreNotInit'
+          $ref: '#/components/errorcodes/KeystoreNotInit'
         33:
-          $ref: '#/errorcodes/ApplicationNotInit'
+          $ref: '#/components/errorcodes/ApplicationNotInit'
         35:
-          $ref: '#/errorcodes/BufferTooShort'
+          $ref: '#/components/errorcodes/BufferTooShort'
         38:
-          $ref: '#/errorcodes/IllegalCharacter'
+          $ref: '#/components/errorcodes/IllegalCharacter'
         39:
-          $ref: '#/errorcodes/WrongLength'
+          $ref: '#/components/errorcodes/WrongLength'
         43:
-          $ref: '#/errorcodes/ServerFailed'
+          $ref: '#/components/errorcodes/ServerFailed'
         44:
-          $ref: '#/errorcodes/ConfigItemBad'
+          $ref: '#/components/errorcodes/ConfigItemBad'
         46:
-          $ref: '#/errorcodes/TokenDataProb'
+          $ref: '#/components/errorcodes/TokenDataProb'
         47:
-          $ref: '#/errorcodes/UnAuthHost'
+          $ref: '#/components/errorcodes/UnAuthHost'
         48:
-          $ref: '#/errorcodes/TokenPurged'
+          $ref: '#/components/errorcodes/TokenPurged'
         49:
-          $ref: '#/errorcodes/DataNotFound'
+          $ref: '#/components/errorcodes/DataNotFound'
         50:
-          $ref: '#/errorcodes/ErrorHashing'
+          $ref: '#/components/errorcodes/ErrorHashing'
         53:
-          $ref: '#/errorcodes/TokenDuplicate'
+          $ref: '#/components/errorcodes/TokenDuplicate'
         54:
-          $ref: '#/errorcodes/LuhnFailure'
+          $ref: '#/components/errorcodes/LuhnFailure'
         55:
-          $ref: '#/errorcodes/MissingSiteName'
+          $ref: '#/components/errorcodes/MissingSiteName'
         56:
-          $ref: '#/errorcodes/TokenFormatBad'
+          $ref: '#/components/errorcodes/TokenFormatBad'
         57:
-          $ref: '#/errorcodes/RequestSignatureInvalid'
+          $ref: '#/components/errorcodes/RequestSignatureInvalid'
         58:
-          $ref: '#/errorcodes/RequestSignatureExpired'
+          $ref: '#/components/errorcodes/RequestSignatureExpired'
         59:
-          $ref: '#/errorcodes/RequestSignatureMismatch'
+          $ref: '#/components/errorcodes/RequestSignatureMismatch'
         60:
-          $ref: '#/errorcodes/RequestSignatureInvalid'
+          $ref: '#/components/errorcodes/RequestSignatureInvalid'
         61:
-          $ref: '#/errorcodes/PINTranslationFail'
+          $ref: '#/components/errorcodes/PINTranslationFail'
         63:
-          $ref: '#/errorcodes/KeystoreImportFail'
+          $ref: '#/components/errorcodes/KeystoreImportFail'
         64:
-          $ref: '#/errorcodes/KeystoreUserstoreFail'
+          $ref: '#/components/errorcodes/KeystoreUserstoreFail'
         65:
-          $ref: '#/errorcodes/KeystoreInvalidProc'
+          $ref: '#/components/errorcodes/KeystoreInvalidProc'
         66:
-          $ref: '#/errorcodes/UnauthTerminal'
+          $ref: '#/components/errorcodes/UnauthTerminal'
         68:
-          $ref: '#/errorcodes/KeystoreRollbackFail'
+          $ref: '#/components/errorcodes/KeystoreRollbackFail'
         71:
-          $ref: '#/errorcodes/UnauthDecrypt'
+          $ref: '#/components/errorcodes/UnauthDecrypt'
         72:
-          $ref: '#/errorcodes/InvalidEMVData'
+          $ref: '#/components/errorcodes/InvalidEMVData'
         73:
-          $ref: '#/errorcodes/EMVDataEmpty'
+          $ref: '#/components/errorcodes/EMVDataEmpty'
         74:
-          $ref: '#/errorcodes/MissingReqParam'
+          $ref: '#/components/errorcodes/MissingReqParam'
         75:
-          $ref: '#/errorcodes/InvalidEllipticParam'
+          $ref: '#/components/errorcodes/InvalidEllipticParam'
         76:
-          $ref: '#/errorcodes/JSONSerializationError'
+          $ref: '#/components/errorcodes/JSONSerializationError'
         77:
-          $ref: '#/errorcodes/JSONDeserializationError'
+          $ref: '#/components/errorcodes/JSONDeserializationError'
         78:
-          $ref: '#/errorcodes/InvalidSwipeData'
+          $ref: '#/components/errorcodes/InvalidSwipeData'
         parameters:
           - $ref: '#/components/parameters/ContentTypeHeader'
           - $ref: '#/components/parameters/ApiKeyHeader'
@@ -522,407 +522,407 @@ components:
               encryptionhandler:
                 type: String
                 description: Payment acceptance and encryption method.
-response:
-  TokenizeResponse:
-    x-model-version: 1.0
-    description: Contains the <a href="path">Gateway Response</a>
-    content:
-      message:
-        type: String
-        description: Status of the request. Returns "No Error" if the request was successful.
-        example: 'No Error'
-      errorcode:
-        $ref: '#/components/schemas/ErrorCode'
-        example: 0
-      token:
-        type: String
-        description: The token generated from the request data.
-        example: '9417119164771111'
-  EchoResponse:
-    x-model-version: 1.0
-    description: Contains the status of connection to CardSecure server.
-    content:
-      message:
-        type: String
-        description: The message value included in the request. Returns a descriptive error message if the request failed.
-        example: 'Hello?'
-      errorcode:
-        $ref: '#/components/schemas/ErrorCode'
-        example: 0
-errorcodes:
-  WrongVersion:
-    x-model-version: 1.0
-    description: Wrong version number
-    content:
-      application/json:
-        schema:
-          $ref: '#/components/schemas/Error'
-  InvalidAction:
-    x-model-version: 1.0
-    description: Invalid action
-    content:
-      application/JSON:
-        schema:
-          $ref: '#components/schemas/Error'
-  DataNotDecimal:
-    x-model-version: 1.0
-    description: Data is not decimal digits
-    content:
-      application/JSON:
-        schema:
-          $ref: '#components/schemas/Error'
-  KeyIDNotFound:
-    x-model-version: 1.0
-    description: Key ID is not found
-    content:
-      application/JSON:
-        schema:
-          $ref: '#components/schemas/Error'
-  DataTooLong:
-    x-model-version: 1.0
-    description: Data is too long
-    content:
-      application/json:
-        schema:
-          $ref: '#/components/schemas/Error'
-  DataEmpty:
-    x-model-version: 1.0
-    description: Data is empty
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  UnknownAlgo:
-    x-model-version: 1.0
-    description: Unknown Algorithm
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  EncryptionFailure:
-    x-model-version: 1.0
-    description: Encryption Failure
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  Base64Failure:
-    x-model-version: 1.0
-    description: Base 64 decode failure
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  CryptoWrongLength:
-    x-model-version: 1.0
-    description: Crypto data is the wrong length
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  DataTooShort:
-    x-model-version: 1.0
-    description: Data is too short
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  CCNWrongLength:
-    x-model-version: 1.0
-    description: CCN wrong length on decryption
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  DecryptionFailure:
-    x-model-version: 1.0
-    description: Decryption Failure
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  BadPadding:
-    x-model-version: 1.0
-    description: Bad PKCS 5 padding
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  BadDecrypt:
-    x-model-version: 1.0
-    description: Bad decryption length field
-    content:
-      application/json:
-        schema:
-          $ref: '#/components/schemas/Error'
-  KeystoreNotInit:
-    x-model-version: 1.0
-    description: Keystore not initialized
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  ApplicationNotInit:
-    x-model-version: 1.0
-    description: Application not initialized
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  BufferTooShort:
-    x-model-version: 1.0
-    description: Buffer too short
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  IllegalCharacter:
-    x-model-version: 1.0
-    description: Illegal characters
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  WrongLength:
-    x-model-version: 1.0
-    description: Wrong message length
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  ServerFailed:
-    x-model-version: 1.0
-    description: Server failed
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  ConfigItemBad:
-    x-model-version: 1.0
-    description: Config item is bad
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  TokenDataProb:
-    x-model-version: 1.0
-    description: Token database problem
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  UnAuthHost:
-    x-model-version: 1.0
-    description: Unauthorized host
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  TokenPurged:
-    x-model-version: 1.0
-    description: Token Purged
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  DataNotFound:
-    x-model-version: 1.0
-    description: Data not found
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  ErrorHashing:
-    x-model-version: 1.0
-    description: Error hashing the value
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  TokenDuplicate:
-    x-model-version: 1.0
-    description: Token or data duplicate
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  LuhnFailure:
-    x-model-version: 1.0
-    description: Card number check (Luhn formula) failed
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  MissingSiteName:
-    x-model-version: 1.0
-    description: Missing or unknown site name
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  TokenFormatBad:
-    x-model-version: 1.0
-    description: Token format is bad
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  RequestSignatureInvalid:
-    x-model-version: 1.0
-    description: Request signature is bad
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  RequestSignatureExpired:
-    x-model-version: 1.0
-    description: Request signature timestamp expired
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  RequestSignatureMismatch:
-    x-model-version: 1.0
-    description: Request signature mismatch
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  RequestSignatureFailure:
-    x-model-version: 1.0
-    description: Request signature failure
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  PINTranslationFail:
-    x-model-version: 1.0
-    description: PIN translation fail
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  KeystoreImportFail:
-    x-model-version: 1.0
-    description: Keystore import failure
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  KeystoreUserstoreFail:
-    x-model-version: 1.0
-    description: Keystore userstore failure
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  KeystoreInvalidProc:
-    x-model-version: 1.0
-    description: Keystore invalid processor
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  UnauthTerminal:
-    x-model-version: 1.0
-    description: Unauthorized terminal
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  KeystoreRollbackFail:
-    x-model-version: 1.0
-    description: Keystore rollback failure
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  UnauthDecrypt:
-    x-model-version: 1.0
-    description: Unauthorized decrypt
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  InvalidEMVData:
-    x-model-version: 1.0
-    description: Invalid EMV tag data
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  EMVDataEmpty:
-    x-model-version: 1.0
-    description: EMV tag data empty
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  MissingReqParam:
-    x-model-version: 1.0
-    description: Missing required parameter
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  InvalidEllipticParam:
-    x-model-version: 1.0
-    description: Invalid elliptic curve type parameter
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  JSONSerializationError:
-    x-model-version: 1.0
-    description: JSON serialization error
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  JSONDeserializationError:
-    x-model-version: 1.0
-    description: JSON deserialization error
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-  InvalidSwipeData:
-    x-model-version: 1.0
-    description: Invalid swipe data
-    content:
-      application/JSON:
-        schema:
-          $ref: '#/components/schemas/Error'
-examples:
-  EchoRequestExample:
-    value:
-      message: 'Hello?'
-      source:
-        sourcetype: EchoRequest
-  EchoResponseExample:
-    value:
-      message: 'Hello?'
-      errorcode: 0
-  TokenResponse:
-    value:
-      message: 'No Error'
-      errorcode: 0
-      token: 9417119164771111
-  PaymentCardRequestExample:
-    value:
-      account: 4444333322221111
-  PaymentCardTerminalRequestExample:
-    value:
-      devicedata: ingenico;st='OK';t1='';t2=';0228...
-      signature: sig
-  ACHRequestExample:
-    value:
-      account: 011401533/1234123412341234
-  ApplePayRequestExample:
-    value:
-      encryptionhandler: EC_APPLE_PAY
-      devicedata: VDlOajZ3MzVzT3R5TFBJUmxJc2tES2RE\/VdZY2pwdmZ1b1JLMWlFYllZajFoRVg5N0YxSzBDR21pSjRjTHc1NEg5OThsTFBsRVZQb2wzaW9sVXY3eGdWbWN1eWhHTGI1WnJKamZGMXBqdUNnYlBRaHNHQm0yVG9o\/kZxWUwxblJvU2hidGFOMnFjczM2SnV4UE44T3hxY3FSSXNnMGtKS2tXenk4akYxeHBnUXJGZEI0c3RTaDhHM0VnVXdub3lFOUhWM0ZITkx2RnoxTWFPcDR6Y3owbklteF\/KMm9pT3ZUang5dHNFOWl3cktTMFNMakR6VENxU2hZWWxXYnBob0pYRWRqcVJtSG9kNEdncnBqWVBwT0tPczlKWHhrU0hNUTFJMzJGTHRhSkdTV1pPUVVaSlNEUmJFbFd4OUJBQmV3Nk9wT&ectype=apple&ecsig=dGlzOWkxUnRvRGlJbDc5ZllQ\/UpQZGFzQW51OGt6OXd2b0d6S2V0TU5UNU5ZeGhtUkN4MnE5d0NSb0xMbGlhbEVLNVJJUXYzQ0o4VGdKa1JWTm9rc3hYYjRZM1Fsam5mNlhnY2puRGNITzJlc2kwem1RelBmeWFFUUNLNmFxczU1QkJzQ2p6RVFNdE8zYnh0bm1kTjh5bHpDd1l4MWs5azdSOEU4RmgwRUZSVHRmYUtqRzJiMzd4WmFuWDA5ZW5paVcxRVNMdzVCRlkxcTN5d0J0WUpYUlVXRzBEOG9rQzhQdlkxQTJGS09FMHhHVUwyMnVjbWlDakJOZmdGb0U4aFFLOUJqSHgzUnRCU0tLeWFRaGxzeE\/zOGNHa1RVTVNuTVpoZ2hiUmhOazMxRTRoMjREU2NWbWdibWI3TXdUNjMyUm80OGpRbzBOMlA5WXZ5OUVJTllPOHN5bGYyY0s0VjhuUG96YzRSYTlQWVcwVXdxOUo0VW5lWUs4RzFNNjJ4VUFtZ3lpT0ZGYWRzWmJqcWJnNlBpdDVXQk5keXlZTkhsWlhqaU5Od3QyZFNRQ2FpbzJPQVoxc09UdFFldzA3OTJocW0xMXM5TVR5dWxXZXB0bEZjQmx0cm56SUM0cG52NWFtcXE2SW40cWlJMjk3a2JVRk1SSGpOM3hjSHdwR1RuVXVubUo3Q28xeGpwenVoRURmd0ZjUFBGRzhvSHBMVnJpSnZxVXRQdHp1N0dvdExhSXBDU2dwdzBkRlVrUWJEQ2JwWmY5WjNyWlo1ZnVqQjVFZjhKMjE3aHZNcEtaVm9NZXZvNGZZMVVrTHFzUlJaa3FxZWU0dFRNbjFJZDk3UGl5R2VQMElNVVBxVGdkY0h4VVJhRFlxT2hmdU9adkdXSzA0Q3c1RVFteEYwZk8zRVQ0TjJhbUFjalF3VUl6UmpnT1VQeWRVMERacVFwbXpLR0FZZlF1ano0QmozeXp6VE54YzkzMk53YTUzVVo4QUQ4RUl1Vk51MFBjUFc3Y1BYd3J4QzRtV2NlbERwNG9ablczd3hDMTdRNERmdjBKOVp6NWE0ZmJtcEJHUnNLVmJTenVPOEt6NW1aTldjcmRWTXhYbWNI\/1FUSEFvOGtyUmJwOWl3ZEFJZVQ5S0FmQTV1YUxIZmFUZ2RZbjMwNUhuRnZXQTRuOG9saVBxbVNUeWVlV1h1V0t3ZHQ4ZjBSdnlBSEVpRUUwMXNEeHNsVndxRnN3OXNkSWFxOU45cTFBQldJQVBrcEFYQTJZenRBUHpRT05YZGlLVUhzM21NbGxvTU1BdFFGNkNlMmlvUmVyMkN2SXN4N1VCV0puRW1qU0lnR0VteUxaY1dQTmxTTGVxSFZxZHRVM1ZuaTlhc2RLUFpDRGRVN2RqaU1taG5wQTJrcUxhNmJmamo4ZlJlMENIVlB5S2plWmZnRzlXRGs0bHE0aFJDQ3A2amtFc2I3SDlCeWN3alJLV3F1azVIazIzTHNpbWRkRWtidmxIbWV2S2dCZzlEeVNpTmVaRzRaRWtHeXdGWE54Z1kydTFzZENnaXZyTjdhTjNQcHl5YWJoblp6cUVVSVlyT1N4ZEZETWhiaFp4SmJhV041TTVYSGJmN0J5WWZHNUhaQ1FYNmFvdkFXdVZCVjE3c2JWM2dzSWNmQVBaZ3dIODQwSkJQWlIyN\/hvaW9GUVk3OHZmVjVuWFFZbnMxS2RuMmF0ZkxIV2NJNzRmb29RQXQ2NHJtaXpDeHJqQW95YkYySnJNdDNFaTJYWkJlZlBLS0lIZTBSUW5HRVY5WW9xMDhhUE1pRVFCeWFBNndoeXBiNENxWFZoYW9EUnRSWENYNExoZGFnR1VLQ2NZNFpnSHU3NXBHYnI2bWpMMHlXVFo3YnVoSkVWZVkwQ1p3QUhQT0tGMHMwWGQzV2g3ektjeTBRbXZOekJ0TWdmclNnNExvQkdvSENGUFNOOFkwNzdBZVNNMDQzcnE2V2h4TXhKTkE0eDNZZzIzRkhQeHp3Ynh4djc0N004UTFxU2g0SHQxODFMQ052NFZMMFZNZnJnM0FBWWM1YnI4VW5scU5iNlc3d2FsZG5kNjlGNEZjaDhiTDAwcTlSNUVqbUQ3WkVSVElLeXlqWTczWTNBTmFvN05BY2FBSWFqNnhkWDkyT2dmdjU0ekhhSjRyOXgyUkEzYUg4NHh2ZzFrQTAxWGI3WFY4TTE4R3g5WldtejdGSUNqY0RJVnlaaWhKQWhsZWg3ZjFuYTI3WE00QzhUWWgwYzdtTXZ0TmNHVG5sblFZYXVrUVpYSWhieDEzWHVwSEhFUkFabjB1VHptUVlFWnNJSzBXTk5nbXk0YnMybEpsbHZnaHlhd29SbkZnbkNGY\/NiODZweUJ5c0dxeVUwMEFjQUFJMHk2dTB3SWlnazNWbE5XVGhSclZLdHo5aGlNa3JXekxBdm1KN2F3ZHc3bjN2UzIxQkhOTnh2YklBdHJvcXB1ZFBUaWlPb2I2c1ZodnVnRlpvVjgwWW8wa1lpRXo0WHF4Z1lXd3pLdklPcGVJTXpPdzBIUDU5RUJZcktDVzNMUXRLN3BPdzNTVWVoNU80Q2NWOVJSOUFlanBkNU9hT1hlZ1BCQVVkNEI3OUVFbk51RW5uYWFuVzNvZVlNOEl6WUtYZ3RtQVdqb3FQOTY3emQ2OFQxUGVSZUlJaDJPcDU0bFFGdFJTR25lQ1VPbGJhVG5hQmNpc0tBdFRQYXVwdEZ3b2RYd290NXZocDFXTTRoTnVWcGl3RzFIUHdzSjZjYU1qR1BFZjdIVWY2UVhTVm1Mb3FoRGpiWjNyUmd4akl4V1hyQzR5d3BFdFlDU0xuTGpGWEkxSTFkNFZKMmY5RTJYcndRZE9aY3ZTYUtWTUtzbklDZVJGWTZsZlFCckhlVkx1bmh0MEhqQXhv\/nBMTV\/acWxDcnB4ZnBkbW9OcFY0U1JJWjlBR3ZOaFo2NEV&eckey=VWZOUlkySmh1TEVaT0IyM2NlS3k1S3Bvd1B4aWx6MUs4VTRVa01hd1lpOGQ0dkZwZXFWbHliUXplNGNLQUww4UmczTmptcFB2ZUh2cmo4YTQ1dmF6WFNKaGwzcAo=&ectid=386c441cc42971d6f59b54e2b64c0b88fcb1108b41e61be8d3875b2328ad79a1&echash=&ecpublickeyhash=3Ahi2ZJsqPUsQY7FY5nl2o\/rM3NwxitS7jFHUt1JNRk=
-  GooglePayRequestExample:
-    value:
-      encryptionhandler : EC_GOOGLE_PAY
-      devicedata: {\"signature\":\"MEYCIQCwmJRWgG8cT1et/SgjLXr8+dmZ2BZpiLEg/T474g2NZAIhAKVmDiozWuQoPED7qaGNDyoYslL2YzHSFM724Md89+33\",\"intermediateSigningKey\":{\"signedKey\":\",{\\\"keyValue\\\":\\\"MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEgY3czp0xq5QW3NTQgYvmDJ2i+Oj3YtFwfXHed6ZjtDIju/FkfPIT66AOAAEIe2UqS8dTL/AZkM98KAp4LdekAQ\\\\u003d\\\\u003d\\\",\\\"keyExpiration\\\":\\\"1585761306143\\\"},\",\"signatures\":[\"MEYCIQDb+LBzB21jEBRr0r/RqH6QDoYWqpcY5nJFdFKIpNmB5QIhAN3RdiHK0bl6kBigXnIe8qUEnrGqdC6q5NQWJHwEhF12\"]},\"protocolVersion\":\"ECv2\",\"signedMessage\":\",{\\\"encryptedMessage\\\":\\\"mJVt1VLA/CJMosu8s/C3ixVgNHW3ZuJSBx4mSU8HbQtB1Ll9jV0jgeSZ9CVnmCr9w9RiPKvdo1mJGz69aNky4oYMKt/2gUWsRDMKf0LOktjYQ9kLUpyJvkX5YGrwkeL12qUceIYcMX84L+tlV+FVVfhCcxsDNWKnKSxqzP5/KAN3is6YQ5YnTxfz7xEVXTFoAHv78XBowQq2GSioK7uV2MubHO+o5+G5+i/OJBNMsZevM27nE8gO5OQUOugkX7/cLbFHYlvJEpy7rWHj7yUV9r7eeji2uC0cKorOGdgoFjY6Hax8gtwiBJM56TlkChOA6JI8e3pO5a3r+ZkSMB95c/lAOSbesush02KNvIAKan5A6435mQ7VnQK3FJcX3s7cGO0yP2FHnbki+Oewzfoix1tNg1WuNiPXk2Cn1IM4cvk+GErEqDG1Uqh1KGb/P4F/bBDtwiqKR8FP/1dIVtgj8gi/sRG55Nm+SfRIprXv3g\\\\u003d\\\\u003d\\\",\\\"ephemeralPublicKey\\\":\\\"BK9KRSzyuwWyy9LUh2S2ue7M02xheyVtn42plZb6bp0EhZUyu0iL0QsvDsczs2fPGtJ3h0GsC9NE1Oa0BbMoIHs\\\\u003d\\\",\\\"tag\\\":\\\"KVHidXy9urg15Sjw/DeibMgxuqw73VajbEN/NZ7YEik\\\\u003d\\\"},\"}
+  response:
+    TokenizeResponse:
+      x-model-version: 1.0
+      description: Contains the <a href="path">Gateway Response</a>
+      content:
+        message:
+          type: String
+          description: Status of the request. Returns "No Error" if the request was successful.
+          example: 'No Error'
+        errorcode:
+          $ref: '#/components/schemas/ErrorCode'
+          example: 0
+        token:
+          type: String
+          description: The token generated from the request data.
+          example: '9417119164771111'
+    EchoResponse:
+      x-model-version: 1.0
+      description: Contains the status of connection to CardSecure server.
+      content:
+        message:
+          type: String
+          description: The message value included in the request. Returns a descriptive error message if the request failed.
+          example: 'Hello?'
+        errorcode:
+          $ref: '#/components/schemas/ErrorCode'
+          example: 0
+  errorcodes:
+    WrongVersion:
+      x-model-version: 1.0
+      description: Wrong version number
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InvalidAction:
+      x-model-version: 1.0
+      description: Invalid action
+      content:
+        application/JSON:
+          schema:
+            $ref: '#components/schemas/Error'
+    DataNotDecimal:
+      x-model-version: 1.0
+      description: Data is not decimal digits
+      content:
+        application/JSON:
+          schema:
+            $ref: '#components/schemas/Error'
+    KeyIDNotFound:
+      x-model-version: 1.0
+      description: Key ID is not found
+      content:
+        application/JSON:
+          schema:
+            $ref: '#components/schemas/Error'
+    DataTooLong:
+      x-model-version: 1.0
+      description: Data is too long
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    DataEmpty:
+      x-model-version: 1.0
+      description: Data is empty
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnknownAlgo:
+      x-model-version: 1.0
+      description: Unknown Algorithm
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    EncryptionFailure:
+      x-model-version: 1.0
+      description: Encryption Failure
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Base64Failure:
+      x-model-version: 1.0
+      description: Base 64 decode failure
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    CryptoWrongLength:
+      x-model-version: 1.0
+      description: Crypto data is the wrong length
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    DataTooShort:
+      x-model-version: 1.0
+      description: Data is too short
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    CCNWrongLength:
+      x-model-version: 1.0
+      description: CCN wrong length on decryption
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    DecryptionFailure:
+      x-model-version: 1.0
+      description: Decryption Failure
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadPadding:
+      x-model-version: 1.0
+      description: Bad PKCS 5 padding
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadDecrypt:
+      x-model-version: 1.0
+      description: Bad decryption length field
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    KeystoreNotInit:
+      x-model-version: 1.0
+      description: Keystore not initialized
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ApplicationNotInit:
+      x-model-version: 1.0
+      description: Application not initialized
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BufferTooShort:
+      x-model-version: 1.0
+      description: Buffer too short
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    IllegalCharacter:
+      x-model-version: 1.0
+      description: Illegal characters
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    WrongLength:
+      x-model-version: 1.0
+      description: Wrong message length
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ServerFailed:
+      x-model-version: 1.0
+      description: Server failed
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ConfigItemBad:
+      x-model-version: 1.0
+      description: Config item is bad
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TokenDataProb:
+      x-model-version: 1.0
+      description: Token database problem
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnAuthHost:
+      x-model-version: 1.0
+      description: Unauthorized host
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TokenPurged:
+      x-model-version: 1.0
+      description: Token Purged
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    DataNotFound:
+      x-model-version: 1.0
+      description: Data not found
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ErrorHashing:
+      x-model-version: 1.0
+      description: Error hashing the value
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TokenDuplicate:
+      x-model-version: 1.0
+      description: Token or data duplicate
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    LuhnFailure:
+      x-model-version: 1.0
+      description: Card number check (Luhn formula) failed
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    MissingSiteName:
+      x-model-version: 1.0
+      description: Missing or unknown site name
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TokenFormatBad:
+      x-model-version: 1.0
+      description: Token format is bad
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    RequestSignatureInvalid:
+      x-model-version: 1.0
+      description: Request signature is bad
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    RequestSignatureExpired:
+      x-model-version: 1.0
+      description: Request signature timestamp expired
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    RequestSignatureMismatch:
+      x-model-version: 1.0
+      description: Request signature mismatch
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    RequestSignatureFailure:
+      x-model-version: 1.0
+      description: Request signature failure
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    PINTranslationFail:
+      x-model-version: 1.0
+      description: PIN translation fail
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    KeystoreImportFail:
+      x-model-version: 1.0
+      description: Keystore import failure
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    KeystoreUserstoreFail:
+      x-model-version: 1.0
+      description: Keystore userstore failure
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    KeystoreInvalidProc:
+      x-model-version: 1.0
+      description: Keystore invalid processor
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnauthTerminal:
+      x-model-version: 1.0
+      description: Unauthorized terminal
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    KeystoreRollbackFail:
+      x-model-version: 1.0
+      description: Keystore rollback failure
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnauthDecrypt:
+      x-model-version: 1.0
+      description: Unauthorized decrypt
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InvalidEMVData:
+      x-model-version: 1.0
+      description: Invalid EMV tag data
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    EMVDataEmpty:
+      x-model-version: 1.0
+      description: EMV tag data empty
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    MissingReqParam:
+      x-model-version: 1.0
+      description: Missing required parameter
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InvalidEllipticParam:
+      x-model-version: 1.0
+      description: Invalid elliptic curve type parameter
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    JSONSerializationError:
+      x-model-version: 1.0
+      description: JSON serialization error
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    JSONDeserializationError:
+      x-model-version: 1.0
+      description: JSON deserialization error
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InvalidSwipeData:
+      x-model-version: 1.0
+      description: Invalid swipe data
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+  examples:
+    EchoRequestExample:
+      value:
+        message: 'Hello?'
+        source:
+          sourcetype: EchoRequest
+    EchoResponseExample:
+      value:
+        message: 'Hello?'
+        errorcode: 0
+    TokenResponse:
+      value:
+        message: 'No Error'
+        errorcode: 0
+        token: 9417119164771111
+    PaymentCardRequestExample:
+      value:
+        account: 4444333322221111
+    PaymentCardTerminalRequestExample:
+      value:
+        devicedata: ingenico;st='OK';t1='';t2=';0228...
+        signature: sig
+    ACHRequestExample:
+      value:
+        account: 011401533/1234123412341234
+    ApplePayRequestExample:
+      value:
+        encryptionhandler: EC_APPLE_PAY
+        devicedata: VDlOajZ3MzVzT3R5TFBJUmxJc2tES2RE\/VdZY2pwdmZ1b1JLMWlFYllZajFoRVg5N0YxSzBDR21pSjRjTHc1NEg5OThsTFBsRVZQb2wzaW9sVXY3eGdWbWN1eWhHTGI1WnJKamZGMXBqdUNnYlBRaHNHQm0yVG9o\/kZxWUwxblJvU2hidGFOMnFjczM2SnV4UE44T3hxY3FSSXNnMGtKS2tXenk4akYxeHBnUXJGZEI0c3RTaDhHM0VnVXdub3lFOUhWM0ZITkx2RnoxTWFPcDR6Y3owbklteF\/KMm9pT3ZUang5dHNFOWl3cktTMFNMakR6VENxU2hZWWxXYnBob0pYRWRqcVJtSG9kNEdncnBqWVBwT0tPczlKWHhrU0hNUTFJMzJGTHRhSkdTV1pPUVVaSlNEUmJFbFd4OUJBQmV3Nk9wT&ectype=apple&ecsig=dGlzOWkxUnRvRGlJbDc5ZllQ\/UpQZGFzQW51OGt6OXd2b0d6S2V0TU5UNU5ZeGhtUkN4MnE5d0NSb0xMbGlhbEVLNVJJUXYzQ0o4VGdKa1JWTm9rc3hYYjRZM1Fsam5mNlhnY2puRGNITzJlc2kwem1RelBmeWFFUUNLNmFxczU1QkJzQ2p6RVFNdE8zYnh0bm1kTjh5bHpDd1l4MWs5azdSOEU4RmgwRUZSVHRmYUtqRzJiMzd4WmFuWDA5ZW5paVcxRVNMdzVCRlkxcTN5d0J0WUpYUlVXRzBEOG9rQzhQdlkxQTJGS09FMHhHVUwyMnVjbWlDakJOZmdGb0U4aFFLOUJqSHgzUnRCU0tLeWFRaGxzeE\/zOGNHa1RVTVNuTVpoZ2hiUmhOazMxRTRoMjREU2NWbWdibWI3TXdUNjMyUm80OGpRbzBOMlA5WXZ5OUVJTllPOHN5bGYyY0s0VjhuUG96YzRSYTlQWVcwVXdxOUo0VW5lWUs4RzFNNjJ4VUFtZ3lpT0ZGYWRzWmJqcWJnNlBpdDVXQk5keXlZTkhsWlhqaU5Od3QyZFNRQ2FpbzJPQVoxc09UdFFldzA3OTJocW0xMXM5TVR5dWxXZXB0bEZjQmx0cm56SUM0cG52NWFtcXE2SW40cWlJMjk3a2JVRk1SSGpOM3hjSHdwR1RuVXVubUo3Q28xeGpwenVoRURmd0ZjUFBGRzhvSHBMVnJpSnZxVXRQdHp1N0dvdExhSXBDU2dwdzBkRlVrUWJEQ2JwWmY5WjNyWlo1ZnVqQjVFZjhKMjE3aHZNcEtaVm9NZXZvNGZZMVVrTHFzUlJaa3FxZWU0dFRNbjFJZDk3UGl5R2VQMElNVVBxVGdkY0h4VVJhRFlxT2hmdU9adkdXSzA0Q3c1RVFteEYwZk8zRVQ0TjJhbUFjalF3VUl6UmpnT1VQeWRVMERacVFwbXpLR0FZZlF1ano0QmozeXp6VE54YzkzMk53YTUzVVo4QUQ4RUl1Vk51MFBjUFc3Y1BYd3J4QzRtV2NlbERwNG9ablczd3hDMTdRNERmdjBKOVp6NWE0ZmJtcEJHUnNLVmJTenVPOEt6NW1aTldjcmRWTXhYbWNI\/1FUSEFvOGtyUmJwOWl3ZEFJZVQ5S0FmQTV1YUxIZmFUZ2RZbjMwNUhuRnZXQTRuOG9saVBxbVNUeWVlV1h1V0t3ZHQ4ZjBSdnlBSEVpRUUwMXNEeHNsVndxRnN3OXNkSWFxOU45cTFBQldJQVBrcEFYQTJZenRBUHpRT05YZGlLVUhzM21NbGxvTU1BdFFGNkNlMmlvUmVyMkN2SXN4N1VCV0puRW1qU0lnR0VteUxaY1dQTmxTTGVxSFZxZHRVM1ZuaTlhc2RLUFpDRGRVN2RqaU1taG5wQTJrcUxhNmJmamo4ZlJlMENIVlB5S2plWmZnRzlXRGs0bHE0aFJDQ3A2amtFc2I3SDlCeWN3alJLV3F1azVIazIzTHNpbWRkRWtidmxIbWV2S2dCZzlEeVNpTmVaRzRaRWtHeXdGWE54Z1kydTFzZENnaXZyTjdhTjNQcHl5YWJoblp6cUVVSVlyT1N4ZEZETWhiaFp4SmJhV041TTVYSGJmN0J5WWZHNUhaQ1FYNmFvdkFXdVZCVjE3c2JWM2dzSWNmQVBaZ3dIODQwSkJQWlIyN\/hvaW9GUVk3OHZmVjVuWFFZbnMxS2RuMmF0ZkxIV2NJNzRmb29RQXQ2NHJtaXpDeHJqQW95YkYySnJNdDNFaTJYWkJlZlBLS0lIZTBSUW5HRVY5WW9xMDhhUE1pRVFCeWFBNndoeXBiNENxWFZoYW9EUnRSWENYNExoZGFnR1VLQ2NZNFpnSHU3NXBHYnI2bWpMMHlXVFo3YnVoSkVWZVkwQ1p3QUhQT0tGMHMwWGQzV2g3ektjeTBRbXZOekJ0TWdmclNnNExvQkdvSENGUFNOOFkwNzdBZVNNMDQzcnE2V2h4TXhKTkE0eDNZZzIzRkhQeHp3Ynh4djc0N004UTFxU2g0SHQxODFMQ052NFZMMFZNZnJnM0FBWWM1YnI4VW5scU5iNlc3d2FsZG5kNjlGNEZjaDhiTDAwcTlSNUVqbUQ3WkVSVElLeXlqWTczWTNBTmFvN05BY2FBSWFqNnhkWDkyT2dmdjU0ekhhSjRyOXgyUkEzYUg4NHh2ZzFrQTAxWGI3WFY4TTE4R3g5WldtejdGSUNqY0RJVnlaaWhKQWhsZWg3ZjFuYTI3WE00QzhUWWgwYzdtTXZ0TmNHVG5sblFZYXVrUVpYSWhieDEzWHVwSEhFUkFabjB1VHptUVlFWnNJSzBXTk5nbXk0YnMybEpsbHZnaHlhd29SbkZnbkNGY\/NiODZweUJ5c0dxeVUwMEFjQUFJMHk2dTB3SWlnazNWbE5XVGhSclZLdHo5aGlNa3JXekxBdm1KN2F3ZHc3bjN2UzIxQkhOTnh2YklBdHJvcXB1ZFBUaWlPb2I2c1ZodnVnRlpvVjgwWW8wa1lpRXo0WHF4Z1lXd3pLdklPcGVJTXpPdzBIUDU5RUJZcktDVzNMUXRLN3BPdzNTVWVoNU80Q2NWOVJSOUFlanBkNU9hT1hlZ1BCQVVkNEI3OUVFbk51RW5uYWFuVzNvZVlNOEl6WUtYZ3RtQVdqb3FQOTY3emQ2OFQxUGVSZUlJaDJPcDU0bFFGdFJTR25lQ1VPbGJhVG5hQmNpc0tBdFRQYXVwdEZ3b2RYd290NXZocDFXTTRoTnVWcGl3RzFIUHdzSjZjYU1qR1BFZjdIVWY2UVhTVm1Mb3FoRGpiWjNyUmd4akl4V1hyQzR5d3BFdFlDU0xuTGpGWEkxSTFkNFZKMmY5RTJYcndRZE9aY3ZTYUtWTUtzbklDZVJGWTZsZlFCckhlVkx1bmh0MEhqQXhv\/nBMTV\/acWxDcnB4ZnBkbW9OcFY0U1JJWjlBR3ZOaFo2NEV&eckey=VWZOUlkySmh1TEVaT0IyM2NlS3k1S3Bvd1B4aWx6MUs4VTRVa01hd1lpOGQ0dkZwZXFWbHliUXplNGNLQUww4UmczTmptcFB2ZUh2cmo4YTQ1dmF6WFNKaGwzcAo=&ectid=386c441cc42971d6f59b54e2b64c0b88fcb1108b41e61be8d3875b2328ad79a1&echash=&ecpublickeyhash=3Ahi2ZJsqPUsQY7FY5nl2o\/rM3NwxitS7jFHUt1JNRk=
+    GooglePayRequestExample:
+      value:
+        encryptionhandler : EC_GOOGLE_PAY
+        devicedata: {\"signature\":\"MEYCIQCwmJRWgG8cT1et/SgjLXr8+dmZ2BZpiLEg/T474g2NZAIhAKVmDiozWuQoPED7qaGNDyoYslL2YzHSFM724Md89+33\",\"intermediateSigningKey\":{\"signedKey\":\",{\\\"keyValue\\\":\\\"MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEgY3czp0xq5QW3NTQgYvmDJ2i+Oj3YtFwfXHed6ZjtDIju/FkfPIT66AOAAEIe2UqS8dTL/AZkM98KAp4LdekAQ\\\\u003d\\\\u003d\\\",\\\"keyExpiration\\\":\\\"1585761306143\\\"},\",\"signatures\":[\"MEYCIQDb+LBzB21jEBRr0r/RqH6QDoYWqpcY5nJFdFKIpNmB5QIhAN3RdiHK0bl6kBigXnIe8qUEnrGqdC6q5NQWJHwEhF12\"]},\"protocolVersion\":\"ECv2\",\"signedMessage\":\",{\\\"encryptedMessage\\\":\\\"mJVt1VLA/CJMosu8s/C3ixVgNHW3ZuJSBx4mSU8HbQtB1Ll9jV0jgeSZ9CVnmCr9w9RiPKvdo1mJGz69aNky4oYMKt/2gUWsRDMKf0LOktjYQ9kLUpyJvkX5YGrwkeL12qUceIYcMX84L+tlV+FVVfhCcxsDNWKnKSxqzP5/KAN3is6YQ5YnTxfz7xEVXTFoAHv78XBowQq2GSioK7uV2MubHO+o5+G5+i/OJBNMsZevM27nE8gO5OQUOugkX7/cLbFHYlvJEpy7rWHj7yUV9r7eeji2uC0cKorOGdgoFjY6Hax8gtwiBJM56TlkChOA6JI8e3pO5a3r+ZkSMB95c/lAOSbesush02KNvIAKan5A6435mQ7VnQK3FJcX3s7cGO0yP2FHnbki+Oewzfoix1tNg1WuNiPXk2Cn1IM4cvk+GErEqDG1Uqh1KGb/P4F/bBDtwiqKR8FP/1dIVtgj8gi/sRG55Nm+SfRIprXv3g\\\\u003d\\\\u003d\\\",\\\"ephemeralPublicKey\\\":\\\"BK9KRSzyuwWyy9LUh2S2ue7M02xheyVtn42plZb6bp0EhZUyu0iL0QsvDsczs2fPGtJ3h0GsC9NE1Oa0BbMoIHs\\\\u003d\\\",\\\"tag\\\":\\\"KVHidXy9urg15Sjw/DeibMgxuqw73VajbEN/NZ7YEik\\\\u003d\\\"},\"}
