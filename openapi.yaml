@@ -518,21 +518,21 @@ components:
       content:
         application/JSON:
           schema:
-            $ref: '#components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/ErrorResponse'
     DataNotDecimal:
       x-model-version: 1.0
       description: Data is not decimal digits
       content:
         application/JSON:
           schema:
-            $ref: '#components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/ErrorResponse'
     KeyIDNotFound:
       x-model-version: 1.0
       description: Key ID is not found
       content:
         application/JSON:
           schema:
-            $ref: '#components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/ErrorResponse'
     DataTooLong:
       x-model-version: 1.0
       description: Data is too long
