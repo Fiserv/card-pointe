@@ -50,6 +50,9 @@
   - title: CardSecure
     link: docs/documentation/CardSecure.md
 - sections:
+  - title: BluePay Gateway
+    link: docs/documentation/BluePayGatewayAPI.md
+- sections:
   - title: What's New?
     sections:
     - title: August 2023
