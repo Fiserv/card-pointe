@@ -50,6 +50,8 @@
   - title: CardSecure
     link: docs/documentation/CardSecure.md
 - sections:
+  - title: eCommerce Plugins
+- sections:
   - title: BluePay Gateway
     link: docs/documentation/BluePayGatewayAPI.md
 - sections:
