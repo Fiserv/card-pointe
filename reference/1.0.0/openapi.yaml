@@ -915,5 +915,5 @@ components:
         devicedata: '2'
     GooglePayRequestExample:
       value:
-        encryptionhandler : EC_GOOGLE_PAY
+        encryptionhandler: EC_GOOGLE_PAY
         devicedata: '2'
