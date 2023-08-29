@@ -912,8 +912,8 @@ components:
     ApplePayRequestExample:
       value:
         encryptionhandler: EC_APPLE_PAY
-        devicedata: ''
+        devicedata: '2'
     GooglePayRequestExample:
       value:
         encryptionhandler : EC_GOOGLE_PAY
-        devicedata: ''
+        devicedata: '2'
