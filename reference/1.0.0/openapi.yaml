@@ -34,8 +34,8 @@ info:
   description: This API documentation provides technical guidance when utilizing CardSecure.
   version: 1.0.0
 servers:
-- {url: 'https://prod.api.fiservapps.com/cp/', description: Production}
-- {url: 'https://cert.api.fiservapps.com/cp/', description: Sandbox}
+ - {url: 'https://prod.api.fiservapps.com/cp/', description: Production}
+ - {url: 'https://cert.api.fiservapps.com/cp/', description: Sandbox}
 paths:
   /v1/cnn/tokenize:
     get:
