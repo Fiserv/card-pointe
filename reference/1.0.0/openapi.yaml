@@ -650,19 +650,9 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
     BadDecrypt:
-      x-model-version: 1.0
       description: Bad decryption length field
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     KeystoreNotInit:
-      x-model-version: 1.0
       description: Keystore not initialized
-      content:
-        application/JSON:
-          schema:
-            $ref: '#/components/schemas/Error'
     ApplicationNotInit:
       x-model-version: 1.0
       description: Application not initialized
