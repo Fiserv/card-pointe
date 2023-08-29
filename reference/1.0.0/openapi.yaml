@@ -514,7 +514,7 @@ components:
             devicedata:
               type: string
               description: Either track data, ApplePay payment token, or GooglePay wallet payload.
-              example: 'ingenico;st="OK";t1=" ";t2=";0228..."'
+              example: '2'
             oneOf:
               signature:
                 type: String
@@ -904,7 +904,7 @@ components:
         account: 4444333322221111
     PaymentCardTerminalRequestExample:
       value:
-        devicedata: 'ingenico;st="OK";t1=" ";t2=";0228..."'
+        devicedata: '2'
         signature: sig
     ACHRequestExample:
       value:
