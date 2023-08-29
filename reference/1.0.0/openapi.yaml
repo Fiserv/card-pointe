@@ -495,10 +495,11 @@ components:
       x-model-version: 1.0
       description: Contains the <a href="path">Gateway Response</a>
       content:
-        message:
-          type: String
+        message: {
+          type: string,
           description: Status of the request. Returns "No Error" if the request was successful.
           example: 'No Error'
+        }
         errorcode:
           $ref: '#/components/schemas/ErrorCode'
           example: 0
@@ -515,7 +516,7 @@ components:
           description: The message value included in the request. Returns a descriptive error message if the request failed.
           example: 'Hello?'
         errorcode:
-          $ref: '#/components/schemas/ErrorCode'
+          - ref: '#/components/schemas/ErrorCode'
           example: 0
     WrongVersion:
       x-model-version: 1.0
@@ -528,23 +529,23 @@ components:
       x-model-version: 1.0
       description: Invalid action
       content:
-        application/JSON:
+        application/json:
           schema:
-            $ref: '#components/schemas/Error'
+            - ref: '#/components/schemas/Error'
     DataNotDecimal:
       x-model-version: 1.0
       description: Data is not decimal digits
       content:
         application/JSON:
           schema:
-            $ref: '#components/schemas/Error'
+            $ref: '#/components/schemas/Error'
     KeyIDNotFound:
       x-model-version: 1.0
       description: Key ID is not found
       content:
         application/JSON:
           schema:
-            $ref: '#components/schemas/Error'
+            $ref: '#/components/schemas/Error'
     DataTooLong:
       x-model-version: 1.0
       description: Data is too long
