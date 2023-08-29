@@ -45,7 +45,7 @@
     link: docs/documentation/CoPilotDeveloperGuides.md
 - sections:
   - title: Mobile SDKs
-    link: https://qa-developerstudio.fiserv.com/product/CardPointe/docs/?path=/docs/getting-started.md&branch=develop#cardpointe-mobile-sdks
+    link: docs/documentation/CardPointeMobileSDKs.md
 - sections:
   - title: CardSecure
     link: docs/documentation/CardSecure.md
