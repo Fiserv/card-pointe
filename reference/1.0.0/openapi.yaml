@@ -347,7 +347,7 @@ components:
       schema: {
         type: string,
         default: "Message-Digest"
-      }
+       }
       in: header
       required: false
       description: Needed only from customer browser or app to the API in Hosted Payment
@@ -358,7 +358,7 @@ components:
       schema: {
         type: string,
         default: "Accept-Language"
-      }
+       }
       in: header
       required: false
       description: The Accept Language header contains information about the language
@@ -370,7 +370,7 @@ components:
       schema: {
         type: string,
         default: "Api-Key"
-      }
+       }
       in: header
       required: true
       description: API key provided to the merchant associating the requests with the appropriate app in the Developer Portal.
