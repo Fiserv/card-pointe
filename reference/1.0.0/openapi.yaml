@@ -174,10 +174,6 @@ paths:
           $ref: '#/components/responses/InvalidSwipeData'
         parameters:
             - {$ref: '#/components/parameters/ContentTypeHeader'}
-            - {$ref: '#/components/parameters/ApiKeyHeader'}
-            - {$ref: '#/components/parameters/TimestampHeader'}
-            - {$ref: '#/components/parameters/AcceptLanguageHeader'}
-            - {$ref: '#/components/parameters/MessageDigestHeader'}
   /cardsecure/api/v1/echo:
     x-model-version: 1.0
     post:
@@ -301,10 +297,6 @@ paths:
           $ref: '#/components/responses/InvalidSwipeData'
         parameters:
           - $ref: '#/components/parameters/ContentTypeHeader'
-          - $ref: '#/components/parameters/ApiKeyHeader'
-          - $ref: '#/components/parameters/TimestampHeader'
-          - $ref: '#/components/parameters/AcceptLanguageHeader'
-          - $ref: '#/components/parameters/MessageDigestHeader'
 components:
   parameters:
     TimestampHeader:
