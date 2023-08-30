@@ -71,7 +71,7 @@ paths:
               ApplePay:
                 summary: TokenizeRequest with ApplePay
                 $ref: '#/components/examples/ApplePayRequestExample'
-      response:
+      responses:
         000:
           - ref: '#/components/responses/TokenizeResponse'
         003:
@@ -198,7 +198,7 @@ paths:
               echoId:
                 summary: Echo request using Message
                 $ref: '#/components/examples/EchoRequestExample'
-      response:
+      responses:
         000:
           $ref: '#/components/examples/EchoResponseExample'
         003:
@@ -502,7 +502,7 @@ components:
         }
         errorcode:
           $ref: '#/components/schemas/ErrorCode'
-          example: 0
+          example: 000
         token:
           type: String
           description: The token generated from the request data.
