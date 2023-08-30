@@ -8,11 +8,12 @@ description: Our Developer Guides provide detailed information and best practice
 
 # Getting Started
 
+<!-- align: center -->
+![Icon](../assets/images/integration-icon.png)
+
 <!-- type: row -->
 
 <!-- type: card
-
-![Icon](../../assets/images/integration-icon.png)
 title: <center> Integration Process Overview </center>
 description: <center> Provides a high-level overview of the integration and workflow </center>
 link: ?path=/docs/documentation/IntegrationProcessOverview.md
