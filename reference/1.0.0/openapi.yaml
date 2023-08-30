@@ -467,7 +467,6 @@ components:
           description: A message to send in the ping request and receive in the response. The value can be blank, however the message field must be included in the request.
     TokenizeRequest:
       x-model-version: 1.0
-      $ref: '#/components/schemas/TokenizeRequestAccount'
       type: object
       properties:
             account:
@@ -477,7 +476,6 @@ components:
               example: '4444333322221111'
     TokenizeRequestDeviceData:
       x-model-version: 1.0
-      $ref: '#/components/schemas/TokenizeRequestDeviceData'
       type: object
       properties:
             devicedata:
