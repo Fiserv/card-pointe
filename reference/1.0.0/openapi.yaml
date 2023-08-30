@@ -71,9 +71,9 @@ paths:
               ApplePay:
                 summary: TokenizeRequest with ApplePay
                 $ref: '#/components/examples/ApplePayRequestExample'
-      responses:
+      response:
         000:
-          $ref: '#/components/responses/TokenizeResponse'
+          - ref: '#/components/responses/TokenizeResponse'
         003:
           $ref: '#/components/responses/WrongVersion'
         007:
@@ -198,106 +198,106 @@ paths:
               echoId:
                 summary: Echo request using Message
                 $ref: '#/components/examples/EchoRequestExample'
-      responses:
-        00:
+      response:
+        000:
           $ref: '#/components/examples/EchoResponseExample'
-        03:
+        003:
           $ref: '#/components/responses/WrongVersion'
-        07:
+        007:
           $ref: '#/components/responses/InvalidAction'
-        08:
+        008:
           $ref: '#/components/responses/DataNotDecimal'
-        12:
+        012:
           $ref: '#/components/responses/KeyIDNotFound'
-        13:
+        013:
           $ref: '#/components/responses/DataTooLong'
-        14:
+        014:
           $ref: '#/components/responses/DataEmpty'
-        16:
+        016:
           $ref: '#/components/responses/UnknownAlgo'
-        17:
+        017:
           $ref: '#/components/responses/EncryptionFailure'
-        19:
+        019:
           $ref: '#/components/responses/Base64Failure'
-        20:
+        020:
           $ref: '#/components/responses/CryptoWrongLength'
-        21:
+        021:
           $ref: '#/components/responses/DataTooShort'
-        22:
+        022:
           $ref: '#/components/responses/CCNWrongLength'
-        24:
+        024:
           $ref: '#/components/responses/DecryptionFailure'
-        25:
+        025:
           $ref: '#/components/responses/BadPadding'
-        26:
+        026:
           $ref: '#/components/responses/BadDecrypt'
-        27:
+        027:
           $ref: '#/components/responses/KeystoreNotInit'
-        33:
+        033:
           $ref: '#/components/responses/ApplicationNotInit'
-        35:
+        035:
           $ref: '#/components/responses/BufferTooShort'
-        38:
+        038:
           $ref: '#/components/responses/IllegalCharacter'
-        39:
+        039:
           $ref: '#/components/responses/WrongLength'
-        43:
+        043:
           $ref: '#/components/responses/ServerFailed'
-        44:
+        044:
           $ref: '#/components/responses/ConfigItemBad'
-        46:
+        046:
           $ref: '#/components/responses/TokenDataProb'
-        47:
+        047:
           $ref: '#/components/responses/UnAuthHost'
-        48:
+        048:
           $ref: '#/components/responses/TokenPurged'
-        49:
+        049:
           $ref: '#/components/responses/DataNotFound'
-        50:
+        050:
           $ref: '#/components/responses/ErrorHashing'
-        53:
+        053:
           $ref: '#/components/responses/TokenDuplicate'
-        54:
+        054:
           $ref: '#/components/responses/LuhnFailure'
-        55:
+        055:
           $ref: '#/components/responses/MissingSiteName'
-        56:
+        056:
           $ref: '#/components/responses/TokenFormatBad'
-        57:
+        057:
           $ref: '#/components/responses/RequestSignatureInvalid'
-        58:
+        058:
           $ref: '#/components/responses/RequestSignatureExpired'
-        59:
+        059:
           $ref: '#/components/responses/RequestSignatureMismatch'
-        60:
+        060:
           $ref: '#/components/responses/RequestSignatureInvalid'
-        61:
+        061:
           $ref: '#/components/responses/PINTranslationFail'
-        63:
+        063:
           $ref: '#/components/responses/KeystoreImportFail'
-        64:
+        064:
           $ref: '#/components/responses/KeystoreUserstoreFail'
-        65:
+        065:
           $ref: '#/components/responses/KeystoreInvalidProc'
-        66:
+        066:
           $ref: '#/components/responses/UnauthTerminal'
-        68:
+        068:
           $ref: '#/components/responses/KeystoreRollbackFail'
-        71:
+        071:
           $ref: '#/components/responses/UnauthDecrypt'
-        72:
+        072:
           $ref: '#/components/responses/InvalidEMVData'
-        73:
+        073:
           $ref: '#/components/responses/EMVDataEmpty'
-        74:
+        074:
           $ref: '#/components/responses/MissingReqParam'
-        75:
+        075:
           $ref: '#/components/responses/InvalidEllipticParam'
-        76:
+        076:
           $ref: '#/components/responses/JSONSerializationError'
-        77:
+        077:
           $ref: '#/components/responses/JSONDeserializationError'
-        78:
+        078:
           $ref: '#/components/responses/InvalidSwipeData'
         parameters:
           - $ref: '#/components/parameters/ContentTypeHeader'
@@ -467,17 +467,19 @@ components:
           description: A message to send in the ping request and receive in the response. The value can be blank, however the message field must be included in the request.
     TokenizeRequest:
       x-model-version: 1.0
-      - ref: '#/components/schemas/TokenizeRequestAccount'
-        - type: object
-          properties:
+      $ref: '#/components/schemas/TokenizeRequestAccount'
+      type: object
+      properties:
             account:
               type: string
               maxLength: 19
               description: Account number
               example: '4444333322221111'
-        - ref: '#/components/schemas/TokenizeRequestDeviceData'
-        - type: object
-          properties:
+    TokenizeRequestDeviceData:
+      x-model-version: 1.0
+      $ref: '#/components/schemas/TokenizeRequestDeviceData'
+      type: object
+      properties:
             devicedata:
               type: string
               description: Either track data, ApplePay payment token, or GooglePay wallet payload.
@@ -497,7 +499,7 @@ components:
       content:
         message: {
           type: string,
-          description: Status of the request. Returns "No Error" if the request was successful.
+          description: Status of the request. Returns "No Error" if the request was successful.,
           example: 'No Error'
         }
         errorcode:
@@ -512,12 +514,11 @@ components:
       description: Contains the status of connection to CardSecure server.
       content:
         message:
-          type: String
-          description: The message value included in the request. Returns a descriptive error message if the request failed.
           example: 'Hello?'
         errorcode:
-          - ref: '#/components/schemas/ErrorCode'
-          example: 0
+          example: 
+            errorcode: 000
+            message: 'Hello?'
     WrongVersion:
       x-model-version: 1.0
       description: Wrong version number
