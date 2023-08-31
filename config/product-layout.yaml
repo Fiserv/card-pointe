@@ -30,7 +30,7 @@
 header:
   productionDescription: Cardpointe Integrated Payments makes it quick and easy to add secure, card-present payment acceptance to any software environment. Our cloud payment integrations simplify the payment acceptance process and protect transactions with a powerful combination of EMV and tokenization. 
   whoIsItFor: REPLACEME
-  benefits:
+benefits:
   - title: PCI Scope Reduction
     description: PCI-validated P2PE solutions, powered by CardSecure, help reduce your scope of PCI compliance by preventing sensitive account data from interacting with your application. 
   - title: Omnichannel Payments
