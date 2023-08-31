@@ -37,9 +37,6 @@ benefits:
     description: Ecommerce, card-present, and mobile APIs and SDKs enable you to leverage omnichannel tokens and customer profiles for a seamless payment experience across your brand.
   - title: Flexible APIs
     description: Our suite of APIs allows you to integrate a wide range of payment, reporting, and transaction management features depending on your needs.
-  image: 
-    link: "/assets/images/Fiserv_Logo.jpg"
-    altText: REPLACEME™
 getStarted: /docs/getting-started.md
 featuredFeatures:
   - title: Tokenization
