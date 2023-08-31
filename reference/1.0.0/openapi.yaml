@@ -71,109 +71,24 @@ paths:
               ApplePay:
                 summary: TokenizeRequest with ApplePay
                 $ref: '#/components/examples/ApplePayRequestExample'
+      parameters:
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
       responses:
-        000:
-          - ref: '#/components/responses/TokenizeResponse'
-        003:
-          $ref: '#/components/responses/WrongVersion'
-        007:
-          $ref: '#/components/responses/InvalidAction'
-        008:
-          $ref: '#/components/responses/DataNotDecimal'
-        012:
-          $ref: '#/components/responses/KeyIDNotFound'
-        013:
-          $ref: '#/components/responses/DataTooLong'
-        014:
-          $ref: '#/components/responses/DataEmpty'
-        016:
-          $ref: '#/components/responses/UnknownAlgo'
-        017:
-          $ref: '#/components/responses/EncryptionFailure'
-        019:
-          $ref: '#/components/responses/Base64Failure'
-        020:
-          $ref: '#/components/responses/CryptoWrongLength'
-        021:
-          $ref: '#/components/responses/DataTooShort'
-        022:
-          $ref: '#/components/responses/CCNWrongLength'
-        024:
-          $ref: '#/components/responses/DecryptionFailure'
-        025:
-          $ref: '#/components/responses/BadPadding'
-        026:
-          $ref: '#/components/responses/BadDecrypt'
-        027:
-          $ref: '#/components/responses/KeystoreNotInit'
-        033:
-          $ref: '#/components/responses/ApplicationNotInit'
-        035:
-          $ref: '#/components/responses/BufferTooShort'
-        038:
-          $ref: '#/components/responses/IllegalCharacter'
-        039:
-          $ref: '#/components/responses/WrongLength'
-        043:
-          $ref: '#/components/responses/ServerFailed'
-        044:
-          $ref: '#/components/responses/ConfigItemBad'
-        046:
-          $ref: '#/components/responses/TokenDataProb'
-        047:
-          $ref: '#/components/responses/UnAuthHost'
-        048:
-          $ref: '#/components/responses/TokenPurged'
-        049:
-          $ref: '#/components/responses/DataNotFound'
-        050:
-          $ref: '#/components/responses/ErrorHashing'
-        053:
-          $ref: '#/components/responses/TokenDuplicate'
-        054:
-          $ref: '#/components/responses/LuhnFailure'
-        055:
-          $ref: '#/components/responses/MissingSiteName'
-        056:
-          $ref: '#/components/responses/TokenFormatBad'
-        057:
-          $ref: '#/components/responses/RequestSignatureInvalid'
-        058:
-          $ref: '#/components/responses/RequestSignatureExpired'
-        059:
-          $ref: '#/components/responses/RequestSignatureMismatch'
-        060:
-          $ref: '#/components/responses/RequestSignatureInvalid'
-        061:
-          $ref: '#/components/responses/PINTranslationFail'
-        063:
-          $ref: '#/components/responses/KeystoreImportFail'
-        064:
-          $ref: '#/components/responses/KeystoreUserstoreFail'
-        065:
-          $ref: '#/components/responses/KeystoreInvalidProc'
-        066:
-          $ref: '#/components/responses/UnauthTerminal'
-        068:
-          $ref: '#/components/responses/KeystoreRollbackFail'
-        071:
-          $ref: '#/components/responses/UnauthDecrypt'
-        072:
-          $ref: '#/components/responses/InvalidEMVData'
-        073:
-          $ref: '#/components/responses/EMVDataEmpty'
-        074:
-          $ref: '#/components/responses/MissingReqParam'
-        075:
-          $ref: '#/components/responses/InvalidEllipticParam'
-        076:
-          $ref: '#/components/responses/JSONSerializationError'
-        077:
-          $ref: '#/components/responses/JSONDeserializationError'
-        078:
-          $ref: '#/components/responses/InvalidSwipeData'
-        parameters:
-            - {$ref: '#/components/parameters/ContentTypeHeader'}
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Success'}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
   /cardsecure/api/v1/echo:
     x-model-version: 1.0
     post:
@@ -194,109 +109,24 @@ paths:
               echoId:
                 summary: Echo request using Message
                 $ref: '#/components/examples/EchoRequestExample'
-      responses:
-        000:
-          $ref: '#/components/examples/EchoResponseExample'
-        003:
-          $ref: '#/components/responses/WrongVersion'
-        007:
-          $ref: '#/components/responses/InvalidAction'
-        008:
-          $ref: '#/components/responses/DataNotDecimal'
-        012:
-          $ref: '#/components/responses/KeyIDNotFound'
-        013:
-          $ref: '#/components/responses/DataTooLong'
-        014:
-          $ref: '#/components/responses/DataEmpty'
-        016:
-          $ref: '#/components/responses/UnknownAlgo'
-        017:
-          $ref: '#/components/responses/EncryptionFailure'
-        019:
-          $ref: '#/components/responses/Base64Failure'
-        020:
-          $ref: '#/components/responses/CryptoWrongLength'
-        021:
-          $ref: '#/components/responses/DataTooShort'
-        022:
-          $ref: '#/components/responses/CCNWrongLength'
-        024:
-          $ref: '#/components/responses/DecryptionFailure'
-        025:
-          $ref: '#/components/responses/BadPadding'
-        026:
-          $ref: '#/components/responses/BadDecrypt'
-        027:
-          $ref: '#/components/responses/KeystoreNotInit'
-        033:
-          $ref: '#/components/responses/ApplicationNotInit'
-        035:
-          $ref: '#/components/responses/BufferTooShort'
-        038:
-          $ref: '#/components/responses/IllegalCharacter'
-        039:
-          $ref: '#/components/responses/WrongLength'
-        043:
-          $ref: '#/components/responses/ServerFailed'
-        044:
-          $ref: '#/components/responses/ConfigItemBad'
-        046:
-          $ref: '#/components/responses/TokenDataProb'
-        047:
-          $ref: '#/components/responses/UnAuthHost'
-        048:
-          $ref: '#/components/responses/TokenPurged'
-        049:
-          $ref: '#/components/responses/DataNotFound'
-        050:
-          $ref: '#/components/responses/ErrorHashing'
-        053:
-          $ref: '#/components/responses/TokenDuplicate'
-        054:
-          $ref: '#/components/responses/LuhnFailure'
-        055:
-          $ref: '#/components/responses/MissingSiteName'
-        056:
-          $ref: '#/components/responses/TokenFormatBad'
-        057:
-          $ref: '#/components/responses/RequestSignatureInvalid'
-        058:
-          $ref: '#/components/responses/RequestSignatureExpired'
-        059:
-          $ref: '#/components/responses/RequestSignatureMismatch'
-        060:
-          $ref: '#/components/responses/RequestSignatureInvalid'
-        061:
-          $ref: '#/components/responses/PINTranslationFail'
-        063:
-          $ref: '#/components/responses/KeystoreImportFail'
-        064:
-          $ref: '#/components/responses/KeystoreUserstoreFail'
-        065:
-          $ref: '#/components/responses/KeystoreInvalidProc'
-        066:
-          $ref: '#/components/responses/UnauthTerminal'
-        068:
-          $ref: '#/components/responses/KeystoreRollbackFail'
-        071:
-          $ref: '#/components/responses/UnauthDecrypt'
-        072:
-          $ref: '#/components/responses/InvalidEMVData'
-        073:
-          $ref: '#/components/responses/EMVDataEmpty'
-        074:
-          $ref: '#/components/responses/MissingReqParam'
-        075:
-          $ref: '#/components/responses/InvalidEllipticParam'
-        076:
-          $ref: '#/components/responses/JSONSerializationError'
-        077:
-          $ref: '#/components/responses/JSONDeserializationError'
-        078:
-          $ref: '#/components/responses/InvalidSwipeData'
-        parameters:
-          - $ref: '#/components/parameters/ContentTypeHeader'
+      parameters:
+        - $ref: '#/components/parameters/ContentTypeHeader'
+      responses:          
+        200:
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Success'}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
 components:
   parameters:
     TimestampHeader:
@@ -416,6 +246,13 @@ components:
         }
       in: header
       description: Specifies whether a unique token should be generated. Defaults to false.
+    ErrorCode:
+      x-model-version: 1.0
+      name: errorcode
+      schema:
+        type: integer
+      in: header
+      description: An error code that displays signifying the importance of error codes.
     MessageParam:
       x-model-version: 1.0
       name: message
@@ -426,14 +263,59 @@ components:
       in: header
       description: A message to send in the ping request and receive in the response. The value can be blank, however the message field must be included in the request.
   schemas:
-    ErrorCode:
-      type: number
+    Success:
+      x-model-version: 1.0
+      description: Error information
+      properties:
+        message: {
+          description: 'Information specific to a propery or attribute.',
+          type: string,
+          example: No error
+        }
+        errorcode: {
+          description: 'Error response code from the gateway',
+          type: integer,
+          example: 00
+        }
+        token: {
+          description: 'The created token',
+          type: string,
+          example: 9417119164771111
+        }
+    NotFoundError:
+      x-model-version: 1.0
+      description: Error information
+      properties:
+        message: {
+          description: 'Information specific to a propery or attribute.',
+          type: string,
+          example: Data not found
+        }
+        errorcode: {
+          description: 'Error response code from the gateway',
+          type: integer,
+          example: 049
+        }
+    BadRequestError:
+      x-model-version: 1.0
+      description: Error information
+      properties:
+        message: {
+          description: 'Information specific to a propery or attribute.',
+          type: string,
+          example: Keystore invalid processor
+        }
+        errorcode: {
+          description: 'Error response code from the gateway',
+          type: integer,
+          example: 065
+        }
+    ErrorCode: 
       description: An error code. Returns "00" if successful. All error codes contain four digits. Two zeros precede the codes.
       properties:
-        errorcode:
-          $ref: '#/components/responses'
-        message:
-          $ref: '#/components/responses'
+        code:
+          description: An error code that shows the importance of error codes.
+          type: integer
     Error:
       x-model-version: 1.0
       description: Error information
@@ -468,37 +350,31 @@ components:
               example: '4444333322221111'
     TokenizeRequestDeviceData:
       x-model-version: 1.0
-      type: object
+      description: object
       properties:
-            devicedata:
-              type: string
-              description: Either track data, ApplePay payment token, or GooglePay wallet payload.
-              example: '2'
-            oneOf:
-              signature:
-                type: String
-                description: Saved image file of signature
-                example: sig
-              encryptionhandler:
-                type: String
-                description: Payment acceptance and encryption method.
+        devicedata:
+          description: Either track data, ApplePay payment token, or GooglePay wallet payload.,
+          example: '2'
+        signature: {
+          type: string,
+          description: Saved image file of signature,
+          example: sig
+          }
+        encryptionhandler: {
+          type: string,
+          description: Payment acceptance and encryption method.
+          }
   responses:
     TokenizeResponse:
       x-model-version: 1.0
       description: Contains the <a href="path">Gateway Response</a>
       content:
-        message: {
-          type: string,
-          description: Status of the request. Returns "No Error" if the request was successful.,
+        message: 
           example: 'No Error'
-        }
         errorcode:
-          $ref: '#/components/schemas/ErrorCode'
           example: 000
         token:
-          type: String
-          description: The token generated from the request data.
-          example: '9417119164771111'
+          example: 941711916477111
     EchoResponse:
       x-model-version: 1.0
       description: Contains the status of connection to CardSecure server.
@@ -522,7 +398,7 @@ components:
       content:
         application/json:
           schema:
-            - ref: '#/components/schemas/Error'
+            $ref: '#/components/schemas/Error'
     DataNotDecimal:
       x-model-version: 1.0
       description: Data is not decimal digits
@@ -843,6 +719,16 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   examples:
+    Successful:
+      value:
+        errorcode: 0,
+        data: "AAdoWZghKq4An1Pl0PJKDQfTQ"
+        message: "No error"
+    WrongVersion:
+      value:
+        type: 'integer'
+        code: '003'
+        message: 'Message'
     EchoRequestExample:
       value:
         message: 'Hello?'
