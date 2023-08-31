@@ -8,9 +8,6 @@ description: Our Developer Guides provide detailed information and best practice
 
 # Getting Started
 
-<!-- align: center -->
-![Icon](../assets/images/integration-icon.png)
-
 <!-- type: row -->
 
 <!-- type: card
