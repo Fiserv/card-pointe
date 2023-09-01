@@ -90,7 +90,7 @@ link: ?path=/docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md
 <!-- type: card
 title: <center> CardPointe Integrated Terminal Developer Guide for Clover Terminals </center>
 description: <center> Provides specific details for integrating Clover terminals with a new or existing CardPointe Integrated Terminal solution </center>
-link: ?path=/docs/documentation/CardPointeIntegratedTerminalDeveloperGuideforCloverTerminals.md
+link: ?path=/docs/documentation/CardPointeIntegratedTerminalDeveloperGuideForCloverTerminals.md
 -->
 
 <!-- type: row-end -->
@@ -148,7 +148,7 @@ link: ?path=/docs/documentation/ApplePayDeveloperGuide.md
 <!-- type: card
 title: <center> Google Pay Developer Guides </center>
 description: <center> Provides information for integrating Apple Pay acceptance with your Android App using CardSecure and the CardPointe Gateway </center>
-link: ?path=/docs/documentation/GooglePayDeveloperGuides.md
+link: ?path=/docs/documentation/GooglePayDeveloperGuide.md
 -->
 
 <!-- type: row-end -->
