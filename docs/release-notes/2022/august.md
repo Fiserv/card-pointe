@@ -1,6 +1,6 @@
 # Release Notes
 
-March 03 2022
+August 03 2023
 
 ## v1.0.0 (api version)
 
@@ -25,4 +25,4 @@ March 03 2022
 - regarded as obsolete and best avoided
 
 
-March 17 2022
+August 17 2023
