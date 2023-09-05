@@ -110,7 +110,7 @@ paths:
           description: Success
           content:
             application/json:
-              schema: {$ref: '#/components/responses/EchoSuccess'}
+              schema: {$ref: '#/components/schemas/EchoSuccess'}
         400:
           description: Not Found
           content:
