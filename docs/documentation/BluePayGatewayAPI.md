@@ -728,7 +728,7 @@ If you or your merchants use an application that integrates the BluePay Gateway 
 <!-- type: row -->
 
 <!-- type: card
-description: This feature is available for merchants processing on the CardNet/North ISO8583 platform, using one of the following integrations: <br> <br> BluePay Post (bp10emu) <br> BluePay 2.0 Post (bp20post) <br> Manual CSV Upload <br> BluePay CSV Upload (bp20bu)
+description: This feature is available for merchants processing on the CardNet/North ISO8583 platform, using one of the following integrations: <br> <br> [BluePay Post (bp10emu)](../../docs/documentation/BluePayGatewayAPI.md#BluePay-Post-bp10emu) <br> [BluePay 2.0 Post (bp20post)](../../docs/documentation/BluePayGatewayAPI.md#BluePay-20-Post-bp20post) <br> [Manual CSV Upload](../../docs/documentation/BluePayGatewayAPI.md#Manual-CSV-Upload) <br> [BluePay CSV Upload (bp20bu)](../../docs/documentation/BluePayGatewayAPI.md#BluePay-CSV-Upload-bp20bu)
 -->
 
 <!-- type: row-end -->
