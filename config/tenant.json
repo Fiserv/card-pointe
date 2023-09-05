@@ -1,6 +1,6 @@
 {
-  "title": "CardPointe",
-  "name": "CardPointe",
+  "title": "CardPointe Integrated Payments",
+  "name": "CardPointe Integrated Payments",
   "brand": "Fiserv",
   "brandLogoURL": "https://raw.githubusercontent.com/Fiserv/Developer-Portal-Tenant-API/develop/assets/images/Fiserv_Logo.jpg",
   "solution": ["merchants"],
@@ -49,17 +49,17 @@
   },
   "supportConfig": [{ 
     "bug": {
-      "label": "bug,CommerceHub",
+      "label": "bug,CardPointe",
       "template": "bug.md",
       "assignees": "KGroninger"
     },  
     "feedback": {
-      "label": "feedback,CommerceHub",
+      "label": "feedback,CardPointe",
       "template": "feedback.md",
       "assignees": "KGroninger"
     },
     "enhancement": {
-      "label": "enhancement,CommerceHub",
+      "label": "enhancement,CardPointe",
       "template": "feature.md",
       "assignees": "KGroninger"
     }
