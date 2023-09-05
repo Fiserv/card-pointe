@@ -55,19 +55,19 @@ paths:
             schema:
               $ref: '#/components/schemas/TokenizeRequest'
             examples:
-              PaymentCard:
+              Unencrypted Manual Card Entry:
                 summary: TokenizeRequest with PaymentCard
                 $ref: '#/components/examples/PaymentCardRequestExample'
-              PaymentCard CardPointe Terminal Entry:
+              CardPointe Integrated Terminal Entry:
                 summary: TokenizeRequest with PaymentCard via CardPointe Terminal
                 $ref: '#/components/examples/PaymentCardTerminalRequestExample'
-              ACH Unencrypted:
+              ACH (Unencrypted):
                 summary: TokenizeRequest with Unencrypted ACH
                 $ref: '#/components/examples/ACHRequestExample'
-              GooglePay:
+              Google Pay Mobile Wallet:
                 summary: TokenizeRequest with GooglePay
                 $ref: '#/components/examples/GooglePayRequestExample'
-              ApplePay:
+              Apple Pay Mobile Wallet:
                 summary: TokenizeRequest with ApplePay
                 $ref: '#/components/examples/ApplePayRequestExample'
       parameters:
