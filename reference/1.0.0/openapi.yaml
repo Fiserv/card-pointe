@@ -95,7 +95,6 @@ paths:
         - Echo
       x-group-name: 'CardSecure'
       x-proxy-name: 'Echo'
-      x-default-example: echoId
       summary: Send a ping command to the server.
       description: A call to the echo service endpoint sends a ping command to the CardSecure server to verify the application's connection.
       requestBody:
@@ -104,10 +103,6 @@ paths:
           application/JSON:
             schema:
               $ref: '#/components/schemas/EchoRequest'
-            examples:
-              echoId:
-                summary: Echo request using Message
-                $ref: '#/components/examples/EchoRequestExample'
       parameters:
         - $ref: '#/components/parameters/ContentTypeHeader'
       responses:          
@@ -356,6 +351,7 @@ components:
           description: A message to send in the ping request and receive in the response. The value can be blank, however the message field must be included in the request.
           type: string
           maxLength: 250
+          example: Hello?
     TokenizeRequest:
       x-model-version: 1.0
       type: object
