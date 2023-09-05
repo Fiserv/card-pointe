@@ -105,12 +105,12 @@ paths:
               $ref: '#/components/schemas/EchoRequest'
       parameters:
         - $ref: '#/components/parameters/ContentTypeHeader'
-      responses:                   
+      responses:          
         200:
           description: Success
           content:
             application/json:
-              schema: {$ref: '#/components/responses/EchoResponse'}
+              schema: {$ref: '#/components/responses/EchoSuccess'}
         400:
           description: Not Found
           content:
@@ -276,7 +276,7 @@ components:
           type: string,
           example: 9417119164771111
         }
-    SuccessEcho:
+    EchoSuccess:
       x-model-version: 1.0
       description: Error information
       properties:
@@ -284,11 +284,13 @@ components:
           description: 'The message value included in the request.
                         Returns a descriptive error message if the request failed.
                         See Error Codes and Messages for a complete list of possible error codes and messages.',
-          type: string
+          type: string,
+          example: Hello?
         }
         errorcode: {
           description: 'An error code, if the request encountered an error. Returns "0" if the request was successful. See Error Codes and Messages for a complete list of possible error codes and messages.',
           type: integer,
+          example: 000
         }
     NotFoundError:
       x-model-version: 1.0
@@ -418,16 +420,6 @@ components:
           example: 000
         token:
           example: 941711916477111
-    EchoResponse:
-      x-model-version: 1.0
-      description: Contains the status of connection to CardSecure server.
-      content:
-        message:
-          example: 'Hello?'
-        errorcode:
-          example: 
-            errorcode: 000
-            message: 'Hello?'
     WrongVersion:
       x-model-version: 1.0
       description: Wrong version number
