@@ -105,12 +105,12 @@ paths:
               $ref: '#/components/schemas/EchoRequest'
       parameters:
         - $ref: '#/components/parameters/ContentTypeHeader'
-      responses:          
+      responses:                   
         200:
           description: Success
           content:
             application/json:
-              schema: {$ref: '#/commponents/responses/EchoSuccess'}
+              schema: {$ref: '#/components/responses/EchoResponse'}
         400:
           description: Not Found
           content:
