@@ -357,32 +357,32 @@ components:
             account:
               type: string
               maxLength: 19
-              description: "One of the following:
-                            - A clear or encrypted payment account number (PAN)
-                            - An ACH routing and account number string in the format <routing>/<account> for eCheck transactions
+              description: "One of the following:[[BR]]
+                            - A clear or encrypted payment account number (PAN) [[BR]]
+                            - An ACH routing and account number string in the format <routing>/<account> for eCheck transactions[[BR]]
                             If encryptionhandler is provided, the account is treated as an encrypted PAN."
             devicedata:
               type: object
-              description: "One of the following:
-                            - Encrypted track data retrieved using a card reader or terminal device (MSR/EMV/NFC)
-                            - Apple Pay payment token data (see the Apple Pay Developer Guide for detailed information)
+              description: "One of the following:[[BR]]
+                            - Encrypted track data retrieved using a card reader or terminal device (MSR/EMV/NFC)[[BR]]
+                            - Apple Pay payment token data (see the Apple Pay Developer Guide for detailed information)[[BR]]
                             - Google Pay wallet payload (see the Google Pay Developer Guide for detailed information)"
             singature:
               type: string
               description: Signature data, if captured. Data must be a Base64-encoded, Gzipped bitmap (BMP). 
             encryptionhandler:
               type: string
-              description: "One of the following:
-                              - For an encrypted PAN or ACH, specify **RSA**
-                              - For an Apple Pay payment token, specify **EC_APPLE_PAY**
-                              - For a Google Pay wallet payload, specify **EC_GOOGLE_PAY**"
+              description: "One of the following:[[BR]]
+                              * For an encrypted PAN or ACH, specify **RSA**[[BR]]
+                              * For an Apple Pay payment token, specify **EC_APPLE_PAY**[[BR]]
+                              * For a Google Pay wallet payload, specify **EC_GOOGLE_PAY**"
             expiry:
               type: integer
-              description: "Optional, the card expiration date.Must be a numeric string, in one of the following formats: 
-                            - MMYY
-                            - YYYYM (for single-digit months)
-                            - YYYYMM
-                            - YYYYMMDD"
+              description: "Optional, the card expiration date.Must be a numeric string, in one of the following formats: [[BR]]
+                            * MMYY[[BR]]
+                            * YYYYM (for single-digit months)[[BR]]
+                            * YYYYMM[[BR]]
+                            * YYYYMMDD"
             cvv:
               type: integer
               description: "Optional, the 3 or 4 digits card verification value (CVV).
