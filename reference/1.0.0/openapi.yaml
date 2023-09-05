@@ -357,13 +357,13 @@ components:
             account:
               type: string
               maxLength: 19
-              description: "One of the following:[[BR]]
+              description: "One of the following:::
                             - A clear or encrypted payment account number (PAN) [[BR]]
                             - An ACH routing and account number string in the format <routing>/<account> for eCheck transactions[[BR]]
                             If encryptionhandler is provided, the account is treated as an encrypted PAN."
             devicedata:
               type: object
-              description: "One of the following:[[BR]]
+              description: "One of the following::
                             - Encrypted track data retrieved using a card reader or terminal device (MSR/EMV/NFC)[[BR]]
                             - Apple Pay payment token data (see the Apple Pay Developer Guide for detailed information)[[BR]]
                             - Google Pay wallet payload (see the Google Pay Developer Guide for detailed information)"
