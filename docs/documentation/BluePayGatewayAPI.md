@@ -16,22 +16,22 @@ The following documents have been updated. See the Revision History in each guid
 
 > If you have any of the following downloads bookmarked, you will need to update your bookmarks because the filenames have changed.
 
-- BluePay Post (bp10emu)
-- BluePay Redirect (bp10emu)
-- BluePay Authorize.net AIM Emulator (a.net)
-- Manual CSV Upload
-- BluePay CSV Upload (bp20bu)
-- BluePay CSV Upload Report (bpbureport)
-- BluePay Rebill Administration (bprebadmin)
-- BluePay Customer Token Administration (bp20tokenadmin)
-- BluePay Daily Report 2 (bpdailyreport2)
-- BluePay Single Transaction Query (stq)
-- BluePay Reserve Query (reserveq)
-- BluePay Manager CSV Export
-- Rebill Post
-- Trans Notify Post
-- BluePay 2.0 Post (bp20post)
-- BluePay XML Post (asby)
+- [BluePay Post (bp10emu)](../../docs/documentation/BluePayGatewayAPI.md#BluePay-Post-bp10emu)
+- [BluePay Redirect (bp10emu)](../../docs/documentation/BluePayGatewayAPI.md#BluePay-Redirect-bp10emu)
+- [BluePay Authorize.net AIM Emulator (a.net)](../../docs/documentation/BluePayGatewayAPI.md#BluePay-Authorizenet-AIM-Emulator-anet)
+- [Manual CSV Upload](../../docs/documentation/BluePayGatewayAPI.md#Manual-CSV-Upload)
+- [BluePay CSV Upload (bp20bu)](../../docs/documentation/BluePayGatewayAPI.md#BluePay-CSV-Upload-bp20bu)
+- [BluePay CSV Upload Report (bpbureport)](../../docs/documentation/BluePayGatewayAPI.md#BluePay-CSV-Upload-Report-bpbureport)
+- [BluePay Rebill Administration (bprebadmin)](../../docs/documentation/BluePayGatewayAPI.md#BluePay-Rebill-Administration-bprebadmin)
+- [BluePay Customer Token Administration (bp20tokenadmin)](../../docs/documentation/BluePayGatewayAPI.md#BluePay-Customer-Token-Administration-bp20tokenadmin)
+- [BluePay Daily Report 2 (bpdailyreport2)](../../docs/documentation/BluePayGatewayAPI.md#BluePay-Daily-Report-2-bpdailyreport2)
+- [BluePay Single Transaction Query (stq)](../../docs/documentation/BluePayGatewayAPI.md#BluePay-Single-Transaction-Query-stq)
+- [BluePay Reserve Query (reserveq)](../../docs/documentation/BluePayGatewayAPI.md#BluePay-Reserve-Query-reserveq)
+- [BluePay Manager CSV Export](../../docs/documentation/BluePayGatewayAPI.md#BluePay-Manager-CSV-Export)
+- [Rebill Post](../../docs/documentation/BluePayGatewayAPI.md#Rebill-Post)
+- [Trans Notify Post](../../docs/documentation/BluePayGatewayAPI.md#Trans-Notify-Post)
+- [BluePay 2.0 Post (bp20post)](../../docs/documentation/BluePayGatewayAPI.md#BluePay-20-Post-bp20post)
+- [BluePay XML Post (asby)](../../docs/documentation/BluePayGatewayAPI.md#BluePay-XML-Post-asby)
 
 # Request a Sandbox Account
 
@@ -47,32 +47,19 @@ The BluePay Gateway payment modules integrate into popular shopping carts, ERP a
 
 Once you have downloaded the module for your software, you’re ready to begin testing.
 
-<!--
-type: tab
-titles: Andriod SDK
--->
+### Andriod SDK
 
 The BluePay Android SDK can be used to process authorizations, sales, generate tokens as $0 authorizations, and process card-present transactions. The SDK includes swipe support for the IDTech UniMag II and Shuttle.
 
 [Download the BluePay Android SDK](https://github.com/jslingerland/BluePay-Android-SDK)
 
-<!-- type: tab-end -->
-
-<!--
-type: tab
-titles: iOS SDK
--->
+### iOS SDK
 
 The BluePay iOS SDK can be used to process authorizations, sales, generate tokens as $0 authorizations, process card-present transactions. The SDK includes swipe support for the IDTech UniMag II and Shuttle.
 
 [Download the BluePay iOS SDK](https://github.com/jslingerland/BluePay-iOS-SDK)
 
-<!-- type: tab-end -->
-
-<!--
-type: tab
-titles: Microsoft Dynamics GP
--->
+### Microsoft Dynamics GP
 
 The Microsoft Dynamics GP Payment Module integrates your accounting and back-end systems with BluePay's payment environment.
 
@@ -80,25 +67,15 @@ See instructional videos available in the left navigation.
 
 **To learn more, please contact** bluepay-integration@fiserv.com. 
 
-<!-- type: tab-end -->
-
-<!--
-type: tab
-titles: Payment.js
--->
+### Payment.js
 
 Payment.js allows merchants working with various First Data APIs and gateways to tokenize payment credentials for later transactions without collecting, processing, or otherwise being able to view those payment credentials in their untokenized form, thus lowering their PCI compliance requirements. 
 
 [Visit Payment.js documentation](https://docs.paymentjs.firstdata.com/)
 
-<!-- type: tab-end -->
+### QuickBooks Desktop
 
-<!--
-type: tab
-titles: QuickBooks Desktop
--->
-
-### QuickBooks Desktop Plugin Features
+#### QuickBooks Desktop Plugin Features
 
 The QuickBooks Desktop plugin works right out of the box, but it also comes with a range of advanced features, including the ability to:
 
@@ -111,7 +88,7 @@ The QuickBooks Desktop plugin works right out of the box, but it also comes with
 - Use with Desktop versions of Pro, Premier, and Enterprise editions 2012 or later
 - Reduce card processing fees and optimize reporting using Level 2/Level 3 processing
 
-### Setting Up the QuickBooks Desktop Plugin
+#### Setting Up the QuickBooks Desktop Plugin
 
 To use this dedicated plugin, you'll need both an active BluePay account and QuickBooks Desktop - Pro, Premier, or Enterprise editions 2012 or later. Click below to download the plugin, and contact us at bluepay-gateway@fiserv.com for additional support.
 
@@ -127,14 +104,13 @@ Once you're done installing the payment module, you’re ready to configure and 
 
 _See instructional videos available in the left navigation._
 
-<!-- type: tab-end -->
+> [BluePay QuickBooks Desktop Plugin](https://developer.cardpointe.com/assets/developer/assets/BluePay-QuickBooks-Desktop-Plugin.pdf)
 
-<!--
-type: tab
-titles: QuickBooks Online
--->
+> [BluePay QuickBooks Setup](https://developer.cardpointe.com/assets/developer/assets/BluePay_QuickBooks_Setup.zip)
 
-### QuickBooks Online Plugin Features
+### QuickBooks Online
+
+#### QuickBooks Online Plugin Features
 
 The QuickBooks Online plugin works right out of the box, but it also comes with a range of advanced features, including the ability to:
 
@@ -145,7 +121,7 @@ The QuickBooks Online plugin works right out of the box, but it also comes with 
 - Email invoices directly to customers that can be paid via a secure hosted payment form
 - Reduce card processing fees and optimize reporting using Level 2/Level 3 processing
 
-### Setting Up the QuickBooks Online Plugin
+#### Setting Up the QuickBooks Online Plugin
 
 To use this dedicated plugin, you'll need both an active BluePay account and QuickBooks Online. Contact us at bluepay-gateway@fiserv.com to receive the plugin.
 
@@ -159,12 +135,9 @@ If you’re not sure where to find your Account ID or Secret Key:
 
 _See instructional videos available in the left navigation._
 
-<!-- type: tab-end -->
+> [BluePay QuickBooks Online Plugin](https://developer.cardpointe.com/assets/developer/assets/BluePay-QuickBooks-Online-Plugin.pdf)
 
-<!--
-type: tab
-titles: SalesForce
--->
+### SalesForce
 
 BluePay SalesForce Plugin gives you the ability to process credit card and ACH payments directly inside of your SalesForce environment against Accounts, Contacts and Opportunities. The plugin also supports recurring billing and secure storage of payment accounts using tokenization.
 
@@ -172,12 +145,7 @@ See instructional videos available in the left navigation.
 
 **Please contact** bluepay-integration@fiserv.com **for more information.** 
 
-<!-- type: tab-end -->
-
-<!--
-type: tab
-titles: WordPress
--->
+### WordPress
 
 These third-party WordPress plugins are compatible with the BluePay Gateway. 
 
@@ -185,9 +153,7 @@ These third-party WordPress plugins are compatible with the BluePay Gateway.
 - [WP eCommerce Gold Cart](https://wpecommerce.org/news/gold-cart-api-key-requests-issue/)
 - [Tribulant WordPress Shopping Cart Plugin](https://tribulant.com/plugins/view/10/wordpress-shopping-cart-plugin)
 
-<!-- type: tab-end -->
-
-**Plugins available via CDI.**
+## **Plugins available via CDI.**
 
 <!--
 type: tab
@@ -246,7 +212,7 @@ After you have chosen the template that you would like to use, create a URL to t
 
 ## Recommended APIs
 
-### BluePay Post (bp10emu) 
+### BluePay Post (bp10emu)
 
 Our primary transaction processing API. Name/value pairs are posted to the gateway which responds with name/value pairs.
 
