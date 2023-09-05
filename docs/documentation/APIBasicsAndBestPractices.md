@@ -8,8 +8,8 @@ The CardPointe platform provides a library of application programming interfaces
 
 Before you get started, you should have a functional understanding of the following concepts:
 
-- HTTP RESTful web methods
-- JavaScript object notation (JSON)
+- [HTTP RESTful web methods](../../docs/documentation/APIBasicsAndBestPractices.md#Understanding-HTTP-RESTful-Web-Methods)
+- [JavaScript object notation (JSON)](../../docs/documentation/APIBasicsAndBestPractices.md#Understanding-JSON)
 
 ### Understanding HTTP RESTful Web Methods
 
@@ -41,7 +41,7 @@ JavaScript Object Notation (JSON), is a simple, lightweight protocol for sending
 >
 > Because the exact response content is subject to change, it is a best practice to develop client applications that dynamically accept and parse all JSON response properties, rather than coding for the static position of specific properties within the response data. If your application expects a specific value to be returned in an exact position within the response object, you might encounter errors and downtime in the event that we introduce a new values to the response object.
 >
-> See Ensuring backwards compatibility, below, for more information.
+> See [Ensuring backwards compatibility](../../docs/documentation/APIBasicsAndBestPractices.md#Ensuring-backwards-compatibility), below, for more information.
 
 <!-- theme: warning -->
 > When writing your application, you can use the JSON Valdiator at https://jsonlint.com to validate the syntax of your JSON requests. 
@@ -50,8 +50,8 @@ JavaScript Object Notation (JSON), is a simple, lightweight protocol for sending
 
 In addition to understanding the basics, we strongly recommend that you adhere to the following best practices to ensure a successful integration:
 
-- Ensuring backwards compatibility
-- Acceptance and regression testing
+- [Ensuring backwards compatibility](../../docs/documentation/APIBasicsAndBestPractices.md#Ensuring-backwards-compatibility)
+- [Acceptance and regression testing](../../docs/documentation/APIBasicsAndBestPractices.md#Accepting-and-Regression-Testing)
 
 ### Ensuring Backwards Compatibility
 
@@ -76,9 +76,9 @@ Whether you are developing a new application or supporting an existing integrati
 
 We provide access to a user acceptance testing (UAT) environment, which allows you to test your application using sample data and emulated responses. Before your application can be considered production-ready, you must complete your acceptance testing in this environment to ensure that the application is functioning as intended.
 
-See Testing your Integration for more information on testing in the UAT environment.
+See [Testing your Integration](../../docs/documentation/CardPointeGatewayDeveloperGuides.md#Testing-Your-Integration) for more information on testing in the UAT environment.
 
-Additionally, it is a common best practice to schedule regular regression testing in your development and support lifecycle. We periodically introduces new features and backwards compatible API changes, which are described in the What's New? topic in the API documentation. 
+Additionally, it is a common best practice to schedule regular regression testing in your development and support lifecycle. We periodically introduces new features and [backwards compatible](../../docs/documentation/APIBasicsAndBestPractices.md#Ensuring-Backwards-Compatibility) API changes, which are described in the What's New? topic in the API documentation. 
 
 <!-- theme: warning -->
 > Additionally, you can subscribe to our [Statuspage](https://status.cardconnect.com/) to receive alerts for new releases and service incidents. 
