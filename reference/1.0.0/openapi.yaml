@@ -364,8 +364,8 @@ components:
             devicedata:
               type: object
               description: "One of the following::
-                            - Encrypted track data retrieved using a card reader or terminal device (MSR/EMV/NFC)[[BR]]
-                            - Apple Pay payment token data (see the Apple Pay Developer Guide for detailed information)[[BR]]
+                            - Encrypted track data retrieved using a card reader or terminal device (MSR/EMV/NFC)
+                            - Apple Pay payment token data (see the Apple Pay Developer Guide for detailed information)
                             - Google Pay wallet payload (see the Google Pay Developer Guide for detailed information)"
             singature:
               type: string
@@ -378,9 +378,9 @@ components:
                               * For a Google Pay wallet payload, specify **EC_GOOGLE_PAY**"
             expiry:
               type: integer
-              description: "Optional, the card expiration date.Must be a numeric string, in one of the following formats: [[BR]]
+              description: "Optional, the card expiration date. Must be a numeric string, in one of the following formats:
                             * MMYY[[BR]]
-                            * YYYYM (for single-digit months)[[BR]]
+                            * YYYYM (for single-digit months)
                             * YYYYMM[[BR]]
                             * YYYYMMDD"
             cvv:
