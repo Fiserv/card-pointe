@@ -338,7 +338,7 @@ components:
           type: string
           maxLength: 250
           description: A message to send in the ping request and receive in the response. The value can be blank, however the message field must be included in the request.
- TokenizeRequest:
+    TokenizeRequest:
       x-model-version: 1.0
       type: object
       properties:
