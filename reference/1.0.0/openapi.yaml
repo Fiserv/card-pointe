@@ -115,7 +115,7 @@ paths:
           description: Success
           content:
             application/json:
-              schema: {$ref: '#/components/schemas/Success'}
+              schema: {$ref: '#/components/responses/EchoResponse'}
         400:
           description: Not Found
           content:
@@ -281,6 +281,20 @@ components:
           type: string,
           example: 9417119164771111
         }
+    SuccessEcho:
+      x-model-version: 1.0
+      description: Error information
+      properties:
+        message: {
+          description: 'The message value included in the request.
+                        Returns a descriptive error message if the request failed.
+                        See Error Codes and Messages for a complete list of possible error codes and messages.',
+          type: string
+        }
+        errorcode: {
+          description: 'An error code, if the request encountered an error. Returns "0" if the request was successful. See Error Codes and Messages for a complete list of possible error codes and messages.',
+          type: integer,
+        }
     NotFoundError:
       x-model-version: 1.0
       description: Error information
@@ -335,9 +349,9 @@ components:
       type: object
       properties:
         message:
+          description: A message to send in the ping request and receive in the response. The value can be blank, however the message field must be included in the request.
           type: string
           maxLength: 250
-          description: A message to send in the ping request and receive in the response. The value can be blank, however the message field must be included in the request.
     TokenizeRequest:
       x-model-version: 1.0
       type: object
