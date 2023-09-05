@@ -115,7 +115,7 @@ A username and password are required in the HTTP Authorization Header property i
 
 Basic Authorization is expected, using a Base64-encoded username and password string as the value. If this value is incorrect or not provided in the request header, HTTP Status 401 Unauthorized is returned to the caller.
 
-See the API Connectivity Guide for more information on connecting to the CardPointe Gateway and other services.
+See the [API Connectivity Guide](../../docs/documentation/APIConnectivityGuide.md) for more information on connecting to the CardPointe Gateway and other services.
 
 ## Updater Service PUT Request
 
@@ -135,7 +135,7 @@ Parameters in **bold** are required.
 | Body Parameter | Type | Description | 
 | --- | --- | --- |
 | **merchid** | String | The CardPointe Merchant ID associated with the stored profiles <br> <br> **Note**: _The merchant account must be acquired by CardConnect and enrolled in the Card Account Updater service._ |
-| **accounts** | Array | An array of accounts to enroll. See Accounts Array for details. <br> <br> **Note**: _The maximum number of accounts per PUT request is limited to 2,000_ |
+| **accounts** | Array | An array of accounts to enroll. See [Accounts Array](../../docs/documentation/CardAccountUpdaterIntegrationGuide.md#Accounts-Array) for details. <br> <br> **Note**: _The maximum number of accounts per PUT request is limited to 2,000_ |
 
 ### Accounts Array
 
@@ -176,8 +176,8 @@ An unsuccessful PUT request returns HTTP Status 4xx, with a JSON-encoded respons
 | total	| Number | The total number of updates
 | successes	| Number | The number of accounts successfully enrolled
 | failures | Number | The number of accounts not enrolled
-| tokens | Array | An array of enrolled accounts. See Tokens Array for details.
-| errors | Array | An array of errors encountered. See Errors Array for details.
+| tokens | Array | An array of enrolled accounts. See [Tokens Array](../../docs/documentation/CardAccountUpdaterIntegrationGuide.md#Tokens-Array) for details.
+| errors | Array | An array of errors encountered. See [Errors Array](../../docs/documentation/CardAccountUpdaterIntegrationGuide.md#Errors-Array) for details.
 
 ### Tokens Array
 
@@ -283,7 +283,7 @@ The JSON-encoded response includes all updates that occurred within the 30 days 
 | totalUpdates | Number	| The total number of updates for the period
 | updatesStartDate | String	| The start date of the time period used to retrieve updates
 | updatesEndDate | String | The current date
-| updates | Array | An array of enrolled account updates. See Updates Array for details.
+| updates | Array | An array of enrolled account updates. See [Updates Array](../../docs/documentation/CardAccountUpdaterIntegrationGuide.md#Updates-Array) for details.
 
 ### Updates Array
 
@@ -436,7 +436,7 @@ A successful DELETE request returns a JSON-encoded response with a summary of th
 | merchid | String | The Merchant ID associated with the stored profiles or accounts
 | total	| Number | The number of token received from the request
 | deleted | Number | The number of tokens successfully unenrolled
-| notDeleted | Array | An array of accounts that encountered an error. See Not Deleted Array for details.
+| notDeleted | Array | An array of accounts that encountered an error. See [Not Deleted Array](../../docs/documentation/CardAccountUpdaterIntegrationGuide.md#Not-Deleted-Array) for details.
 
 ### Not Deleted Array
 
@@ -463,7 +463,7 @@ For each token that cannot be unenrolled, an object is returned within the notDe
 }
 ```
 
-An unsuccessful DELETE request returns HTTP Status 400 with a JSON-encoded response, containing the errors array.
+An unsuccessful DELETE request returns HTTP Status 400 with a JSON-encoded response, containing the [errors array](../../docs/documentation/CardAccountUpdaterIntegrationGuide.md#Errors-Array).
 
 #### Example: Unsuccessful DELETE Response Body
 
