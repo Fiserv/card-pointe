@@ -114,8 +114,12 @@ paths:
         200:
           description: Success
           content:
-            application/json:
-              schema: {$ref: '#/components/responses/EchoResponse'}
+            message:
+              example: 'Hello?'
+            errorcode:
+              example: 
+                errorcode: 000
+                message: 'Hello?'
         400:
           description: Not Found
           content:
