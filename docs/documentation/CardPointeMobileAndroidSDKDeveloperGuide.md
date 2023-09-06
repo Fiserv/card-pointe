@@ -57,7 +57,7 @@ See the CardPointe Mobile Device User's Guide for more information on the ID TEC
 
 Download the latest version of the SDK to get started:
 
-> [CardPointe Mobile Android SDK v3.0.86](../../assets/files/cardpointe-mobile-andriod-v3.0.86.zip)
+> [CardPointe Mobile Android SDK v3.0.86](../../assets/files/cardpointe-mobile-android-v3.0.86.zip)
 
 For new integrations, see the [Android SDK Integration Guide](../../docs/documentation/CardPointeMobileAndroidSDKDeveloperGuide.md#Android-SDK-Integration-Guide), below for detailed information on integrating the SDK with your application.
 
