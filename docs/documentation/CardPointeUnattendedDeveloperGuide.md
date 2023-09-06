@@ -28,7 +28,7 @@ If you are currently integrating the CardPointe Integrated Terminal API for an a
 
 For additional transaction management and reporting features, your application **must** use the CardPointe Gateway API to communicate directly with the CardPointe Gateway. See the CardPointe Gateway API for detailed information.
 
-See Understanding Payment Flows, later in this guide for more information on making payment requests.
+See [Understanding Payment Flows](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#Understanding-Payment-Flows), later in this guide for more information on making payment requests.
 
 ## Requirements
 
@@ -124,11 +124,11 @@ To authorize and capture a payment, your application interacts with the unattend
 
     `*PAE|DPT|CMD|1|{"OrderID":"A1B2C3", "paymentAmount":100, "paymentType":1, "paymentUser":"John"}|03878|*!PAE!*`
 
-    See the DPT Request Syntax for detailed information on the PAE command format and supported commands.
+    See the [DPT Request Syntax](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#DPT-Request-Syntax) for detailed information on the PAE command format and supported commands.
 
 2) The PAE requests the payment card data from the unattended device.
 3) The PAE retrieves the encrypted card data from the device, and forms an authorization (with capture) request to the CardPointe Gateway, including the Merchant ID and API Authorization Key provisioned for the device.
-4) The PAE transmits the auth request and returns the response data from the CardPointe Gateway to your application. See the DPT Response Syntax for detailed information on the response data.
+4) The PAE transmits the auth request and returns the response data from the CardPointe Gateway to your application. See the [DPT Response Syntax](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#DPT-Response-Syntax) for detailed information on the response data.
 
     **Note**: _The response includes the_ `processorReference` _(the CardPointe Gateway_ `retref` _or retrieval reference number) for the transaction. You must store this value in order to look up, refund, or void the transaction._
 
@@ -140,11 +140,11 @@ To authorize a payment, but delay the capture, your application interacts with t
 
 1) Your application sends a DPT Authorization-only (`"paymentType":6`) request. For example: `*PAE|DPT|CMD|1|{"OrderID":"A1B2C3", "paymentAmount":100, "paymentType":6, "paymentUser":"John"}|50955|*!PAE!*`
 
-    See the DPT Request Syntax for detailed information on the PAE command format and supported commands.
+    See the [DPT Request Syntax](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#DPT-Request-Syntax) for detailed information on the PAE command format and supported commands.
 
 2) The PAE requests the payment card data from the unattended device.
 3) The PAE retrieves the encrypted card data from the device, and forms an authorization request to the CardPointe Gateway, including the Merchant ID and API Authorization Key provisioned for the device.
-4) The PAE transmits the auth request and returns the response data from the CardPointe Gateway to your application. See the DPT Response Syntax for detailed information on the response data.
+4) The PAE transmits the auth request and returns the response data from the CardPointe Gateway to your application. See the [DPT Response Syntax](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#DPT-Response-Syntax) for detailed information on the response data.
 5) Your application can use the `cardToken` and `processorCode` (authcode) from the response to make a delayed capture request using the CardPointe Gateway API.
 
 #### Refund a Payment without Reference (Forced Credit)
@@ -160,16 +160,16 @@ To refund a payment using the customer's card, instead of using the retrieval re
 
     **Note**: _The_ `PaymentAmount` _value must be positive._
 
-    See the DPT Request Syntax for detailed information on the PAE request format and supported payment types.
+    See the [DPT Request Syntax](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#DPT-Request-Syntax) for detailed information on the PAE request format and supported payment types.
 
 2) The PAE requests the payment card data from the unattended device.
 3) The PAE retrieves the encrypted card data from the device, and forms a negative authorization request to the CardPointe Gateway, including the Merchant ID and API Authorization Key provisioned for the device.
-4) The PAE transmits the auth request and returns the response data from the CardPointe Gateway to your application. See the DPT Response Syntax for detailed information on the response data.
+4) The PAE transmits the auth request and returns the response data from the CardPointe Gateway to your application. See the [DPT Response Syntax](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#DPT-Response-Syntax) for detailed information on the response data.
 5) Your application presents a receipt or (or decline response) to the customer using the response data returned to your application.
 
 #### Refund or Void a Payment with Reference
 
-To refund or void a transaction, you use the `processorReference` value returned in the DPT response. 
+To refund or void a transaction, you use the `processorReference` value returned in the [DPT response](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#DPT-Response-Syntax). 
 
 Your application makes a CardPointe Gateway API refund or void request, using the `processorReference` value in the `retref` field in the request.
 
@@ -183,11 +183,11 @@ To validate and tokenize a payment card, your application interacts with the una
 
     **Note**: _The_ `paymentAmount`, `paymentType`, _and_ `paymentUser` _fields are required to preserve the message format, but the values are ignored for a tokenization request._
 
-    See the DPT Request Syntax for detailed information on the PAE command format and supported commands.
+    See the [DPT Request Syntax](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#DPT-Request-Syntax) for detailed information on the PAE command format and supported commands.
 
 2) The PAE requests the payment card data from the unattended device.
 3) The PAE retrieves the encrypted card data from the device, and a tokenization request to CardSecure.
-4) The PAE returns the response data , including the token, from CardSecure to your application. See the DPT Response Syntax for detailed information on the response data.
+4) The PAE returns the response data , including the token, from CardSecure to your application. See the [DPT Response Syntax](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#DPT-Response-Syntax) for detailed information on the response data.
 5) Your application can use the token to make a payment request or create a customer profile using the CardPointe Gateway API.
 
 ## Handling Offline Payments
@@ -207,7 +207,7 @@ Offline Mode is disabled by default, and must be individually configured for eac
 If your application sends a DPT request with an amount that exceeds the configured maximum, or after the configured offline timeframe has expired, the DPT response returns an error.
 
 <!-- theme: warning -->
-> Additionally, it is strongly recommended that you include a unique `orderId` value in every DPT request. You can use the `orderId` to reconcile offline transactions using the CardPointe Gateway API. See Reconciling Offline Transactions for more information.
+> Additionally, it is strongly recommended that you include a unique `orderId` value in every [DPT](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#DPT-Do-Payment-Transaction) request. You can use the `orderId` to reconcile offline transactions using the CardPointe Gateway API. See [Reconciling Offline Transactions](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#Reconciling-Offline-Transactions) for more information.
 
 > Contact isvsupport@cardconnect.com for assistance configuring these settings.
 
@@ -215,9 +215,9 @@ If your application sends a DPT request with an amount that exceeds the configur
 
 When your application sends a DPT command while the device is in Offline Mode, the payment is automatically approved, and returns DPT response code `020D` as well as an offline receipt payload. Because offline transactions are not authorized until they are processed, this offline receipt includes fewer details than a normal receipt.
 
-When the device is in Offline Mode, your application can send the GOT (Get Offline Transactions) command to check for any currently stored transactions (identified by timestamps) and the total amount of all stored transactions. See the GOT description for more information.
+When the device is in Offline Mode, your application can send the GOT (Get Offline Transactions) command to check for any currently stored transactions (identified by timestamps) and the total amount of all stored transactions. See the [GOT](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#GOT-Get-Offline-Transactions) description for more information.
 
-Additionally, the GCS (Get Current Status) command provides information on currently stored transactions, and identifies when the device is actively processing offline transactions. See the GCS description for more information.
+Additionally, the GCS (Get Current Status) command provides information on currently stored transactions, and identifies when the device is actively processing offline transactions. See the [GCS](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#GCS-Get-Current-Status) description for more information.
 
 When the unattended device re-establishes the network connection, the device temporarily remains in Offline Mode while it creates an offline batch and transmits the offline transactions to the web payment application for processing. Once all stored transactions are processed, the device exits Offline Mode and resumes normal operation.
 
@@ -235,7 +235,7 @@ To reconcile offline transactions, you can use either of the following CardPoint
 To reconcile individual offline transactions, you can use the CardPointe Gateway APIs `inquireByOrderid` endpoint to retrieve transaction status and retrieval reference number (retref). See the Inquire By Order ID description in the CardPointe Gateway API for additional information on the inquireByOrderid request and response.
 
 <!-- theme: warning -->
-> In order to use the `inquireByOrderid` request, you must specify a unique `orderId` value in each DPT payment request. 
+> In order to use the `inquireByOrderid` request, you must specify a unique `orderId` value in each [DPT](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#DPT-Do-Payment-Transaction) payment request. 
 
 #### Using settlestatByBatchSource to Retrieve Offline Batches
 
@@ -247,9 +247,9 @@ When the network connection is restored, the device makes a request to the CardP
 
 The `settlestatByBatchSource` request requires the `merchid` and unique `batchsource`. The response returns the total number of sales and refunds, the total amount, and a `txns` array, with the details for each transaction in the batch. 
 
-The `salesdoc` field in the response is populated by the `orderId` sent in the initial DPT request, which can be useful in reconciling 
+The `salesdoc` field in the response is populated by the `orderId` sent in the initial [DPT](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#DPT-Do-Payment-Transaction) request, which can be useful in reconciling 
 
-See Using the settlestatByBatchSource Endpoint in the CardPointe Gateway Developer Guides for more information.
+See [Using the settlestatByBatchSource Endpoint](../../docs/documentation/CardPointeGatewayDeveloperGuides.md#using-the-settlestatbybatchsource-endpoint) in the [CardPointe Gateway Developer Guides](../../docs/documentation/CardPointeGatewayDeveloperGuides.md) for more information.
 
 # CardPointe Unattended API
 
@@ -268,11 +268,11 @@ All commands and responses share a common format, and every field in the message
 | Field | Description |
 | --- | --- |
 | `*PAE` | The header, required for all messages. |
-| `<message key>` | A 3-character alpha-numeric string that indicates which message your application is sending or receiving. <br> One of the following values: <br> <br> **CPT**- Cancel Payment Transaction <br> **DPT**- Do Payment Transaction <br> **GCS** - Get Current Status <br> **GOT** - Get Offline Transactions <br> **GTI** - Get Terminal Info <br> **PAE** -  Internal messages and errors <br> **RBT** - Reboot Terminal |
+| `<message key>` | A 3-character alpha-numeric string that indicates which message your application is sending or receiving. <br> One of the following values: <br> <br> [CPT](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#CPT-Cancel-Payment-Transaction) - Cancel Payment Transaction <br> [DPT](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#DPT-Do-Payment-Transaction) - Do Payment Transaction <br> [GCS](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#GCS-Get-Current-Status) - Get Current Status <br> [GOT](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#GOT-Get-Offline-Transactions) - Get Offline Transactions <br> [GTI](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#GTI-Get-Terminal-Info) - Get Terminal Info <br> **PAE** -  Internal messages and errors <br> [RBT](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#RBT-Reboot-Terminal) - Reboot Terminal |
 | `<message type>` | A 3 or 4-character alphanumeric string that indicates the message type. <br> One of the following values: <br> <br> **CMD**- Indicates that the message is a command, or request. <br> **RESP** - Indicates that the message is a response. |
-| `<response code>` | An 8-character hexadecimal string that indicates a successful response or error. See Response Codes for a list of all possible response and error codes. <br> <br> This field is ignored for **CMD** messages; however if null, it must be included as an empty field (`||`) to preserve the message format. |
+| `<response code>` | An 8-character hexadecimal string that indicates a successful response or error. See [Response Codes](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#Response-Codes) for a list of all possible response and error codes. <br> <br> This field is ignored for **CMD** messages; however if null, it must be included as an empty field (`||`) to preserve the message format. |
 | `{JSON data object}` | Any additional data passed in the message, in a JSON object containing `"key":"value"` pairs. <br> <br> For a DPT command, the data field is used to specify the transaction details (for example the type and amount of the transaction). <br> <br> For a DPT, GCS, GOT, or GTI response, the data field returns the response data in a JSON object. <br> <br> **Note**: _If the message does not include any additional data, this field must be included as an empty field_ (`||`) _to preserve the message format._ |
-| `<checksum>` | An alpha-numeric string used to authorize each request. The checksum must be a decimal value calculated using the ASCII command string up to the delimiter preceding the checksum as a base value, and using the CRC-16 algorithm. <br> <br> For example, for a GTI command, use the following section of the command string as the base value: `*PAE|GTI|CMD|||`. The CRC-16 checksum calculated for this value is `14392`, which you include in the command as follows: `*PAE|GTI|CMD|||14392|*!PAE!*`. <br> <br> See the Sample Checksum Calculator to generate the checksum, or develop your own utility. |
+| `<checksum>` | An alpha-numeric string used to authorize each request. The checksum must be a decimal value calculated using the ASCII command string up to the delimiter preceding the checksum as a base value, and using the CRC-16 algorithm. <br> <br> For example, for a GTI command, use the following section of the command string as the base value: `*PAE|GTI|CMD|||`. The CRC-16 checksum calculated for this value is `14392`, which you include in the command as follows: `*PAE|GTI|CMD|||14392|*!PAE!*`. <br> <br> See the [Sample Checksum Calculator](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#Sample-Checksum-Calculator) to generate the checksum, or develop your own utility. |
 | `*!PAE!*` | *!PAE!* is the message terminator, used to indicate the end of the message.
 
 ## CPT (Cancel Payment Transaction)
@@ -313,7 +313,7 @@ Where `<response code>` is `00000000` for a successful response, or one of the f
 | 01A5	| No active payment.
 | 01A6	| Request to cancel payment failed.
 
-See Response Codes for more information.
+See [Response Codes](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#Response-Codes) for more information.
 
 ## DPT (Do Payment Transaction)
 
@@ -376,7 +376,7 @@ For example, when the application sends the DPT command, the device responds to 
 
 `*PAE|DPT|RESP|02010000|{"LCD_Code":13,"LCD_Msg":"INSERT CARD"}|59993|*!PAE!*`
 
-The following examples illustrate some common LCD messages. See LCD Codes and Messages for a complete list.
+The following examples illustrate some common LCD messages. See [LCD Codes and Messages](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#LCD-Codes-And-Messages) for a complete list.
 
 #### Sample DPT LCD Message Responses
 
@@ -444,7 +444,7 @@ Upon successful completion of a transaction, the response includes the authoriza
 | authorization	| 1, 3, 6 | The `authcode` returned to the CardPointe Gateway by the card issuer. |
 | bininfo | 1, 3, 6	| The card's BIN (bank identification number) information returned by the CardPointe Gateway. See the BIN response description in the CardPointe Gateway API for detailed information. |
 | cardToken	| 1, 3, 5, 6 | The CardSecure `token`, returned by the CardPointe Gateway. |
-| emvTags | 1, 3, 6	| The `emvTagData` array of receipt and EMV tag data (when applicable) returned from the processor. <br> <br> This data returned should be presented on a receipt if applicable, and recorded with the transaction details for future reference. <br> <br> See Printing Receipts Using Authorization Data in the CardPointe Integrated Terminal Developer Guides for detailed information. |
+| emvTags | 1, 3, 6	| The `emvTagData` array of receipt and EMV tag data (when applicable) returned from the processor. <br> <br> This data returned should be presented on a receipt if applicable, and recorded with the transaction details for future reference. <br> <br> See [Printing Receipts Using Authorization Data](../../docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md#Printing-Receipts-Using-Authorization-Data) in the [CardPointe Integrated Terminal Developer Guides](../../docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md) for detailed information. |
 | expiry | 1, 3, 6 | The card's expiration date in the format `MMYY`. |
 | externalTransactionID	| 1, 3, 5, 6 | The `orderID` included in the payment request. |
 | merchantID | 1, 3, 6 | The CardPointe merchant ID (MID) used in the request. |
@@ -479,7 +479,7 @@ The GCS response returns the device and application status in the following form
 *PAE|GCS|RESP|<response code>|{JSON response object}|<checksum>|*!PAE!*
 ```
 
-`<response code>` is 00000000 for a successful response, or one or more error codes if the command failed. See Response Codes for more information.
+`<response code>` is 00000000 for a successful response, or one or more error codes if the command failed. See [Response Codes](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#Response-Codes) for more information.
 
 `{JSON response object}` is a JSON-encoded string that includes the following fields:
 
@@ -503,7 +503,7 @@ The GCS response returns the device and application status in the following form
 
 ## GOT (Get Offline Transactions)
 
-The GOT request returns information on transactions that are currently stored while the unattended device is in Offline Mode.
+The GOT request returns information on transactions that are currently stored while the unattended device is in [Offline Mode](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#Handling-Offline-Payments).
 
 ### GOT Request Syntax
 
@@ -558,7 +558,7 @@ The GOT response returns the stored offline transaction details in the following
 *PAE|GOT|RESP|00000000|{"EMVPayments":"2021-10-22T19:24:28,2021-10-22T19:25:05,2021-10-22T19:27:22,2021-10-22T19:27:45,2021-10-22T19:28:27"}|54967|*!PAE!*
 ```
 
-The `<response code>` is `00000000` for a successful response, or one or more error codes if the command failed. See Response Codes for more information.
+The `<response code>` is `00000000` for a successful response, or one or more error codes if the command failed. See [Response Codes](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#Response-Codes) for more information.
 
 The `{JSON response object}` includes the following fields:
 
@@ -602,7 +602,7 @@ The GTI response returns the device and application details in the following for
 K81F Rev4","SerialNum":"103T662933","CompanyId":"00a2aa6d-5c4a-4ae1-ae48-f95e335550e1","ApplicationID":"ab02d9c6-64f1-48f6-8d50-245ee5aa71e8"}|59371|*!PAE!*
 ```
 
-The `<response code>` is `00000000` for a successful response, or one or more error codes if the command failed. See Response Codes for more information.
+The `<response code>` is `00000000` for a successful response, or one or more error codes if the command failed. See [Response Codes](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#Response-Codes) for more information.
 
 The `{JSON response object}` includes the following fields:
 
@@ -642,7 +642,7 @@ The RBT response returns a response code to indicate if the command was successf
 *PAE|RBT|RESP|<response code>||<checksum>|*!PAE!*
 ```
 
-The `<response code>` is `00000000` for a successful response, or one or more error codes if the command failed. See Response Codes for more information.
+The `<response code>` is `00000000` for a successful response, or one or more error codes if the command failed. See [Response Codes](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#Response-Codes) for more information.
 
 #### Sample RBT Response
 
