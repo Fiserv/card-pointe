@@ -90,6 +90,7 @@ Sample scripts are currently available in the following languages:
 
 - [Python](../../docs/documentation/CardPointeMobileSDKs.md#Pyhton-Toolkit)
 - [Node.js](../../docs/documentation/CardPointeMobileSDKs.md#Nodejs-Toolkit)
+
 These sample scripts provide the following CardPointe Gateway API request methods:
 
 - Authorization
