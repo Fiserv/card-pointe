@@ -5,7 +5,7 @@ The CardPointe Mobile iOS SDK seamlessly connects your iOS applications to CardS
 # What's New?
 
 <!-- theme: warning -->
-> See Getting Started, below, to download the latest version of the CardPointe Mobile iOS SDK.
+> See [Getting Started](../../docs/documentation/CardPointeMobileiOSSDKDeveloperGuide.md#Getting-Started), below, to download the latest version of the CardPointe Mobile iOS SDK.
 
 ## Version 5.2
 
@@ -35,7 +35,7 @@ A complete mobile payment integration consists of two components:
 - Tokenization is handled by the CardPointe Mobile SDK integrated with your mobile application.
 - Authorization is handled by host scripts integrated with your server application.
 
-See the CardPointe Mobile SDKs Developer Guide for detailed information on the overall solution, as well as example host scripts to help you get started with your server-side implementation.
+See the [CardPointe Mobile SDKs Developer Guide](../../docs/documentation/CardPointeMobileSDKs.md) for detailed information on the overall solution, as well as example host scripts to help you get started with your server-side implementation.
 
 ## Supported Devices
 
@@ -73,7 +73,7 @@ The CardPointe Mobile iOS SDK includes the following resources:
 
 Before you begin, ensure that you have the following:
 
-- **CardPointe Mobile iOS SDK** - See Getting Started to download the SDK.
+- **CardPointe Mobile iOS SDK** - See [Getting Started](../../docs/documentation/CardPointeMobileiOSSDKDeveloperGuide.md#Getting-Started) to download the SDK.
 - **Sample App** - Review the included sample applications to better understand the SDK integration.
 - **CardPointe Merchant ID and API credentials** - Contact integrationdelivery@fiserv.com if you do not already have an account.
 - **CardSecure Tokenization URL** - Your merchant ID must be associated with a CardSecure URL to send requests to CardSecure. 
@@ -106,9 +106,9 @@ The following table provides an overview of the features that you might want to 
 
 | Functionality | User Type | Component | Description |
 | --- | --- | --- | --- |
-| Stored Customer Profiles | Customer | Integrated Customer Profile UI | Integrates the CardPointe Gateway Profile service, allowing customers to securely store and manage their payment accounts. <br> <br> See the CardPointe Gateway Profile service documentation for more information on the profile service. <br> <br> See Integrating the Customer Profile UI for information on adding this feature to your application. |
-| Apple Pay Wallet Support | Customer | Apple Pay Integration | Adds the option to use Apple Pay wallet credentials and stored payment methods. <br> <br> See the Apple Pay Developer Guide for more information. |
-| Mobile Payment Reader Devices	| Merchant | iOS Swiper Implementation | An integrated mobile payment reader (swiper) device used to securely capture and encrypt card data prior to tokenization. <br> <br> See Supported Devices for information on the devices that are currently supported. <br> <br> See the iOS SDK Integration Guide for instructions for integrating mobile payment reader devices. |
+| Stored Customer Profiles | Customer | [Integrated Customer Profile UI](../../docs/documentation/CardPointeMobileiOSSDKDeveloperGuide.md#Integrating-The-Customer-Profile-UI) | Integrates the CardPointe Gateway Profile service, allowing customers to securely store and manage their payment accounts. <br> <br> See the CardPointe Gateway Profile service documentation for more information on the profile service. <br> <br> See [Integrating the Customer Profile UI](../../docs/documentation/CardPointeMobileiOSSDKDeveloperGuide.md#Integrating-The-Customer-Profile-UI) for information on adding this feature to your application. |
+| Apple Pay Wallet Support | Customer | [Apple Pay Integration](../../docs/documentation/ApplePayDeveloperGuide.md) | Adds the option to use Apple Pay wallet credentials and stored payment methods. <br> <br> See the [Apple Pay Developer Guide](../../docs/documentation/ApplePayDeveloperGuide.md) for more information. |
+| Mobile Payment Reader Devices	| Merchant | [iOS Swiper Implementation](../../docs/documentation/CardPointeMobileiOSSDKDeveloperGuide.md#Adding-Support-For-Mobile-Payment-Readers) | An integrated mobile payment reader (swiper) device used to securely capture and encrypt card data prior to tokenization. <br> <br> See [Supported Devices](../../docs/documentation/CardPointeMobileiOSSDKDeveloperGuide.md#Supported-Devices) for information on the devices that are currently supported. <br> <br> See the [iOS SDK Integration Guide](../../docs/documentation/CardPointeMobileiOSSDKDeveloperGuide.md#iOS-SDK-Integration-Guide) for instructions for integrating mobile payment reader devices. |
 
 # iOS Sample App User's Guide
 
@@ -280,7 +280,7 @@ To use a mobile payment reader (swiper) device, perform the following steps to i
 
     The swiper should initialize when the view appears. You can get the connection status using the optional methods in `BMSSwiperDelegate`.
 
-5) If you are using a VP3300 device, continue to Integrating a VP3300 Device.
+5) If you are using a VP3300 device, continue to [Integrating a VP3300 Device](../../docs/documentation/CardPointeMobileiOSSDKDeveloperGuide.md#Integrating-a-VP3300-Device).
 
 ## Integrating a VP3300 Device
 
@@ -428,4 +428,4 @@ You use the `BMSCardInfo` and `BMSAPI` classes to send a payment card data to Ca
 
     A token is generated for the account and returned to your application.
 
-3) Optionally, you can use `BMSAccount` to save an account for a profile on the CardPointe Gateway using the iOS SDK Integrated Customer Profile UI or CardPointe Gateway API.
+3) Optionally, you can use `BMSAccount` to save an account for a profile on the CardPointe Gateway using the [iOS SDK Integrated Customer Profile UI](../../docs/documentation/CardPointeMobileiOSSDKDeveloperGuide.md#Integrating-The-Customer-Profile-UI) or CardPointe Gateway API.
