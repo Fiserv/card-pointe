@@ -11,9 +11,13 @@ description: The following guides provide best practices and other supplemental 
 The CardPointe Integrated Terminal API allows developers the flexibility to accommodate a wide variety of business needs and specific use cases. Regardless of the intricacies of each implementation, a Terminal API integration generally involves the following workflow:
 
 1) [Connecting a Terminal](../../docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md#Connecting-a-Terminal)
+   
 2) [Connecting your Client](../../docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md#Connecting-your-Client)
+   
 3) [Establishing a Session](../../docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md#Establishing-a-Session)
+   
 4) [Setting the Terminal's Time](../../docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md#Setting-the-terminals-time)
+   
 5) [Getting a Token and Running a Payment](../../docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md#getting-a-token-and-running-a-payment)
 
 <!-- theme: warning -->
