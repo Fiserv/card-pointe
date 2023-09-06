@@ -175,7 +175,9 @@ A call to the `authCard` or `authManual` endpoint captures payment card data and
 Generally, an `authCard` or `authManual` request initiates the following sequence:
 
 1) The client application sends the request to the terminal service.
+   
 2) The terminal service sends a ping command to the terminal to verify the connection.
+   
 3) The terminal service sends a series of commands to the terminal, based on the options specified in the request.
 
     For example:
@@ -185,6 +187,7 @@ Generally, an `authCard` or `authManual` request initiates the following sequenc
     - The terminal prompts the user for a signature.
 
 4) The captured data is passed in an authorization request to the CardPointe Gateway, which returns the authorization response details.
+   
 5) The authorization response text (resptext) displays on the terminal (for example, "Approved").
 
 ### Tokenization Workflow (readCard and readManual)
@@ -194,7 +197,9 @@ A call to the `readCard` or `readManual` endpoint captures payment card data and
 Generally, a `readCard` or `readManual` request initiates the following sequence:
 
 1) The client application sends the request to the terminal service.
+   
 2) The terminal service sends a ping command to the terminal to verify the connection.
+   
 3) The terminal service sends a series of commands to the terminal, based on the options specified in the request.
 
     For example:
@@ -204,6 +209,7 @@ Generally, a `readCard` or `readManual` request initiates the following sequence
     - The terminal prompts the user for a signature.
 
 4) The terminal service returns the tokenized card number, signature, and any additional data to the client application.
+   
 5) The client application can then pass the token and cardholder data in an authorization request to the CardPointe Gateway to capture the funds for the transaction.
 
 ## Using the Terminal API Operational Endpoints
@@ -288,10 +294,14 @@ description: This feature is for testing purposes only. To permanently change yo
 <!-- type row-end -->
 
 1) Access the Admin Menu:
+   
     - Press **F** and enter the default password of **CCMerchant**.
     - Press **O** (green button) to confirm the password.
+      
 2) Press **O** (green button) to select **Settings**.
+   
 3) Press the **down arrow** to scroll down and press **O** (green button) to select **Beep**.
+   
 4) Use the number pad to enter a value for **Frequency (Hz)** and press the **down arrow** to scroll down and enter values for **Volume**, **Time On (ms)**, and **Time Off (ms)**. Reference the table below for the default values and acceptable ranges.
 
 | Parameter Name | Default | Range | Description |
