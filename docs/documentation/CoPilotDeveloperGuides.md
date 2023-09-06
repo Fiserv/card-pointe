@@ -20,8 +20,11 @@ The Copilot API is an interface into the CoPilot merchant management platform. Y
 The following process outlines the typical workflow for using the CoPilot API to create a merchant account and send the digital application to the owner for review and signing:
 
 1) Submit a request to the Token endpoint to obtain a bearer token needed for authentication.
+   
 2) Submit a `POST` request to the Merchant endpoint to create a new merchant account.
+   
 3) Store the CoPilot Merchant ID returned in the response, as it is needed in subsequent calls.
+   
 4) Submit a `PUT` request to the Signature endpoint to receive the link to the digital application.
 
 Provide the digital application URL to the merchant so that they may review and sign the application digitally using their web browser. Once signed, the account then automatically progresses through the remaining underwriting and boarding procedures.
