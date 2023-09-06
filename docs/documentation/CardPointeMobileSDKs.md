@@ -2,9 +2,9 @@
 
 The CardPointe Mobile SDKs seamlessly connect your mobile applications to CardSecure to securely encrypt and tokenize customers' payment card data. Tokens and associated payment details can then be retrieved by your server application and securely transmitted to the CardPointe Gateway for authorization.
 
-CardPointe Mobile SDKs are available for Androidtm and iOS apps, as well as server-side tool kits to help you get started with your server application.
+[CardPointe Mobile SDKs](../../docs/documentation/CardPointeMobileSDKs.md#CardPointe-Mobile-SDKs) are available for Androidtm and iOS apps, as well as [server-side tool kits](../../docs/documentation/CardPointeMobileSDKs.md#Server-Side-Host-Scripts) to help you get started with your server application.
 
-This guide provides an overview of the Mobile SDKs. See the CardPointe Mobile SDK Developer Guides for detailed information on integrating payments with your mobile app.
+This guide provides an overview of the Mobile SDKs. See the [CardPointe Mobile SDK Developer Guides](../../docs/documentation/CardPointeMobileSDKs.md#CardPointe-Mobile-SDKs) for detailed information on integrating payments with your mobile app.
 
 # Overview
 
@@ -15,11 +15,11 @@ A complete mobile payment integration consists of two components:
 
 ## Tokenization (Client-side)
 
-The CardPointe Mobile SDK installs alongside your mobile application, and uses CardSecure to tokenize and encrypt payment card data. Card data can be manually entered in the application or captured, using a supported mobile payment reader device. Payment card data is encrypted and tokenized without being exposed to your software application or server.
+The CardPointe Mobile SDK installs alongside your mobile application, and uses [CardSecure](../../docs/documentation/CardSecure.md) to tokenize and encrypt payment card data. Card data can be manually entered in the application or captured, using a [supported mobile payment reader device](../../docs/documentation/CardPointeMobileSDKs.md#Supported-Devices). Payment card data is encrypted and tokenized without being exposed to your software application or server.
 
 Additionally, tokens can be stored in customer profiles for use in subsequent transactions.
 
-See Understanding CardSecure Tokens for detailed information on how CardSecure tokens are created and used.
+See [Understanding CardSecure Tokens](../../docs/documentation/CardSecure.md#Understanding-CardSecure-Tokens) for detailed information on how CardSecure tokens are created and used.
 
 ## Authorization (Server-side)
 
@@ -27,7 +27,7 @@ The CardPointe Gateway REST clients install on your application server to integr
 
 Using a REST client, your sever authenticates with the CardPointe Gateway, makes authorization requests using tokens retrieved from the mobile app, and handles responses from the Gateway.
 
-See Server-side Host Scripts for information on using the CardPointe Gateway REST clients.
+See [Server-side Host Scripts](../../docs/documentation/CardPointeMobileSDKs.md#Server-Side-Host-Scripts) for information on using the CardPointe Gateway REST clients.
 
 See the CardPointe Gateway API documentation for more information on the features and capabilities of the CardPointe Gateway.
 
@@ -71,25 +71,25 @@ For detailed information on the CardPointe Mobile SDKs, see the Android and iOS 
 <!-- type: card 
 title: CardPointe Mobile iOS SDK Developer Guide
 description: Provides information for integrating the CardPointe Mobile SDK with your iOS app
-link:
+link: ?path=docs/documentation/CardPointeMobileiOSSDKDeveloperGuide.md
 -->
 
 <!-- type: card
 title: CardPointe Mobile Android SDK Developer Guide
 description: Provides information for integrating the CardPointe Mobile SDK with your Android app
-link:
+link: ?path=docs/documentation/CardPointeMobileAndroidSDKDeveloperGuide.md
 -->
 
 <!-- type: row-end -->
 
 # Server-Side Host Scripts
 
-As described in the [CardPointe Mobile SDK Overview](?path=../../../../docs/documentation/CardPointeMobileSDKs.md), your server-side application must retrieve the token from your mobile application to then use in an authorization request to the CardPointe Gateway to complete a payment. The following topics provide sample server-side scripts that you can use to integrate the necessary CardPointe Gateway API requests with your application.
+As described in the [CardPointe Mobile SDK Overview](../../docs/documentation/CardPointeMobileSDKs.md#Overview), your server-side application must retrieve the token from your mobile application to then use in an authorization request to the CardPointe Gateway to complete a payment. The following topics provide sample server-side scripts that you can use to integrate the necessary CardPointe Gateway API requests with your application.
 
 Sample scripts are currently available in the following languages:
 
-- Python
-- Node.js
+- [Python](../../docs/documentation/CardPointeMobileSDKs.md#Pyhton-Toolkit)
+- [Node.js](../../docs/documentation/CardPointeMobileSDKs.md#Nodejs-Toolkit)
 These sample scripts provide the following CardPointe Gateway API request methods:
 
 - Authorization
@@ -106,14 +106,7 @@ These sample scripts provide the following CardPointe Gateway API request method
 
 ## Python Toolkit
 
-<!-- type: row -->
-
-<!-- type: card
-title: Python Server-Side Toolkit ZIP
-link: ?path=assets/images/CardConnect-SDK-Toolkit.zip
--->
-
-<!-- type: row-end -->
+> [Python Server-Side Toolkit ZIP](../../assets/files/CardConnect-SDK-Toolkit.zip)
 
 ### Files in the CardConnectSDK Root Directory
 
@@ -151,14 +144,7 @@ The /examples subdirectory includes the following working sample scripts:
 
 ## Node.js Toolkit
 
-<!-- type: row -->
-
-<!-- type: card
-title: Node Server-Side Toolkit ZIP
-link: ?path=assets/images/Node-Server-Side-Toolkit.zip
--->
-
-<!-- type: row-end -->
+> [Node Server-Side Toolkit ZIP](../../assets/files/Node-Server-Side-Toolkit.zip)
 
 ### Files in the CardConnectSDK Root Directory
 
