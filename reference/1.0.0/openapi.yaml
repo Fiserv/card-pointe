@@ -186,10 +186,7 @@ components:
         }
       in: header
       required: false
-      description: This field is required only if devicedata is absent.
-                    One of the following,
-                      A clear or encrypted payment account number (PAN)
-                      An ACH routing and account number string in the format <routing>/<account> for eCheck transactions
+      description: This field is required only if devicedata is absent. It must contain either a clear or encrypted payment account number (PAN) or an ACH routing and account number string in the format <routing>/<account> for eCheck transactions.
                     If encryptionhandler is provided, the account is treated as an encrypted PAN.
     DeviceDataParam:
       x-model-version: 1.0
@@ -284,9 +281,7 @@ components:
       description: Error information
       properties:
         message: {
-          description: 'The message value included in the request.
-                        Returns a descriptive error message if the request failed.
-                        See Error Codes and Messages for a complete list of possible error codes and messages.',
+          description: 'The message value included in the request. Returns a descriptive error message if the request failed. See Error Codes and Messages for a complete list of possible error codes and messages.',
           type: string,
           example: Hello?
         }
@@ -360,32 +355,19 @@ components:
             account:
               type: string
               maxLength: 19
-              description: "One of the following:::
-                            - A clear or encrypted payment account number (PAN) [[BR]]
-                            - An ACH routing and account number string in the format <routing>/<account> for eCheck transactions[[BR]]
-                            If encryptionhandler is provided, the account is treated as an encrypted PAN."
+              description: "Must be either a clear or encrypted payment account number (PAN), an ACH routing and account number string in the format <routing>/<account> for eCheck transactions. If encryptionhandler is provided, the account is treated as an encrypted PAN."
             devicedata:
               type: object
-              description: "One of the following::
-                            - Encrypted track data retrieved using a card reader or terminal device (MSR/EMV/NFC)
-                            - Apple Pay payment token data (see the Apple Pay Developer Guide for detailed information)
-                            - Google Pay wallet payload (see the Google Pay Developer Guide for detailed information)"
+              description: "Must be either an encrypted track data retrieved using a card reader or terminal device (MSR/EMV/NFC), the Apple Pay payment token data (see the Apple Pay Developer Guide for detailed information), or the Google Pay wallet payload (see the Google Pay Developer Guide for detailed information)"
             singature:
               type: string
               description: Signature data, if captured. Data must be a Base64-encoded, Gzipped bitmap (BMP). 
             encryptionhandler:
               type: string
-              description: "One of the following:[[BR]]
-                              * For an encrypted PAN or ACH, specify **RSA**[[BR]]
-                              * For an Apple Pay payment token, specify **EC_APPLE_PAY**[[BR]]
-                              * For a Google Pay wallet payload, specify **EC_GOOGLE_PAY**"
+              description: "Must be either **RSA** (for an encrypted PAN or ACH), **EC_APPLE_PAY** (for an Apple Pay payment token), or **EC_GOOGLE_PAY** (for a Google Pay wallet payload)."
             expiry:
               type: integer
-              description: "Optional, the card expiration date. Must be a numeric string, in one of the following formats:
-                            * MMYY[[BR]]
-                            * YYYYM (for single-digit months)
-                            * YYYYMM[[BR]]
-                            * YYYYMMDD"
+              description: "Optional, the card expiration date. Must be a numeric string, in one of the following formats: **MMYY**, **YYYYM** (for single-digit months), **YYYYMM**, or **YYYYMMDD**"
             cvv:
               type: integer
               description: "Optional, the 3 or 4 digits card verification value (CVV).
