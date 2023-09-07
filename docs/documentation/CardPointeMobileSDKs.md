@@ -38,12 +38,17 @@ The following diagram illustrates the tokenization and payment flow using the Mo
 <!-- align: center -->
 ![Tokenization and Payment Flow Diagram](../../assets/images/SDK-Diagram-5_2022-09-14.png)
 
-1) Your mobile app collects payment card data from a connected mobile payment reader or by manual entry in the app and sends the data to CardSecure via the CardPointe Mobile SDK.
-2) CardSecure returns a token to the mobile app.
-3) The mobile app sends the token to your server, which is running a CardPointe Gateway REST client.
-4) Your server application uses the token to make an authorization request to the CardPointe Gateway, via the REST client.
-5) The CardPointe Gateway returns the authorization response to your server.
-6) Your server passes the authorization response to the mobile app.
+**1.** Your mobile app collects payment card data from a connected mobile payment reader or by manual entry in the app and sends the data to CardSecure via the CardPointe Mobile SDK.
+
+**2.** CardSecure returns a token to the mobile app.
+
+**3.** The mobile app sends the token to your server, which is running a CardPointe Gateway REST client.
+
+**4.** Your server application uses the token to make an authorization request to the CardPointe Gateway, via the REST client.
+
+**5.** The CardPointe Gateway returns the authorization response to your server.
+
+**6.** Your server passes the authorization response to the mobile app.
 
 ## PCI Compliance
 
