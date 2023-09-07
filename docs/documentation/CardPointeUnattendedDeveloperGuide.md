@@ -118,7 +118,7 @@ The following topics describe each of these payment flows in detail.
 
 To authorize and capture a payment, your application interacts with the unattended device as follows:
 
-1) Your application sends a DPT sale (`"paymentType":1`) request.
+**1.** Your application sends a DPT sale (`"paymentType":1`) request.
 
     For example, to capture a payment for $1, your application sends the following command: 
 
@@ -126,26 +126,31 @@ To authorize and capture a payment, your application interacts with the unattend
 
     See the [DPT Request Syntax](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#DPT-Request-Syntax) for detailed information on the PAE command format and supported commands.
 
-2) The PAE requests the payment card data from the unattended device.
-3) The PAE retrieves the encrypted card data from the device, and forms an authorization (with capture) request to the CardPointe Gateway, including the Merchant ID and API Authorization Key provisioned for the device.
-4) The PAE transmits the auth request and returns the response data from the CardPointe Gateway to your application. See the [DPT Response Syntax](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#DPT-Response-Syntax) for detailed information on the response data.
+**2.** The PAE requests the payment card data from the unattended device.
 
-    **Note**: _The response includes the_ `processorReference` _(the CardPointe Gateway_ `retref` _or retrieval reference number) for the transaction. You must store this value in order to look up, refund, or void the transaction._
+**3.** The PAE retrieves the encrypted card data from the device, and forms an authorization (with capture) request to the CardPointe Gateway, including the Merchant ID and API Authorization Key provisioned for the device.
 
-5) Your application presents a receipt or (or decline response) to the customer using the response data returned to your application.
+**4.** The PAE transmits the auth request and returns the response data from the CardPointe Gateway to your application. See the [DPT Response Syntax](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#DPT-Response-Syntax) for detailed information on the response data.
+
+   **Note**: _The response includes the_ `processorReference` _(the CardPointe Gateway_ `retref` _or retrieval reference number) for the transaction. You must store this value in order to look up, refund, or void the transaction._
+
+**5.** Your application presents a receipt or (or decline response) to the customer using the response data returned to your application.
 
 #### Authorize a Payment with Delayed Capture
 
 To authorize a payment, but delay the capture, your application interacts with the unattended device as follows:
 
-1) Your application sends a DPT Authorization-only (`"paymentType":6`) request. For example: `*PAE|DPT|CMD|1|{"OrderID":"A1B2C3", "paymentAmount":100, "paymentType":6, "paymentUser":"John"}|50955|*!PAE!*`
+**1.** Your application sends a DPT Authorization-only (`"paymentType":6`) request. For example: `*PAE|DPT|CMD|1|{"OrderID":"A1B2C3", "paymentAmount":100, "paymentType":6, "paymentUser":"John"}|50955|*!PAE!*`
 
     See the [DPT Request Syntax](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#DPT-Request-Syntax) for detailed information on the PAE command format and supported commands.
 
-2) The PAE requests the payment card data from the unattended device.
-3) The PAE retrieves the encrypted card data from the device, and forms an authorization request to the CardPointe Gateway, including the Merchant ID and API Authorization Key provisioned for the device.
-4) The PAE transmits the auth request and returns the response data from the CardPointe Gateway to your application. See the [DPT Response Syntax](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#DPT-Response-Syntax) for detailed information on the response data.
-5) Your application can use the `cardToken` and `processorCode` (authcode) from the response to make a delayed capture request using the CardPointe Gateway API.
+**2.** The PAE requests the payment card data from the unattended device.
+
+**3.** The PAE retrieves the encrypted card data from the device, and forms an authorization request to the CardPointe Gateway, including the Merchant ID and API Authorization Key provisioned for the device.
+
+**4.** The PAE transmits the auth request and returns the response data from the CardPointe Gateway to your application. See the [DPT Response Syntax](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#DPT-Response-Syntax) for detailed information on the response data.
+
+**5.** Your application can use the `cardToken` and `processorCode` (authcode) from the response to make a delayed capture request using the CardPointe Gateway API.
 
 #### Refund a Payment without Reference (Forced Credit)
 
@@ -154,7 +159,7 @@ To authorize a payment, but delay the capture, your application interacts with t
 
 To refund a payment using the customer's card, instead of using the retrieval reference number (`retref`), your application interacts with the unattended device as follows:
 
-1) Your application sends a DPT refund (`"paymentType":3`) request.
+**1.** Your application sends a DPT refund (`"paymentType":3`) request.
 
     For example, to refund a $1 payment, your application sends the command `*PAE|DPT|CMD|1|{"orderId":"A1B2C3", "paymentAmount":100, "paymentType":3, "paymentUser”:”John”}|09282|*!PAE!*`
 
@@ -162,10 +167,13 @@ To refund a payment using the customer's card, instead of using the retrieval re
 
     See the [DPT Request Syntax](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#DPT-Request-Syntax) for detailed information on the PAE request format and supported payment types.
 
-2) The PAE requests the payment card data from the unattended device.
-3) The PAE retrieves the encrypted card data from the device, and forms a negative authorization request to the CardPointe Gateway, including the Merchant ID and API Authorization Key provisioned for the device.
-4) The PAE transmits the auth request and returns the response data from the CardPointe Gateway to your application. See the [DPT Response Syntax](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#DPT-Response-Syntax) for detailed information on the response data.
-5) Your application presents a receipt or (or decline response) to the customer using the response data returned to your application.
+**2.** The PAE requests the payment card data from the unattended device.
+
+**3.** The PAE retrieves the encrypted card data from the device, and forms a negative authorization request to the CardPointe Gateway, including the Merchant ID and API Authorization Key provisioned for the device.
+
+**4.** The PAE transmits the auth request and returns the response data from the CardPointe Gateway to your application. See the [DPT Response Syntax](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#DPT-Response-Syntax) for detailed information on the response data.
+
+**5.** Your application presents a receipt or (or decline response) to the customer using the response data returned to your application.
 
 #### Refund or Void a Payment with Reference
 
@@ -179,16 +187,19 @@ See the refund and void endpoint descriptions for detailed information.
 
 To validate and tokenize a payment card, your application interacts with the unattended device as follows:
 
-1) Your application sends a DPT tokenization (`"paymentType":5`) request. For example: `*PAE|DPT|CMD|1|{"OrderID":"A1B2C3", "paymentAmount":100, "paymentType":5, "paymentUser":"John"}|02519|*!PAE!*`
+**1.** Your application sends a DPT tokenization (`"paymentType":5`) request. For example: `*PAE|DPT|CMD|1|{"OrderID":"A1B2C3", "paymentAmount":100, "paymentType":5, "paymentUser":"John"}|02519|*!PAE!*`
 
-    **Note**: _The_ `paymentAmount`, `paymentType`, _and_ `paymentUser` _fields are required to preserve the message format, but the values are ignored for a tokenization request._
+   **Note**: _The_ `paymentAmount`, `paymentType`, _and_ `paymentUser` _fields are required to preserve the message format, but the values are ignored for a tokenization request._
 
-    See the [DPT Request Syntax](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#DPT-Request-Syntax) for detailed information on the PAE command format and supported commands.
+   See the [DPT Request Syntax](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#DPT-Request-Syntax) for detailed information on the PAE command format and supported commands.
 
-2) The PAE requests the payment card data from the unattended device.
-3) The PAE retrieves the encrypted card data from the device, and a tokenization request to CardSecure.
-4) The PAE returns the response data , including the token, from CardSecure to your application. See the [DPT Response Syntax](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#DPT-Response-Syntax) for detailed information on the response data.
-5) Your application can use the token to make a payment request or create a customer profile using the CardPointe Gateway API.
+**2.** The PAE requests the payment card data from the unattended device.
+
+**3.** The PAE retrieves the encrypted card data from the device, and a tokenization request to CardSecure.
+
+**4.** The PAE returns the response data , including the token, from CardSecure to your application. See the [DPT Response Syntax](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#DPT-Response-Syntax) for detailed information on the response data.
+
+**5.** Your application can use the token to make a payment request or create a customer profile using the CardPointe Gateway API.
 
 ## Handling Offline Payments
 
