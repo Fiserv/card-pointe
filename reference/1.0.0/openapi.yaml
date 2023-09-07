@@ -302,7 +302,7 @@ components:
         errorcode: {
           description: 'Error response code from the gateway',
           type: integer,
-          example: 049
+          example: 49
         }
     BadRequestError:
       x-model-version: 1.0
@@ -316,7 +316,7 @@ components:
         errorcode: {
           description: 'Error response code from the gateway',
           type: integer,
-          example: 065
+          example: 65
         }
     ErrorCode: 
       description: An error code. Returns "00" if successful. All error codes contain four digits. Two zeros precede the codes.
