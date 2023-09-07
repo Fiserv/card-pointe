@@ -76,7 +76,7 @@ Whether you are developing a new application or supporting an existing integrati
 
 We provide access to a user acceptance testing (UAT) environment, which allows you to test your application using sample data and emulated responses. Before your application can be considered production-ready, you must complete your acceptance testing in this environment to ensure that the application is functioning as intended.
 
-See [Testing your Integration](?path=docs/documentation/CardPointeGatewayDeveloperGuides.md#Testing-Your-Integration) for more information on testing in the UAT environment.
+See [Testing your Integration](CardPointeGatewayDeveloperGuides.md#Testing-Your-Integration) for more information on testing in the UAT environment.
 
 Additionally, it is a common best practice to schedule regular regression testing in your development and support lifecycle. We periodically introduces new features and [backwards compatible](#Ensuring-Backwards-Compatibility) API changes, which are described in the What's New? topic in the API documentation. 
 
