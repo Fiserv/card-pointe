@@ -977,4 +977,4 @@ The following response codes indicate that neither the street address nor the po
 
 When testing your CardPointe Gateway or CardPointe Integrated Terminal integration in the UAT environment, you can use amount-driven response codes to emulate processor-specific authorization responses that you might encounter in the production environment. This allows you to receive and handle response codes that you would not otherwise encounter in your test environment.
 
-See [Test Cases](../../docs/documentation/CardPointeGatewayDeveloperGuides.md#Test-Cases) in the [CardPointe Gateway API Developer Guides](../../docs/documentation/CardPointeGatewayDeveloperGuides.md) for detailed information on testing with amount-driven response codes and other useful test cases.
+See [Test Cases](CardPointeGatewayDeveloperGuides.md#Test-Cases) in the [CardPointe Gateway API Developer Guides](CardPointeGatewayDeveloperGuides.md) for detailed information on testing with amount-driven response codes and other useful test cases.
