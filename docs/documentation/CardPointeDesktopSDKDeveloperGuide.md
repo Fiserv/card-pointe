@@ -11,10 +11,10 @@ The CardPointe Desktop SDK integration consists of the following components:
 - The CardPointe Desktop EMV/MSR card reader (ID TECH Augusta)
 - Your point-of-sale application, which integrates one or more of the following services to tokenize payment cards and authorize payments:
     - CardSecure API
-    - [Hosted iFrame Tokenizer](../../docs/documentation/HostediFrameTokenizer.md)
+    - [Hosted iFrame Tokenizer](HostediFrameTokenizer.md)
     - CardPointe Gateway API
       
-See the [CardPointe Desktop Integration Guide](../../docs/documentation/CardPointeDesktopSDKDeveloperGuide.md#CardPointe-Desktop-Integration-Guide), below, for more information.
+See the [CardPointe Desktop Integration Guide](#CardPointe-Desktop-Integration-Guide), below, for more information.
 
 ## CardPointe Desktop Card Reader
 
@@ -39,7 +39,7 @@ The CardPointe Desktop card reader is preconfigured with the following required 
 The CardPointe Desktop solution supports the following integration methods, providing flexible tokenization and payment functions to your application.
 
 - **CardSecure API** - Integrate the CardPointe Desktop device and CardSecure API with your application to capture and tokenize encrypted MSR track or EMV tag data.
-- **Hosted iFrame Tokenizer** - Integrate the [Hosted iFrame Tokenizer](../../docs/documentation/HostediFrameTokenizer.md) and CardPointe Desktop device with your web application, to easily capture and tokenize card data using the secure iFrame.
+- **Hosted iFrame Tokenizer** - Integrate the [Hosted iFrame Tokenizer](HostediFrameTokenizer.md) and CardPointe Desktop device with your web application, to easily capture and tokenize card data using the secure iFrame.
 - **CardPointe Gateway API** - Use the CardPointe Gateway API to authorize payments using the tokens you generate from the CardSecure API or Hosted iFrame Tokenizer. Alternatively, streamline your integration by using the CardPointe Desktop device to capture track data to pass in an authorization request. The response returns a token to your application, as well as the transaction details.
 
 ## Requirements
@@ -60,7 +60,7 @@ Click the Run in Postman button to download the sample collection:
 
 ## Printing Receipts
 
-If you use the CardPointe Desktop solution to accept payments, you will need to provide your customers with either print or digital receipts. To do so, you can retrieve certain data from the authorization response to print on the receipt. See [Printing Receipts Using Authorization Data](../../docs/documentation/CardPointeGatewayDeveloperGuides.md#Printing-Receipts-Using-Authorization-Data) for detailed information.
+If you use the CardPointe Desktop solution to accept payments, you will need to provide your customers with either print or digital receipts. To do so, you can retrieve certain data from the authorization response to print on the receipt. See [Printing Receipts Using Authorization Data](CardPointeGatewayDeveloperGuides.md#Printing-Receipts-Using-Authorization-Data) for detailed information.
 
 ## Sample Tokenization Requests
 
