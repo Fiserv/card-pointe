@@ -35,17 +35,17 @@ Additionally, the sample collection includes test scripts, which gather specific
 
 To configure environment variables, do the following in Postman:
 
-1) Click the gear icon to open the Manage Environments menu.
+**1.** Click the gear icon to open the Manage Environments menu.
 
 <!-- align: center -->
 ![CCG Postman Sample](../../assets/images/CCG_Postman_Sample_2.png)
 
-2) On the Manage Environments menu, enter your merchant-specific values for each variable.
+**2.** On the Manage Environments menu, enter your merchant-specific values for each variable.
 
 <!-- align: center -->
 ![Gateway PM Environment](../../assets/images/Gateway-PM-Environment.png)
 
-3) Click **Update**
+**3.** Click **Update**
 
 <!-- theme: warning -->
 > See the [Postman user documentation](https://learning.postman.com/docs/introduction/overview/) for detailed information on using Postman to test APIs.
@@ -346,10 +346,11 @@ Similarly to testing specific authorization response scenarios using amount-driv
 
 > Like in Production, UAT transactions cannot be refunded until they have settled, unless the MID is enabled to refund unsettled transactions.
 
-To test a refund decline, do the following:
+**To test a refund decline, do the following:**
 
-1) Run an authorization request including `"capture":"y"` and `"amount":"2000.00"` or greater.
-2) Run a refund request including the `retref` from the authorization response and `"amount":"1nnn.00"`, where `nnn` is the 2 (including leading 0) or 3-digit decline response code you want to receive.
+**1.** Run an authorization request including `"capture":"y"` and `"amount":"2000.00"` or greater.
+
+**2.** Run a rfund request including the `retref` from the authorization response and `"amount":"1nnn.00"`, where `nnn` is the 2 (including leading 0) or 3-digit decline response code you want to receive.
 
     For example, to return a RPCT 500 "Decline" response, include `"amount":"1500.00"` in the refund request.
 
@@ -709,7 +710,7 @@ The following process provides a general overview of the steps required to set u
 
 Ensure that you review and comply with the card brand requirements for obtaining consent to store and reuse cardholder data. See the Visa and Mastercard Stored Credential Framework Mandate guide for detailed information.
 
-1) Tokenize the customer's payment data.
+**1.** Tokenize the customer's payment data.
 
     Depending on your existing integration, there are several ways to tokenize payment data.
 
@@ -724,15 +725,15 @@ Ensure that you review and comply with the card brand requirements for obtaining
     - Gather and tokenize the payment card data using the [Hosted iFrame Tokenizer](../../docs/documentation/HostediFrameTokenizer.md).
     - Use a CardPointe Integrated Terminal and the Terminal API readCard or readManual service endpoint.
 
-2) Store the token for reuse.
+**2.** Store the token for reuse.
 
     You can either store tokens and customer data in your own database, or you can use the CardPointe Gateway API’s profile service endpoint to create and store customer profiles in the CardPointe Gateway's secure vault. You can skip this step if you created a profile in step 1.
    
-3) Gather your billing requirements.
+**3.** Gather your billing requirements.
 
     Determine the start date and length of the billing plan, the payment amount and frequency, and any additional information that you'll need to include in your requests.
 
-4) Build your Cron job to schedule authorization requests to the CardPointe Gateway API.
+**4.** Build your Cron job to schedule authorization requests to the CardPointe Gateway API.
 
 > Authorization requests for recurring billing payments **must** include the following values:
 >
@@ -896,9 +897,9 @@ When you use the CardPointe Gateway API's auth endpoint, to make an authorizatio
 
 Whether your application is using the Terminal API authCard request, or the CardPointe Gateway API auth request, it should be designed to handle the following scenarios:
 
-1) A "Timed out" response returned successfully (HTTP 200) from the CardPointe Gateway auth endpoint or the Terminal API authCard endpoint.
+**1.** A "Timed out" response returned successfully (HTTP 200) from the CardPointe Gateway auth endpoint or the Terminal API authCard endpoint.
 
-2) No response returned successfully from the CardPointe Gateway auth endpoint.
+**2.** No response returned successfully from the CardPointe Gateway auth endpoint.
 
 #### Timed Out Response
 
@@ -1137,13 +1138,13 @@ The request file submitted to BAS will contain all required data elements within
 
 ## Client Onboarding Checklist
 
-1) [Obtain the CardPointe Gateway PGP public key](../../docs/documentation/CardPointeGatewayDeveloperGuides.md#PGP-Keys). Clients must encrypt all request files using this key.
+**1.** [Obtain the CardPointe Gateway PGP public key](../../docs/documentation/CardPointeGatewayDeveloperGuides.md#PGP-Keys). Clients must encrypt all request files using this key.
    
-2) Send your client pgp public key to integrationdelivery@fiserv.com. Your public key will be used to encrypt response files.
+**2.** Send your client pgp public key to integrationdelivery@fiserv.com. Your public key will be used to encrypt response files.
    
-3) Obtain your SFTP credentials required to submit requests and poll for response files
+**3.** Obtain your SFTP credentials required to submit requests and poll for response files
    
-4) Obtain your CardPointe Gateway API URL and credentials from.
+**4.** Obtain your CardPointe Gateway API URL and credentials from.
 
 ## Supported Authorization Types
 
@@ -1412,12 +1413,13 @@ You submit request files and retrieve response files using Secure Exchange, via 
 
 The following procedure describes each folder's purpose:
 
-1) You upload an encrypted request file into the **/request** directory.
+**1.** You upload an encrypted request file into the **/request** directory.
 
 	BAS decrypts the file and runs authorization requests, logging each response in a new response file.
-2) You poll the server for encrypted responses files in the **/response** directory.
 
-3) If an error occurs when attempting to decrypt the pgp file, the encrypted request file is placed in the **/dlc** directory.
+**3.** You poll the server for encrypted responses files in the **/response** directory.
+
+**4.** If an error occurs when attempting to decrypt the pgp file, the encrypted request file is placed in the **/dlc** directory.
 
 	Contact Support if you encounter this scenario.
 
@@ -1425,10 +1427,10 @@ The following procedure describes each folder's purpose:
 
 To view reporting details for processed batches in CardPointe, do the following:
 
-1) Log in to CardPointe and access the merchant account.
+**1.** Log in to CardPointe and access the merchant account.
   
-2) Click **Reporting** in the menu bar, and select the **Transactions** tab.
+**2.** Click **Reporting** in the menu bar, and select the **Transactions** tab.
    
-3) Click the **Front End** column header and select **SecureExchange** to display the transactions processed by BAS.
+**3.** Click the **Front End** column header and select **SecureExchange** to display the transactions processed by BAS.
    
 See the CardPointe Web App support page for more information on using CardPointe.
