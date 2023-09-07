@@ -9,20 +9,20 @@ The CoPilot API Billing Plan endpoints allow you to create and manage recurring 
 
 The following process provides a general overview of the steps required to set up a recurring payment schedule using the CoPilot API.
 
-1) Tokenize the customer's payment data and create a profile. Depending on your existing integration, there are several ways to tokenize payment data and create a payment profile:
+**1.** Tokenize the customer's payment data and create a profile. Depending on your existing integration, there are several ways to tokenize payment data and create a payment profile:
 
-    - Use the customer’s payment card or ACH payment data to make a CardPointe Gateway API authorization request including `"profile" : "y"` to create a stored profile (optionally, include `"capture":"y"` to also capture a payment). The authorization response includes the `profileid` and `acctid` for the new profile.
-    - Use the Hosted iFrame Tokenizer to gather and tokenize the payment data, then use the CardPointe Gateway API to create a profile.
-    - Use a CardPointe Integrated Terminal and the Terminal API authCard or authManual request, including `"createProfile":"true"`, to accept a payment and create a profile.
+- Use the customer’s payment card or ACH payment data to make a CardPointe Gateway API authorization request including `"profile" : "y"` to create a stored profile (optionally, include `"capture":"y"` to also capture a payment). The authorization response includes the `profileid` and `acctid` for the new profile.
+- Use the Hosted iFrame Tokenizer to gather and tokenize the payment data, then use the CardPointe Gateway API to create a profile.
+- Use a CardPointe Integrated Terminal and the Terminal API authCard or authManual request, including `"createProfile":"true"`, to accept a payment and create a profile.
 
-2) Take note of the `profileid` and `acctid` generated during profile creation, as these fields are required to create the billing plan.
+**2.** Take note of the `profileid` and `acctid` generated during profile creation, as these fields are required to create the billing plan.
 
 <!-- theme: warning -->
 > Note that the CardPointe Gateway stores these fields as `profileid` and `acctid`; however the CoPilot Billing Plan endpoint refers to these values as `profileId` and `acctId`.
 
-3) Gather your billing requirements. Determine the start date and length of the billing plan, the payment amount and frequency, and any additional information that you'll need to include in your requests.
+**3.** Gather your billing requirements. Determine the start date and length of the billing plan, the payment amount and frequency, and any additional information that you'll need to include in your requests.
 
-4) Call the Create Billing Plan endpoint to create the billing plan. Specify the `profileID` and `acctId` Billing Plan parameters as described in the Billing Plan Definition.
+**4.** Call the Create Billing Plan endpoint to create the billing plan. Specify the `profileID` and `acctId` Billing Plan parameters as described in the Billing Plan Definition.
 
 # Using the Billing Plan API
 
