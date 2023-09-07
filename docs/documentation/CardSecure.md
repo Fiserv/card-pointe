@@ -8,7 +8,7 @@ description: The following guides provide information on CardSecure, tokens, and
 
 # Overview
 
-CardSecure® is the CardPointe platform's P2PE-validated encryption and tokenization solution, and is at the center of all integrated payment solutions. Whether you use a CardPointe Integrated Payments solution to securely accept card-present transactions with your integrated point-of-sale, or the Hosted iFrame Tokenizer or CardSecure API to extend secure eCommerce payments to online customers, CardSecure allows you to accept sensitive payment data securely, with reduced PCI scope.
+CardSecure® is the CardPointe platform's P2PE-validated encryption and tokenization solution, and is at the center of all integrated payment solutions. Whether you use a [CardPointe Integrated Payments solution](https://cardconnect.com/cardpointe) to securely accept card-present transactions with your integrated point-of-sale, or the [Hosted iFrame Tokenizer](HostediFrameTokenizer.md) or CardSecure API to extend secure eCommerce payments to online customers, CardSecure allows you to accept sensitive payment data securely, with reduced PCI scope.
 
 # Understanding CardSecure Tokens
 
@@ -52,7 +52,7 @@ See the following guides for more information and integration details:
 <!-- type: card 
 title: CardPointe Mobile SDKs
 description: Provides an overview of the CardPointe Mobile SDKs solution for integrating secure payments in your mobile app
-link: ?path=../../../../docs/documentation/CardPointeMobileSDKs.md
+link: ?path=docs/documentation/CardPointeMobileSDKs.md
 -->
 
 <!-- type: row-end -->
@@ -62,13 +62,13 @@ link: ?path=../../../../docs/documentation/CardPointeMobileSDKs.md
 <!-- type: card
 title: CardPointe Mobile Andriod SDK Developer Guide
 description: Provides information for integrating the CardPointe Mobile SDK with your Android app
-link: 
+link: ?path=docs/documentation/CardPointeMobileAndroidSDKDeveloperGuide.md
 -->
 
 <!-- type: card
 title: CardPointe Mobile iOS SDK Developer Guide
 description: Provides information for integrating the CardPointe Mobile SDK with your iOS app
-link: 
+link: ?path=docs/documentation/CardPointeMobileiOSSDKDeveloperGuide.md
 -->
 
 <!-- type: row-end -->
@@ -124,7 +124,7 @@ If you are using a CardPointe Integrated Terminal to process payments, you can u
 
 ### Using CardSecure
 
-If your software directly integrates CardSecure, using the CardSecure API, Hosted iFrame Tokenizer, or [CardPointe Mobile SDKs](?path=../../../../docs/documentation/CardPointeMobileSDKs.md), your software passes the gift card number to CardSecure, which matches the BIN with the whitelisted BIN range and returns the unencrypted card number, which your software uses to complete the transaction.
+If your software directly integrates CardSecure, using the CardSecure API, [Hosted iFrame Tokenizer](HostediFrameTokenizer.md), or [CardPointe Mobile SDKs](CardPointeMobileSDKs.md), your software passes the gift card number to CardSecure, which matches the BIN with the whitelisted BIN range and returns the unencrypted card number, which your software uses to complete the transaction.
 
 > Notes:
 > - Unlike a credit or debit card transaction, CardSecure does not encrypt or tokenize the gift card account number.
