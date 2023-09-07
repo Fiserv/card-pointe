@@ -10,15 +10,15 @@ description: The following guides provide best practices and other supplemental 
 
 The CardPointe Integrated Terminal API allows developers the flexibility to accommodate a wide variety of business needs and specific use cases. Regardless of the intricacies of each implementation, a Terminal API integration generally involves the following workflow:
 
-1) [Connecting a Terminal](../../docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md#Connecting-a-Terminal)
+**1.** [Connecting a Terminal](../../docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md#Connecting-a-Terminal)
    
-2) [Connecting your Client](../../docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md#Connecting-your-Client)
+**2.** [Connecting your Client](../../docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md#Connecting-your-Client)
    
-3) [Establishing a Session](../../docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md#Establishing-a-Session)
+**3.** [Establishing a Session](../../docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md#Establishing-a-Session)
    
-4) [Setting the Terminal's Time](../../docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md#Setting-the-terminals-time)
+**4.** [Setting the Terminal's Time](../../docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md#Setting-the-terminals-time)
    
-5) [Getting a Token and Running a Payment](../../docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md#getting-a-token-and-running-a-payment)
+**5.** [Getting a Token and Running a Payment](../../docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md#getting-a-token-and-running-a-payment)
 
 <!-- theme: warning -->
 > See the [API Connectivity Guide](../../docs/documentation/APIConnectivityGuide.md) for general information on connecting to the Terminal API and related services.
@@ -111,14 +111,14 @@ Once you have received a CardPointe Integrated Terminal device and API key, you 
 
 To configure environment variables, do the following in Postman:
 
-1) Select the **Terminal API UAT Environment**, then click the eye icon to open the environment.
+**1.** Select the **Terminal API UAT Environment**, then click the eye icon to open the environment.
 
 <!-- align: center -->
 ![Bolt Terminal Postman](../../assets/images/Bolt_Terminal_Postman_Updated.png)
 
-2) Click **Edit** to open the Manage Environments menu.
+**2.** Click **Edit** to open the Manage Environments menu.
 
-3) On the Manage Environments menu, enter your merchant-specific values for each variable, then click **Update**.
+**3.** On the Manage Environments menu, enter your merchant-specific values for each variable, then click **Update**.
 
 <!-- align: center -->
 ![Bolt Terminal Postman Environment](../../assets/images/Bolt_Terminal_Postman_Environment_Updated.png)
@@ -174,21 +174,21 @@ A call to the `authCard` or `authManual` endpoint captures payment card data and
 
 Generally, an `authCard` or `authManual` request initiates the following sequence:
 
-1) The client application sends the request to the terminal service.
+**1.** The client application sends the request to the terminal service.
    
-2) The terminal service sends a ping command to the terminal to verify the connection.
+**2.** The terminal service sends a ping command to the terminal to verify the connection.
    
-3) The terminal service sends a series of commands to the terminal, based on the options specified in the request.
+**3.** The terminal service sends a series of commands to the terminal, based on the options specified in the request.
 
-    For example:
+   For example:
 
-    - The terminal displays the transaction amount and prompts the user to confirm.
-    - The terminal prompts the user to swipe/insert/tap or manually enter the card data.
-    - The terminal prompts the user for a signature.
+   - The terminal displays the transaction amount and prompts the user to confirm.
+   - The terminal prompts the user to swipe/insert/tap or manually enter the card data.
+   - The terminal prompts the user for a signature.
 
-4) The captured data is passed in an authorization request to the CardPointe Gateway, which returns the authorization response details.
+**4.** The captured data is passed in an authorization request to the CardPointe Gateway, which returns the authorization response details.
    
-5) The authorization response text (resptext) displays on the terminal (for example, "Approved").
+**5.** The authorization response text (resptext) displays on the terminal (for example, "Approved").
 
 ### Tokenization Workflow (readCard and readManual)
 
@@ -196,21 +196,21 @@ A call to the `readCard` or `readManual` endpoint captures payment card data and
 
 Generally, a `readCard` or `readManual` request initiates the following sequence:
 
-1) The client application sends the request to the terminal service.
+**1.** The client application sends the request to the terminal service.
    
-2) The terminal service sends a ping command to the terminal to verify the connection.
+**2.** The terminal service sends a ping command to the terminal to verify the connection.
    
-3) The terminal service sends a series of commands to the terminal, based on the options specified in the request.
+**3.** The terminal service sends a series of commands to the terminal, based on the options specified in the request.
 
-    For example:
+   For example:
 
-    - The terminal displays the transaction amount and prompts the user to confirm.
-    - The terminal prompts the user to swipe/insert/tap or manually enter the card data.
-    - The terminal prompts the user for a signature.
+   - The terminal displays the transaction amount and prompts the user to confirm.
+   - The terminal prompts the user to swipe/insert/tap or manually enter the card data.
+   - The terminal prompts the user for a signature.
 
-4) The terminal service returns the tokenized card number, signature, and any additional data to the client application.
+**4.** The terminal service returns the tokenized card number, signature, and any additional data to the client application.
    
-5) The client application can then pass the token and cardholder data in an authorization request to the CardPointe Gateway to capture the funds for the transaction.
+**5.** The client application can then pass the token and cardholder data in an authorization request to the CardPointe Gateway to capture the funds for the transaction.
 
 ## Using the Terminal API Operational Endpoints
 
@@ -293,16 +293,16 @@ description: This feature is for testing purposes only. To permanently change yo
 
 <!-- type row-end -->
 
-1) Access the Admin Menu:
+**1.** Access the Admin Menu:
    
     - Press **F** and enter the default password of **CCMerchant**.
     - Press **O** (green button) to confirm the password.
       
-2) Press **O** (green button) to select **Settings**.
+**2.** Press **O** (green button) to select **Settings**.
    
-3) Press the **down arrow** to scroll down and press **O** (green button) to select **Beep**.
+**3.** Press the **down arrow** to scroll down and press **O** (green button) to select **Beep**.
    
-4) Use the number pad to enter a value for **Frequency (Hz)** and press the **down arrow** to scroll down and enter values for **Volume**, **Time On (ms)**, and **Time Off (ms)**. Reference the table below for the default values and acceptable ranges.
+**4.** Use the number pad to enter a value for **Frequency (Hz)** and press the **down arrow** to scroll down and enter values for **Volume**, **Time On (ms)**, and **Time Off (ms)**. Reference the table below for the default values and acceptable ranges.
 
 | Parameter Name | Default | Range | Description |
 | --- | --- | --- | --- |
@@ -311,8 +311,9 @@ description: This feature is for testing purposes only. To permanently change yo
 | Time On (ms) | 250 | 10-5,000 | Controls the length of each single beep. |
 | Time Off (ms) | 250 | 10-5,000 | Controls the length of time between each beep. |
 
-5) Press **O** (green button) when finished.
-6) The terminal displays **Beep parameters have been updated** and beeps several times to confirm the new settings.
+**5.** Press **O** (green button) when finished.
+
+**6.** The terminal displays **Beep parameters have been updated** and beeps several times to confirm the new settings.
 
 # Sharing a Terminal Between POS Systems
 
@@ -679,25 +680,25 @@ Capturing signatures requires a direct integration to the CardPointe Gateway API
 
 To run an authorization and capture a signature at the same time, do the following:
 
-1) Call the Terminal API authCard or authManual endpoint and include the **includeSignature = true** parameter.
+**1.** Call the Terminal API authCard or authManual endpoint and include the **includeSignature = true** parameter.
 
    The signature prompt and capture are integrated into the command sequence that the Terminal API sends to the terminal, and the authorization response and signature data are returned to your software.
    
-2) Call the CardPointe Gateway API's signatureCapture endpoint, including the `retref` and signature returned in the authorization response, to add the signature to the transaction record.
+**2.** Call the CardPointe Gateway API's signatureCapture endpoint, including the `retref` and signature returned in the authorization response, to add the signature to the transaction record.
 
 ### Capturing a Signature After a Transaction
 
 To run an authorization and capture a signature later, do the following
 
-1) Call the Terminal API authCard or authManual endpoint and include the **includeSignature = false** parameter.
+**1.** Call the Terminal API authCard or authManual endpoint and include the **includeSignature = false** parameter.
 
     The authorization response is returned to your software.
    
-3) Call the Terminal API readSignature endpoint to prompt for and capture the cardholder's signature.
+**2.** Call the Terminal API readSignature endpoint to prompt for and capture the cardholder's signature.
 
     The signature data is returned to your software.
    
-4) Call the CardPointe Gateway API signatureCapture endpoint, including the `retref` and signature returned in the authorization response, to add the signature to the transaction record.
+**3.** Call the CardPointe Gateway API signatureCapture endpoint, including the `retref` and signature returned in the authorization response, to add the signature to the transaction record.
 
 ## Detecting MSR Transactions
 
@@ -705,11 +706,11 @@ If you only want to capture a signature for transactions using MSR (magnetic-str
 
 For example, do the following:
 
-1) Call the Terminal API authCard endpoint and include the **includeSignature = false** parameter.
+**1.** Call the Terminal API authCard endpoint and include the **includeSignature = false** parameter.
 
     The authorization response is returned to your software. If the authorization response does not include an EMV tag data array, or if **entrymode = swipe**, then the transaction was processed as MSR.
    
-2) If you want to capture a signature for the transaction, do the following:
+**2.** If you want to capture a signature for the transaction, do the following:
 
     - Call the Terminal API readSignature endpoint to prompt for and capture the cardholder's signature.
 
