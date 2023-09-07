@@ -138,18 +138,22 @@ This guide provides information for integrating the CardPointe Mobile Android SD
 
 Do the following to import the SDK with your project:
 
-1) Download and unzip the SDK package.
-2) Browse to the /lib folder and copy **boltsdk-release.aar**.
-3) Paste the .aar file into the /app/libs folder in your project directory.
-4) Launch Android Studio and open your project.
-5) Do the following to import the SDK:
+**1.** Download and unzip the SDK package.
+
+**2.** Browse to the /lib folder and copy **boltsdk-release.aar**.
+
+**3.** Paste the .aar file into the /app/libs folder in your project directory.
+
+**4.** Launch Android Studio and open your project.
+
+**5.** Do the following to import the SDK:
     - Click **File**, select **New**, then select **New Module**.
     - On the Create New Module dialog select **Import .JAR/.AAR Package** and click **Next**.
     - Browse to the **boltsdk-release.aar** file, then click **Finish**.
 
         A build.gradle file is created for the newly added module. Additionally, the settings.gradle file has an entry for both the main project and the newly added module. Each submodule has an entry in the settings.gradle file to tell the build system that the module is now available.
 
-6) Do the following to make the module available to your project:
+**6.** Do the following to make the module available to your project:
     - In the Project pane, select the **build.gradle** file for your app.
     - Add the following line to the dependencies section:
 
@@ -171,7 +175,7 @@ Do the following to import the SDK with your project:
         }
         ```
 
-7) Add the following to the manifest file:
+**7.** Add the following to the manifest file:
 
 ```json
 <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -198,7 +202,7 @@ The integrated UI also includes a custom theming class that allows you to modify
 
 To integrate the Customer Profile UI, do the following:
 
-1) Declare the following activities to allow the application to support custom themes.
+**1.** Declare the following activities to allow the application to support custom themes.
 
 ```java
 <!--Declare Consumer SDK Activities in order to be able to change themes-->
@@ -210,7 +214,7 @@ To integrate the Customer Profile UI, do the following:
     android:theme="@style/ConsumerAppImplementer.Theme" />
 ```
 
-2) Declare a specific theme that inherits from AppConsumerTheme.NoActionBar.
+**2.** Declare a specific theme that inherits from AppConsumerTheme.NoActionBar.
 
     See the Theme Guide included in the SDK package for details on specific theme configuration attributes.
 
@@ -220,7 +224,7 @@ To integrate the Customer Profile UI, do the following:
 </style>
 ```
 
-3) Implement the CCConsumerApiBridge interface class to populate the Payments UI flow and perform operations with accounts.
+**3.** Implement the CCConsumerApiBridge interface class to populate the Payments UI flow and perform operations with accounts.
 
 ```java
 public class ApiBridgeImpl implements CCConsumerApiBridge, Parcelable {
@@ -276,7 +280,7 @@ public class ApiBridgeImpl implements CCConsumerApiBridge, Parcelable {
 }
 ```
 
-4) Start PaymentsActivity and pass the CCConsumerApiBridge implementation object.
+**4.** Start PaymentsActivity and pass the CCConsumerApiBridge implementation object.
 
 ```java
 ApiBridgeImpl apiBridgeImpl = new ApiBridgeImpl();
@@ -285,7 +289,7 @@ intent.putExtra(PaymentAccountsActivity.API_BRIDGE_IMPL_KEY, apiBridgeImpl);
 startActivityForResult(intent, PaymentAccountsActivity.PAYMENT_ACTIVITY_REQUEST_CODE);
 ```
 
-5) In addition to theme attributes, you can specify mask options using the CCConsumerCardFormatter together the CCConsumerApiBridge implementation class.
+**5.** In addition to theme attributes, you can specify mask options using the CCConsumerCardFormatter together the CCConsumerApiBridge implementation class.
 
 ```java
 ConsumerCardFormatter formatter = new CCConsumerCardFormatter();
@@ -297,7 +301,7 @@ intent.putExtra(PaymentAccountsActivity.CARD_FORMAT_OPTIONS_KEY,formatter);
 startActivityForResult(intent, PaymentAccountsActivity.PAYMENT_ACTIVITY_REQUEST_CODE);
 ```
 
-6) Receive the Account from the Payments UI if selected.
+**6.** Receive the Account from the Payments UI if selected.
 
 ```java
 @Override
@@ -318,14 +322,15 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 The Android SDK enables your application to capture payment information and generate a token in either a customer-facing UI that supports manual entry, or a merchant-facing UI that supports manual entry and card reader devices.
 
-1) Set the CardSecure URL you were provided.
+**1.** Set the CardSecure URL you were provided.
+
     The SDK requires access to CardSecure to tokenize card information. 
 
     To set this URL in your application, call the `CCConsumer` class which provides a Singleton to facilitate communication with the API:
 
     `CCConsumer._getInstance_().getApi().setEndPoint(""https://url/to/tokenize/data"" );`
    
-2) Implement `CCConsumerTokenCallback` to listen for events from the API.
+**2.** Implement `CCConsumerTokenCallback` to listen for events from the API.
 
 ```java
 public class MainActivity extends AppCompatActivity implements CCConsumerTokenCallback {
@@ -350,7 +355,7 @@ public class MainActivity extends AppCompatActivity implements CCConsumerTokenCa
     }
 ```
 
-3) Populate information to the `CCConsumerCardInfo` object using one of the following methods:
+**3.** Populate information to the `CCConsumerCardInfo` object using one of the following methods:
 
     - Use the following UI components to retrieve card data:
         - `CCConsumerCreditCardNumberEditText`
@@ -365,7 +370,7 @@ public class MainActivity extends AppCompatActivity implements CCConsumerTokenCa
       
         In this case, real card information should be set in the object.
 
-4) Call `generateTokenWithCard` to generate a token using the data in the `CCConsumerCardInfo` object, as follows:
+**4.** Call `generateTokenWithCard` to generate a token using the data in the `CCConsumerCardInfo` object, as follows:
 
 ```java
 CCConsumer._getInstance_().getApi().generateAccountForCard( **mCCConsumerCardInfo**** this**);
@@ -728,11 +733,11 @@ Additionally, the `IDTechSwiperController` class provides the following properti
 
 If you are using an ID TECH VP3300 mobile payment reader (swiper) device, do the following to find and connect to the device:
 
-1) To start finding devices, call `CCConsumer.getInstance().getApi().startBluetoothDeviceSearch(BluetoothSearchResponseListener, Context);`.
+**1.** To start finding devices, call `CCConsumer.getInstance().getApi().startBluetoothDeviceSearch(BluetoothSearchResponseListener, Context);`.
 
     Found devices will be returned to `BluetoothSearchResponseListener.onDeviceFound`.
    
-2) To connect to the device, call `CCSwiperControllerFactory().create(context, SwiperType, SwiperControllerListener, MacAddress)`
+**2.** To connect to the device, call `CCSwiperControllerFactory().create(context, SwiperType, SwiperControllerListener, MacAddress)`
 
     Once connected, the swiper will begin waiting for a card and `SwiperControllerListener.onLogUpdate()` will be called.
 
@@ -742,7 +747,7 @@ To capture and tokenize card data using a mobile payment reader, use the `Swiper
 
 Do the following:
 
-1) Instantiate an implementation of the SwiperControllerListener.
+**1.** Instantiate an implementation of the SwiperControllerListener.
 
 ```
 SwiperControllerListener swiperControllerListener = new SwiperControllerListener() {
@@ -783,7 +788,7 @@ SwiperControllerListener swiperControllerListener = new SwiperControllerListener
 }
 ```
 
-2) Instantiate a `SwiperController` object within the `onCreate()` method of the payment activity.
+**2.** Instantiate a `SwiperController` object within the `onCreate()` method of the payment activity.
 
 ```
 SwiperController mSwiper ;
@@ -798,7 +803,7 @@ protected void onCreate(Bundle savedInstanceState) {
 }
 ```
 
-3) When the activity corresponding to the payment screen is destroyed, the card reader resources must be cleaned up.
+**3.** When the activity corresponding to the payment screen is destroyed, the card reader resources must be cleaned up.
 
     In the `onDestroy()` lifecycle callback method, clean up the resources as follows:
 
@@ -817,16 +822,25 @@ If you have an existing integration using a previous version of the Android SDK,
 
 ## Integrating the New Framework
 
-1) Remove the existing SDK, **ccconsumersdk-consumerSwiper-release.aar**, file from your project's /app/libs folder.
-2) Copy the new SDK file, **boltsdk-release.aar**, to the /app/libs folder.
-3) Launch Android Studio and open your project.
-4) In the Project pane, select the **build.gradle** file for your app.
-5) In the build.gradle file, replace all existing **ccconsumersdk-consumerSwiper-release.aar** SDK references with references to the new **boltsdk-release.aar** SDK.
-6) Click **Build** and select **Clean** to clean the project.
-7) Click **Build** and select **Rebuild Project** to rebuild the project.
-8) Note all compile errors and rename old **com.cardconnect.consumersdk** import references with **com.bolt.consumersdk**. 
-9) Update abstract methods to implement updated event handlers.
-10) Click **Build** and select **Rebuild Project** to rebuild the updated project.
+**1.** Remove the existing SDK, **ccconsumersdk-consumerSwiper-release.aar**, file from your project's /app/libs folder.
+
+**2.** Copy the new SDK file, **boltsdk-release.aar**, to the /app/libs folder.
+
+**3.** Launch Android Studio and open your project.
+
+**4.** In the Project pane, select the **build.gradle** file for your app.
+
+**5.** In the build.gradle file, replace all existing **ccconsumersdk-consumerSwiper-release.aar** SDK references with references to the new **boltsdk-release.aar** SDK.
+
+**6.** Click **Build** and select **Clean** to clean the project.
+
+**7.** Click **Build** and select **Rebuild Project** to rebuild the project.
+
+**8.** Note all compile errors and rename old **com.cardconnect.consumersdk** import references with **com.bolt.consumersdk**. 
+
+**9.** Update abstract methods to implement updated event handlers.
+
+**10.** Click **Build** and select **Rebuild Project** to rebuild the updated project.
 
 # Troubleshooting
 
