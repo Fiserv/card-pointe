@@ -10,7 +10,7 @@ This guide provides information for using the CardPointe Gateway API to accept A
 
 ## Date Updated: 9/20/2021 
 
-This guide has been updated with additional information and clarifications on ACH Reversals. 
+This guide has been updated with additional information and clarifications on [ACH Reversals](#ACH-Reversals). 
 
 ## Date Updated: 3/13/2021 
 
@@ -20,7 +20,7 @@ The CardPointe Gateway API includes two additional fields for ACH authorization 
 
     An optional description for the transaction, truncated to a maximum of 10 characters.
 
-    For ACH reversals, you **must** specify this field as `Reversal`, as required by NACHA guidelines. See ACH Reversals for more information.
+    For ACH reversals, you **must** specify this field as `Reversal`, as required by NACHA guidelines. See [ACH Reversals](#ACH-Reversals) for more information.
 
 - `achEntryCode`
 
@@ -38,7 +38,7 @@ The CardPointe Gateway API includes two additional fields for ACH authorization 
 
     **Note**: _For refunds, this field is converted to either_ `CCD` _or_ `PPD` _depending on the merchant account configuration._
 
-See Making an ACH Authorization Request for more information.
+See [Making an ACH Authorization Request](#Making-an-ACH-Authorization-Request) for more information.
 
 # Understanding ACH Rules and Regulations
 
@@ -56,11 +56,11 @@ Click below to download a copy
 
 # Processing ACH Transactions
 
-To process ACH payments on the CardPointe Gateway, you use the CardPointe Gateway API to make authorization requests just like you would for credit card transactions. The authorization request supports all of the required fields for processing ACH checking or savings account transactions, including sales and refunds. 
+To process ACH payments on the CardPointe Gateway, you use the CardPointe Gateway API to make authorization requests just like you would for credit card transactions. The [authorization request](#Making-an-ACH-Authorization-Request) supports all of the required fields for processing ACH checking or savings account transactions, including sales and refunds. 
 
-Unlike credit card payments, when a customer authorizes an ACH payment, the funds are withdrawn directly from his or her bank account. This process can take several days, so you should include a monitoring process in your integration to verify the status of the transaction.
+Unlike credit card payments, when a customer authorizes an ACH payment, the funds are withdrawn directly from his or her bank account. This process can take several days, so you should include a monitoring process in your integration to [#verify the status of the transaction](Verifying-ACH-Transactions).
 
-To accept ACH payments, you must capture and handle the customer's bank account and routing number. While you can capture this information and pass it directly to the CardPointe Gateway in an authorization request, it is a best practice to instead capture this information and tokenize it using a CardSecure-integrated web form.
+To accept ACH payments, you must capture and handle the customer's bank account and routing number. While you can capture this information and pass it directly to the CardPointe Gateway in an [authorization request](#Making-an-ACH-Authorization-Request), it is a best practice to instead capture this information and tokenize it using a [CardSecure](CardSecure.md)-integrated web form.
 
 ## Account Validation
 
@@ -100,7 +100,7 @@ For example:
 
 `"account" : "123456789/1234123412341234"`
 
-CardSecure returns a token representing the ACH account information, which you can then use to make an authorization request to the CardPointe Gateway.
+CardSecure returns a token representing the ACH account information, which you can then use to make an [authorization request](#Making-an-ACH-Authorization-Request) to the CardPointe Gateway.
 
 ## Making an ACH Authorization Request
 
@@ -118,8 +118,8 @@ The following table describes the authorization request fields that you must inc
 | **merchid**	| 16 | N | CardPointe merchant ID, required for all requests.
 | <ins> **amount** </ins> | 14 | N | Amount with decimal or without decimal in currency minor units. <br> <br> **Notes**: <br> <br> Only USD is currently supported. <br> Negative amounts (forced credits) are currently not supported. |
 | **accttype** | 4 | A | The ACH account type. One of the following values: <br> <br> `ECHK` - checking account <br> `ESAV` - savings account |
-| **account** | 19 | N | Can be: <br> **CardSecure Token** - A token, including the bank account and checking numbers, retrieved from the Bolt API, CardSecure API, or the Hosted iFrame Tokenizer <br> **Bank Account Number** - The clear checking or savings account number. When using this field, the `bankaba` field is also required to include the routing number. <br> <br> **Note**: _To use a stored profile, omit the_ `account` _property and supply the profile ID in the_ `profile` _field instead. See the Profile description for more information._ |
-| achDescription | 10	| AN | An optional description for the transaction, truncated to a maximum of 10 characters. <br> <br> For ACH reversals, you **must** specify this field as `Reversal`, as required by NACHA guidelines. See ACH Reversals for more information. |
+| **account** | 19 | N | Can be: <br> **CardSecure Token** - A token, including the bank account and checking numbers, retrieved from the Bolt API, CardSecure API, or the [Hosted iFrame Tokenizer](HostediFrameTokenizer.md) <br> **Bank Account Number** - The clear checking or savings account number. When using this field, the `bankaba` field is also required to include the routing number. <br> <br> **Note**: _To use a stored profile, omit the_ `account` _property and supply the profile ID in the_ `profile` _field instead. See the Profile description for more information._ |
+| achDescription | 10	| AN | An optional description for the transaction, truncated to a maximum of 10 characters. <br> <br> For ACH reversals, you **must** specify this field as `Reversal`, as required by NACHA guidelines. See [ACH Reversals](#ACH-Reversals) for more information. |
 | achEntryCode | 3 | AN	| Determines the type of ACH transaction. If omitted, this value is determined by the CardPointe Gateway. <br> <br> One of the following values: <br> <br> `CCD` - B2B payment with a signed company agreement on file. <br> `PPD` - Recurring payment, with a signed customer agreement on file. <br> `TEL` - Phone payment (call center), with the customer's recorded verbal consent on file. <br> `WEB` - Web or mobile payment, with a customer's web authorization or agreement on file. <br> <br> **Note**: _For refunds, this field is converted to either_ `CCD` _or_ `PPD` _depending on the merchant account configuration._ |
 | **bankaba**	| 9	| N	| Bank routing (ABA) number. Required for ACH authorizations when a bank account number is provided in the `account` field. `bankaba` is **not** required if a CardSecure token (generated from the account/bankaba pair) is provided in the `account` field. |
 | <ins> **name** </ins> | 30 | AN | Account holder's name. |
