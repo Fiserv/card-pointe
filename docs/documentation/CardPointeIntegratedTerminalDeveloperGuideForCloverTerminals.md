@@ -28,7 +28,7 @@ On Thursday, October 13th, 2022, we released an update to the CardPointe Integra
 
 Terminals will automatically download and install this update during the nightly reboot window. No merchant action is required. 
 
-For more information on using custom branding for your Clover terminals, see [Customizing the Clover Terminal](../../docs/documentation/CardPointeIntegratedTerminalDeveloperGuideForCloverTerminals.md#Customizing-The-Clover-Terminal).
+For more information on using custom branding for your Clover terminals, see [Customizing the Clover Terminal](#Customizing-The-Clover-Terminal).
 
 ## Date Updated: 4/12/2022 
 
@@ -64,14 +64,14 @@ To help you get started with your integration, we've created a sample Postman Co
 
 [Run in Postman](https://app.getpostman.com/run-collection/16c349c3713011b8c18c?action=collection%2Fimport#?env%5BBolt%20Terminal%20API%20UAT%20Environment%5D=W3sia2V5Ijoic2l0ZSIsInZhbHVlIjoie1VBVCBvciBwcm9kdWN0aW9uIHNpdGV9IiwiZW5hYmxlZCI6dHJ1ZX0seyJrZXkiOiJ1cmwiLCJ2YWx1ZSI6Imh0dHBzOi8ve3tzaXRlfX0uY2FyZHBvaW50ZS5jb20vYXBpIiwiZW5hYmxlZCI6dHJ1ZX0seyJrZXkiOiJBdXRob3JpemF0aW9uIiwidmFsdWUiOiJ7eW91ciBhdXRoIGtleX0iLCJlbmFibGVkIjp0cnVlfSx7ImtleSI6Im1lcmNoYW50SWQiLCJ2YWx1ZSI6Int5b3VyIG1lcmNoYW50SWR9IiwiZW5hYmxlZCI6dHJ1ZX0seyJrZXkiOiJoc24iLCJ2YWx1ZSI6Int5b3VyIGhzbn0iLCJlbmFibGVkIjp0cnVlfSx7ImtleSI6IlgtQ2FyZENvbm5lY3QtU2Vzc2lvbktleSIsInZhbHVlIjoiIiwiZW5hYmxlZCI6dHJ1ZX1d)
 
-See [Configuring Your Postman Environment](../../docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md#Configuring-Your-Postman-Environment) in the general CardPointe Integrated Terminal Developer Guides for detailed information on setting up your environment variables.
+See [Configuring Your Postman Environment](CardPointeIntegratedTerminalDeveloperGuides.md#Configuring-Your-Postman-Environment) in the general CardPointe Integrated Terminal Developer Guides for detailed information on setting up your environment variables.
 
 ### Related Documentation
 
 This guide provides useful information specific to integrating Clover terminals. The following API references and terminal user guides provide additional helpful information: 
 
 - See the Terminal API documentation for detailed information for integrating the Terminal API with your software.
-- See the [CardPointe Integrated Terminal Developer Guides](../../docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md) for additional helpful information for developing various Terminal API workflows.
+- See the [CardPointe Integrated Terminal Developer Guides](CardPointeIntegratedTerminalDeveloperGuides.md) for additional helpful information for developing various Terminal API workflows.
 - See the CardPointe Gateway API documentation for detailed information for integrating the full capabilities of the CardPointe Gateway.
 - See the Terminal User Guides for detailed information on setting up and using your Clover device.
 
@@ -134,11 +134,11 @@ A noted, only the ping request should be used when the device is in Merchant Mod
 
 ### Receipt Printing
 
-The Clover terminal includes a built-in receipt printer. To take advantage of this feature, the authCard and authManual Terminal API service endpoints now include a printReceipt parameter. See [Software Integration Details](../../docs/documentation/CardPointeIntegratedTerminalDeveloperGuideForCloverTerminals.md#Software-Integration-Details) for more information on integrating this feature with your software.
+The Clover terminal includes a built-in receipt printer. To take advantage of this feature, the authCard and authManual Terminal API service endpoints now include a printReceipt parameter. See [Software Integration Details](#Software-Integration-Details) for more information on integrating this feature with your software.
 
 When a transaction is successfully authorized by the CardPointe Gateway, the authorization response includes EMV card data (if the payment was made using an EMV or contactless payment) as well as specific merchant information. Some receipt field settings must be configured for your merchant account. 
 
-See [Printing Receipts](../../docs/documentation/CardPointeIntegratedTerminalDeveloperGuideForCloverTerminals.md#Printing-Receipts) later in this guide for detailed information on the data used to print a receipt from the Clover terminal, and for guidelines on integrating a custom solution for receipt printing. Additionally, you can customize the data that you include on your receipts, depending on your business needs.
+See [Printing Receipts](#Printing-Receipts) later in this guide for detailed information on the data used to print a receipt from the Clover terminal, and for guidelines on integrating a custom solution for receipt printing. Additionally, you can customize the data that you include on your receipts, depending on your business needs.
 
 <!-- theme: danger -->
 > For Clover Mini terminals, the printer is disabled when the device enters low-power mode. The Clover Mini must be connected to the hub, and the hub must be connected to a power source in order to print receipts.
@@ -170,26 +170,26 @@ The following topics describe some specific details for integrating Clover termi
 
 ### Supported Endpoints
 
-The following table illustrates which Terminal API endpoints are supported for use with Clover terminals. See [Key Differences](../../docs/documentation/CardPointeIntegratedTerminalDeveloperGuideForCloverTerminals.md#Key-Differences) for detailed information on updating your integration.
+The following table illustrates which Terminal API endpoints are supported for use with Clover terminals. See [Key Differences](#Key-Differences) for detailed information on updating your integration.
 
 | Resource Name | Ingenico | Clover |
 | --- | --- | --- |
-| authCard | &#10003; | &#10003; (with [key differences](../../docs/documentation/CardPointeIntegratedTerminalDeveloperGuideForCloverTerminals.md#Key-Differences)) |
-| authManual | &#10003; | &#10003; (with [key differences](../../docs/documentation/CardPointeIntegratedTerminalDeveloperGuideForCloverTerminals.md#Key-Differences)) |
+| authCard | &#10003; | &#10003; (with [key differences](#Key-Differences)) |
+| authManual | &#10003; | &#10003; (with [key differences](#Key-Differences)) |
 | printReceipt |  | &#10003; |
 | cancel | &#10003; | &#10003; |
 | clearDisplay | &#10003; | &#10003; |
 | connect | &#10003; | &#10003; |
 | dateTime | &#10003; | &#10003; |
 | disconnect | &#10003; | &#10003; |
-| display | &#10003; | &#10003; (with [key differences](../../docs/documentation/CardPointeIntegratedTerminalDeveloperGuideForCloverTerminals.md#Key-Differences)) |
+| display | &#10003; | &#10003; (with [key differences](#Key-Differences)) |
 | listTerminals | &#10003; | &#10003; |
 | ping | &#10003; | &#10003; |
 | preconnect | &#10003; |  | 
 | readConfirmation | &#10003; | &#10003; |
 | readInput | &#10003; | &#10003; |
 | readSignature | &#10003; | &#10003; |
-| readCard | &#10003; | &#10003; (with [key differences](../../docs/documentation/CardPointeIntegratedTerminalDeveloperGuideForCloverTerminals.md#Key-Differences)) | 
+| readCard | &#10003; | &#10003; (with [key differences](#Key-Differences)) | 
 | readManual | &#10003; |  | 
 | tip | &#10003; | &#10003; |
 | terminalDetails | &#10003; | &#10003; |
@@ -207,7 +207,7 @@ The following table explains the minor changes to the Terminal API, and how you 
 |  | aid | Currently, the Clover terminal processes all transactions as credit; therefore, the `aid` parameter used to specify the transaction type is superseded. <br> <br> Support for debit transactions is planned for a future update. |
 |  | includeAmountDisplay | The `includeAmountDisplay` parameter is not supported. The device displays the payment amount to the user regardless of this parameter's value within the `authCard` request. |
 |  | **The following parameters are specific to Clover terminals:** |
-|  | printReceipt | The `printReceipt` parameter is used to specify whether or not to print a receipt from the Clover terminal. <br> <br> Set to `true` to enable receipt printing. Defaults to `false` if not specified. <br> <br> For the Clover Mini, the built-in printer is disabled when the terminal is in low-power mode. The terminal must be connected to the hub, and the hub must be connected to a power source in order to print receipts. <br> <br> If the `authCard` or `authManual` request includes `"printReceipt" : "true"` but the terminal is in low-power mode, the response includes the following error fields: <br> `"errorCode": 800,` <br> `"errorMessage": "Printing not supported"` <br> <br> See [Printing Receipts](../../docs/documentation/CardPointeIntegratedTerminalDeveloperGuideForCloverTerminals.md#Printing-Receipts) for detailed information. |
+|  | printReceipt | The `printReceipt` parameter is used to specify whether or not to print a receipt from the Clover terminal. <br> <br> Set to `true` to enable receipt printing. Defaults to `false` if not specified. <br> <br> For the Clover Mini, the built-in printer is disabled when the terminal is in low-power mode. The terminal must be connected to the hub, and the hub must be connected to a power source in order to print receipts. <br> <br> If the `authCard` or `authManual` request includes `"printReceipt" : "true"` but the terminal is in low-power mode, the response includes the following error fields: <br> `"errorCode": 800,` <br> `"errorMessage": "Printing not supported"` <br> <br> See [Printing Receipts](#Printing-Receipts) for detailed information. |
 |  | printExtraReceipt | the `printExtraReceipt` parameter is used to specify whether or not to print a second copy of the receipt. Use the `printDelay` parameter to specify the amount of time (in milliseconds) to wait between printing each receipt. <br> <br> Defaults to **false** if not specified. <br> <br> **Note**: If true, the `printDelay` parameter is also **required** in the request, to specify the delay (in milliseconds) between printing the first and second receipts. |
 |  | printDelay | 	Required when `"printExtraReceipt":"true"`. The number of milliseconds to wait after printing the first receipt, to begin printing the second receipt. <br> <br> Valid values range from `0` to `60000`. |
 | authManual | **The following parameters are not supported:** | 
@@ -216,7 +216,7 @@ The following table explains the minor changes to the Terminal API, and how you 
 |  | includeAVS | The `includeAVS` parameter must be set to `false` or not included in the request. <br> <br> If a request includes `"includeAVS" : "true"` the `authManual` command sequence fails to complete, and an error is returned in the response data. |
 |  | includeCVV | The `includeCVV` parameter must be set to `false` or not included in the request. <br> <br> If a request includes `"includeCVV" : "true"` the `authManual` command sequence fails to complete, and an error is returned in the response data. |
 |  | **The following parameters are specific to Clover terminals:** |
-|  | printReceipt | The `printReceipt` parameter is used to specify whether or not to print a receipt from the Clover Mini. <br> <br> Set to `true` to enable receipt printing. Defaults to `false` if not specified. <br> <br> Note that the built-in printer is disabled when the device is in low-power mode. The device must be connected to the hub, and the hub must be connected to a power source in order to print receipts. <br> <br> If the `authCard` or `authManual` request includes `"printReceipt" : "true"` but the device is in low-power mode, the response includes the following error fields: <br> <br> `"errorCode": 800,` <br> `"errorMessage": "Printing not supported"` <br> <br> See [Printing Receipts](../../docs/documentation/CardPointeIntegratedTerminalDeveloperGuideForCloverTerminals.md#Printing-Receipts) for detailed information. |
+|  | printReceipt | The `printReceipt` parameter is used to specify whether or not to print a receipt from the Clover Mini. <br> <br> Set to `true` to enable receipt printing. Defaults to `false` if not specified. <br> <br> Note that the built-in printer is disabled when the device is in low-power mode. The device must be connected to the hub, and the hub must be connected to a power source in order to print receipts. <br> <br> If the `authCard` or `authManual` request includes `"printReceipt" : "true"` but the device is in low-power mode, the response includes the following error fields: <br> <br> `"errorCode": 800,` <br> `"errorMessage": "Printing not supported"` <br> <br> See [Printing Receipts](#Printing-Receipts) for detailed information. |
 |  | printExtraReceipt | the `printExtraReceipt` parameter is used to specify whether or not to print a second copy of the receipt. Use the `printDelay` parameter to specify the amount of time (in milliseconds) to wait between printing each receipt. <br> <br> Defaults to **false** if not specified. <br> <br> **Note**: If true, the `printDelay` parameter is also **required** in the request, to specify the delay (in milliseconds) between printing the first and second receipts. |
 |  | printDelay | Required when `"printExtraReceipt":"true"`. The number of milliseconds to wait after printing the first receipt, to begin printing the second receipt. <br> <br> Valid values range from `0` to `60000`. |
 | readCard | **The following parameters are not supported:** |
@@ -277,13 +277,13 @@ Additionally, receipt requirements vary depending on the card type. For example,
 
 ## Understanding Receipt Data
 
-When an authorization is successfully approved and processed by the CardPointe Gateway, the [authorization response](../../docs/documentation/CardPointeIntegratedTerminalDeveloperGuideForCloverTerminals.md#Authorization-Response-Data) payload includes important transaction details that you can capture and print on a receipt.
+When an authorization is successfully approved and processed by the CardPointe Gateway, the [authorization response](#Authorization-Response-Data) payload includes important transaction details that you can capture and print on a receipt.
 
 In general, a receipt must include:
 
-- transaction details from the [authorization response](../../docs/documentation/CardPointeIntegratedTerminalDeveloperGuideForCloverTerminals.md#Authorization-Response-Data)
-- merchant account information and additional transaction details returned in the [receipt object](../../docs/documentation/CardPointeIntegratedTerminalDeveloperGuideForCloverTerminals.md#Receipt-Data)
-- EMV tag data returned in the [EMV tag object](../../docs/documentation/CardPointeIntegratedTerminalDeveloperGuideForCloverTerminals.md#EMV-tag-Data), if the card used was an EMV (chip or contactless) card.
+- transaction details from the [authorization response](#Authorization-Response-Data)
+- merchant account information and additional transaction details returned in the [receipt object](#Receipt-Data)
+- EMV tag data returned in the [EMV tag object](#EMV-tag-Data), if the card used was an EMV (chip or contactless) card.
 
 ### Authorization Response Data
 
@@ -299,7 +299,7 @@ A successful authorization response includes the following fields. If you are in
 | batchid | Batch ID | 12 | Automatically created and assigned unless otherwise specified. Returned for a successful authorization with capture. |
 | orderid | Order ID | 19 | Order ID copied from the authorization request. |
 | merchid | Merchant ID | 12 | Copied from the authorization request. <br> **Note**: _If you include the merchant ID on a receipt, mask this value, except the last four digits_. |
-| respcode | [Response code](../../docs/documentation/GatewayResponseCodes.md) | - | Alpha-numeric response code that represents the description of the response |
+| respcode | [Response code](GatewayResponseCodes.md) | - | Alpha-numeric response code that represents the description of the response |
 | resptext | Response text | - | Text description of response |
 | respproc | Response processor | 4 | Abbreviation that represents the platform and the processor for the transaction |
 | bintype | Type of BIN | 16 | **Possible Values**: <br> <br> Corp <br> FSA+Prepaid <br> GSA+Purchase <br> Prepaid <br> Prepaid+Corp <br> Prepaid+Purchase <br> Purchase |
@@ -310,8 +310,8 @@ A successful authorization response includes the following fields. If you are in
 | signature | Signature Bitmap | 6144 | JSON escaped, Base64 encoded, Gzipped, BMP file representing the cardholder's signature. Returned if the authorization used a token that had associated signature data or track data with embedded signature data. <br> <br> If you are integrating a custom receipt solution, you can convert this image file and print it to the receipt, if required. |
 | commcard | Commercial card flag | 1 | **Y** if a Corporate or Purchase Card |
 | emv | Cryptogram | - | Authorization Response Cryptogram (ARPC). This is returned only when EMV data is present within the Track Parameter. |
-| emvTagData | EMV tag data | 2000 | A string of receipt and EMV tag data (when applicable) returned from the processor. <br> <br> This data returned should be presented on a receipt if applicable, and recorded with the transaction details for future reference. <br> <br> Refer to [EMV Tag Data](../../docs/documentation/CardPointeIntegratedTerminalDeveloperGuideForCloverTerminals.md#EMV-Tag-Data) below for a list of the possible fields returned. |
-| receipt | receipt data | - | An object that includes additional fields to be printed on a receipt. <br> <br> Refer to [Receipt Data](../../docs/documentation/CardPointeIntegratedTerminalDeveloperGuideForCloverTerminals.md#Receipt-Data) below for a list of the fields returned. |
+| emvTagData | EMV tag data | 2000 | A string of receipt and EMV tag data (when applicable) returned from the processor. <br> <br> This data returned should be presented on a receipt if applicable, and recorded with the transaction details for future reference. <br> <br> Refer to [EMV Tag Data](#EMV-Tag-Data) below for a list of the possible fields returned. |
+| receipt | receipt data | - | An object that includes additional fields to be printed on a receipt. <br> <br> Refer to [Receipt Data](#Receipt-Data) below for a list of the fields returned. |
 
 ### EMV Tag Data
 
@@ -388,7 +388,7 @@ To reprint a receipt for a past transaction, make a request to the printReceipt 
 
 ### Printing a Receipt from a Standalone Printer 
 
-To print a receipt from your custom integration, use the fields described in [Understanding Receipt Data](../../docs/documentation/CardPointeIntegratedTerminalDeveloperGuideForCloverTerminals.md#Understanding-Receipt-Data) to build your receipt template.
+To print a receipt from your custom integration, use the fields described in [Understanding Receipt Data](#Understanding-Receipt-Data) to build your receipt template.
 
 In the following example, the Clover terminal receipt template is illustrated on the left, including the fields that are populated from the authorization response data. A sample receipt is illustrated on the right.
 
