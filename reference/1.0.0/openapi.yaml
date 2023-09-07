@@ -361,7 +361,7 @@ components:
                   * An ACH routing and account number string in the format '<routing>/<account>' for eCheck transactions. 
                   If encryptionhandler is provided, the account is treated as an encrypted PAN.
             devicedata:
-              type: object
+              type: string
               description: |
                 One of the following:
                   * Encrypted track data retrieved using a card reader or terminal device (MSR/EMV/NFC)
