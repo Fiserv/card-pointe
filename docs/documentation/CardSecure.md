@@ -155,18 +155,18 @@ To tokenize data captured from an IVR system, your integration must meet the fol
 
 The following workflow describes a typical process for capturing cardholder data with an IVR system, tokenizing the data, and processing a payment:
 
-1) A customer calls in to your service to make a payment.
+**1.** A customer calls in to your service to make a payment.
    
-2) When prompted, the customer enters a credit card number, CVV code, and zip code using either Touch-Tone or voice recognition input.
+**2.** When prompted, the customer enters a credit card number, CVV code, and zip code using either Touch-Tone or voice recognition input.
    
-3) Your IVR software captures the customer's input.
+**3.** Your IVR software captures the customer's input.
    
-4) Your application uses an RSA encryption key to encrypt the data.
+**4.** Your application uses an RSA encryption key to encrypt the data.
    
-5) Your application makes a tokenization request, using the CardSecure API.
+**5.** Your application makes a tokenization request, using the CardSecure API.
    
-6) CardSecure generates a token that represents the customer's payment card data, and returns the encrypted token to your application.
+**6.** CardSecure generates a token that represents the customer's payment card data, and returns the encrypted token to your application.
    
-7) Your application makes an authorization request, using the CardPointe Gateway API and the token.
+**7.** Your application makes an authorization request, using the CardPointe Gateway API and the token.
    
-8) The CardPointe Gateway authorizes the payment and returns the authorization response to your application.
+**8.** The CardPointe Gateway authorizes the payment and returns the authorization response to your application.
