@@ -45,25 +45,39 @@ Perform the following procedures to create and configure an Apple Pay merchant a
 
 ## Creating an Apple Merchant ID
 
-1) Log in to https://developer.apple.com/account.
-2) Select the **Certificates, Identifiers & Profiles** link.
-3) Select the **Merchant IDs** link under **Identifiers**.
-4) Click the + icon to create a new Merchant ID.
-5) Enter a description and identifier and click **Continue**.
-6) Click **Register**.
+1. Log in to https://developer.apple.com/account.
+
+2. Select the **Certificates, Identifiers & Profiles** link.
+
+3. Select the **Merchant IDs** link under **Identifiers**.
+
+4. Click the + icon to create a new Merchant ID.
+
+5. Enter a description and identifier and click **Continue**.
+
+6. Click **Register**.
 
 ## Creating an Apple Pay Payment Processing Certificate and Uploading the CSR
 
-1) Log in to https://developer.apple.com/account.
-2) Select the **Certificates, Identifiers & Profiles** link.
-3) Select the **All** link under **Certificates**.
-4) Click the + icon to create a new certificate.
-5) Select the **Apple Pay Certificate** radio button and click **Continue**.
-6) Select the Merchant ID that you created in the previous procedure.
-7) Click **Create Certificate** in the **Payment Processing Certificate** section.
-8) On the **Generate Certificate** page, click **Choose File**..., select the CSR file that you received from us (apple-pay-.csr), and click **Continue**.
-9) Click **Download** to download the signed public key file (apple_pay.cer) and click **Done**.
-10) Send the apple_pay.cer file that you downloaded in the previous step to your Integration Delivery representative.
+1. Log in to https://developer.apple.com/account.
+
+2. Select the **Certificates, Identifiers & Profiles** link.
+
+3. Select the **All** link under **Certificates**.
+
+4. Click the + icon to create a new certificate.
+
+5. Select the **Apple Pay Certificate** radio button and click **Continue**.
+
+6. Select the Merchant ID that you created in the previous procedure.
+
+7. Click **Create Certificate** in the **Payment Processing Certificate** section.
+
+8. On the **Generate Certificate** page, click **Choose File**..., select the CSR file that you received from us (apple-pay-.csr), and click **Continue**.
+
+9. Click **Download** to download the signed public key file (apple_pay.cer) and click **Done**.
+
+10. Send the apple_pay.cer file that you downloaded in the previous step to your Integration Delivery representative.
 
 > To test your solution using test (non-production) Apple Pay data, you must use the Apple Pay Sandbox environment. Attempting to tokenize test data generated in the Xcode simulator will fail. See the [Apple Pay Sandbox Testing](https://developer.apple.com/apple-pay/sandbox-testing/) documentation for more information.
  
@@ -75,9 +89,11 @@ This topic provides information for adding Apple Pay to an iOS application using
 
 Do the following to add the Apple Pay capability to your merchant ID and provision your application:
 
-1) Within your Apple Developer account, enable Apple Pay in your provisioning profile with the merchant ID you configured for use with the CardPointe Gateway.
-2) Enable Apple Pay under **Capabilities** by selecting your merchant ID from the list. If it doesn’t appear, find the `{app_name}.entitlements` file that was generated and add a string with your merchant ID in the merchant IDs array key.
-3) Ensure your application is set up to run with your provisioning profile and run the application or use the simulator.
+1. Within your Apple Developer account, enable Apple Pay in your provisioning profile with the merchant ID you configured for use with the CardPointe Gateway.
+
+2. Enable Apple Pay under **Capabilities** by selecting your merchant ID from the list. If it doesn’t appear, find the `{app_name}.entitlements` file that was generated and add a string with your merchant ID in the merchant IDs array key.
+
+3. Ensure your application is set up to run with your provisioning profile and run the application or use the simulator.
 
 ## Creating a Custom Flow
 
@@ -89,12 +105,17 @@ The CardPointe Mobile iOS SDK's integrated UI supports a basic Apple Pay workflo
 
 The following procedure provides general guidance for creating an integrated Apple Pay workflow.
 
-1) Follow the initial setup described in the [Apple Pay Programming Guide](https://developer.apple.com/library/archive/ApplePay_Guide/) to enable Apple Pay in your application.
-2) Create a `BMSPaymentRequest` object and set your merchant ID and amount to applePayMerchantID and Total respectively. An `additionalData` parameter is provided that can be used to store a reference, typically a transaction or order number.
-3) Before displaying your `BMSPaymentController`, set your `BMSPaymentRequest` to its `paymentRequest` parameter.
-4) In your class that conforms to the `BMSAPIBridgeProtocol`, include `BMS_authApplePayTransactionWithToken:`completion to use the token provided to make your authentication request and return the result in the completion block:
-5) You can add the optional function `paymentController:finishedApplePayWithResult:` to your `BMSPaymentController` delegate to receive notifications for Apple Pay transactions.
-6) You can also customize how the Apple Pay UI is displayed using your `BMSTheme` class and the parameters `applePayButtonDescription`, `applePayButtonStyle`, and `applePayButtonType`.
+1. Follow the initial setup described in the [Apple Pay Programming Guide](https://developer.apple.com/library/archive/ApplePay_Guide/) to enable Apple Pay in your application.
+
+2. Create a `BMSPaymentRequest` object and set your merchant ID and amount to applePayMerchantID and Total respectively. An `additionalData` parameter is provided that can be used to store a reference, typically a transaction or order number.
+
+3. Before displaying your `BMSPaymentController`, set your `BMSPaymentRequest` to its `paymentRequest` parameter.
+
+4. In your class that conforms to the `BMSAPIBridgeProtocol`, include `BMS_authApplePayTransactionWithToken:`completion to use the token provided to make your authentication request and return the result in the completion block:
+
+5. You can add the optional function `paymentController:finishedApplePayWithResult:` to your `BMSPaymentController` delegate to receive notifications for Apple Pay transactions.
+
+6. You can also customize how the Apple Pay UI is displayed using your `BMSTheme` class and the parameters `applePayButtonDescription`, `applePayButtonStyle`, and `applePayButtonType`.
 
 ## Troubleshooting
 
