@@ -58,7 +58,7 @@ Click below to download a copy
 
 To process ACH payments on the CardPointe Gateway, you use the CardPointe Gateway API to make authorization requests just like you would for credit card transactions. The [authorization request](#Making-an-ACH-Authorization-Request) supports all of the required fields for processing ACH checking or savings account transactions, including sales and refunds. 
 
-Unlike credit card payments, when a customer authorizes an ACH payment, the funds are withdrawn directly from his or her bank account. This process can take several days, so you should include a monitoring process in your integration to [#verify the status of the transaction](Verifying-ACH-Transactions).
+Unlike credit card payments, when a customer authorizes an ACH payment, the funds are withdrawn directly from his or her bank account. This process can take several days, so you should include a monitoring process in your integration to [verify the status of the transaction](#Verifying-ACH-Transactions).
 
 To accept ACH payments, you must capture and handle the customer's bank account and routing number. While you can capture this information and pass it directly to the CardPointe Gateway in an [authorization request](#Making-an-ACH-Authorization-Request), it is a best practice to instead capture this information and tokenize it using a [CardSecure](CardSecure.md)-integrated web form.
 
