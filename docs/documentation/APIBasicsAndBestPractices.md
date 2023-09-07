@@ -9,7 +9,7 @@ The CardPointe platform provides a library of application programming interfaces
 Before you get started, you should have a functional understanding of the following concepts:
 
 - [HTTP RESTful web methods](#Understanding-HTTP-RESTful-Web-Methods)
-- [JavaScript object notation (JSON)](Understanding-JSON)
+- [JavaScript object notation (JSON)](#Understanding-JSON)
 
 ### Understanding HTTP RESTful Web Methods
 
