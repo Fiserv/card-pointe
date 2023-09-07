@@ -11,7 +11,7 @@ description: The following guides provide best practices and other supplemental 
 
 To help you get started with your integration, you can use the sample CardPointe Gateway API Integration Postman Collection, which includes a template of the API service endpoints.
 
-The CardPointe Gateway API Integration collection also includes a sample Environment to help you get familiar with the API. See [Configuring Your Postman Environment](../../docs/documentation/CardPointeGatewayDeveloperGuides.md#Configuring-Your-Postman-Environment), below, for more information.
+The CardPointe Gateway API Integration collection also includes a sample Environment to help you get familiar with the API. See [Configuring Your Postman Environment](#Configuring-Your-Postman-Environment), below, for more information.
 
 Click the button below to download the CardPointe Gateway API Integration collection:
 
@@ -95,11 +95,11 @@ Data that you transmit to the UAT environment is never sent to the payment proce
 CardPointe Gateway API responses returned in the UAT environment include fields and arrays in a randomized order. Additionally, UAT responses include dummy fields, arrays, and values. This is intended to help clients develop integrated software that dynamically parses the response data, rather than expecting fields to be present in static positions within the response object. 
 
 <!-- theme: warning -->
-> See [Ensuring Backwards Compatibility](../../docs/documentation/APIBasicsAndBestPractices.md#Ensuring-Backwards-Compatibility) in the [API Basics and Best Practices Guide](../../docs/documentation/APIBasicsAndBestPractices.md) for more information.
+> See [Ensuring Backwards Compatibility](APIBasicsAndBestPractices.md#Ensuring-Backwards-Compatibility) in the [API Basics and Best Practices Guide](APIBasicsAndBestPractices.md) for more information.
 
-Some specific situations, such as a network timeout and specific decline scenarios, require specific input to initiate. See [Test Cases](../../docs/documentation/CardPointeGatewayDeveloperGuides.md#Test-Cases), below, for more information on these specific scenarios.
+Some specific situations, such as a network timeout and specific decline scenarios, require specific input to initiate. See [Test Cases](#Test-Cases), below, for more information on these specific scenarios.
 
-See [Gateway Response Codes](../../docs/documentation/GatewayResponseCodes.md) for a complete list of all possible response codes for the CardPointe Gateway and each processor.
+See [Gateway Response Codes](GatewayResponseCodes.md) for a complete list of all possible response codes for the CardPointe Gateway and each processor.
 
 ## Getting Started
 
@@ -110,7 +110,7 @@ To get started, contact integrationdelivery@fiserv.com to request the following 
 - **UAT API URL** - A UAT CardPointe Gateway API URL that you will use to test your API requests.
 
 <!-- theme: warning -->
-> Once your integration has been validated for production use, you will receive unique credentials for use in the production environment. See the [Integration Process Overview](../../docs/documentation/IntegrationProcessOverview.md) for more information.
+> Once your integration has been validated for production use, you will receive unique credentials for use in the production environment. See the [Integration Process Overview](IntegrationProcessOverview.md) for more information.
 
 ## Using Test Payment Accounts
 
@@ -121,7 +121,7 @@ When testing in the UAT environment, you must use test cards (either physical ca
 
 ### UAT Test Card Data
 
-The [UAT Merchant ID](../../docs/documentation/CardPointeGatewayDeveloperGuides.md#Getting-Started) is boarded to the First Data North UAT environment. If you are testing with this MID, or your own MID that is boarded to the North or Rapid Connect platform, you can use the following test card data to test card-not-present transactions.
+The [UAT Merchant ID](#Getting-Started) is boarded to the First Data North UAT environment. If you are testing with this MID, or your own MID that is boarded to the North or Rapid Connect platform, you can use the following test card data to test card-not-present transactions.
 
 The UAT Test Zip Codes section below contains information on testing AVS responses for First Data North, Rapid Connect, and additional platforms.
 
@@ -300,7 +300,7 @@ The following topics provide information for testing specific features to obtain
 > - Vantiv - Auth and Refund
 
 <!-- theme: warning -->
-> See [Gateway Response Codes](../../docs/documentation/GatewayResponseCodes.md) for a complete list of possible response codes for the CardPointe Gateway and each processor.
+> See [Gateway Response Codes](GatewayResponseCodes.md) for a complete list of possible response codes for the CardPointe Gateway and each processor.
 
 When testing your CardPointe Gateway or CardPointe Integrated Terminal integration in the UAT environment, you can use amount-driven response codes to emulate processor-specific authorization responses that you might encounter in the production environment. This allows you to receive and handle response codes that you would not otherwise encounter in your test environment.
 
@@ -417,7 +417,7 @@ For example:
 
 In order to test AVS response codes that you will encounter in the production environment, the UAT environment is configured to simulate various AVS responses when the **last three** characters of the `postal` code matches a specific value.
 
-To force a specific AVS response, review the **UAT Test Zip Codes** available in the [UAT Test Card Data](../../docs/documentation/CardPointeGatewayDeveloperGuides.md#UAT-Test-Card-Data) section of this guide. Then submit an authorization request using the last three characters of the postal code meant to generate that AVS response. To illustrate this, the example below uses a zip code ending in 112 to emulate `"avsresp": "N"` in the response.
+To force a specific AVS response, review the **UAT Test Zip Codes** available in the [UAT Test Card Data](#UAT-Test-Card-Data) section of this guide. Then submit an authorization request using the last three characters of the postal code meant to generate that AVS response. To illustrate this, the example below uses a zip code ending in 112 to emulate `"avsresp": "N"` in the response.
 
 > Additionally, including any 3-digit AVS response code within the `address` field AVS response will also trigger that response. For example, an authorization request with `"address": "112 Main Street"` or `"address": "31125 Main Street"` will trigger the same AVS response as when using 112 as the last three characters of the postal code.
 >
@@ -467,7 +467,7 @@ To force a specific AVS response, review the **UAT Test Zip Codes** available in
 
 Because the UAT environment does not communicate with the processing hosts, your application can not encounter a time out scenario. In production, when the CardPointe Gateway communication with the processor times out, the Gateway returns an auth response object that includes `"respcode":"62"` and `"resptext":"Timed out"`
 
-If you want to test your application's ability to [handle a time out response](../../docs/documentation/CardPointeGatewayDeveloperGuides.md#Handling-Timed-out-Transactions), you can send an auth request using one of the following test card numbers:
+If you want to test your application's ability to [handle a time out response](#Handling-Timed-out-Transactions), you can send an auth request using one of the following test card numbers:
 
 - **Visa**: 4999006200620062
 - **MC**: 5111006200620062
@@ -513,7 +513,7 @@ Status: 200 OK
 
 This guide provides guidance for accepting Automated Clearing House (ACH) payments using the CardPointe Gateway API. ACH payments, also called e-check payments, are a common payment method for recurring payments as well as telephone and mail orders.
 
-Unlike credit card payments, when a customer authorizes an ACH payment, the funds are withdrawn directly from his or her bank account. This process can take several days, so you should include a monitoring process in your integration to [verify the status of the transaction](../../docs/documentation/CardPointeGatewayDeveloperGuides.md#Verifying-ACH-Transactions).
+Unlike credit card payments, when a customer authorizes an ACH payment, the funds are withdrawn directly from his or her bank account. This process can take several days, so you should include a monitoring process in your integration to [verify the status of the transaction](#Verifying-ACH-Transactions).
 
 To accept ACH payments, you must capture and handle the customer's bank account and routing number. While you can capture this information and pass it directly to the CardPointe Gateway in an authorization request, it is a best practice to instead capture this information and tokenize it using a CardSecure-integrated web form.
 
@@ -723,7 +723,7 @@ For example, you can:
   Optionally, do the following:
 - Include ”capture” : “y” to accept an initial payment.
 	- include ”profile” : “y” to store the customer’s data in a profile to use in future requests.
-- Gather and tokenize the payment card data using the [Hosted iFrame Tokenizer](../../docs/documentation/HostediFrameTokenizer.md).
+- Gather and tokenize the payment card data using the [Hosted iFrame Tokenizer](HostediFrameTokenizer.md).
 - Use a CardPointe Integrated Terminal and the Terminal API readCard or readManual service endpoint.
 
 **2.** Store the token for reuse.
@@ -778,13 +778,13 @@ Additionally, receipt requirements vary depending on the card type. For example,
 
 ## Understanding Receipt Data
 
-When an authorization is successfully approved and processed by the CardPointe Gateway, the [authorization response](../../docs/documentation/CardPointeGatewayDeveloperGuides.md#Authorization-Response-Data) payload includes important transaction details that you can capture and print on a receipt.
+When an authorization is successfully approved and processed by the CardPointe Gateway, the [authorization response](#Authorization-Response-Data) payload includes important transaction details that you can capture and print on a receipt.
 
 In general, a receipt must include:
 
-- transaction details from the [authorization response](../../docs/documentation/CardPointeGatewayDeveloperGuides.md#Authorization-Response-Data)
-- merchant account information and additional transaction details returned in the [receipt object](../../docs/documentation/CardPointeGatewayDeveloperGuides.md#Receipt-Data)
-- EMV tag data returned in the [EMV tag object](../../docs/documentation/CardPointeGatewayDeveloperGuides.md#EMV-Tag-Data), if the card used was an EMV (chip or contactless) card.
+- transaction details from the [authorization response](#Authorization-Response-Data)
+- merchant account information and additional transaction details returned in the [receipt object](#Receipt-Data)
+- EMV tag data returned in the [EMV tag object](#EMV-Tag-Data), if the card used was an EMV (chip or contactless) card.
 
 ## Authorization Response Data
 
@@ -800,7 +800,7 @@ A successful authorization response includes the following fields. You should in
 | batchid | Batch ID | 12 | Automatically created and assigned unless otherwise specified. Returned for a successful authorization with capture. |
 | orderid | Order ID | 19 | Order ID copied from the authorization request. |
 | merchid | Merchant ID | 12 | Copied from the authorization request. <br> **Note**: _If you include the merchant ID on a receipt, mask this value, except the last four digits_. |
-| respcode | [Response code](../../docs/documentation/GatewayResponseCodes.md) | - | Alpha-numeric response code that represents the description of the response |
+| respcode | [Response code](GatewayResponseCodes.md) | - | Alpha-numeric response code that represents the description of the response |
 | resptext | Response text | - | Text description of response |
 | respproc | Response processor | 4 | Abbreviation that represents the platform and the processor for the transaction |
 | bintype | Type of BIN | 16 | **Possible Values**: <br> <br> Corp <br> FSA+Prepaid <br> GSA+Purchase <br> Prepaid <br> Prepaid+Corp <br> Prepaid+Purchase <br> Purchase |
@@ -877,7 +877,7 @@ A successful authorization response includes a receipt object with the following
 
 ### Printing a Receipt
 
-To print a receipt from your custom integration, use the fields described in [Understanding Receipt Data](../../docs/documentation/CardPointeGatewayDeveloperGuides.md#Understanding-Receipt-Data) to build your receipt template.
+To print a receipt from your custom integration, use the fields described in [Understanding Receipt Data](#Understanding-Receipt-Data) to build your receipt template.
 
 The following example illustrates a receipt template (left) and a receipt populated with data retrieved from the authorization response (right).
 
@@ -1139,7 +1139,7 @@ The request file submitted to BAS will contain all required data elements within
 
 ## Client Onboarding Checklist
 
-**1.** [Obtain the CardPointe Gateway PGP public key](../../docs/documentation/CardPointeGatewayDeveloperGuides.md#PGP-Keys). Clients must encrypt all request files using this key.
+**1.** [Obtain the CardPointe Gateway PGP public key](#PGP-Keys). Clients must encrypt all request files using this key.
    
 **2.** Send your client pgp public key to integrationdelivery@fiserv.com. Your public key will be used to encrypt response files.
    
@@ -1400,7 +1400,7 @@ id,status,message,orderid,retref,amount,resptext,commcard,cvvresp,batchid,avsres
 | cvvresp | CVV response code | 1 | Alpha-numeric CVV response. |
 | batchid | Batch ID | 10 | Automatically created and assigned unless otherwise specified |
 | avsresp | AVS response code | 2 | Alpha-numeric AVS response. |
-| respcode | [Response code](../../docs/documentation/GatewayResponseCodes.md) | - | Alpha-numeric response code that represents the description of the response |
+| respcode | [Response code](GatewayResponseCodes.md) | - | Alpha-numeric response code that represents the description of the response |
 | merchid | Merchant ID | 12 | Copied from request |
 | token (if requested) | Token | 19 | A token that replaces the card number in capture and settlement requests if requested |
 | authcode | Authorization code | 6 | Authorization Code from the Issuer |
