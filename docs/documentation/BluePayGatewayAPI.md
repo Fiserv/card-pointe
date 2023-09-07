@@ -31,7 +31,7 @@ The following documents have been updated. See the Revision History in each guid
 - [Rebill Post](#rebill-post)
 - [Trans Notify Post](#trans-notify-post)
 - [BluePay 2.0 Post (bp20post)](#bluepay-20-post-bp20post)
-- [BluePay XML Post (asby)](../../CardPointe/docs/?path=docs/documentation/BluePayGatewayAPI.md&branch=develop#bluepay-xml-post-asby)
+- [BluePay XML Post (asby)](#bluepay-xml-post-asby)
 
 # Request a Sandbox Account
 
