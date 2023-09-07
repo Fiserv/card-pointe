@@ -135,11 +135,11 @@ The configure swiper demo allows you to find and connect to a mobile payment rea
 
 To connect to a mobile payment reader, do the following:
 
-1) Select IDTech VP3300 to connect to a VP3300 device.
+**1.** Select IDTech VP3300 to connect to a VP3300 device.
 
     The app displays a list of available devices. 
 
-2) Select a device to connect to it.
+**2.** Select a device to connect to it.
 
     The device is now connected and ready for use.
 
@@ -175,19 +175,23 @@ Both versions of the demo include sample profile data, and the ability to add, e
 
 To add a new profile, do the following:
 
-1) Tap **Add New Account** on the Accounts page.
-2) Enter the Card Number and Expiration Date, and any optional details that you want to include in the profile. The Card Number and Expiration Date fields automatically format the input.
-3) Tap **Done** then tap **Create Account** to save the new profile. 
+**1.** Tap **Add New Account** on the Accounts page.
+
+**2.** Enter the Card Number and Expiration Date, and any optional details that you want to include in the profile. The Card Number and Expiration Date fields automatically format the input.
+
+**3.** Tap **Done** then tap **Create Account** to save the new profile. 
 
 To edit a profile, do the following:
 
-1) Tap **Edit** on the Accounts page.
-2) Tap the stored payment card that you want to edit.
+**1.** Tap **Edit** on the Accounts page.
+
+**2.** Tap the stored payment card that you want to edit.
 
     Alternatively, tap the delete icon to delete the stored payment card.
 
-3) On the Edit Account page, you can edit the expiration date and set the stored card as the default payment method.  
-4) Click **Save** to save your changes.
+**3.** On the Edit Account page, you can edit the expiration date and set the stored card as the default payment method.  
+
+**4.** Click **Save** to save your changes.
 
 <!-- theme: warning -->
 > When you integrate the SDK with your application, you can extend the Profile UI to edit the customer billing information and make an update profile request to the CardPointe Gateway.
@@ -219,60 +223,78 @@ The following topics provide information for integrating the CardPointe Mobile i
 
 Do the following to add the framework to your project.
 
-1) Open your project in Xcode. 
-2) In the left pane, select the **Project Navigator** tab, then click your project to open the Project Editor.
-3) In the left pane of the Project Editor, select the target for your project.
-4) Select the **General** tab, scroll down to the **Frameworks, Libraries, and Embedded Content** section and click the plus sign (+).
-5) In the choose items to add window, click **Add Other…** and browse to **BoltMobileSDK.xcframework**. 
-6) Select the framework, click **Open**, and then click **Finish**.
-7) Ensure that the framework is listed as Embed & Sign.
+**1.** Open your project in Xcode. 
+
+**2.** In the left pane, select the **Project Navigator** tab, then click your project to open the Project Editor.
+
+**3.** In the left pane of the Project Editor, select the target for your project.
+
+**4.** Select the **General** tab, scroll down to the **Frameworks, Libraries, and Embedded Content** section and click the plus sign (+).
+
+**5.** In the choose items to add window, click **Add Other…** and browse to **BoltMobileSDK.xcframework**. 
+
+**6.** Select the framework, click **Open**, and then click **Finish**.
+
+**7.** Ensure that the framework is listed as Embed & Sign.
 
 ### Configuring your Project
 
 Do the following to configure your project:
 
-1) Import the SDK into your prefix or source files:
+**1.** Import the SDK into your prefix or source files:
+
     `#import <BoltMobileSDK/BoltMobileSDK.h>`
-2) Set your endpoint on BMSAPI (for example, <host>.cardconnect.com)
+
+**2.** Set your endpoint on BMSAPI (for example, <host>.cardconnect.com)
+
     `[BMSAPI instance].endpoint = @”<endpoint provided for your account>”;`
 
 ## Adding Support for Mobile Payment Readers
 
 If you are integrating support for a mobile payment reader (swiper) device, do the following to configure your project:
 
-1) Select the **Info** tab on the Project Editor
-2) Under **Custom iOS Target Properties**, hover over the table and click the plus sign (+) to add a new key.
-3) Select **Privacy - Microphone Usage Description** key.
-4) In the **Value** column, enter a description to display to users (for example, "Required for swiper usage").
+**1.** Select the **Info** tab on the Project Editor
+
+**2.** Under **Custom iOS Target Properties**, hover over the table and click the plus sign (+) to add a new key.
+
+**3.** Select **Privacy - Microphone Usage Description** key.
+
+**4.** In the **Value** column, enter a description to display to users (for example, "Required for swiper usage").
 
 ### Adding Support for the VP3300 Device
 
 To integrate an ID TECH VP3300, do the following to add the required bundle to your project:
 
-1) In the **Project Navigator** (left) pane, right-click your project name and select **Add files to "<app name>"**.
-2) Browse to the directory that includes the framework and add the **IDTech.bundle** file to your project at the path **<project directory>/BoltMobileSDK.xcframework/IDTech.bundle**.
-3) Select the **Info** tab on the Project Editor
-4) Under **Custom iOS Target Properties**, hover over the table and click the plus sign (+) to add a new key.
-5) Select both the **Privacy - Bluetooth Always Usage Description** key and the **Privacy - Bluetooth Peripheral Usage Description** key.
-6) In the **Value** column, enter a description to display to users (for example, "Required for the VP3300 swiper").
+**1.** In the **Project Navigator** (left) pane, right-click your project name and select **Add files to "<app name>"**.
+
+**2.** Browse to the directory that includes the framework and add the **IDTech.bundle** file to your project at the path **<project directory>/BoltMobileSDK.xcframework/IDTech.bundle**.
+
+**3.** Select the **Info** tab on the Project Editor
+
+**4.** Under **Custom iOS Target Properties**, hover over the table and click the plus sign (+) to add a new key.
+
+**5.** Select both the **Privacy - Bluetooth Always Usage Description** key and the **Privacy - Bluetooth Peripheral Usage Description** key.
+
+**6.** In the **Value** column, enter a description to display to users (for example, "Required for the VP3300 swiper").
 
 ## Integrating the Mobile Payment Reader
 
 To use a mobile payment reader (swiper) device, perform the following steps to integrate the device with your application:
 
-1) Add the `BMSSwiperControllerDelegate` protocol to your view controller.
-2) Add the required methods from `BMSSwiperControllerDelegate` and its super protocol `BMSSwiperDelegate` to your view:
+**1.** Add the `BMSSwiperControllerDelegate` protocol to your view controller.
+
+**2.** Add the required methods from `BMSSwiperControllerDelegate` and its super protocol `BMSSwiperDelegate` to your view:
 
     - `swiper:didGenerateTokenWithAccount:completion:`
     - `swiper:didFailWithError:completion:`
     - `swiper:foundDevices:`
     - `swiper:displayMessage:canCancel:`
 
-2) Create a `BMSSwiperController` property in your view and initialize it in `viewWillAppear:` as follows:
+**3.** Create a `BMSSwiperController` property in your view and initialize it in `viewWillAppear:` as follows:
 
     `self.swiper = [BMSSwiperController alloc] initWithDelegate:self swiper:{BMSSwiperType} loggingEnabled:YES];`
 
-3) Release the swiper and set it to nil in `viewWillDisappear:` as follows:
+**4.** Release the swiper and set it to nil in `viewWillDisappear:` as follows:
 
     `[self.swiper releaseDevice];`
 
@@ -280,7 +302,7 @@ To use a mobile payment reader (swiper) device, perform the following steps to i
 
     The swiper should initialize when the view appears. You can get the connection status using the optional methods in `BMSSwiperDelegate`.
 
-5) If you are using a VP3300 device, continue to [Integrating a VP3300 Device](../../docs/documentation/CardPointeMobileiOSSDKDeveloperGuide.md#Integrating-a-VP3300-Device).
+**5.** If you are using a VP3300 device, continue to [Integrating a VP3300 Device](../../docs/documentation/CardPointeMobileiOSSDKDeveloperGuide.md#Integrating-a-VP3300-Device).
 
 ## Integrating a VP3300 Device
 
@@ -315,12 +337,13 @@ The SDK provides several modes to connect to a mobile payment reader device, dep
 
 Do the following to find and connect to the VP3300:
 
-1) To start finding devices, call [self.swiper findDevices];.
+**1.** To start finding devices, call [self.swiper findDevices];.
 
     Found devices will be returned to swiper:foundDevices:.
 
-2) Once you select a device, call [self.swiper cancelFindDevices];.
-3) To connect to the device, call [self.swiper connectToDevice:device.uuid];.
+**2.** Once you select a device, call [self.swiper cancelFindDevices];.
+
+**3.** To connect to the device, call [self.swiper connectToDevice:device.uuid];.
 
     Once connected, the swiper will begin waiting for a card and swiper:displayMessage:canCancel will be called.
 
@@ -370,18 +393,21 @@ The SDK framework supports an integrated user interface for managing user accoun
 
 To use the integrated UI, do the following:
 
-1) Create a class that conforms to `BMSAPIBridgeProtocol`.
+**1.** Create a class that conforms to `BMSAPIBridgeProtocol`.
 
     This class calls the backend to perform the actions required by the UI.
 
-2) Set up your root view controller.
+**2.** Set up your root view controller.
 
     This will be the view that presents and responds to the integrated profile UI flow (for example, the screen that appears before the user selects a payment method).
 
-3) In your root view controller, add strong properties for your class that conform to `BMSAPIBridgeProtocol` and `BMSPaymentController`. Additionally, if you want to use a custom theme, create a property for it.
-4) In your root view controller, conform to the `BMSPaymentControllerDelegate` protocol and add `paymentController:finishedWithAccount:` to your controller.
-5) In `viewDidLoad` Initialize the payment controller using either `initWithRootView:apiBridge:delegate:` or `initWithRootView:apiBridge:delegate:theme:`.
-6) The payment controller supports two display methods: integrated with your current stack, or in a separate modal. Depending on which design you want to integrate, do the following:
+**3.** In your root view controller, add strong properties for your class that conform to `BMSAPIBridgeProtocol` and `BMSPaymentController`. Additionally, if you want to use a custom theme, create a property for it.
+
+**4.** In your root view controller, conform to the `BMSPaymentControllerDelegate` protocol and add `paymentController:finishedWithAccount:` to your controller.
+
+**5.** In `viewDidLoad` Initialize the payment controller using either `initWithRootView:apiBridge:delegate:` or `initWithRootView:apiBridge:delegate:theme:`.
+
+**6.** The payment controller supports two display methods: integrated with your current stack, or in a separate modal. Depending on which design you want to integrate, do the following:
 
     - To push the integrated profile UI flow onto your current navigation stack, call `[BMSPaymentController pushPaymentView]`.
 
@@ -403,12 +429,13 @@ The SDK includes the following delegate classes, which provide functions for fie
 <!-- theme: warning -->
 > See the API reference documentation, included in the SDK package, for detailed information on using these classes.
 
-1) In the .xib file, where you collect card information, add an empty object to your controller and set its class to one of the delegates (for example, `BMSCardFormatterDelegate`).
-2) Link your `UITextField` for card number to this class as its delegate.
+**1.** In the .xib file, where you collect card information, add an empty object to your controller and set its class to one of the delegates (for example, `BMSCardFormatterDelegate`).
+
+**2.** Link your `UITextField` for card number to this class as its delegate.
 
     If you want callbacks for other `UITextFieldDelegate` calls sent to your view controller, link the `BMSCardFormatterDelegate` class `originalDelegate` property to your view controller.
 
-3) If you want to modify the masking of the text field, set a reference outlet to your view controller as well.
+**3.** If you want to modify the masking of the text field, set a reference outlet to your view controller as well.
 
     The text input field will now auto-format user input and provide validation using the `BMSCardFormatterDelegate` method `isValidCard`.
 
@@ -421,11 +448,12 @@ The SDK includes the following delegate classes, which provide functions for fie
 
 You use the `BMSCardInfo` and `BMSAPI` classes to send a payment card data to CardSecure in a tokenization request. See the API reference documentation, included in the SDK package, for detailed information on these classes.
 
-1) Add a card number, expiration date, and CVV to your `BMSCardInfo` object.
-2) Using your card info object call the `BMSAPI` function to generate a token as follows:
+**1.** Add a card number, expiration date, and CVV to your `BMSCardInfo` object.
+
+**2.** Using your card info object call the `BMSAPI` function to generate a token as follows:
 
     `[BMSAPI instance] generateAccountForCard:<your card object> completion:^(BMSAccount *account, NSError *error){}];`
 
     A token is generated for the account and returned to your application.
 
-3) Optionally, you can use `BMSAccount` to save an account for a profile on the CardPointe Gateway using the [iOS SDK Integrated Customer Profile UI](../../docs/documentation/CardPointeMobileiOSSDKDeveloperGuide.md#Integrating-The-Customer-Profile-UI) or CardPointe Gateway API.
+**3.** Optionally, you can use `BMSAccount` to save an account for a profile on the CardPointe Gateway using the [iOS SDK Integrated Customer Profile UI](../../docs/documentation/CardPointeMobileiOSSDKDeveloperGuide.md#Integrating-The-Customer-Profile-UI) or CardPointe Gateway API.
