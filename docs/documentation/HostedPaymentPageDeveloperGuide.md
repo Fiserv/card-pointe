@@ -73,11 +73,15 @@ Once you have completed the initial configuration, you can generate the URL and 
 
 To generate the URL, do the following:
 
-1) Click the **Connect** tab, then select the **Build Your Pay Components** page.
-2) Click Build your links/button.
-3) Under **Form types**, select the **Mini** or the **Full** form type, depending on your needs. 
-4) Click **Copy URL to clipboard** to copy the HPP URL iFrame code snippet.
-5) Paste the iFrame into your HTML to embed the payment form.
+**1.** Click the **Connect** tab, then select the **Build Your Pay Components** page.
+
+**2.** Click Build your links/button.
+
+**3.** Under **Form types**, select the **Mini** or the **Full** form type, depending on your needs. 
+
+**4.** Click **Copy URL to clipboard** to copy the HPP URL iFrame code snippet.
+
+**5.** Paste the iFrame into your HTML to embed the payment form.
 
 # Retrieving Transaction Data
 
@@ -99,10 +103,13 @@ The data includes the `retref` for each transaction, which your application can 
 
 To configure a webhook, do the following:
 
-1) On the HPP Admin page, select the **Connect** tab.
-2) On the Connect tab, select **Notifications** in the left pane.
-3) On the Auto Notifications page, in the **Webhook URL** field, enter the URL used to receive transaction details.
-4) Click **Save notification settings**. 
+**1.** On the HPP Admin page, select the **Connect** tab.
+
+**2.** On the Connect tab, select **Notifications** in the left pane.
+
+**3.** On the Auto Notifications page, in the **Webhook URL** field, enter the URL used to receive transaction details.
+
+**4.** Click **Save notification settings**. 
 
 Additionally, you can click **Example** to view an example HPP Webhook Response:
 
