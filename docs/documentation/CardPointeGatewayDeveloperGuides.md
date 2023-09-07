@@ -712,26 +712,27 @@ Ensure that you review and comply with the card brand requirements for obtaining
 
 **1.** Tokenize the customer's payment data.
 
-    Depending on your existing integration, there are several ways to tokenize payment data.
+Depending on your existing integration, there are several ways to tokenize payment data.
 
-    For example, you can:
-    - Use the customer’s clear PAN or ACH payment data to make a CardPointe Gateway API authorization request. The response returns a token for the account.
+For example, you can:
 
-       **Note**: _You should only programmatically handle and tokenize clear payment account numbers (PANs) if your business is a registered PCI Level 1 or Level 2 certified merchant. If you are not already certified for compliance with the Payment Card Industry's standards and guidelines for handling sensitive account data, see https://www.pcisecuritystandards.org/ for more information._
+- Use the customer’s clear PAN or ACH payment data to make a CardPointe Gateway API authorization request. The response returns a token for the account.
 
-       Optionally, do the following:  
-       - Include ”capture” : “y” to accept an initial payment.
-       - include ”profile” : “y” to store the customer’s data in a profile to use in future requests.
-    - Gather and tokenize the payment card data using the [Hosted iFrame Tokenizer](../../docs/documentation/HostediFrameTokenizer.md).
-    - Use a CardPointe Integrated Terminal and the Terminal API readCard or readManual service endpoint.
+  **Note**: _You should only programmatically handle and tokenize clear payment account numbers (PANs) if your business is a registered PCI Level 1 or Level 2 certified merchant. If you are not already certified for compliance with the Payment Card Industry's standards and guidelines for handling sensitive account data, see https://www.pcisecuritystandards.org/ for more information._
+
+  Optionally, do the following:
+- Include ”capture” : “y” to accept an initial payment.
+	- include ”profile” : “y” to store the customer’s data in a profile to use in future requests.
+- Gather and tokenize the payment card data using the [Hosted iFrame Tokenizer](../../docs/documentation/HostediFrameTokenizer.md).
+- Use a CardPointe Integrated Terminal and the Terminal API readCard or readManual service endpoint.
 
 **2.** Store the token for reuse.
 
-    You can either store tokens and customer data in your own database, or you can use the CardPointe Gateway API’s profile service endpoint to create and store customer profiles in the CardPointe Gateway's secure vault. You can skip this step if you created a profile in step 1.
+- You can either store tokens and customer data in your own database, or you can use the CardPointe Gateway API’s profile service endpoint to create and store customer profiles in the CardPointe Gateway's secure vault. You can skip this step if you created a profile in step 1.
    
 **3.** Gather your billing requirements.
 
-    Determine the start date and length of the billing plan, the payment amount and frequency, and any additional information that you'll need to include in your requests.
+- Determine the start date and length of the billing plan, the payment amount and frequency, and any additional information that you'll need to include in your requests.
 
 **4.** Build your Cron job to schedule authorization requests to the CardPointe Gateway API.
 
@@ -1415,13 +1416,13 @@ The following procedure describes each folder's purpose:
 
 **1.** You upload an encrypted request file into the **/request** directory.
 
-	BAS decrypts the file and runs authorization requests, logging each response in a new response file.
+- BAS decrypts the file and runs authorization requests, logging each response in a new response file.
 
 **3.** You poll the server for encrypted responses files in the **/response** directory.
 
 **4.** If an error occurs when attempting to decrypt the pgp file, the encrypted request file is placed in the **/dlc** directory.
 
-	Contact Support if you encounter this scenario.
+- Contact Support if you encounter this scenario.
 
 ## Viewing Batch File Transactions in CardPointe
 
