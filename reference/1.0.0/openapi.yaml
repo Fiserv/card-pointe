@@ -372,14 +372,19 @@ components:
               description: Signature data, if captured. Data must be a Base64-encoded, Gzipped bitmap (BMP). 
             encryptionhandler:
               type: string
-              description: "Must be either **RSA** (for an encrypted PAN or ACH), **EC_APPLE_PAY** (for an Apple Pay payment token), or **EC_GOOGLE_PAY** (for a Google Pay wallet payload)."
+              description: |
+                One of the following :
+                  * For an encrypted PAN or ACH, specify **RSA**
+                  * For an Apple Pay payment token, specify **EC_APPLE_PAY**
+                  * For a Google Pay wallet payload, specify **EC_GOOGLE_PAY**
             expiry:
               type: integer
               description: |
-                One of the following:
-                 * For an encrypted PAN or ACH, specify **RSA**
-                 * For an Apple Pay payment token, specify **EC_APPLE_PAY**
-                 * For a Google Pay wallet payload, specify **EC_GOOGLE_PAY**
+                Optional, the card expiration date. Must be a numeric string, in one of the following formats:
+                  * MMYY
+                  * YYYYM (for single-digit months)
+                  * YYYYMM
+                  * YYYYMMDD
             cvv:
               type: integer
               description: |
