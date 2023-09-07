@@ -16,22 +16,22 @@ The following documents have been updated. See the Revision History in each guid
 
 > If you have any of the following downloads bookmarked, you will need to update your bookmarks because the filenames have changed.
 
-- [BluePay Post (bp10emu)](../../docs/documentation/BluePayGatewayAPI.md#BluePay-Post-bp10emu)
-- [BluePay Redirect (bp10emu)](../../docs/documentation/BluePayGatewayAPI.md#BluePay-Redirect-bp10emu)
-- [BluePay Authorize.net AIM Emulator (a.net)](../../docs/documentation/BluePayGatewayAPI.md#BluePay-Authorizenet-AIM-Emulator-anet)
-- [Manual CSV Upload](../../docs/documentation/BluePayGatewayAPI.md#Manual-CSV-Upload)
-- [BluePay CSV Upload (bp20bu)](../../docs/documentation/BluePayGatewayAPI.md#BluePay-CSV-Upload-bp20bu)
-- [BluePay CSV Upload Report (bpbureport)](../../docs/documentation/BluePayGatewayAPI.md#BluePay-CSV-Upload-Report-bpbureport)
-- [BluePay Rebill Administration (bprebadmin)](../../docs/documentation/BluePayGatewayAPI.md#BluePay-Rebill-Administration-bprebadmin)
-- [BluePay Customer Token Administration (bp20tokenadmin)](../../docs/documentation/BluePayGatewayAPI.md#BluePay-Customer-Token-Administration-bp20tokenadmin)
-- [BluePay Daily Report 2 (bpdailyreport2)](../../docs/documentation/BluePayGatewayAPI.md#BluePay-Daily-Report-2-bpdailyreport2)
-- [BluePay Single Transaction Query (stq)](../../docs/documentation/BluePayGatewayAPI.md#BluePay-Single-Transaction-Query-stq)
-- [BluePay Reserve Query (reserveq)](../../docs/documentation/BluePayGatewayAPI.md#BluePay-Reserve-Query-reserveq)
-- [BluePay Manager CSV Export](../../docs/documentation/BluePayGatewayAPI.md#BluePay-Manager-CSV-Export)
-- [Rebill Post](../../docs/documentation/BluePayGatewayAPI.md#Rebill-Post)
-- [Trans Notify Post](../../docs/documentation/BluePayGatewayAPI.md#Trans-Notify-Post)
-- [BluePay 2.0 Post (bp20post)](../../docs/documentation/BluePayGatewayAPI.md#BluePay-20-Post-bp20post)
-- [BluePay XML Post (asby)](../../docs/documentation/BluePayGatewayAPI.md#BluePay-XML-Post-asby)
+- [BluePay Post (bp10emu)](../../CardPointe/docs/?path=docs/documentation/BluePayGatewayAPI.md&branch=develop#bluepay-post-bp10emu)
+- [BluePay Redirect (bp10emu)](../../CardPointe/docs/?path=docs/documentation/BluePayGatewayAPI.md&branch=develop#bluepay-redirect-bp10emu)
+- [BluePay Authorize.net AIM Emulator (a.net)](../../CardPointe/docs/?path=docs/documentation/BluePayGatewayAPI.md&branch=develop#bluepay-authorizenet-aim-emulator-anet)
+- [Manual CSV Upload](../../CardPointe/docs/?path=docs/documentation/BluePayGatewayAPI.md&branch=develop#manual-csv-upload)
+- [BluePay CSV Upload (bp20bu)](../../CardPointe/docs/?path=docs/documentation/BluePayGatewayAPI.md&branch=develop#bluepay-csv-upload-bp20bu)
+- [BluePay CSV Upload Report (bpbureport)](../../CardPointe/docs/?path=docs/documentation/BluePayGatewayAPI.md&branch=develop#bluepay-csv-upload-report-bpbureport)
+- [BluePay Rebill Administration (bprebadmin)](../../CardPointe/docs/?path=docs/documentation/BluePayGatewayAPI.md&branch=develop#bluepay-rebill-administration-bprebadmin)
+- [BluePay Customer Token Administration (bp20tokenadmin)](../../CardPointe/docs/?path=docs/documentation/BluePayGatewayAPI.md&branch=develop#bluepay-customer-token-administration-bp20tokenadmin)
+- [BluePay Daily Report 2 (bpdailyreport2)](../../CardPointe/docs/?path=docs/documentation/BluePayGatewayAPI.md&branch=develop#bluepay-daily-report-2-bpdailyreport2)
+- [BluePay Single Transaction Query (stq)](../../CardPointe/docs/?path=docs/documentation/BluePayGatewayAPI.md&branch=develop#bluepay-single-transaction-query-stq)
+- [BluePay Reserve Query (reserveq)](../../CardPointe/docs/?path=docs/documentation/BluePayGatewayAPI.md&branch=develop#bluepay-reserve-query-reserveq)
+- [BluePay Manager CSV Export](../../CardPointe/docs/?path=docs/documentation/BluePayGatewayAPI.md&branch=develop#bluepay-manager-csv-export)
+- [Rebill Post](../../CardPointe/docs/?path=docs/documentation/BluePayGatewayAPI.md&branch=develop#rebill-post)
+- [Trans Notify Post](../../CardPointe/docs/?path=docs/documentation/BluePayGatewayAPI.md&branch=develop#trans-notify-post)
+- [BluePay 2.0 Post (bp20post)](../../CardPointe/docs/?path=docs/documentation/BluePayGatewayAPI.md&branch=develop#bluepay-20-post-bp20post)
+- [BluePay XML Post (asby)](../../CardPointe/docs/?path=docs/documentation/BluePayGatewayAPI.md&branch=develop#bluepay-xml-post-asby)
 
 # Request a Sandbox Account
 
