@@ -51,7 +51,7 @@ You can include the following fields in the URL, to prefill values on the HPP:
 | URL Field Name | HPP Design Field Name | Notes | 
 | --- | --- | --- |
 | total | ##INVOICE_AMOUNT## | The total amount of the requested payment. |
-| invoice | ##INVOICE_NUMBER## | The Invoice Number. <br> <br> The Invoice Number is sent to the CardPointe Gateway as the `orderid` for the transaction, allowing you to look up and manage transactions by `orderid`, using the CardPointe Gateway API. See Using the CardPointe Gateway API to Manage Transactions, below, for more information. |
+| invoice | ##INVOICE_NUMBER## | The Invoice Number. <br> <br> The Invoice Number is sent to the CardPointe Gateway as the `orderid` for the transaction, allowing you to look up and manage transactions by `orderid`, using the CardPointe Gateway API. See [Using the CardPointe Gateway API to Manage Transactions](#Using-the-CardPointe-Gateway-API-to-Manage-Transactions), below, for more information. |
 | customerId | ##CUSTOMER_NUMBER## | The customer's unique customer ID, if applicable.
 | billCompany | ##COMPANY##	| The customer's company name, if applicable.
 | billFName	| ##FIRST_NAME## | The customer's first name.
@@ -201,7 +201,7 @@ Additionally, if you use the CardPointe Web application, you can view and manage
 
 The CardPointe Gateway API offers the most flexible methods for reconciling and managing transactions. 
 
-If you are using webhooks to gather transaction details, you can use the `retref` for a transaction to make inquire, refund, or void requests.
+If you are [using webhooks](#Using-HPP-Webhooks-to-Retrieve-Transactions) to gather transaction details, you can use the `retref` for a transaction to make inquire, refund, or void requests.
 
 If you are not using webhooks, you can include an Invoice Number in each transaction. The Invoice Number value is sent to the CardPointe Gateway as the `orderid`, which you can use to make an inquireByOrderid request to retrieve the `retref` and other transaction details to allow you to manage your payments.
 
