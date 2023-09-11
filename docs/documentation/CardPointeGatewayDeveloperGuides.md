@@ -280,11 +280,11 @@ You can use the following test CVV numbers on the First Data North or Rapid Conn
 
 Physical test cards allow you to test card-present payments.
 
-> You may use any test card to experiment on the CardPointe Gateway. You do not need to purchase a Fiserv-specific test card from the below site to be able to do this. 
-
 You can obtain a complete set of EMV test cards from B2 Payment Solutions at the following URL:
 
 https://b2ps.com/product-category/b2-payment-testing-products/
+
+> You can use any test card to test your integration; you do not need to order Fiserv-branded test cards. 
 
 ## Test Cases
 
