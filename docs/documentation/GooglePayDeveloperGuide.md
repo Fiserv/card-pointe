@@ -119,7 +119,7 @@ See the following resources for detailed Google Pay API integration details:
 
 Once you receive a token from CardSecure, you can pass the token to the CardPointe Gateway in an authorization request.
 
-You use the CardPointe Gateway API to make a request to the `auth` endpoint. To simplify your integration, you can download and test our sample mobile applications and server side host scripts. See the [CardPointe Mobile Mobile SDKs Developer Guide](CardPointeMobileSDKs.md) for more information and examples.
+You use the CardPointe Gateway API to make a request to the `auth` endpoint. To simplify your integration, you can download and test our sample mobile applications and server side host scripts. See the [CardPointe Mobile Mobile SDKs Developer Guide](?path=docs/documentation/CardPointeMobileSDKs.md) for more information and examples.
 
 See the CardPointe Gateway API Developer documentation for detailed information on the authorization request and response data.
 
