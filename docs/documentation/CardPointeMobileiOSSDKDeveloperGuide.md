@@ -35,7 +35,7 @@ A complete mobile payment integration consists of two components:
 - Tokenization is handled by the CardPointe Mobile SDK integrated with your mobile application.
 - Authorization is handled by host scripts integrated with your server application.
 
-See the [CardPointe Mobile SDKs Developer Guide](CardPointeMobileSDKs.md) for detailed information on the overall solution, as well as example host scripts to help you get started with your server-side implementation.
+See the [CardPointe Mobile SDKs Developer Guide](?path=docs/documentation/CardPointeMobileSDKs.md) for detailed information on the overall solution, as well as example host scripts to help you get started with your server-side implementation.
 
 ## Supported Devices
 
@@ -107,7 +107,7 @@ The following table provides an overview of the features that you might want to 
 | Functionality | User Type | Component | Description |
 | --- | --- | --- | --- |
 | Stored Customer Profiles | Customer | [Integrated Customer Profile UI](#Integrating-The-Customer-Profile-UI) | Integrates the CardPointe Gateway Profile service, allowing customers to securely store and manage their payment accounts. <br> <br> See the CardPointe Gateway Profile service documentation for more information on the profile service. <br> <br> See [Integrating the Customer Profile UI](#Integrating-The-Customer-Profile-UI) for information on adding this feature to your application. |
-| Apple Pay Wallet Support | Customer | [Apple Pay Integration](ApplePayDeveloperGuide.md) | Adds the option to use Apple Pay wallet credentials and stored payment methods. <br> <br> See the [Apple Pay Developer Guide](ApplePayDeveloperGuide.md) for more information. |
+| Apple Pay Wallet Support | Customer | [Apple Pay Integration](?path=docs/documentation/ApplePayDeveloperGuide.md) | Adds the option to use Apple Pay wallet credentials and stored payment methods. <br> <br> See the [Apple Pay Developer Guide](?path=docs/documentation/ApplePayDeveloperGuide.md) for more information. |
 | Mobile Payment Reader Devices	| Merchant | [iOS Swiper Implementation](#Adding-Support-For-Mobile-Payment-Readers) | An integrated mobile payment reader (swiper) device used to securely capture and encrypt card data prior to tokenization. <br> <br> See [Supported Devices](#Supported-Devices) for information on the devices that are currently supported. <br> <br> See the [iOS SDK Integration Guide](#iOS-SDK-Integration-Guide) for instructions for integrating mobile payment reader devices. |
 
 # iOS Sample App User's Guide
