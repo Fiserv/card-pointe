@@ -38,7 +38,7 @@ A complete mobile payment integration consists of two components:
 - Tokenization is handled by the CardPointe Mobile SDK integrated with your mobile application.
 - Authorization is handled by host scripts integrated with your server application.
 
-See the [CardPointe Mobile SDKs Developer Guide](CardPointeMobileSDKs.md) for detailed information on the overall solution, as well as example host scripts to help you get started with your server-side implementation.
+See the [CardPointe Mobile SDKs Developer Guide](?path=docs/documentation/CardPointeMobileSDKs.md) for detailed information on the overall solution, as well as example host scripts to help you get started with your server-side implementation.
 
 ## Supported Devices
 
@@ -106,7 +106,7 @@ The following table provides an overview of the features that you might want to 
 | Stored Customer Profiles | Customer | [Integrated Customer Profile UI](#integrating-the-customer-profile-ui-optional) | Integrates the CardPointe Gateway Profile service, allowing customers to securely store and manage their payment accounts. <br> <br> See the CardPointe Gateway Profile service documentation for more information on the profile service. <br> <br> See [Integrating the Customer Profile UI](#integrating-the-customer-profile-ui-optional) for information on adding this feature to your application. |
 | Mobile Payment Reader Devices	| Merchant | Android Swiper Implementation | An integrated mobile payment reader (swiper) device used to securely capture and encrypt card data prior to tokenization. <br> <br> See [Supported Devices](#Supported-Devices) for information on the devices that are currently supported. <br> <br> See the [Android SDK Integration Guide](#Android-SDK-Integration-Guide) for instructions for integrating mobile payment reader devices. |
 
-Additionally, you can integrate the Google Pay Android API to add Google Paytm support to your app. See the [Google Pay Developer Guide](GooglePayDeveloperGuide.md) for more information.
+Additionally, you can integrate the Google Pay Android API to add Google Paytm support to your app. See the [Google Pay Developer Guide](?path=docs/documentation/GooglePayDeveloperGuide.md) for more information.
 
 # Android SDK Sample APP
 
