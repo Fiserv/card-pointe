@@ -52,13 +52,7 @@ For more information on using the VP3300, see the CardPointe Mobile Device User'
 
 Download the latest version of the SDK to get started:
 
-<!-- type: row -->
-
-<!-- type: card
-title: CardPoint Mobile iOS SDK v5.2 ZIP
--->
-
-<!-- type: row-end -->
+> [CardPoint Mobile iOS SDK v5.2 ZIP](../../assets/files/cardpoint-mobile-ios-sdk-v5.2.zip)
 
 The CardPointe Mobile iOS SDK includes the following resources:
 
