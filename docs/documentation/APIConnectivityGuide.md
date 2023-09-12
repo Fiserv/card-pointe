@@ -64,7 +64,7 @@ You connect to the UAT (user acceptance testing) sandbox environment to test and
 The UAT environment includes emulators that simulate the payment processing activities that occur in production. In this environment, you test with dummy data that is never sent to the payment processor. You should use test card numbers (for example, 4111 1111 1111 1111 or 4444 3333 2222 1111) and physical test cards. 
 
 <!-- theme: warning -->
-> See [Testing With Amount-Driven Response Codes](CardPointeGatewayDeveloperGuides.md#Testing-with-Amount-Driven-Response-Codes) for additional information on using the emulator to test specific response cases.
+> See [Testing With Amount-Driven Response Codes](?path=docs/documentation/CardPointeGatewayDeveloperGuides.md#Testing-with-Amount-Driven-Response-Codes) for additional information on using the emulator to test specific response cases.
 
 CardPointe merchants receive test Merchant ID (MID) accounts for use in the UAT environment. If necessary, you can request a merchant record with a valid MID to test in the UAT environment.
 
