@@ -15,11 +15,11 @@ A complete mobile payment integration consists of two components:
 
 ## Tokenization (Client-side)
 
-The CardPointe Mobile SDK installs alongside your mobile application, and uses [CardSecure](CardSecure.md) to tokenize and encrypt payment card data. Card data can be manually entered in the application or captured, using a [supported mobile payment reader device](#Supported-Devices). Payment card data is encrypted and tokenized without being exposed to your software application or server.
+The CardPointe Mobile SDK installs alongside your mobile application, and uses [CardSecure](?path=docs/documentation/CardSecure.md) to tokenize and encrypt payment card data. Card data can be manually entered in the application or captured, using a [supported mobile payment reader device](#Supported-Devices). Payment card data is encrypted and tokenized without being exposed to your software application or server.
 
 Additionally, tokens can be stored in customer profiles for use in subsequent transactions.
 
-See [Understanding CardSecure Tokens](CardSecure.md#Understanding-CardSecure-Tokens) for detailed information on how CardSecure tokens are created and used.
+See [Understanding CardSecure Tokens](?path=docs/documentation/CardSecure.md#Understanding-CardSecure-Tokens) for detailed information on how CardSecure tokens are created and used.
 
 ## Authorization (Server-side)
 
