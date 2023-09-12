@@ -21,7 +21,7 @@ The CardPointe Integrated Terminal API allows developers the flexibility to acco
 **5.** [Getting a Token and Running a Payment](#getting-a-token-and-running-a-payment)
 
 <!-- theme: warning -->
-> See the [API Connectivity Guide](APIConnectivityGuide.md) for general information on connecting to the Terminal API and related services.
+> See the [API Connectivity Guide](?path=docs/documentation/APIConnectivityGuide.md) for general information on connecting to the Terminal API and related services.
 
 ## Connecting a Terminal
 
@@ -94,7 +94,7 @@ In addition to handling payment requests, the CardPointe Gateway also provides m
 
 To help you get started with your integration, we created a sample Postman Collection that includes a template of the Terminal API service endpoints.
 
-[Run in Postman](https://app.getpostman.com/run-collection/78bf7730d5cf55a3080f?action=collection%2Fimport#?env%5BBolt%20Terminal%20API%20UAT%20Environment%5D=W3sia2V5Ijoic2l0ZSIsInZhbHVlIjoie1VBVCBvciBwcm9kdWN0aW9uIHNpdGV9IiwiZW5hYmxlZCI6dHJ1ZX0seyJrZXkiOiJ1cmwiLCJ2YWx1ZSI6Imh0dHBzOi8ve3tzaXRlfX0uY2FyZHBvaW50ZS5jb20vYXBpIiwiZW5hYmxlZCI6dHJ1ZX0seyJrZXkiOiJBdXRob3JpemF0aW9uIiwidmFsdWUiOiJ7eW91ciBhdXRoIGtleX0iLCJlbmFibGVkIjp0cnVlfSx7ImtleSI6Im1lcmNoYW50SWQiLCJ2YWx1ZSI6Int5b3VyIG1lcmNoYW50SWR9IiwiZW5hYmxlZCI6dHJ1ZX0seyJrZXkiOiJoc24iLCJ2YWx1ZSI6Int5b3VyIGhzbn0iLCJlbmFibGVkIjp0cnVlfSx7ImtleSI6IlgtQ2FyZENvbm5lY3QtU2Vzc2lvbktleSIsInZhbHVlIjoiIiwiZW5hYmxlZCI6dHJ1ZX1d)
+> [Run in Postman](https://app.getpostman.com/run-collection/78bf7730d5cf55a3080f?action=collection%2Fimport#?env%5BBolt%20Terminal%20API%20UAT%20Environment%5D=W3sia2V5Ijoic2l0ZSIsInZhbHVlIjoie1VBVCBvciBwcm9kdWN0aW9uIHNpdGV9IiwiZW5hYmxlZCI6dHJ1ZX0seyJrZXkiOiJ1cmwiLCJ2YWx1ZSI6Imh0dHBzOi8ve3tzaXRlfX0uY2FyZHBvaW50ZS5jb20vYXBpIiwiZW5hYmxlZCI6dHJ1ZX0seyJrZXkiOiJBdXRob3JpemF0aW9uIiwidmFsdWUiOiJ7eW91ciBhdXRoIGtleX0iLCJlbmFibGVkIjp0cnVlfSx7ImtleSI6Im1lcmNoYW50SWQiLCJ2YWx1ZSI6Int5b3VyIG1lcmNoYW50SWR9IiwiZW5hYmxlZCI6dHJ1ZX0seyJrZXkiOiJoc24iLCJ2YWx1ZSI6Int5b3VyIGhzbn0iLCJlbmFibGVkIjp0cnVlfSx7ImtleSI6IlgtQ2FyZENvbm5lY3QtU2Vzc2lvbktleSIsInZhbHVlIjoiIiwiZW5hYmxlZCI6dHJ1ZX1d)
 
 ## Configuring Your Postman Environment
 
@@ -226,7 +226,7 @@ You use the following endpoints to capture information for use by your point-of-
 | `display` | You can use the `display` endpoint to display text on the terminal's screen. |
 | `clearDisplay` | You can use the `clearDisplay` endpoint to clear the terminal's screen and return to the idle display. |
 | `cancel` | You can use the `cancel` endpoint to cancel an in-flight command on the terminal. |
-| `printReceipt` | On Clover terminals, you can use the `printReceipt` endpoint to reprint receipts for past transactions. See the [CardPointe Integrated Terminal Developer Guide for Clover Terminals](CardPointeIntegratedTerminalDeveloperGuideForCloverTerminals.md) for more information. |
+| `printReceipt` | On Clover terminals, you can use the `printReceipt` endpoint to reprint receipts for past transactions. See the [CardPointe Integrated Terminal Developer Guide for Clover Terminals](?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuideForCloverTerminals.md) for more information. |
 
 ### Using readInput to Capture Customer Information
 
@@ -253,7 +253,7 @@ The following table describes the supported `format` values and how each can be 
 
 CardPointe Integrated Terminal devices support the ability to display a custom image, such as your merchant’s or software’s logo, and to modify the color of the header, footer, and font that displays within the user interface. This allows you to match the style of the terminal interface with your branding to create a more seamless experience for the end user.
 
-> In addition to custom images, Clover terminals support custom background and font colors. See the [CardPointe Integrated Terminal Developer Guide for Clover Terminals](CardPointeIntegratedTerminalDeveloperGuideForCloverTerminals.md) for more information.
+> In addition to custom images, Clover terminals support custom background and font colors. See the [CardPointe Integrated Terminal Developer Guide for Clover Terminals](?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuideForCloverTerminals.md) for more information.
 
 ## Wallpaper Image Requirements
 
@@ -553,7 +553,7 @@ Content-Type: application/json
 
 # Accepting Closed Loop Gift Cards
 
-The CardPointe platform allows merchants the flexibility to accept their own proprietary, closed loop gift cards for customer purchases. If you want to include closed loop gift cards in your accepted payment methods, see [Tokenizing Closed Loop Gift Cards](CardSecure.md#Tokenizing-Closed-Loop-Gift-Cards) in the [CardSecure Developer Guides](CardSecure.md) for more information.
+The CardPointe platform allows merchants the flexibility to accept their own proprietary, closed loop gift cards for customer purchases. If you want to include closed loop gift cards in your accepted payment methods, see [Tokenizing Closed Loop Gift Cards](?path=docs/documentation/CardSecure.md#Tokenizing-Closed-Loop-Gift-Cards) in the [CardSecure Developer Guides](?path=docs/documentation/CardSecure.md) for more information.
 
 # Handling Timeouts
 
@@ -589,7 +589,7 @@ See Terminal API Timeout Handling, later in this guide, for more information.
 
 When you use the Terminal API readCard or readManual requests to tokenize card data for use in a CardPointe Gateway authorization request, you only need to consider the CardPoint Gateway timeout threshold. The CardPointe Gateway sends the request to the payment processing network and allows 31 seconds for a response. If the CardPointe Gateway does not receive a response within this limit, the request times out at 32 seconds and returns a "Timed Out" response. 
 
-See the [Handling Timed-Out Transactions](CardPointeGatewayDeveloperGuides.md#Handling-Timed-Out-Transactions) in the [CardPointe Gateway Developer Guides](CardPointeGatewayDeveloperGuides.md) for information on handling Gateway-only time outs.
+See the [Handling Timed-Out Transactions](?path=docs/documentation/CardPointeGatewayDeveloperGuides.md#Handling-Timed-Out-Transactions) in the [CardPointe Gateway Developer Guides](?path=docs/documentation/CardPointeGatewayDeveloperGuides.md) for information on handling Gateway-only time outs.
 
 ## Terminal API Timeout Handling
 
@@ -723,7 +723,7 @@ For example, do the following:
 This guide provides information for integrators who want to use authorization response data to print receipts from an integrated POS printer.
 
 <!-- theme: warning -->
-> For information on printing receipts from a Clover terminal, see the [CardPointe Integrated Terminal Developer Guide for Clover Terminals](CardPointeIntegratedTerminalDeveloperGuideForCloverTerminals.md).
+> For information on printing receipts from a Clover terminal, see the [CardPointe Integrated Terminal Developer Guide for Clover Terminals](?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuideForCloverTerminals.md).
 
 ## Receipt Rules and Requirements
 
@@ -760,7 +760,7 @@ A successful authorization response includes the following fields. You should in
 | batchid | Batch ID | 12 | Automatically created and assigned unless otherwise specified. Returned for a successful authorization with capture. |
 | orderid | Order ID | 19 | Order ID copied from the authorization request. |
 | merchid | Merchant ID | 12 | Copied from the authorization request. <br> **Note**: _If you include the merchant ID on a receipt, mask this value, except the last four digits_. |
-| respcode | [Response code](GatewayResponseCodes.md) | - | Alpha-numeric response code that represents the description of the response |
+| respcode | [Response code](?path=docs/documentation/GatewayResponseCodes.md) | - | Alpha-numeric response code that represents the description of the response |
 | resptext | Response text | - | Text description of response |
 | respproc | Response processor | 4 | Abbreviation that represents the platform and the processor for the transaction |
 | bintype | Type of BIN | 16 | **Possible Values**: <br> <br> Corp <br> FSA+Prepaid <br> GSA+Purchase <br> Prepaid <br> Prepaid+Corp <br> Prepaid+Purchase <br> Purchase |
