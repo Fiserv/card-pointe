@@ -86,7 +86,7 @@ To help you get started with your integration, we have created a Postman Collect
 
 Included with the collection is a Postman Environment containing variables for your API key and Merchant ID. Enter your API key and Merchant ID in these environment variables before sending any API requests.
 
-[Run in Postman](https://app.getpostman.com/run-collection/d3cbca34902b29fbbb22#?env%5BCard%20Account%20Updater%5D=W3sia2V5Ijoic2l0ZSIsInZhbHVlIjoie1VBVCBvciBwcm9kdWN0aW9uIHNpdGV9IiwiZW5hYmxlZCI6dHJ1ZX0seyJrZXkiOiJ1cmwiLCJ2YWx1ZSI6Imh0dHBzOi8ve3tzaXRlfX0uY2FyZGNvbm5lY3QuY29tL2NhcmRjb25uZWN0L3Jlc3QiLCJlbmFibGVkIjp0cnVlfSx7ImtleSI6IkF1dGhvcml6YXRpb24iLCJ2YWx1ZSI6IntBUEkga2V5fSIsImVuYWJsZWQiOnRydWV9LHsia2V5IjoibWVyY2hpZCIsInZhbHVlIjoie0NhcmRDb25uZWN0IE1JRH0iLCJlbmFibGVkIjp0cnVlfV0=)
+> [Run in Postman](https://app.getpostman.com/run-collection/d3cbca34902b29fbbb22#?env%5BCard%20Account%20Updater%5D=W3sia2V5Ijoic2l0ZSIsInZhbHVlIjoie1VBVCBvciBwcm9kdWN0aW9uIHNpdGV9IiwiZW5hYmxlZCI6dHJ1ZX0seyJrZXkiOiJ1cmwiLCJ2YWx1ZSI6Imh0dHBzOi8ve3tzaXRlfX0uY2FyZGNvbm5lY3QuY29tL2NhcmRjb25uZWN0L3Jlc3QiLCJlbmFibGVkIjp0cnVlfSx7ImtleSI6IkF1dGhvcml6YXRpb24iLCJ2YWx1ZSI6IntBUEkga2V5fSIsImVuYWJsZWQiOnRydWV9LHsia2V5IjoibWVyY2hpZCIsInZhbHVlIjoie0NhcmRDb25uZWN0IE1JRH0iLCJlbmFibGVkIjp0cnVlfV0=)
 
 <!-- theme: warning -->
 > See the [Postman user documentation](https://learning.postman.com/docs/introduction/overview/) for detailed information on using Postman to test APIs.
@@ -115,7 +115,7 @@ A username and password are required in the HTTP Authorization Header property i
 
 Basic Authorization is expected, using a Base64-encoded username and password string as the value. If this value is incorrect or not provided in the request header, HTTP Status 401 Unauthorized is returned to the caller.
 
-See the [API Connectivity Guide](APIConnectivityGuide.md) for more information on connecting to the CardPointe Gateway and other services.
+See the [API Connectivity Guide](?path=docs/documentation/APIConnectivityGuide.md) for more information on connecting to the CardPointe Gateway and other services.
 
 ## Updater Service PUT Request
 
@@ -135,7 +135,7 @@ Parameters in **bold** are required.
 | Body Parameter | Type | Description | 
 | --- | --- | --- |
 | **merchid** | String | The CardPointe Merchant ID associated with the stored profiles <br> <br> **Note**: _The merchant account must be acquired by CardConnect and enrolled in the Card Account Updater service._ |
-| **accounts** | Array | An array of accounts to enroll. See [Accounts Array](CardAccountUpdaterIntegrationGuide.md#Accounts-Array) for details. <br> <br> **Note**: _The maximum number of accounts per PUT request is limited to 2,000_ |
+| **accounts** | Array | An array of accounts to enroll. See [Accounts Array](#Accounts-Array) for details. <br> <br> **Note**: _The maximum number of accounts per PUT request is limited to 2,000_ |
 
 ### Accounts Array
 
