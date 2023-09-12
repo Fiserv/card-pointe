@@ -12,7 +12,7 @@ The following process provides a general overview of the steps required to set u
 **1.** Tokenize the customer's payment data and create a profile. Depending on your existing integration, there are several ways to tokenize payment data and create a payment profile:
 
 - Use the customer’s payment card or ACH payment data to make a CardPointe Gateway API authorization request including `"profile" : "y"` to create a stored profile (optionally, include `"capture":"y"` to also capture a payment). The authorization response includes the `profileid` and `acctid` for the new profile.
-- Use the [Hosted iFrame Tokenizer](HostediFrameTokenizer.md) to gather and tokenize the payment data, then use the CardPointe Gateway API to create a profile.
+- Use the [Hosted iFrame Tokenizer](?path=docs/documentation/HostediFrameTokenizer.md) to gather and tokenize the payment data, then use the CardPointe Gateway API to create a profile.
 - Use a CardPointe Integrated Terminal and the Terminal API authCard or authManual request, including `"createProfile":"true"`, to accept a payment and create a profile.
 
 **2.** Take note of the `profileid` and `acctid` generated during profile creation, as these fields are required to create the billing plan.
