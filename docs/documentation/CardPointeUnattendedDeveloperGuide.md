@@ -260,7 +260,7 @@ The `settlestatByBatchSource` request requires the `merchid` and unique `batchso
 
 The `salesdoc` field in the response is populated by the `orderId` sent in the initial [DPT](#DPT-Do-Payment-Transaction) request, which can be useful in reconciling 
 
-See [Using the settlestatByBatchSource Endpoint](CardPointeGatewayDeveloperGuides.md#using-the-settlestatbybatchsource-endpoint) in the [CardPointe Gateway Developer Guides](CardPointeGatewayDeveloperGuides.md) for more information.
+See [Using the settlestatByBatchSource Endpoint](?path=docs/documentation/CardPointeGatewayDeveloperGuides.md#using-the-settlestatbybatchsource-endpoint) in the [?path=docs/documentation/CardPointe Gateway Developer Guides](CardPointeGatewayDeveloperGuides.md) for more information.
 
 # CardPointe Unattended API
 
@@ -455,7 +455,7 @@ Upon successful completion of a transaction, the response includes the authoriza
 | authorization	| 1, 3, 6 | The `authcode` returned to the CardPointe Gateway by the card issuer. |
 | bininfo | 1, 3, 6	| The card's BIN (bank identification number) information returned by the CardPointe Gateway. See the BIN response description in the CardPointe Gateway API for detailed information. |
 | cardToken	| 1, 3, 5, 6 | The CardSecure `token`, returned by the CardPointe Gateway. |
-| emvTags | 1, 3, 6	| The `emvTagData` array of receipt and EMV tag data (when applicable) returned from the processor. <br> <br> This data returned should be presented on a receipt if applicable, and recorded with the transaction details for future reference. <br> <br> See [Printing Receipts Using Authorization Data](CardPointeIntegratedTerminalDeveloperGuides.md#Printing-Receipts-Using-Authorization-Data) in the [CardPointe Integrated Terminal Developer Guides](CardPointeIntegratedTerminalDeveloperGuides.md) for detailed information. |
+| emvTags | 1, 3, 6	| The `emvTagData` array of receipt and EMV tag data (when applicable) returned from the processor. <br> <br> This data returned should be presented on a receipt if applicable, and recorded with the transaction details for future reference. <br> <br> See [Printing Receipts Using Authorization Data](?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md#Printing-Receipts-Using-Authorization-Data) in the [CardPointe Integrated Terminal Developer Guides](?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md) for detailed information. |
 | expiry | 1, 3, 6 | The card's expiration date in the format `MMYY`. |
 | externalTransactionID	| 1, 3, 5, 6 | The `orderID` included in the payment request. |
 | merchantID | 1, 3, 6 | The CardPointe merchant ID (MID) used in the request. |
