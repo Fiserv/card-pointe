@@ -2,7 +2,7 @@
 
 This guide provides information for integrating Apple Pay acceptance with an iOS or web-based application. 
 
-The [CardPointe Mobile iOS SDK](CardPointeMobileiOSSDKDeveloperGuide.md) supports the ability to generate a token from data retrieved by Apple Pay, simplifying the integration with your iOS app. 
+The [CardPointe Mobile iOS SDK](?path=docs/documentation/CardPointeMobileiOSSDKDeveloperGuide.md) supports the ability to generate a token from data retrieved by Apple Pay, simplifying the integration with your iOS app. 
 
 ## Requirements
 
@@ -83,7 +83,7 @@ Perform the following procedures to create and configure an Apple Pay merchant a
  
 # Integrating Apple Pay using the CardPointe Mobile iOS SDK
 
-This topic provides information for adding Apple Pay to an iOS application using the [CardPointe Mobile iOS SDK](CardPointeMobileiOSSDKDeveloperGuide.md).
+This topic provides information for adding Apple Pay to an iOS application using the [CardPointe Mobile iOS SDK](?path=docs/documentation/CardPointeMobileiOSSDKDeveloperGuide.md).
 
 ## Configuring the Application
 
