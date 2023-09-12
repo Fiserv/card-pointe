@@ -725,13 +725,12 @@ A Merchant-Initiated Transaction is any transaction in which the cardholder is n
 
 If you or your merchants use an application that integrates the BluePay Gateway APIs to accept and manage transactions, you must update your application to become compliant with this mandate.
 
-<!-- type: row -->
+This feature is available for merchants processing on the CardNet/North ISO8583 platform, using one of the following integrations:
 
-<!-- type: card
-description: This feature is available for merchants processing on the CardNet/North ISO8583 platform, using one of the following integrations: <br> <br> [BluePay Post (bp10emu)](../../docs/documentation/BluePayGatewayAPI.md#BluePay-Post-bp10emu) <br> [BluePay 2.0 Post (bp20post)](../../docs/documentation/BluePayGatewayAPI.md#BluePay-20-Post-bp20post) <br> [Manual CSV Upload](../../docs/documentation/BluePayGatewayAPI.md#Manual-CSV-Upload) <br> [BluePay CSV Upload (bp20bu)](../../docs/documentation/BluePayGatewayAPI.md#BluePay-CSV-Upload-bp20bu)
--->
-
-<!-- type: row-end -->
+- [BluePay Post (bp10emu)](#BluePay-Post-bp10emu) 
+- [BluePay 2.0 Post (bp20post)](#BluePay-20-Post-bp20post) 
+- [Manual CSV Upload](#Manual-CSV-Upload) 
+- [BluePay CSV Upload (bp20bu)](#BluePay-CSV-Upload-bp20bu)
 
 The changes required to comply with this mandate affect merchants who:
 
@@ -778,31 +777,31 @@ titles: Stored Credential Sample Scenarios
 
 # Developer FAQ
 
-- Q) **What is the maximum number of transactions that the Transaction Search can return?**
-    - A) 20,000.
+- **What is the maximum number of transactions that the Transaction Search can return?**
+    - 20,000.
 
-- Q) **How can a gateway user be set to have the "Include Column Headers" option for CSV export checked by default?**
+- **How can a gateway user be set to have the "Include Column Headers" option for CSV export checked by default?**
     - 1) From the User List page, under Options choose Preferences.
     - 2) Click the “Edit” button.
     - 3) Change the value of “Print CSV Headrers” from “No” to “Yes”.
     - 4) Click the “Save” button.
 
-- Q) **What causes an "Invalid field name" error when the field names are correct in a batch upload file?**
-    - A) The file is probably using Unicode encoding. Open the file in Notepad and save file using ANSI encoding.
+- **What causes an "Invalid field name" error when the field names are correct in a batch upload file?**
+    - The file is probably using Unicode encoding. Open the file in Notepad and save file using ANSI encoding.
 
-- Q) **Can the BluePay Gateway process foreign currencies?**
-    - A) Yes, using Fiserv’s Global ePricing service.
+- **Can the BluePay Gateway process foreign currencies?**
+    - Yes, using Fiserv’s Global ePricing service.
 
-- Q) **Where can I see a sample of an online application?**
-    - A) [Click here to view a sample of an online application.](http://bluepaydevcwybhqpkyb.devcloud.acquia-sites.com/sites/default/files/SamplesShortForm.compressed.pdf)
+- **Where can I see a sample of an online application?**
+    - [Click here to view a sample of an online application.](http://bluepaydevcwybhqpkyb.devcloud.acquia-sites.com/sites/default/files/SamplesShortForm.compressed.pdf)
 
-- Q) **Why is the CVV result no match when the CVV value is correct but the expiration date is incorrect?**
-    - A) The CVV value is not a value stored by the card issuer. It is a value calculated using the card number, expiration date and other information on file with the card issuer. Because the expiration date is used in that calculation, supplying the wrong expiration date causes the calculated value to not match the one on the card. When the values don’t match, a no-match CVV response is returned.
+- **Why is the CVV result no match when the CVV value is correct but the expiration date is incorrect?**
+    - The CVV value is not a value stored by the card issuer. It is a value calculated using the card number, expiration date and other information on file with the card issuer. Because the expiration date is used in that calculation, supplying the wrong expiration date causes the calculated value to not match the one on the card. When the values don’t match, a no-match CVV response is returned.
 
-- Q) **What user permissions must be set to give a gateway user view only access?**
-    - A) account.view, scope.account, scope.hier, trans.view
+- **What user permissions must be set to give a gateway user view only access?**
+    - account.view, scope.account, scope.hier, trans.view
 
-- Q) **With which banks can ACH transactions be processed directly?**
+- **With which banks can ACH transactions be processed directly?**
     - American Charter Bank
     - Bank of America
     - Capital One
@@ -816,32 +815,32 @@ titles: Stored Credential Sample Scenarios
     - US Bank
     - Wells Fargo Bank
 
-- Q) **How long is a transaction available for use as a Master ID on a new transaction?**
-    - A) The encrypted card number is kept for seven (7) years.
+- **How long is a transaction available for use as a Master ID on a new transaction?**
+    - The encrypted card number is kept for seven (7) years.
 
-- Q) **What is Rebill Retry and how does it work?**
-    - A) If a rebill credit card transaction is declined, the gateway can automatically reattempt the transaction after a configurable amount of time. This option is not available for ACH. IT must enable and configure this option.
+- **What is Rebill Retry and how does it work?**
+    - If a rebill credit card transaction is declined, the gateway can automatically reattempt the transaction after a configurable amount of time. This option is not available for ACH. IT must enable and configure this option.
 
-- Q) **Why is a test transaction declined?**
-    - A) The results of a test transaction are determined by the dollar amount of the transaction without cents. If the dollar amount is odd, an approval is returned. If the dollar amount is even, a decline is returned. This allows testing of both transaction result types.
+- **Why is a test transaction declined?**
+    - The results of a test transaction are determined by the dollar amount of the transaction without cents. If the dollar amount is odd, an approval is returned. If the dollar amount is even, a decline is returned. This allows testing of both transaction result types.
 
-- Q) **If "Customer Receipt" is checked in the settings, will customer receipt emails be sent when a rebilling executes?**
-    - A) Yes.
+- **If "Customer Receipt" is checked in the settings, will customer receipt emails be sent when a rebilling executes?**
+    - Yes.
 
-- Q) **Does BluePay issue SSL certificates?**
-    - A) BluePay does not issue SSL certificates. The merchant would need to contact a certificate authority to get an SSL certificate. Some of the larger companies issuing SSL certificates are GoDaddy, Thawte, Comodo and Verisign. GoDaddy is usually the least expensive option.
+- **Does BluePay issue SSL certificates?**
+    - BluePay does not issue SSL certificates. The merchant would need to contact a certificate authority to get an SSL certificate. Some of the larger companies issuing SSL certificates are GoDaddy, Thawte, Comodo and Verisign. GoDaddy is usually the least expensive option.
 
-- Q) **When using a USB card swipe with the Virtual Terminal, is the address information required?**
-    - A) Address information is not required when the track data is submitted in the "Swipe Result" field. Using "Swipe Result" causes a transaction to be treated as a card present transaction.
+- **When using a USB card swipe with the Virtual Terminal, is the address information required?**
+    - Address information is not required when the track data is submitted in the "Swipe Result" field. Using "Swipe Result" causes a transaction to be treated as a card present transaction.
 
-- Q) **What does RRNO stand for?**
-    - A) RRNO is an acronym for Reference Routing Number. It is more commonly known as the transaction ID.
+- **What does RRNO stand for?**
+    - RRNO is an acronym for Reference Routing Number. It is more commonly known as the transaction ID.
 
-- Q) **How can a demo account be configured to process test ACH transactions?**
-    - A) Send an email to bluepay-gateway@fiserv.com with your demo account ID requesting that ACH processing capability be added. The number sequence 123456780 can be used as the routing number on test ACH transactions.
+- **How can a demo account be configured to process test ACH transactions?**
+    - Send an email to bluepay-gateway@fiserv.com with your demo account ID requesting that ACH processing capability be added. The number sequence 123456780 can be used as the routing number on test ACH transactions.
 
-- Q) **Which shows on a BluePay Manager receipt — the Account Name or the DBA Name?**
-    - A) The Account Name is displayed on the receipt.
+- **Which shows on a BluePay Manager receipt — the Account Name or the DBA Name?**
+    - The Account Name is displayed on the receipt.
 
 # Instructional Videos
 
