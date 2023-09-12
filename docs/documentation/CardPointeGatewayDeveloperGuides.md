@@ -95,11 +95,11 @@ Data that you transmit to the UAT environment is never sent to the payment proce
 CardPointe Gateway API responses returned in the UAT environment include fields and arrays in a randomized order. Additionally, UAT responses include dummy fields, arrays, and values. This is intended to help clients develop integrated software that dynamically parses the response data, rather than expecting fields to be present in static positions within the response object. 
 
 <!-- theme: warning -->
-> See [Ensuring Backwards Compatibility](APIBasicsAndBestPractices.md#Ensuring-Backwards-Compatibility) in the [API Basics and Best Practices Guide](APIBasicsAndBestPractices.md) for more information.
+> See [Ensuring Backwards Compatibility](?path=docs/documentation/APIBasicsAndBestPractices.md#Ensuring-Backwards-Compatibility) in the [API Basics and Best Practices Guide](?path=docs/documentation/APIBasicsAndBestPractices.md) for more information.
 
 Some specific situations, such as a network timeout and specific decline scenarios, require specific input to initiate. See [Test Cases](#Test-Cases), below, for more information on these specific scenarios.
 
-See [Gateway Response Codes](GatewayResponseCodes.md) for a complete list of all possible response codes for the CardPointe Gateway and each processor.
+See [Gateway Response Codes](?path=docs/documentation/GatewayResponseCodes.md) for a complete list of all possible response codes for the CardPointe Gateway and each processor.
 
 ## Getting Started
 
@@ -110,7 +110,7 @@ To get started, contact integrationdelivery@fiserv.com to request the following 
 - **UAT API URL** - A UAT CardPointe Gateway API URL that you will use to test your API requests.
 
 <!-- theme: warning -->
-> Once your integration has been validated for production use, you will receive unique credentials for use in the production environment. See the [Integration Process Overview](IntegrationProcessOverview.md) for more information.
+> Once your integration has been validated for production use, you will receive unique credentials for use in the production environment. See the [Integration Process Overview](?path=docs/documentation/IntegrationProcessOverview.md) for more information.
 
 ## Using Test Payment Accounts
 
@@ -302,7 +302,7 @@ The following topics provide information for testing specific features to obtain
 > - Vantiv - Auth and Refund
 
 <!-- theme: warning -->
-> See [Gateway Response Codes](GatewayResponseCodes.md) for a complete list of possible response codes for the CardPointe Gateway and each processor.
+> See [Gateway Response Codes](?path=docs/documentation/GatewayResponseCodes.md) for a complete list of possible response codes for the CardPointe Gateway and each processor.
 
 When testing your CardPointe Gateway or CardPointe Integrated Terminal integration in the UAT environment, you can use amount-driven response codes to emulate processor-specific authorization responses that you might encounter in the production environment. This allows you to receive and handle response codes that you would not otherwise encounter in your test environment.
 
@@ -725,7 +725,7 @@ For example, you can:
   Optionally, do the following:
 - Include ”capture” : “y” to accept an initial payment.
 	- include ”profile” : “y” to store the customer’s data in a profile to use in future requests.
-- Gather and tokenize the payment card data using the [Hosted iFrame Tokenizer](HostediFrameTokenizer.md).
+- Gather and tokenize the payment card data using the [Hosted iFrame Tokenizer](?path=docs/documentation/HostediFrameTokenizer.md).
 - Use a CardPointe Integrated Terminal and the Terminal API readCard or readManual service endpoint.
 
 **2.** Store the token for reuse.
@@ -802,7 +802,7 @@ A successful authorization response includes the following fields. You should in
 | batchid | Batch ID | 12 | Automatically created and assigned unless otherwise specified. Returned for a successful authorization with capture. |
 | orderid | Order ID | 19 | Order ID copied from the authorization request. |
 | merchid | Merchant ID | 12 | Copied from the authorization request. <br> **Note**: _If you include the merchant ID on a receipt, mask this value, except the last four digits_. |
-| respcode | [Response code](GatewayResponseCodes.md) | - | Alpha-numeric response code that represents the description of the response |
+| respcode | [Response code](?path=docs/documentation/GatewayResponseCodes.md) | - | Alpha-numeric response code that represents the description of the response |
 | resptext | Response text | - | Text description of response |
 | respproc | Response processor | 4 | Abbreviation that represents the platform and the processor for the transaction |
 | bintype | Type of BIN | 16 | **Possible Values**: <br> <br> Corp <br> FSA+Prepaid <br> GSA+Purchase <br> Prepaid <br> Prepaid+Corp <br> Prepaid+Purchase <br> Purchase |
@@ -1402,7 +1402,7 @@ id,status,message,orderid,retref,amount,resptext,commcard,cvvresp,batchid,avsres
 | cvvresp | CVV response code | 1 | Alpha-numeric CVV response. |
 | batchid | Batch ID | 10 | Automatically created and assigned unless otherwise specified |
 | avsresp | AVS response code | 2 | Alpha-numeric AVS response. |
-| respcode | [Response code](GatewayResponseCodes.md) | - | Alpha-numeric response code that represents the description of the response |
+| respcode | [Response code](?path=docs/documentation/GatewayResponseCodes.md) | - | Alpha-numeric response code that represents the description of the response |
 | merchid | Merchant ID | 12 | Copied from request |
 | token (if requested) | Token | 19 | A token that replaces the card number in capture and settlement requests if requested |
 | authcode | Authorization code | 6 | Authorization Code from the Issuer |
