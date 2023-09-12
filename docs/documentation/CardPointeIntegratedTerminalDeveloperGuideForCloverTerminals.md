@@ -62,16 +62,16 @@ For more Information on specific requirements contact isvintegrations@fiserv.com
 
 To help you get started with your integration, we've created a sample Postman Collection that includes a template of the Terminal API service endpoints and parameters that are supported for Clover terminals. Click the following button to download the sample collection:
 
-[Run in Postman](https://app.getpostman.com/run-collection/16c349c3713011b8c18c?action=collection%2Fimport#?env%5BBolt%20Terminal%20API%20UAT%20Environment%5D=W3sia2V5Ijoic2l0ZSIsInZhbHVlIjoie1VBVCBvciBwcm9kdWN0aW9uIHNpdGV9IiwiZW5hYmxlZCI6dHJ1ZX0seyJrZXkiOiJ1cmwiLCJ2YWx1ZSI6Imh0dHBzOi8ve3tzaXRlfX0uY2FyZHBvaW50ZS5jb20vYXBpIiwiZW5hYmxlZCI6dHJ1ZX0seyJrZXkiOiJBdXRob3JpemF0aW9uIiwidmFsdWUiOiJ7eW91ciBhdXRoIGtleX0iLCJlbmFibGVkIjp0cnVlfSx7ImtleSI6Im1lcmNoYW50SWQiLCJ2YWx1ZSI6Int5b3VyIG1lcmNoYW50SWR9IiwiZW5hYmxlZCI6dHJ1ZX0seyJrZXkiOiJoc24iLCJ2YWx1ZSI6Int5b3VyIGhzbn0iLCJlbmFibGVkIjp0cnVlfSx7ImtleSI6IlgtQ2FyZENvbm5lY3QtU2Vzc2lvbktleSIsInZhbHVlIjoiIiwiZW5hYmxlZCI6dHJ1ZX1d)
+> [Run in Postman](https://app.getpostman.com/run-collection/16c349c3713011b8c18c?action=collection%2Fimport#?env%5BBolt%20Terminal%20API%20UAT%20Environment%5D=W3sia2V5Ijoic2l0ZSIsInZhbHVlIjoie1VBVCBvciBwcm9kdWN0aW9uIHNpdGV9IiwiZW5hYmxlZCI6dHJ1ZX0seyJrZXkiOiJ1cmwiLCJ2YWx1ZSI6Imh0dHBzOi8ve3tzaXRlfX0uY2FyZHBvaW50ZS5jb20vYXBpIiwiZW5hYmxlZCI6dHJ1ZX0seyJrZXkiOiJBdXRob3JpemF0aW9uIiwidmFsdWUiOiJ7eW91ciBhdXRoIGtleX0iLCJlbmFibGVkIjp0cnVlfSx7ImtleSI6Im1lcmNoYW50SWQiLCJ2YWx1ZSI6Int5b3VyIG1lcmNoYW50SWR9IiwiZW5hYmxlZCI6dHJ1ZX0seyJrZXkiOiJoc24iLCJ2YWx1ZSI6Int5b3VyIGhzbn0iLCJlbmFibGVkIjp0cnVlfSx7ImtleSI6IlgtQ2FyZENvbm5lY3QtU2Vzc2lvbktleSIsInZhbHVlIjoiIiwiZW5hYmxlZCI6dHJ1ZX1d)
 
-See [Configuring Your Postman Environment](CardPointeIntegratedTerminalDeveloperGuides.md#Configuring-Your-Postman-Environment) in the general CardPointe Integrated Terminal Developer Guides for detailed information on setting up your environment variables.
+See [Configuring Your Postman Environment](?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md#Configuring-Your-Postman-Environment) in the general CardPointe Integrated Terminal Developer Guides for detailed information on setting up your environment variables.
 
 ### Related Documentation
 
 This guide provides useful information specific to integrating Clover terminals. The following API references and terminal user guides provide additional helpful information: 
 
 - See the Terminal API documentation for detailed information for integrating the Terminal API with your software.
-- See the [CardPointe Integrated Terminal Developer Guides](CardPointeIntegratedTerminalDeveloperGuides.md) for additional helpful information for developing various Terminal API workflows.
+- See the [CardPointe Integrated Terminal Developer Guides](?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md) for additional helpful information for developing various Terminal API workflows.
 - See the CardPointe Gateway API documentation for detailed information for integrating the full capabilities of the CardPointe Gateway.
 - See the Terminal User Guides for detailed information on setting up and using your Clover device.
 
@@ -299,7 +299,7 @@ A successful authorization response includes the following fields. If you are in
 | batchid | Batch ID | 12 | Automatically created and assigned unless otherwise specified. Returned for a successful authorization with capture. |
 | orderid | Order ID | 19 | Order ID copied from the authorization request. |
 | merchid | Merchant ID | 12 | Copied from the authorization request. <br> **Note**: _If you include the merchant ID on a receipt, mask this value, except the last four digits_. |
-| respcode | [Response code](GatewayResponseCodes.md) | - | Alpha-numeric response code that represents the description of the response |
+| respcode | [Response code](?path=docs/documentation/GatewayResponseCodes.md) | - | Alpha-numeric response code that represents the description of the response |
 | resptext | Response text | - | Text description of response |
 | respproc | Response processor | 4 | Abbreviation that represents the platform and the processor for the transaction |
 | bintype | Type of BIN | 16 | **Possible Values**: <br> <br> Corp <br> FSA+Prepaid <br> GSA+Purchase <br> Prepaid <br> Prepaid+Corp <br> Prepaid+Purchase <br> Purchase |
