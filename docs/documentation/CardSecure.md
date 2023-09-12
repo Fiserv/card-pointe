@@ -8,7 +8,7 @@ description: The following guides provide information on CardSecure, tokens, and
 
 # Overview
 
-CardSecure® is the CardPointe platform's P2PE-validated encryption and tokenization solution, and is at the center of all integrated payment solutions. Whether you use a [CardPointe Integrated Payments solution](https://cardconnect.com/cardpointe) to securely accept card-present transactions with your integrated point-of-sale, or the [Hosted iFrame Tokenizer](HostediFrameTokenizer.md) or CardSecure API to extend secure eCommerce payments to online customers, CardSecure allows you to accept sensitive payment data securely, with reduced PCI scope.
+CardSecure® is the CardPointe platform's P2PE-validated encryption and tokenization solution, and is at the center of all integrated payment solutions. Whether you use a [CardPointe Integrated Payments solution](https://cardconnect.com/cardpointe) to securely accept card-present transactions with your integrated point-of-sale, or the [Hosted iFrame Tokenizer](?path=docs/documentation/HostediFrameTokenizer.md) or CardSecure API to extend secure eCommerce payments to online customers, CardSecure allows you to accept sensitive payment data securely, with reduced PCI scope.
 
 # Understanding CardSecure Tokens
 
@@ -124,7 +124,7 @@ If you are using a CardPointe Integrated Terminal to process payments, you can u
 
 ### Using CardSecure
 
-If your software directly integrates CardSecure, using the CardSecure API, [Hosted iFrame Tokenizer](HostediFrameTokenizer.md), or [CardPointe Mobile SDKs](CardPointeMobileSDKs.md), your software passes the gift card number to CardSecure, which matches the BIN with the whitelisted BIN range and returns the unencrypted card number, which your software uses to complete the transaction.
+If your software directly integrates CardSecure, using the CardSecure API, [Hosted iFrame Tokenizer](?path=docs/documentation/HostediFrameTokenizer.md), or [CardPointe Mobile SDKs](?path=docs/documentation/CardPointeMobileSDKs.md), your software passes the gift card number to CardSecure, which matches the BIN with the whitelisted BIN range and returns the unencrypted card number, which your software uses to complete the transaction.
 
 > Notes:
 > - Unlike a credit or debit card transaction, CardSecure does not encrypt or tokenize the gift card account number.
