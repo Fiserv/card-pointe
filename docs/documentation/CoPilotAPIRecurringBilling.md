@@ -22,7 +22,7 @@ The following process provides a general overview of the steps required to set u
 
 **3.** Gather your billing requirements. Determine the start date and length of the billing plan, the payment amount and frequency, and any additional information that you'll need to include in your requests.
 
-**4.** Call the [Create Billing Plan endpoint](#Create-Billing-Plan) to create the billing plan. Specify the `profileID` and `acctId` Billing Plan parameters as described in the [Billing Plan Definition](#Object-Definitions).
+**4.** Call the [Create Billing Plan endpoint](#create-billing-plan) to create the billing plan. Specify the `profileID` and `acctId` Billing Plan parameters as described in the [Billing Plan Definition](#object-definitions).
 
 # Using the Billing Plan API
 
@@ -57,13 +57,13 @@ Use the Create Billing Plan endpoint to set up recurring payments using a paymen
 
 | Field | Size | Type | Required | Comments | 
 | --- | --- | --- | --- | ---
-| billingPlan	| n/a	| object | yes | The [billing plan object](#Object-Definitions). <br> <br> **Note**: _Leave the_ `billingPlanId` _field blank or omit it when creating a new billing plan. The_ `billingPlanId` _is automatically assigned when the plan is created._ |
+| billingPlan	| n/a	| object | yes | The [billing plan object](#object-definitions). <br> <br> **Note**: _Leave the_ `billingPlanId` _field blank or omit it when creating a new billing plan. The_ `billingPlanId` _is automatically assigned when the plan is created._ |
 
 ### Create Billing Plan Response
 
 | Field | Type | Comments | 
 | --- | --- | ---
-| billingPlan	| object | The [billing plan object](#Object-Definitions).
+| billingPlan	| object | The [billing plan object](#object-definitions).
 | errors | array | The errors array containing one or more errors if there was a problem creating the billing plan.
 
 ## Get Billing Plan List
@@ -89,7 +89,7 @@ GET https://api-uat.cardconnect.com/billingplan/list/111111111
 
 | Field	| Type | Comments
 | --- | --- | ---
-| billingPlans | array | An array containing a [billing plan object](#Object-Definitions) for each billing plan configured for the MID. <br> <br> **Note**: _The_ `schedules` _field of the billing plan objects returned in the response is always null. To view the billing schedule for a specific plan, use the [Get Billing Plan](#Get-Billing-Plan) endpoint._ |
+| billingPlans | array | An array containing a [billing plan object](#object-definitions) for each billing plan configured for the MID. <br> <br> **Note**: _The_ `schedules` _field of the billing plan objects returned in the response is always null. To view the billing schedule for a specific plan, use the [Get Billing Plan](#get-billing-plan) endpoint._ |
 | errors | array | The errors array containing one or more errors if there was a problem retrieving the list of billing plans.
 
 ## Get Billing Plan
@@ -115,7 +115,7 @@ GET https://api-uat.cardconnect.com/billingplan/111111111/123456
 
 | Field	| Type | Comments
 | --- | --- | ---
-| billingPlan	| object | The [billing plan object](#Object-Definitions).
+| billingPlan	| object | The [billing plan object](#object-definitions).
 | errors | array | The errors array containing one or more errors if there was a problem retrieving billing plan.
 
 ## Update Account
@@ -155,7 +155,7 @@ Stored customer profiles or payment profiles created via the CardPointe Gateway 
 
 | Field	| Type | Comments
 | --- | --- | ---
-| billingPlan	| object | The [billing plan object](#Object-Definitions).
+| billingPlan	| object | The [billing plan object](#object-definitions).
 | errors | array | The errors array containing one or more errors if there was a problem updating the account used for the billing plan.
 
 ## Mark as Paid
@@ -191,12 +191,12 @@ Use the Mark as Paid endpoint to set the status of a scheduled payment as PAID.
 
 | Field	| Type | Comments
 | --- | --- | ---
-| billingPlan	| object | [The billing plan object](#Object-Definitions).
+| billingPlan	| object | [The billing plan object](#object-definitions).
 | errors | array | The errors array containing one or more errors if there was a problem marking the scheduled payment as paid.
 
 ## Cancel Payment
 
-Use the Cancel Payment endpoint to cancel a scheduled payment within a billing plan. You can use the [Get Billing Plan](#Get-Billing-Plan) endpoint to view all payment schedules within the plan, the associated `billingPlanScheduleId`, and confirm that the payment you intend to cancel has a `paymentStatus` of 'Scheduled.'
+Use the Cancel Payment endpoint to cancel a scheduled payment within a billing plan. You can use the [Get Billing Plan](#get-billing-plan) endpoint to view all payment schedules within the plan, the associated `billingPlanScheduleId`, and confirm that the payment you intend to cancel has a `paymentStatus` of 'Scheduled.'
 
 |  |  |
 | --- | ---
@@ -225,7 +225,7 @@ Use the Cancel Payment endpoint to cancel a scheduled payment within a billing p
 
 | Field	| Type | Comments
 | --- | --- | ---
-| billingPlan	| object | The [billing plan object](#Object-Definitions).
+| billingPlan	| object | The [billing plan object](#object-definitions).
 | errors | array | The errors array containing one or more errors if there was a problem cancelling the scheduled payment.
 
 ## Cancel Billing Plan
@@ -261,7 +261,7 @@ Use the Cancel Billing Plan endpoint to end a billing plan and cancel all the re
 
 | Field	| Type | Comments
 | --- | --- | ---
-| billingPlan	| object | The [billing plan object](#Object-Definitions).
+| billingPlan	| object | The [billing plan object](#object-definitions).
 | errors | array | The errors array containing one or more errors if there was a problem cancelling the billing plan.
 
 ## Object Definitions
@@ -286,7 +286,7 @@ Use the Cancel Billing Plan endpoint to end a billing plan and cancel all the re
 | billingPlanName	| 30 | string	| yes	| The name used to distinguish the billing plan from other billing plans.
 | options	| | array	| yes	| The email_receipt option should be provided with a value of 0 for no or 1 for yes. See example JSON.
 | planStatus | 1 | string	| no | The billing plan status, one of the following values: <br> <br> A = Active <br> C = Canceled <br> F = Finished <br> <br> This cannot be set, and is only returned when fetching a billing plan.
-| schedules | | array	| no | An array of [billing plan schedules](#billing-plan-schedule-definition) for each of the payments in the billing plan. This cannot be set, and is only returned when fetching a billing plan. This array will always contain all past payments. In addition, it will also contain future scheduled payments (up to 1000 when untilCondition = N or D, or one year of payments when untilCondition = C) <br> <br> **Note**: _This field is always null for billing plan objects returned in the [Get Billing Plan List](#Get-Billing-Plan-List) response. To view the billing schedule for a specific plan, use the [Get Billing Plan](#Get-Billing-Plan) endpoint._
+| schedules | | array	| no | An array of [billing plan schedules](#billing-plan-schedule-definition) for each of the payments in the billing plan. This cannot be set, and is only returned when fetching a billing plan. This array will always contain all past payments. In addition, it will also contain future scheduled payments (up to 1000 when untilCondition = N or D, or one year of payments when untilCondition = C) <br> <br> **Note**: _This field is always null for billing plan objects returned in the [Get Billing Plan List](#get-billing-plan-list) response. To view the billing schedule for a specific plan, use the [Get Billing Plan](#get-billing-plan) endpoint._
 
 ### Example Billing Plan Object
 
