@@ -5,7 +5,7 @@ The CardPointe Mobile Android SDK seamlessly connects your Android<sup>tm</sup> 
 # What's New?
 
 <!-- theme: warning -->
-> See [Getting Started](#Getting-Started), below, to download the latest version of the CardPointe Mobile Android SDK.
+> See [Getting Started](#getting-started), below, to download the latest version of the CardPointe Mobile Android SDK.
 
 ## Version 3.0.86
 
@@ -59,9 +59,9 @@ Download the latest version of the SDK to get started:
 
 > [CardPointe Mobile Android SDK v3.0.86](../../assets/files/cardpointe-mobile-android-v3.0.86.zip)
 
-For new integrations, see the [Android SDK Integration Guide](#Android-SDK-Integration-Guide), below for detailed information on integrating the SDK with your application.
+For new integrations, see the [Android SDK Integration Guide](#android-sdk-integration-guide), below for detailed information on integrating the SDK with your application.
 
-For migrating an existing app to the latest version of the SDK, see the [Android SDK Migration Guide](#Andriod-SDK-Migration-Guide), below.
+For migrating an existing app to the latest version of the SDK, see the [Android SDK Migration Guide](#andriod-sdk-migration-guide), below.
 
 <!-- theme: warning -->
 > The CardPointe Mobile Android SDK includes an API reference help file. Browse to **/docs/reference api** and double-click **help-doc.html** to launch the API help.
@@ -74,7 +74,7 @@ Before you begin, ensure that you have the following:
     - Android OS version 4.4 (KitKat) or later
     - Android SDK version 7 (API level 24) or later
 - **Android Studio** - The Android SDK and related documentation support the Android Studio integrated development environment.
-- **CardPointe Mobile Android SDK** - See [Getting Started](#Getting-Started) to download the SDK.
+- **CardPointe Mobile Android SDK** - See [Getting Started](#getting-started) to download the SDK.
 - **Sample App** - Review the included sample applications to better understand the SDK integration.
 - **CardPointe Merchant ID and API credentials** - Contact integrationdelivery@fiserv.com if you do not already have an account.
 - **CardSecure Tokenization URL** - Your merchant ID must be associated with a CardSecure URL to send requests to CardSecure.
@@ -104,7 +104,7 @@ The following table provides an overview of the features that you might want to 
 | Functionality | User Type | Component | Description |
 | --- | --- | --- | --- |
 | Stored Customer Profiles | Customer | [Integrated Customer Profile UI](#integrating-the-customer-profile-ui-optional) | Integrates the CardPointe Gateway Profile service, allowing customers to securely store and manage their payment accounts. <br> <br> See the CardPointe Gateway Profile service documentation for more information on the profile service. <br> <br> See [Integrating the Customer Profile UI](#integrating-the-customer-profile-ui-optional) for information on adding this feature to your application. |
-| Mobile Payment Reader Devices	| Merchant | Android Swiper Implementation | An integrated mobile payment reader (swiper) device used to securely capture and encrypt card data prior to tokenization. <br> <br> See [Supported Devices](#Supported-Devices) for information on the devices that are currently supported. <br> <br> See the [Android SDK Integration Guide](#Android-SDK-Integration-Guide) for instructions for integrating mobile payment reader devices. |
+| Mobile Payment Reader Devices	| Merchant | Android Swiper Implementation | An integrated mobile payment reader (swiper) device used to securely capture and encrypt card data prior to tokenization. <br> <br> See [Supported Devices](#supported-devices) for information on the devices that are currently supported. <br> <br> See the [Android SDK Integration Guide](#android-sdk-integration-guide) for instructions for integrating mobile payment reader devices. |
 
 Additionally, you can integrate the Google Pay Android API to add Google Paytm support to your app. See the [Google Pay Developer Guide](?path=docs/documentation/GooglePayDeveloperGuide.md) for more information.
 
@@ -132,7 +132,7 @@ This guide provides information for integrating the CardPointe Mobile Android SD
 <!-- theme: warning -->
 > See the API reference documentation for detailed information on using the classes and methods described in this guide. Browse to **/docs/reference api** and double-click **help-doc.html** to launch the API help.
 
-> If you already integrated an older version of the Android SDK and want to migrate to the latest version, see the [Android SDK Migration Guide](#Android-SDK-Migration-Guide), below.
+> If you already integrated an older version of the Android SDK and want to migrate to the latest version, see the [Android SDK Migration Guide](#android-sdk-migration-guide), below.
 
 ## Importing the SDK to Your Project
 
@@ -380,7 +380,7 @@ CCConsumer._getInstance_().getApi().generateAccountForCard( **mCCConsumerCardInf
 
 The SDK supports integrated mobile payment reader devices, allowing your app to retrieve payment card data directly from device, and to pass that data to CardSecure for tokenization.
 
-See [Supported Devices](#Supported-Devices) for information on currently supported mobile payment reader devices.
+See [Supported Devices](#supported-devices) for information on currently supported mobile payment reader devices.
 
 ### Establishing a Persistent Connection for VP3300 Devices 
 
