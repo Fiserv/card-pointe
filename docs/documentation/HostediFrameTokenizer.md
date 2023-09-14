@@ -29,7 +29,7 @@ The iFrame Tokenizer now includes the `for` HTML attribute for all `label` HTML 
 Additionally, all `input` and `select` HTML elements now contain the `aria-label` attribute, containing a value that matches the value of the element's `title` for enhanced accessibility.
 
 <!-- theme: warning -->
-> When no optional parameters are included to specify a custom title for input or select elements, the element's default title is used for the `aria-label` attribute. See the [Input Labels](#Input-Labels) section for information on the default values used.
+> When no optional parameters are included to specify a custom title for input or select elements, the element's default title is used for the `aria-label` attribute. See the [Input Labels](#input-labels) section for information on the default values used.
 
 You can view an example of the new for and aria-label attributes for the Card Number label and input field in a snippet of the iFrame source code below:
 
@@ -101,7 +101,7 @@ The Hosted iFrame Tokenizer supports optional parameters to gather additional de
 | Tokenizer Implementation | Description |
 | --- | --- |
 | [Default Implementation](https://fts-uat.cardconnect.com/itoke/outer-page.html) | The default implementation with no optional parameters included.
-| [Luhn Validation Enabled with Custom Styling](https://fts-uat.cardconnect.com/itoke/outer-page.html?invalidinputevent=true&css=.error%7Bcolor%3Ared%3Bborder-color%3Ared%3B%7D) | Luhn/Mod 10 validation is enabled by using `invalidinputevent=true` and custom CSS is defined using optional parameter `css`. The custom CSS is URL encoded and stylizes the Card Number field red when invalid. <br> <br> View the [Luhn/Mod 10 Validation](#luhn-mod-10-validation) section for further information on stylizing the Card Number field when the value entered is invalid. |
+| [Luhn Validation Enabled with Custom Styling](https://fts-uat.cardconnect.com/itoke/outer-page.html?invalidinputevent=true&css=.error%7Bcolor%3Ared%3Bborder-color%3Ared%3B%7D) | Luhn/Mod 10 validation is enabled by using `invalidinputevent=true` and custom CSS is defined using optional parameter `css`. The custom CSS is URL encoded and stylizes the Card Number field red when invalid. <br> <br> View the [Luhn/Mod 10 Validation](#luhnmod-10-validation) section for further information on stylizing the Card Number field when the value entered is invalid. |
 | [CVV & Expiry Fields Enabled](https://fts-uat.cardconnect.com/itoke/outer-page.html?useexpiry=true&usecvv=true) | The following optional parameters are used: <br> <br> `useexpiry=true` <br> `usecvv=true` |
 | [CVV & Expiry Fields Enabled with Custom Input Field Labels](https://fts-uat.cardconnect.com/itoke/outer-page.html?useexpiry=true&usecvv=true&cardlabel=Custom%20Card%20Number%20Label&expirylabel=Custom%20Expiration%20Date%20Label&cvvlabel=Custom%20CVV%20Label) | The following optional parameters are used: <br> <br> `useexpiry=true` <br> `usecvv=true` <br> `cardlabel=Custom Card Number Label` <br> `expirylabel=Custom Expiration Date Label` <br> `cvvlabel=Custom CVV Label` |
 | [Mobile ACH Implementation](https://fts-uat.cardconnect.com/itoke/outer-page.html?fullmobilekeyboard=true&tokenizewheninactive=true&inactivityto=2000) | The mobile ACH implementation enables the full mobile keyboard. This allows entry of the forward slash character that separates the routing number and bank account number. Additional parameters mask the bank account number after 2000 milliseconds (2 seconds) of inactivity. <br> <br> The following optional parameters are used: <br> <br> `fullmobilekeyboard=true` <br> `tokenizewheninactive=true` <br> `inactivityto=2000` |
@@ -194,7 +194,7 @@ The following HTML snippet shows key elements of the primary payment page.
 
 You can customize aspects of the Hosted iFrame Tokenizer by including optional parameters that override the default configuration. Read through each of the sections below for an overview of the customization available.
 
-Additionally, you can customize the style of the iFrame Tokenizer using the optional `css` parameter, which is not referenced in the sections below. View the [iFrame Styling](#iFrame-Styling) section for more information about customizing the appearance of the iFrame Tokenizer.
+Additionally, you can customize the style of the iFrame Tokenizer using the optional `css` parameter, which is not referenced in the sections below. View the [iFrame Styling](#iframe-styling) section for more information about customizing the appearance of the iFrame Tokenizer.
 
 ### iFrame Controls
 
@@ -274,7 +274,7 @@ The following parameters are used to override the default labels and titles used
 
 ## iFrame Styling
 
-You can use the `css` parameter to include CSS declarations in the iFrame SRC attribute, to customize the look and feel of the iFrame. The CSS parameter can also accept media queries, allowing for responsive design based on screen or window size. See [Allowed CSS Properties](#Allowed-CSS-Properties) below for a list of available properties.
+You can use the `css` parameter to include CSS declarations in the iFrame SRC attribute, to customize the look and feel of the iFrame. The CSS parameter can also accept media queries, allowing for responsive design based on screen or window size. See [Allowed CSS Properties](#allowed-css-properties) below for a list of available properties.
 
 For example, the following iFrame URL includes custom CSS properties to specify the error text color and input field width:
 
@@ -465,7 +465,7 @@ An example containing custom CSS for the error class is provided below for refer
 
 ## ACH/eCheck Tokenization
 
-The Hosted iFrame Tokenizer can accept entry of electronic check or ACH details in order to retrieve a token that can then be submitted within an [ACH Authorization](?path=docs/documentation/CardPointeGatewayDeveloperGuides.md#Processing-ACH-Payments).
+The Hosted iFrame Tokenizer can accept entry of electronic check or ACH details in order to retrieve a token that can then be submitted within an [ACH Authorization](?path=docs/documentation/CardPointeGatewayDeveloperGuides.md#processing-ach-payments).
 
 When using the iFrame Tokenizer to tokenize ACH account data, you must input the routing and account numbers in a single string, separated by a forward slash (/). Use the following format: `RoutingNumber/AccountNumber`.
 
@@ -476,7 +476,7 @@ Example: `123456789/1234123412341234`
 <!-- theme: warning -->
 > Alternatively, you can develop a custom form that allows your users to enter the routing and account numbers in separate fields.
 >
-> See [Processing ACH Payments](?path=docs/documentation/CardPointeGatewayDeveloperGuides.md#Processing-ACH-Payments) in the [CardPointe Gateway Developer Guides](?path=docs/documentation/CardPointeGatewayDeveloperGuides.md) for more information on handling ACH requests.
+> See [Processing ACH Payments](?path=docs/documentation/CardPointeGatewayDeveloperGuides.md#processing-ach-payments) in the [CardPointe Gateway Developer Guides](?path=docs/documentation/CardPointeGatewayDeveloperGuides.md) for more information on handling ACH requests.
 
 ## Supporting Screen Readers
 
