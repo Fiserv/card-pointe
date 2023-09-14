@@ -176,8 +176,8 @@ An unsuccessful PUT request returns HTTP Status 4xx, with a JSON-encoded respons
 | total	| Number | The total number of updates
 | successes	| Number | The number of accounts successfully enrolled
 | failures | Number | The number of accounts not enrolled
-| tokens | Array | An array of enrolled accounts. See [Tokens Array](#Tokens-Array) for details.
-| errors | Array | An array of errors encountered. See [Errors Array](#Errors-Array) for details.
+| tokens | Array | An array of enrolled accounts. See [Tokens Array](#tokens-array) for details.
+| errors | Array | An array of errors encountered. See [Errors Array](#errors-array) for details.
 
 ### Tokens Array
 
@@ -283,7 +283,7 @@ The JSON-encoded response includes all updates that occurred within the 30 days 
 | totalUpdates | Number	| The total number of updates for the period
 | updatesStartDate | String	| The start date of the time period used to retrieve updates
 | updatesEndDate | String | The current date
-| updates | Array | An array of enrolled account updates. See [Updates Array](#Updates-Array) for details.
+| updates | Array | An array of enrolled account updates. See [Updates Array](#updates-array) for details.
 
 ### Updates Array
 
@@ -436,7 +436,7 @@ A successful DELETE request returns a JSON-encoded response with a summary of th
 | merchid | String | The Merchant ID associated with the stored profiles or accounts
 | total	| Number | The number of token received from the request
 | deleted | Number | The number of tokens successfully unenrolled
-| notDeleted | Array | An array of accounts that encountered an error. See [Not Deleted Array](#Not-Deleted-Array) for details.
+| notDeleted | Array | An array of accounts that encountered an error. See [Not Deleted Array](#not-deleted-array) for details.
 
 ### Not Deleted Array
 
@@ -463,7 +463,7 @@ For each token that cannot be unenrolled, an object is returned within the notDe
 }
 ```
 
-An unsuccessful DELETE request returns HTTP Status 400 with a JSON-encoded response, containing the [errors array](#Errors-Array).
+An unsuccessful DELETE request returns HTTP Status 400 with a JSON-encoded response, containing the [errors array](#errors-array).
 
 #### Example: Unsuccessful DELETE Response Body
 
