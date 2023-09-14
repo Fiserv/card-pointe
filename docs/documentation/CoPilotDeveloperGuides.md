@@ -33,7 +33,7 @@ Provide the digital application URL to the merchant so that they may review and 
 
 To help you get started with your integration, we have created a Postman Collection that includes templates for all of the requests documented in the CoPilot API. 
 
-The Postman Collection also includes a sample Environment containing variables for fields that are required in many of the API requests. See [Configuring Your Postman Environment](#Configuring-your-postman-environment) below for more information. 
+The Postman Collection also includes a sample Environment containing variables for fields that are required in many of the API requests. See [Configuring Your Postman Environment](#configuring-your-postman-environment) below for more information. 
 
 Click the button below to download the CoPilot API Postman collection:
 
@@ -57,7 +57,7 @@ Before you can create a new merchant account using the CoPilot API, you must fir
 
 The Application Template is required when creating a new account in order to automatically assign pre-configured default values for new accounts. Almost all fields available in the merchant application can be preset using a template, and multiple templates can be created that use different Sales Codes, default pricing, fees, equipment, or other settings.
 
-When creating an account using the API, the Application Template you provide in the request determines what default values are applied to the new account. Remember to supplement the values automatically applied by the Application Template with any additional objects or fields that may also be required in order to request the link to the merchant-facing digital application. See the section on [Adding Supplemental Data and Overriding Default Values](#Adding-Supplemental-Data-and-Overriding-Default-Values) for more information.
+When creating an account using the API, the Application Template you provide in the request determines what default values are applied to the new account. Remember to supplement the values automatically applied by the Application Template with any additional objects or fields that may also be required in order to request the link to the merchant-facing digital application. See the section on [Adding Supplemental Data and Overriding Default Values](#adding-supplemental-data-and-overriding-default-values) for more information.
 
 <!-- theme: warning -->
 > Although only minimal data is required when creating an Application Template in the CoPilot web interface, you should strongly consider providing as many defaults as possible. This reduces the amount of fields that must be supplied in the API call, ensures standardized values are applied consistently, and can potentially reduce the amount of data the merchant must enter manually.
@@ -334,7 +334,7 @@ Once you have created the new account and supplied all the required fields, use 
 If the request is unsuccessful, you should refer to the Errors array returned in the response for additional details.
 
 <!-- theme: warning -->
-> Errors are most commonly encountered when you have not provided values for all of the required fields. See the [Adding Supplemental Data and Overriding Default Values](#Adding-Supplemental-Data-and-Overriding-Default-Values) section for more information on supplementing existing merchant data with the missing values.
+> Errors are most commonly encountered when you have not provided values for all of the required fields. See the [Adding Supplemental Data and Overriding Default Values](#adding-supplemental-data-and-overriding-default-values) section for more information on supplementing existing merchant data with the missing values.
 
 ## Tracking an Application
 
