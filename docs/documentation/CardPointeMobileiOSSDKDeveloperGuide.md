@@ -5,7 +5,7 @@ The CardPointe Mobile iOS SDK seamlessly connects your iOS applications to CardS
 # What's New?
 
 <!-- theme: warning -->
-> See [Getting Started](#Getting-Started), below, to download the latest version of the CardPointe Mobile iOS SDK.
+> See [Getting Started](#getting-started), below, to download the latest version of the CardPointe Mobile iOS SDK.
 
 ## Version 5.2
 
@@ -67,7 +67,7 @@ The CardPointe Mobile iOS SDK includes the following resources:
 
 Before you begin, ensure that you have the following:
 
-- **CardPointe Mobile iOS SDK** - See [Getting Started](#Getting-Started) to download the SDK.
+- **CardPointe Mobile iOS SDK** - See [Getting Started](#getting-started) to download the SDK.
 - **Sample App** - Review the included sample applications to better understand the SDK integration.
 - **CardPointe Merchant ID and API credentials** - Contact integrationdelivery@fiserv.com if you do not already have an account.
 - **CardSecure Tokenization URL** - Your merchant ID must be associated with a CardSecure URL to send requests to CardSecure. 
@@ -100,9 +100,9 @@ The following table provides an overview of the features that you might want to 
 
 | Functionality | User Type | Component | Description |
 | --- | --- | --- | --- |
-| Stored Customer Profiles | Customer | [Integrated Customer Profile UI](#Integrating-The-Customer-Profile-UI) | Integrates the CardPointe Gateway Profile service, allowing customers to securely store and manage their payment accounts. <br> <br> See the CardPointe Gateway Profile service documentation for more information on the profile service. <br> <br> See [Integrating the Customer Profile UI](#Integrating-The-Customer-Profile-UI) for information on adding this feature to your application. |
+| Stored Customer Profiles | Customer | [Integrated Customer Profile UI](#integrating-the-customer-profile-ui) | Integrates the CardPointe Gateway Profile service, allowing customers to securely store and manage their payment accounts. <br> <br> See the CardPointe Gateway Profile service documentation for more information on the profile service. <br> <br> See [Integrating the Customer Profile UI](#integrating-the-customer-profile-ui) for information on adding this feature to your application. |
 | Apple Pay Wallet Support | Customer | [Apple Pay Integration](?path=docs/documentation/ApplePayDeveloperGuide.md) | Adds the option to use Apple Pay wallet credentials and stored payment methods. <br> <br> See the [Apple Pay Developer Guide](?path=docs/documentation/ApplePayDeveloperGuide.md) for more information. |
-| Mobile Payment Reader Devices	| Merchant | [iOS Swiper Implementation](#Adding-Support-For-Mobile-Payment-Readers) | An integrated mobile payment reader (swiper) device used to securely capture and encrypt card data prior to tokenization. <br> <br> See [Supported Devices](#Supported-Devices) for information on the devices that are currently supported. <br> <br> See the [iOS SDK Integration Guide](#iOS-SDK-Integration-Guide) for instructions for integrating mobile payment reader devices. |
+| Mobile Payment Reader Devices	| Merchant | [iOS Swiper Implementation](#adding-support-for-mobile-payment-readers) | An integrated mobile payment reader (swiper) device used to securely capture and encrypt card data prior to tokenization. <br> <br> See [Supported Devices](#supported-devices) for information on the devices that are currently supported. <br> <br> See the [iOS SDK Integration Guide](#ios-sdk-integration-guide) for instructions for integrating mobile payment reader devices. |
 
 # iOS Sample App User's Guide
 
@@ -296,7 +296,7 @@ To use a mobile payment reader (swiper) device, perform the following steps to i
 
     The swiper should initialize when the view appears. You can get the connection status using the optional methods in `BMSSwiperDelegate`.
 
-**5.** If you are using a VP3300 device, continue to [Integrating a VP3300 Device](#Integrating-a-VP3300-Device).
+**5.** If you are using a VP3300 device, continue to [Integrating a VP3300 Device](#integrating-a-vp3300-device).
 
 ## Integrating a VP3300 Device
 
