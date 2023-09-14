@@ -95,9 +95,9 @@ Data that you transmit to the UAT environment is never sent to the payment proce
 CardPointe Gateway API responses returned in the UAT environment include fields and arrays in a randomized order. Additionally, UAT responses include dummy fields, arrays, and values. This is intended to help clients develop integrated software that dynamically parses the response data, rather than expecting fields to be present in static positions within the response object. 
 
 <!-- theme: warning -->
-> See [Ensuring Backwards Compatibility](?path=docs/documentation/APIBasicsAndBestPractices.md#Ensuring-Backwards-Compatibility) in the [API Basics and Best Practices Guide](?path=docs/documentation/APIBasicsAndBestPractices.md) for more information.
+> See [Ensuring Backwards Compatibility](?path=docs/documentation/APIBasicsAndBestPractices.md#ensuring-backwards-compatibility) in the [API Basics and Best Practices Guide](?path=docs/documentation/APIBasicsAndBestPractices.md) for more information.
 
-Some specific situations, such as a network timeout and specific decline scenarios, require specific input to initiate. See [Test Cases](#Test-Cases), below, for more information on these specific scenarios.
+Some specific situations, such as a network timeout and specific decline scenarios, require specific input to initiate. See [Test Cases](#test-cases), below, for more information on these specific scenarios.
 
 See [Gateway Response Codes](?path=docs/documentation/GatewayResponseCodes.md) for a complete list of all possible response codes for the CardPointe Gateway and each processor.
 
@@ -121,7 +121,7 @@ When testing in the UAT environment, you must use test cards (either physical ca
 
 ### UAT Test Card Data
 
-The [UAT Merchant ID](#Getting-Started) is boarded to the First Data North UAT environment. If you are testing with this MID, or your own MID that is boarded to the North or Rapid Connect platform, you can use the following test card data to test card-not-present transactions.
+The [UAT Merchant ID](#getting-started) is boarded to the First Data North UAT environment. If you are testing with this MID, or your own MID that is boarded to the North or Rapid Connect platform, you can use the following test card data to test card-not-present transactions.
 
 The UAT Test Zip Codes section below contains information on testing AVS responses for First Data North, Rapid Connect, and additional platforms.
 
@@ -419,7 +419,7 @@ For example:
 
 In order to test AVS response codes that you will encounter in the production environment, the UAT environment is configured to simulate various AVS responses when the **last three** characters of the `postal` code matches a specific value.
 
-To force a specific AVS response, review the **UAT Test Zip Codes** available in the [UAT Test Card Data](#UAT-Test-Card-Data) section of this guide. Then submit an authorization request using the last three characters of the postal code meant to generate that AVS response. To illustrate this, the example below uses a zip code ending in 112 to emulate `"avsresp": "N"` in the response.
+To force a specific AVS response, review the **UAT Test Zip Codes** available in the [UAT Test Card Data](#uat-test-card-data) section of this guide. Then submit an authorization request using the last three characters of the postal code meant to generate that AVS response. To illustrate this, the example below uses a zip code ending in 112 to emulate `"avsresp": "N"` in the response.
 
 > Additionally, including any 3-digit AVS response code within the `address` field AVS response will also trigger that response. For example, an authorization request with `"address": "112 Main Street"` or `"address": "31125 Main Street"` will trigger the same AVS response as when using 112 as the last three characters of the postal code.
 >
@@ -469,7 +469,7 @@ To force a specific AVS response, review the **UAT Test Zip Codes** available in
 
 Because the UAT environment does not communicate with the processing hosts, your application can not encounter a time out scenario. In production, when the CardPointe Gateway communication with the processor times out, the Gateway returns an auth response object that includes `"respcode":"62"` and `"resptext":"Timed out"`
 
-If you want to test your application's ability to [handle a time out response](#Handling-Timed-out-Transactions), you can send an auth request using one of the following test card numbers:
+If you want to test your application's ability to [handle a time out response](#handling-timed-out-transactions), you can send an auth request using one of the following test card numbers:
 
 - **Visa**: 4999006200620062
 - **MC**: 5111006200620062
@@ -515,7 +515,7 @@ Status: 200 OK
 
 This guide provides guidance for accepting Automated Clearing House (ACH) payments using the CardPointe Gateway API. ACH payments, also called e-check payments, are a common payment method for recurring payments as well as telephone and mail orders.
 
-Unlike credit card payments, when a customer authorizes an ACH payment, the funds are withdrawn directly from his or her bank account. This process can take several days, so you should include a monitoring process in your integration to [verify the status of the transaction](#Verifying-ACH-Transactions).
+Unlike credit card payments, when a customer authorizes an ACH payment, the funds are withdrawn directly from his or her bank account. This process can take several days, so you should include a monitoring process in your integration to [verify the status of the transaction](#verifying-ach-transactions).
 
 To accept ACH payments, you must capture and handle the customer's bank account and routing number. While you can capture this information and pass it directly to the CardPointe Gateway in an authorization request, it is a best practice to instead capture this information and tokenize it using a CardSecure-integrated web form.
 
@@ -780,13 +780,13 @@ Additionally, receipt requirements vary depending on the card type. For example,
 
 ## Understanding Receipt Data
 
-When an authorization is successfully approved and processed by the CardPointe Gateway, the [authorization response](#Authorization-Response-Data) payload includes important transaction details that you can capture and print on a receipt.
+When an authorization is successfully approved and processed by the CardPointe Gateway, the [authorization response](#authorization-response-data) payload includes important transaction details that you can capture and print on a receipt.
 
 In general, a receipt must include:
 
-- transaction details from the [authorization response](#Authorization-Response-Data)
-- merchant account information and additional transaction details returned in the [receipt object](#Receipt-Data)
-- EMV tag data returned in the [EMV tag object](#EMV-Tag-Data), if the card used was an EMV (chip or contactless) card.
+- transaction details from the [authorization response](#authorization-response-data)
+- merchant account information and additional transaction details returned in the [receipt object](#receipt-data)
+- EMV tag data returned in the [EMV tag object](#emv-tag-data), if the card used was an EMV (chip or contactless) card.
 
 ## Authorization Response Data
 
@@ -879,7 +879,7 @@ A successful authorization response includes a receipt object with the following
 
 ### Printing a Receipt
 
-To print a receipt from your custom integration, use the fields described in [Understanding Receipt Data](#Understanding-Receipt-Data) to build your receipt template.
+To print a receipt from your custom integration, use the fields described in [Understanding Receipt Data](#understanding-receipt-data) to build your receipt template.
 
 The following example illustrates a receipt template (left) and a receipt populated with data retrieved from the authorization response (right).
 
@@ -1141,7 +1141,7 @@ The request file submitted to BAS will contain all required data elements within
 
 ## Client Onboarding Checklist
 
-**1.** [Obtain the CardPointe Gateway PGP public key](#PGP-Keys). Clients must encrypt all request files using this key.
+**1.** [Obtain the CardPointe Gateway PGP public key](#pgp-keys). Clients must encrypt all request files using this key.
    
 **2.** Send your client pgp public key to integrationdelivery@fiserv.com. Your public key will be used to encrypt response files.
    
