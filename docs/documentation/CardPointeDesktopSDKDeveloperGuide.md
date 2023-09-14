@@ -14,7 +14,7 @@ The CardPointe Desktop SDK integration consists of the following components:
     - [Hosted iFrame Tokenizer](?path=docs/documentation/HostediFrameTokenizer.md)
     - CardPointe Gateway API
       
-See the [CardPointe Desktop Integration Guide](#CardPointe-Desktop-Integration-Guide), below, for more information.
+See the [CardPointe Desktop Integration Guide](#cardPointe-desktop-integration-guide), below, for more information.
 
 ## CardPointe Desktop Card Reader
 
@@ -60,7 +60,7 @@ Click the Run in Postman button to download the sample collection:
 
 ## Printing Receipts
 
-If you use the CardPointe Desktop solution to accept payments, you will need to provide your customers with either print or digital receipts. To do so, you can retrieve certain data from the authorization response to print on the receipt. See [Printing Receipts Using Authorization Data](?path=docs/documentation/CardPointeGatewayDeveloperGuides.md#Printing-Receipts-Using-Authorization-Data) for detailed information.
+If you use the CardPointe Desktop solution to accept payments, you will need to provide your customers with either print or digital receipts. To do so, you can retrieve certain data from the authorization response to print on the receipt. See [Printing Receipts Using Authorization Data](?path=docs/documentation/CardPointeGatewayDeveloperGuides.md#printing-receipts-using-authorization-data) for detailed information.
 
 ## Sample Tokenization Requests
 
