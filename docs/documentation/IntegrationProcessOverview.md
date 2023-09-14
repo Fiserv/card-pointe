@@ -20,7 +20,7 @@ Before you begin, note the following requirements:
 - The Integration Solutions Team will provide additional documentation and guidance for your specific use case.
 
 <!-- theme: warning -->
-> To get started with a CardPointe Gateway API integration, see [Testing Your Integration](?path=/docs/documentation/CardPointeGatewayDeveloperGuides.md#Testing-Your-Integration) for test credentials and details on testing in the UAT environment.
+> To get started with a CardPointe Gateway API integration, see [Testing Your Integration](?path=/docs/documentation/CardPointeGatewayDeveloperGuides.md#testing-your-integration) for test credentials and details on testing in the UAT environment.
 > 
 > Additionally, check out the following guides for more helpful information:
 
