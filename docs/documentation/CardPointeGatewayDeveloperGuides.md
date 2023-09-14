@@ -11,7 +11,7 @@ description: The following guides provide best practices and other supplemental 
 
 To help you get started with your integration, you can use the sample CardPointe Gateway API Integration Postman Collection, which includes a template of the API service endpoints.
 
-The CardPointe Gateway API Integration collection also includes a sample Environment to help you get familiar with the API. See [Configuring Your Postman Environment](#Configuring-Your-Postman-Environment), below, for more information.
+The CardPointe Gateway API Integration collection also includes a sample Environment to help you get familiar with the API. See [Configuring Your Postman Environment](#configuring-your-postman-environment), below, for more information.
 
 Click the button below to download the CardPointe Gateway API Integration collection:
 
