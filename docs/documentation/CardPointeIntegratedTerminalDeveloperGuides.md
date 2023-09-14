@@ -10,13 +10,13 @@ description: The following guides provide best practices and other supplemental 
 
 The CardPointe Integrated Terminal API allows developers the flexibility to accommodate a wide variety of business needs and specific use cases. Regardless of the intricacies of each implementation, a Terminal API integration generally involves the following workflow:
 
-**1.** [Connecting a Terminal](#Connecting-a-Terminal)
+**1.** [Connecting a Terminal](#connecting-a-terminal)
    
-**2.** [Connecting your Client](#Connecting-your-Client)
+**2.** [Connecting your Client](#connecting-your-client)
    
-**3.** [Establishing a Session](#Establishing-a-Session)
+**3.** [Establishing a Session](#establishing-a-session)
    
-**4.** [Setting the Terminal's Time](#Setting-the-terminals-time)
+**4.** [Setting the Terminal's Time](#setting-the-terminals-time)
    
 **5.** [Getting a Token and Running a Payment](#getting-a-token-and-running-a-payment)
 
@@ -132,9 +132,9 @@ Your client application makes requests to the Terminal API service endpoints to 
 
 The Terminal API service endpoints can be categorized in three groups:
 
-- [Connectivity endpoints](#Using-the-terminal-api-connectivity-endpoints)
-- [Payment and tokenization endpoints](#Using-the-terminal-api-payment-and-tokenization-endpoints)
-- [Operational endpoints](#Using-the-terminal-api-operational-endpoints)
+- [Connectivity endpoints](#using-the-terminal-api-connectivity-endpoints)
+- [Payment and tokenization endpoints](#using-the-terminal-api-payment-and-tokenization-endpoints)
+- [Operational endpoints](#using-the-terminal-api-operational-endpoints)
 
 The following topics describe the use of these endpoints, and provide tips for using them in your integration.
 
@@ -150,7 +150,7 @@ You use the following endpoints to connect, disconnect, and pair terminals with 
 | `listTerminals` | You can use the `listTerminals` endpoint to retrieve a list of terminals associated with a merchant ID. <br> <br> The `listTerminals` response returns the list of terminals to the client application, which can be used for pairing terminals with the integrated POS system. |
 | `terminalDetails` | You can use the `terminalDetails` endpoint to retrieve detailed information about the terminals associated with a merchant ID. <br> <br> The `terminalDetails` response returns a list of terminal HSNs, terminal models, and supported features. This can be helpful for locations that include multiple different types of terminals (for example, both Ingenico and Clover terminals). |
 | `preconnect` | You can use the `preconnect` endpoint to retrieve a two-factor authentication token, if two-factor authentication is configured for your merchant ID. <br> <br> Note that you should only integrate the `preconnect` endpoint when two-factor authentication is enabled for the merchant account. When two-factor authentication is enabled, it is **required**. in this case, your application must always call the `preconnect` endpoint before establishing a connection. Your application must retrieve the authentication token from the `preconnect` response and include it in the subsequent request to the `connect` endpoint. |
-| `connect` | You can use the `connect` endpoint to establish a session between the terminal and your point-of-sale application. <br> <br> See [Establishing a Session](#Establishing-a-session) for more information and recommendations for using the `connect` endpoint. <br> <br> Additionally, see [Sharing a Terminal Between POS Systems](#Sharing-a-terminal-between-pos-systems) if you want to share a terminal amongst multiple point-of-sale systems or Merchant IDs. |
+| `connect` | You can use the `connect` endpoint to establish a session between the terminal and your point-of-sale application. <br> <br> See [Establishing a Session](#establishing-a-session) for more information and recommendations for using the `connect` endpoint. <br> <br> Additionally, see [Sharing a Terminal Between POS Systems](#sharing-a-terminal-between-pos-systems) if you want to share a terminal amongst multiple point-of-sale systems or Merchant IDs. |
 | `ping` | You can use the `ping` endpoint to verify that the terminal has an open session. <br> <br> Note that the **v1** `ping` endpoint does not require a session key, whereas the **v2** endpoint does. The v2 `ping` is useful for verifying that the terminal is connected and has a valid session, whereas the v1 `ping` is useful for only verifying the terminal's connection. |
 | `disconnect` | You can use the `disconnect` endpoint to terminate the current session. |
 
@@ -220,8 +220,8 @@ You use the following endpoints to capture information for use by your point-of-
 
 | API Service Endpoint | Description |
 | --- | --- |
-| `readInput` | You can use the `readInput` endpoint to capture customer information (for example, an email address or loyalty account ID). <br> <br> See [Using readInput to Capture Customer Information](#Using-readInput-to-Capture-Customer-Information) for more information. |
-| `readSignature` | You can use the `readSignature` endpoint to capture a customer's signature. <br> <br> See [Capturing and Handling Cardholder Signatures](#Capturing-and-Handling-Cardholder-Signatures) for more information. |
+| `readInput` | You can use the `readInput` endpoint to capture customer information (for example, an email address or loyalty account ID). <br> <br> See [Using readInput to Capture Customer Information](#using-readinput-to-capture-customer-information) for more information. |
+| `readSignature` | You can use the `readSignature` endpoint to capture a customer's signature. <br> <br> See [Capturing and Handling Cardholder Signatures](#capturing-and-handling-cardholder-signatures) for more information. |
 | `readConfirmation` | You can use the `readConfirmation` endpoint to prompt the customer to confirm the purchase amount. |
 | `display` | You can use the `display` endpoint to display text on the terminal's screen. |
 | `clearDisplay` | You can use the `clearDisplay` endpoint to clear the terminal's screen and return to the idle display. |
@@ -331,7 +331,7 @@ The following topics describe this workflow in greater detail, including require
 
 ## Connecting to the Terminal
 
-First, one of the integrated POS systems must connect to the terminal, as described in [Connecting a Terminal](#Connecting-a-terminal). 
+First, one of the integrated POS systems must connect to the terminal, as described in [Connecting a Terminal](#connecting-a-terminal). 
 
 <!-- theme: danger -->
 > When sharing a terminal, do **not** include `"force" : "true"` in the request. Doing so will terminate active (or in-flight) transactions.
@@ -553,7 +553,7 @@ Content-Type: application/json
 
 # Accepting Closed Loop Gift Cards
 
-The CardPointe platform allows merchants the flexibility to accept their own proprietary, closed loop gift cards for customer purchases. If you want to include closed loop gift cards in your accepted payment methods, see [Tokenizing Closed Loop Gift Cards](?path=docs/documentation/CardSecure.md#Tokenizing-Closed-Loop-Gift-Cards) in the [CardSecure Developer Guides](?path=docs/documentation/CardSecure.md) for more information.
+The CardPointe platform allows merchants the flexibility to accept their own proprietary, closed loop gift cards for customer purchases. If you want to include closed loop gift cards in your accepted payment methods, see [Tokenizing Closed Loop Gift Cards](?path=docs/documentation/CardSecure.md#tokenizing-closed-loop-gift-cards) in the [CardSecure Developer Guides](?path=docs/documentation/CardSecure.md) for more information.
 
 # Handling Timeouts
 
@@ -589,14 +589,14 @@ See Terminal API Timeout Handling, later in this guide, for more information.
 
 When you use the Terminal API readCard or readManual requests to tokenize card data for use in a CardPointe Gateway authorization request, you only need to consider the CardPoint Gateway timeout threshold. The CardPointe Gateway sends the request to the payment processing network and allows 31 seconds for a response. If the CardPointe Gateway does not receive a response within this limit, the request times out at 32 seconds and returns a "Timed Out" response. 
 
-See the [Handling Timed-Out Transactions](?path=docs/documentation/CardPointeGatewayDeveloperGuides.md#Handling-Timed-Out-Transactions) in the [CardPointe Gateway Developer Guides](?path=docs/documentation/CardPointeGatewayDeveloperGuides.md) for information on handling Gateway-only time outs.
+See the [Handling Timed-Out Transactions](?path=docs/documentation/CardPointeGatewayDeveloperGuides.md#handling-timed-out-transactions) in the [CardPointe Gateway Developer Guides](?path=docs/documentation/CardPointeGatewayDeveloperGuides.md) for information on handling Gateway-only time outs.
 
 ## Terminal API Timeout Handling
 
 If your application uses authCard or authManual requests to authorize payments, you should allow it to handle the following scenarios:
 
-- The application receives a ["Timed out" response](#Gateway-Timed-Out-Response-Returned) from the CardPointe Gateway or terminal service.
-- The application receives [no response](#No-Response-Returned).
+- The application receives a ["Timed out" response](#gateway-timed-out-response-returned) from the CardPointe Gateway or terminal service.
+- The application receives [no response](#no-response-returned).
 
 ### Gateway Timed Out Response Returned
 
@@ -670,7 +670,7 @@ Consider the following best practices:
 - For EMV (chip and contactless) card transactions, no signature is required; however, you might want to capture signatures for large or high-risk transactions.
 - For MSR (magnetic-stripe) card transactions, you should capture a signature for amounts over $50.
 
-If you only want to capture signatures for MSR transactions, see [Detecting MSR Transactions](#Detecting-MSR-Transactions) below for information on determining when a transaction has been processed as MSR.
+If you only want to capture signatures for MSR transactions, see [Detecting MSR Transactions](#detecting-msr-transactions) below for information on determining when a transaction has been processed as MSR.
 
 ## Capturing Cardholder Signatures
 
@@ -830,7 +830,7 @@ A successful authorization response includes a receipt object with the following
 
 ### Printing a Receipt
 
-To print a receipt from your custom integration, use the fields described in [Understanding Receipt Data](#Understanding-Receipt-Data) to build your receipt template.
+To print a receipt from your custom integration, use the fields described in [Understanding Receipt Data](#understanding-receipt-data) to build your receipt template.
 
 The following example illustrates a receipt template (left) and a receipt populated with data retrieved from the authorization response (right).
 
