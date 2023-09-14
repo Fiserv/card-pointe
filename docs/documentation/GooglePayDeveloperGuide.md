@@ -10,7 +10,7 @@ All transactions are available in CardPointe for reporting. Additionally, integr
 
 ## Developing your App
 
-First, you build or upgrade an application, using the Google Pay API to integrate Google Pay acceptance. During that process, you configure some key parameters to integrate CardSecure's tokenization method. See [Integrating the Google Pay API](#Integrating-The-Google-Pay-API) later in this guide for more information. When your development is complete, you certify the app with Google to make it available to your customers.
+First, you build or upgrade an application, using the Google Pay API to integrate Google Pay acceptance. During that process, you configure some key parameters to integrate CardSecure's tokenization method. See [Integrating the Google Pay API](#integrating-the-google-pay-api) later in this guide for more information. When your development is complete, you certify the app with Google to make it available to your customers.
 
 ## Payment Process
 
@@ -62,7 +62,7 @@ To integrate Google Pay acceptance into your application, perform the steps prov
 - For **getBaseCardPaymentMethod**, specify
   `cardPaymentMethod.put("tokenizationSpecification", getTokenizationSpecification());`.
     
-**4.** Configure your app to [handle the response object](https://developers.google.com/pay/api/android/guides/tutorial#paymentdata). See [Tokenizing Google Pay Data](#Tokenizing-Google-Pay-Data) for more information.
+**4.** Configure your app to [handle the response object](https://developers.google.com/pay/api/android/guides/tutorial#paymentdata). See [Tokenizing Google Pay Data](#tokenizing-google-pay-data) for more information.
 
 ## Integrating Google Pay with a Web Application
 
