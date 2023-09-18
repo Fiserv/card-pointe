@@ -730,7 +730,7 @@ This feature is available for merchants processing on the CardNet/North ISO8583 
 - [BluePay Post (bp10emu)](#bluepay-post-bp10emu) 
 - [BluePay 2.0 Post (bp20post)](#bluepay-20-post-bp20post) 
 - [Manual CSV Upload](#manual-csv-upload) 
-- [BluePay CSV Upload (bp20bu)](#bluePay-csv-upload-bp20bu)
+- [BluePay CSV Upload (bp20bu)](#bluepay-csv-upload-bp20bu)
 
 The changes required to comply with this mandate affect merchants who:
 
