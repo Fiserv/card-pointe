@@ -274,7 +274,7 @@ The following parameters are used to override the default labels and titles used
 
 ## iFrame Styling
 
-You can use the `css` parameter to include CSS declarations in the iFrame SRC attribute, to customize the look and feel of the iFrame. The CSS parameter can also accept media queries, allowing for responsive design based on screen or window size. See [Allowed CSS Properties](#allowed-css-properties) below for a list of available properties.
+You can use the `css` parameter to include CSS declarations in the iFrame SRC attribute, to customize the look and feel of the iFrame. The CSS parameter can also accept media queries, allowing for responsive design based on screen or window size. See [Allowed CCS Properties](#allowed-ccs-properties) below for a list of available properties.
 
 For example, the following iFrame URL includes custom CSS properties to specify the error text color and input field width:
 
