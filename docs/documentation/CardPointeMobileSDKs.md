@@ -93,7 +93,7 @@ As described in the [CardPointe Mobile SDK Overview](#overview), your server-sid
 
 Sample scripts are currently available in the following languages:
 
-- [Python](#pyhton-toolkit)
+- [Python](#python-toolkit)
 - [Node.js](#nodejs-toolkit)
 
 These sample scripts provide the following CardPointe Gateway API request methods:
