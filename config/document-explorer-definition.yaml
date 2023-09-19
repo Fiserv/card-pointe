@@ -49,6 +49,9 @@
 - sections:
   - title: CoPilot
     link: docs/documentation/CoPilotDeveloperGuides.md
+    sections:
+    - title: CoPilot API
+      link: docs/APIs/CoPilotAPI.md
 - sections:
   - title: Mobile SDKs
     link: docs/documentation/CardPointeMobileSDKs.md
@@ -61,8 +64,3 @@
 - sections:
   - title: BluePay Gateway
     link: docs/documentation/BluePayGatewayAPI.md
-- sections:
-  - title: What's New?
-    sections:
-    - title: August 2023
-      link: docs/release-notes/2022/august.md
