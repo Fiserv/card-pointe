@@ -100,7 +100,7 @@ When a credit card is swiped or inserted at a supported terminal, the extracted 
 
 CardSecure decrypts the encrypted swipe data and generates a token for the card number. CardSecure also stores the card’s encrypted track data for a short period of time, after which it is discarded.
 
-If the token is used in an [authorization request](?path=docs/APIs/CardPointeGatewayAPI.md#authorization) to the CardPointe Gateway during this retention period, the stored track data associated with the token is sent to the processor; this potentially allows the transaction to run as a "card present" transaction. The track data is discarded after the authorization request, and can only be used in a single request.
+If the token is used in an authorization request to the CardPointe Gateway during this retention period, the stored track data associated with the token is sent to the processor; this potentially allows the transaction to run as a "card present" transaction. The track data is discarded after the authorization request, and can only be used in a single request.
 
 ## Encrypting and Tokenizing Payment Account Data 
 
@@ -108,7 +108,7 @@ CardSecure allows clients to encrypt the account data (PAN or ACH) sent in a [to
 
 Data must be encrypted using RSA encryption in ECB mode with PKCS1 padding. The encrypted data must be Base64-encoded when sent to CardSecure in a [tokenization request](../api/?type=post&path=/cardsecure/v1/tokenize).
 
-CardSecure uses the corresponding private key to decrypt the data. The decrypted data is temporarily stored in CardSecure's vault, and the token (generated from the encrypted data) is returned to your application for use in an [authorization request](?path=docs/APIs/CardPointeGatewayAPI.md#authorization) to the CardPointe Gateway. Note that the token itself is not encrypted.
+CardSecure uses the corresponding private key to decrypt the data. The decrypted data is temporarily stored in CardSecure's vault, and the token (generated from the encrypted data) is returned to your application for use in an authorization request to the CardPointe Gateway. Note that the token itself is not encrypted.
 
 > Note the following restrictions:
 > 
