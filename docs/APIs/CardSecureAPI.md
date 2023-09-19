@@ -41,7 +41,7 @@ Content-Type: application/json
 }
 ```
 
-See the [tokenize](#tokenize) description for a complete example, and see the [Apple Pay Developer Guide](?path=docs/documentation/ApplePayDeveloperGuide.md) for detailed information on integrating support for Apple Pay, and formatting the payment token string for CardSecure. 
+See the [tokenize](../api/?type=post&path=/cardsecure/v1/tokenize) description for a complete example, and see the [Apple Pay Developer Guide](?path=docs/documentation/ApplePayDeveloperGuide.md) for detailed information on integrating support for Apple Pay, and formatting the payment token string for CardSecure. 
 
 ### Update a Token with CVV and Expiry
 
@@ -104,9 +104,9 @@ If the token is used in an [authorization request](?path=docs/APIs/CardPointeGat
 
 ## Encrypting and Tokenizing Payment Account Data 
 
-CardSecure allows clients to encrypt the account data (PAN or ACH) sent in a [tokenization request](#tokenize) using a client-specific RSA public key. CardPointe support can generate a unique RSA key pair, provide the public key (in X.509 format) to you, and retain the private key.
+CardSecure allows clients to encrypt the account data (PAN or ACH) sent in a [tokenization request](../api/?type=post&path=/cardsecure/v1/tokenize) using a client-specific RSA public key. CardPointe support can generate a unique RSA key pair, provide the public key (in X.509 format) to you, and retain the private key.
 
-Data must be encrypted using RSA encryption in ECB mode with PKCS1 padding. The encrypted data must be Base64-encoded when sent to CardSecure in a [tokenization request](#tokenize).
+Data must be encrypted using RSA encryption in ECB mode with PKCS1 padding. The encrypted data must be Base64-encoded when sent to CardSecure in a [tokenization request](../api/?type=post&path=/cardsecure/v1/tokenize).
 
 CardSecure uses the corresponding private key to decrypt the data. The decrypted data is temporarily stored in CardSecure's vault, and the token (generated from the encrypted data) is returned to your application for use in an [authorization request](?path=docs/APIs/CardPointeGatewayAPI.md#authorization) to the CardPointe Gateway. Note that the token itself is not encrypted.
 
@@ -147,93 +147,8 @@ The following table lists the CardSecure API service endpoints and their functio
 
 | Service	| API Version	| Description |
 | --- | --- | --- |
-| tokenize | v1	| Tokenizes sensitive data provided in the request, and returns a CardSecure token.
-| echo | v1	| Sends a ping command to the CardSecure server to verify the connection.
-
-## tokenize
-
-A request to the tokenize endpoint returns a CardSecure token generated from the data provided in the request.
-
-A tokenize request includes payment account data in either the `account` or `devicedata` field. 
-
-Use the `account` field to provide a clear or encrypted payment account number (PAN) or ACH account number (in the format <routing>/<account>). 
-
-If the `account` data is encrypted, include the `encryptionhandler` parameter to instruct CardSecure to decrypt the data using the private key for your site.
-
-Use the `devicedata` field to provide track data received from a terminal device for an MSR (swipe), EMV (chip), or NFC (contactless) transaction, or a digital wallet payload (for example for a Google Pay transaction).
-
-The tokenize response includes a token generated from the account data. You can then use this token to submit an [authorization request](?path=docs/APIs/CardPointeGatewayAPI.md#authorization) to the CardPointe Gateway.
-
-#### Endpoint URL
-
-The URL for the tokenize endpoint is:
-
-`https://<site>.cardconnect.com/cardsecure/api/v1/ccn/tokenize`
-
-#### Request Header
-
-The following key/value pair is required in the request header:
-
-| Key	| Value
-| --- | ---
-| Content-Type | application/json
-
-#### Request Parameters
-
-Fields in bold are required.
-
-> Either `account` or `devicedata` are required. Use `account` when manually entering encrypted or clear PANs. Use `devicedata` when capturing card data from a card reader or terminal device.
-
-| Field	| Description
-| --- | ---
-| **account**	| One of the following: <br> <br> A clear or encrypted payment account number (PAN) <br> An ACH routing and account number string in the format <routing>/<account> for eCheck transactions <br> <br> If `encryptionhandler` is provided, the account is treated as an encrypted PAN.
-| **devicedata** | One of the following: <br> <br> Encrypted track data retrieved using a card reader or terminal device (MSR/EMV/NFC) <br> Apple Pay payment token data (see the [Apple Pay Developer Guide](?path=docs/documentation/ApplePayDeveloperGuide.md) for detailed information) <br> Google Pay wallet payload (see the [Google Pay Developer Guide](?path=docs/documentation/GooglePayDeveloperGuide.md) for detailed information)
-| cvv	| Optional, the 3 or 4 digits card verification value (CVV). <br> <br> Must be a 3 or 4 character numeric string; strings greater than 4 characters or fewer than 3 characters are not supported. <br> <br> Alphanumeric and special characters are not supported.
-| expiry | Optional, the card expiration date. <br> <br> Must be a numeric string, in one of the following formats: <br> <br> MMYY <br> YYYYM (for single-digit months) <br> YYYYMM <br> YYYYMMDD
-| signature	| Signature data, if captured. Data must be a Base64-encoded, Gzipped bitmap (BMP).
-| encryptionhandler	| One of the following : <br> <br> For an encrypted PAN or ACH, specify **RSA** <br> For an Apple Pay payment token, specify **EC_APPLE_PAY** <br> For a Google Pay wallet payload, specify **EC_GOOGLE_PAY**
-| unique | Specifies whether a unique token should be generated. <br> <br> Specify **true** to generate a unique token. <br> <br> Defaults to **false**.
-
-#### Response Parameters
-
-| Field	| Description
-| --- | ---
-| message	| The status of the request. <br> <br> Returns "No Error" if the request was successful. <br> <br> Returns a descriptive error message if the request failed. <br> <br> See [Error Codes and Messages](#error-codes-and-messages) for a complete list of possible error codes and messages.
-| errorcode	| An error code, if the request encountered an error.  <br> <br> Returns "0" if the request was successful. <br> <br> See [Error Codes and Messages](#error-codes-and-messages) for a complete list of possible error codes and messages.
-| token	| The token generated from the request data.
-
-## echo
-
-A call to the echo service endpoint sends a ping command to the CardSecure server to verify the application's connection. You can include a message in the request, which is returned in the response if the request is successful. If the request fails, an [error message](#error-codes-and-messages) is returned with a corresponding [error code](#error-codes-and-messages).
-
-#### Endpoint URL
-
-The URL for the tokenize endpoint is:
-
-`https://<site>.cardconnect.com:<port>/cardsecure/api/v1/echo`
-
-#### Request Header
-
-The following key/value pair is required in the request header:
-
-| Key	| Value
-| --- | ---
-| Content-Type | application/json
-
-#### Request Parameters
-
-Fields in bold are required.
-
-| Field	| Description
-| --- | ---
-| **message**	| A message to send in the ping request and receive in the response. The value can be blank, however the message field must be included in the request.
-
-#### Response Parameters
-
-| Field	| Description
-| --- | ---
-| message	| The `message` value included in the request. <br> <br> Returns a descriptive error message if the request failed. <br> <br> See [Error Codes and Messages](#error-codes-and-messages) for a complete list of possible error codes and messages.
-| errorcode	| An error code, if the request encountered an error. <br> <br> Returns "0" if the request was successful. <br> <br> See [Error Codes and Messages](#error-codes-and-messages) for a complete list of possible error codes and messages.
+| [tokenize](../api/?type=post&path=/cardsecure/v1/tokenize) | v1	| Tokenizes sensitive data provided in the request, and returns a CardSecure token.
+| [echo](../api/?type=post&path=/cardsecure/v1/echo) | v1	| Sends a ping command to the CardSecure server to verify the connection.
 
 # Error Codes and Messages 
 
