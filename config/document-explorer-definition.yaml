@@ -34,6 +34,9 @@
 - sections:
   - title: CardPointe Gateway
     link: docs/documentation/CardPointeGatewayDeveloperGuides.md
+    sections:
+    - title: CardPointe Gateway API
+      link: docs/APIs/CardPointeGatewayAPI.md
 - sections:
   - title: Hosted iFrame Tokenizer
     link: docs/documentation/HostediFrameTokenizer.md
