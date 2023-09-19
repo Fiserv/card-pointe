@@ -40,6 +40,9 @@
 - sections:
   - title: CardPointe Integrated Terminal
     link: docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md
+    sections:
+    - title: CardPointe Integrated Terminal API
+      link: docs/APIs/CardPointeIntegratedTerminalAPI.md
 - sections:
   - title: CoPilot
     link: docs/documentation/CoPilotDeveloperGuides.md
