@@ -49,6 +49,9 @@
 - sections:
   - title: CardSecure
     link: docs/documentation/CardSecure.md
+    sections:
+    - title: CardSecure API
+      link: docs/APIs/CardSecureAPI.md
 - sections:
   - title: BluePay Gateway
     link: docs/documentation/BluePayGatewayAPI.md
