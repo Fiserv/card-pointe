@@ -1,4 +1,4 @@
-# Overview
+# CardPointe Gateway API Overview
 
 The CardPointe Gateway API allows you to securely accept a wide-range of credit, debit, and alternative payments.  
 
