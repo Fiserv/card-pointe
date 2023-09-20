@@ -1,4 +1,4 @@
-# Introduction
+# CardPointe Desktop SDK Developer Guide
 
 The CardPointe Desktop SDK enables you to quickly and easily integrate secure payment card tokenization and card-present payments using the CardPointe Desktop (ID TECH Augusta) card reader device.
 
