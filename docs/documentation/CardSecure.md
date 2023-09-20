@@ -6,7 +6,7 @@ description: The following guides provide information on CardSecure, tokens, and
 
 <!-- type: row-end -->
 
-# Overview
+# CardSecure Overview
 
 CardSecure® is the CardPointe platform's P2PE-validated encryption and tokenization solution, and is at the center of all integrated payment solutions. Whether you use a [CardPointe Integrated Payments solution](https://cardconnect.com/cardpointe) to securely accept card-present transactions with your integrated point-of-sale, or the [Hosted iFrame Tokenizer](?path=docs/documentation/HostediFrameTokenizer.md) or CardSecure API to extend secure eCommerce payments to online customers, CardSecure allows you to accept sensitive payment data securely, with reduced PCI scope.
 
