@@ -1,4 +1,4 @@
-# Overview
+# Card Account Updater Integration Guide
 
 The Card Account Updater service provides merchants the ability to keep their customers' card data up-to-date.
 
