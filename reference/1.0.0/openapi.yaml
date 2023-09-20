@@ -268,8 +268,7 @@ components:
         }
         errorcode: {
           description: 'Error response code from the gateway',
-          type: integer,
-          example: 00
+          type: integer
         }
         token: {
           description: 'The created token',
@@ -287,8 +286,7 @@ components:
         }
         errorcode: {
           description: 'An error code, if the request encountered an error. Returns "0" if the request was successful. See Error Codes and Messages for a complete list of possible error codes and messages.',
-          type: integer,
-          example: 000
+          type: integer
         }
     NotFoundError:
       x-model-version: 1.0
