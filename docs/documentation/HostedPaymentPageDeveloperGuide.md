@@ -1,4 +1,4 @@
-# Overview
+# Hosted Payment Page Developer Guide
 
 The CardPointe Hosted Payment Page (HPP) is a secure and customizable payment form that can be deployed quickly with little to no development work. As an alternative to redirecting your customers to a standalone checkout page, the HPP allows you to embed the PCI-compliant form in an iFrame on your website. Integrating the HPP with your website allows you to easily accept payments and can reduce your scope of PCI compliance by ensuring that sensitive payment data is never shared with your application.
 
