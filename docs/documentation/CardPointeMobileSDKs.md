@@ -1,4 +1,4 @@
-# Introduction
+# CardPointe Mobile SDKs
 
 The CardPointe Mobile SDKs seamlessly connect your mobile applications to CardSecure to securely encrypt and tokenize customers' payment card data. Tokens and associated payment details can then be retrieved by your server application and securely transmitted to the CardPointe Gateway for authorization.
 
