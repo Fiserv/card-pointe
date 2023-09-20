@@ -1,4 +1,4 @@
-# Introduction
+# CardPointe Mobile Android SDK Developer Guide
 
 The CardPointe Mobile Android SDK seamlessly connects your Android<sup>tm</sup> applications to CardSecure for tokenization of customer card data. Tokens and other associated payment details are then retrieved by your server and securely transmitted to the CardPointe Gateway for authorization, using a server-side REST client.
 
