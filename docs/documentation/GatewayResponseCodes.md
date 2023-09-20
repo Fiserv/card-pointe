@@ -1,4 +1,4 @@
-# Overview
+# Gateway Response Codes
 
 This page describes the responses you may receive when sending CardPointe Gateway API requests, including HTTP errors and a detailed reference for authorization response codes. 
 
