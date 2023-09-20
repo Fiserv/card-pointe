@@ -6,7 +6,7 @@ description: This solution is currently in development and the information in th
 
 <!-- type: row-end -->
 
-# Overview
+# CardPointe Unattended
 
 The CardPointe Unattended solution extends CardPointe Integrated Payments to unattended kiosk applications.
 
