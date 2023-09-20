@@ -1,4 +1,4 @@
-# Overview
+# CardPointe Integrated Terminal Developer Guide For Clover Terminals
 
 The CardPointe Integrated Terminal solution includes support for Clover Mini and Clover Flex terminals to provide a sleek and secure transaction experience for your customers. By integrating the Terminal API with your POS software, you can quickly build and deploy a complete P2PE payment solution, effectively reducing your scope of PCI compliance as a merchant or integrator.
 
