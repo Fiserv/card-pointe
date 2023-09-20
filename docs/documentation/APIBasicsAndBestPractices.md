@@ -1,4 +1,4 @@
-# Overview
+# API Basics and Best Practices
 
 This guide provides basic information and best practices to help you successfully integrate your application with our APIs.
 
