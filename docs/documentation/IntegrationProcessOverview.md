@@ -1,4 +1,4 @@
-# Overview
+# Integration Process Overview
 
 Our Integration Solutions Team is here to ensure that your payment integration process is guided, efficient, and ultimately successful.
 
