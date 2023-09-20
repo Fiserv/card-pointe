@@ -38,14 +38,17 @@
     - title: CardPointe Gateway API
       link: docs/APIs/CardPointeGatewayAPI.md
 - sections:
-  - title: Hosted iFrame Tokenizer
-    link: docs/documentation/HostediFrameTokenizer.md
-- sections:
   - title: CardPointe Integrated Terminal
     link: docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md
     sections:
     - title: CardPointe Integrated Terminal API
       link: docs/APIs/CardPointeIntegratedTerminalAPI.md
+- sections:
+  - title: CardSecure
+    link: docs/documentation/CardSecure.md
+    sections:
+    - title: CardSecure API
+      link: docs/APIs/CardSecureAPI.md
 - sections:
   - title: CoPilot
     link: docs/documentation/CoPilotDeveloperGuides.md
@@ -53,14 +56,11 @@
     - title: CoPilot API
       link: docs/APIs/CoPilotAPI.md
 - sections:
+  - title: Hosted iFrame Tokenizer
+    link: docs/documentation/HostediFrameTokenizer.md
+- sections:
   - title: Mobile SDKs
     link: docs/documentation/CardPointeMobileSDKs.md
-- sections:
-  - title: CardSecure
-    link: docs/documentation/CardSecure.md
-    sections:
-    - title: CardSecure API
-      link: docs/APIs/CardSecureAPI.md
 - sections:
   - title: BluePay Gateway
     link: docs/documentation/BluePayGatewayAPI.md
