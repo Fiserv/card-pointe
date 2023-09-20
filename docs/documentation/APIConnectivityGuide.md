@@ -1,4 +1,4 @@
-# Overview
+# API Connectivity Guide
 
 Our core APIs and services are at the center of all of our payment solutions. This guide provides detailed information to help you understand the architecture of our services, and how your integrated solutions connect to them. 
 
