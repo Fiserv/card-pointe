@@ -1,4 +1,4 @@
-# Overview
+# CoPilot API Recurring Billing
 
 The CoPilot API Billing Plan endpoints allow you to create and manage recurring billing plans using tokenized and stored customer payment data.
 
