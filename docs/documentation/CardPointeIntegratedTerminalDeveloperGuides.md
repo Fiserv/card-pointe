@@ -1,3 +1,5 @@
+# CardPointe Integrated Terminal Developer Guide
+
 <!-- type :row -->
 
 <!-- type: card
