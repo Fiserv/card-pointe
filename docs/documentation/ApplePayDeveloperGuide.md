@@ -1,4 +1,4 @@
-# Overview
+# Apple Pay Developer Guide
 
 This guide provides information for integrating Apple Pay acceptance with an iOS or web-based application. 
 
