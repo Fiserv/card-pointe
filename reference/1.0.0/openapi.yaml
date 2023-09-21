@@ -478,6 +478,20 @@ components:
           description: Payment acceptance and encryption method.
           }
   responses:
+    listTerminalsResponse:
+      x-model-version: 1.0
+      description: Contains list of terminals associated with MID.
+      content:
+        terminals:
+          example: { 
+            "terminals" : 
+             [ 
+               "12145SC70108037", 
+               "14012PP20131409", 
+               "12155SC70113974",
+               "12150SC70110741" 
+             ] 
+            }
     TokenizeResponse:
       x-model-version: 1.0
       description: Contains the <a href="path">Gateway Response</a>
