@@ -40,7 +40,7 @@ paths:
   /api/v2/listTerminals:
     get:
       tags:
-        -listTerminals Endpoint Definition
+        - listTerminals Endpoint Definition
       x-group-name: CardPointe Integrated Terminal API
       x-proxy-name: listTerminals
       x-default-name: Default
