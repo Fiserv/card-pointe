@@ -112,7 +112,7 @@ These sample scripts provide the following CardPointe Gateway API request method
 
 ## Python Toolkit
 
-> [Python Server-Side Toolkit ZIP](../../assets/files/CardConnect-SDK-Toolkit.zip)
+> [Python Server-Side Toolkit ZIP](https://github.com/Fiserv/card-pointe/assets/files/CardConnect-SDK-Toolkit.zip)
 
 ### Files in the CardConnectSDK Root Directory
 
@@ -150,7 +150,7 @@ The /examples subdirectory includes the following working sample scripts:
 
 ## Node.js Toolkit
 
-> [Node Server-Side Toolkit ZIP](../../assets/files/Node-Server-Side-Toolkit.zip)
+> [Node Server-Side Toolkit ZIP](https://github.com/Fiserv/card-pointe/assets/files/Node-Server-Side-Toolkit.zip)
 
 ### Files in the CardConnectSDK Root Directory
 
