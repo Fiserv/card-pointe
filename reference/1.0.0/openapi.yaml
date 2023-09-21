@@ -37,6 +37,46 @@ servers:
  - {url: 'DNE', description: Production}
  - {url: 'DNE', description: Sandbox}
 paths:
+  /api/v2/listTerminals:
+    get:
+      tags:
+        -listTerminals Endpoint Definition
+      x-group-name: CardPointe Integrated Terminal API
+      x-proxy-name: listTerminals
+      x-default-name: Default
+      summary: The listTerminals endpoint returns an array of Hardware Serial Numbers (HSNs) for each terminal for the specified **Merchant ID**.
+      description: |+
+        The listTerminals endpoint returns an array of Hardware Serial Numbers (HSNs) for each terminal for the specified merchant ID.
+        This array can be displayed to prompt a user to select the terminal HSN to pair or use with the POS application.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/listTerminalsRequest'
+            examples:
+              listTerminals Example:
+                summary: listTerminals Example
+                $ref: '#/components/examples/listTerminalsExample'
+      parameters:
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/listTerminalsSuccess'}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}        
+              
   /v1/cnn/tokenize:
     post:
       tags:
@@ -80,7 +120,7 @@ paths:
           description: Success
           content:
             application/json:
-              schema: {$ref: '#/components/schemas/Success'}
+              schema: {$ref: '#/components/schemas/TokenizeSuccess'}
         400:
           description: Not Found
           content:
@@ -257,7 +297,7 @@ components:
       in: header
       description: A message to send in the ping request and receive in the response. The value can be blank, however the message field must be included in the request.
   schemas:
-    Success:
+    TokenizeSuccess:
       x-model-version: 1.0
       description: Error information
       properties:
@@ -275,6 +315,23 @@ components:
           type: string,
           example: 9417119164771111
         }
+    listTerminalsSuccess:
+      x-model-version: 1.0
+      description: List of terminals
+      properties:
+      terminals: {
+        description: "An array of Hardware Serial Numbers (HSNs) for each terminal for the specified merchant ID.",
+        type: array,
+        example: { 
+            "terminals" : 
+           [ 
+             "12145SC70108037", 
+             "14012PP20131409", 
+             "12155SC70113974",
+             "12150SC70110741" 
+           ] 
+          }
+    }
     EchoSuccess:
       x-model-version: 1.0
       description: Error information
@@ -282,8 +339,8 @@ components:
         message: {
           description: 'The message value included in the request. Returns a descriptive error message if the request failed. See Error Codes and Messages for a complete list of possible error codes and messages.',
           type: string,
-          example: Hello?
-        }
+          example: 'Hello?'
+          }
         errorcode: {
           description: 'An error code, if the request encountered an error. Returns "0" if the request was successful. See Error Codes and Messages for a complete list of possible error codes and messages.',
           type: integer
@@ -337,6 +394,15 @@ components:
           description: 'Information specific to a propery or attribute.',
           type: string
         }
+    listTerminalsRequest:
+      x-model-version: 1.0
+      type: object
+      properties:
+        merchantID:
+          description: Your Merchant ID, required for all requests.
+          type: string
+          maxLength: 16
+          example: 1234
     EchoRequest:
       x-model-version: 1.0
       type: object
@@ -766,6 +832,22 @@ components:
         type: 'integer'
         code: '003'
         message: 'Message'
+    listTerminalsExample:
+      value:
+        merchantID: '1234'
+        source:
+          sourcetype: listTerminalsRequest
+    listTerminalsResponseExample:
+      value:
+        terminals: { 
+          "terminals" : 
+           [ 
+             "12145SC70108037", 
+             "14012PP20131409", 
+             "12155SC70113974",
+             "12150SC70110741" 
+           ] 
+          }
     EchoRequestExample:
       value:
         message: 'Hello?'
