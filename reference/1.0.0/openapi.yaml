@@ -484,7 +484,6 @@ components:
       content:
         terminals:
           example: { 
-            "terminals" : 
              [ 
                "12145SC70108037", 
                "14012PP20131409", 
