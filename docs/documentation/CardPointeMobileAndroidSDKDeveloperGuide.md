@@ -6,6 +6,7 @@ The CardPointe Mobile Android SDK seamlessly connects your Android<sup>tm</sup> 
 
 <!-- theme: warning -->
 > See [Getting Started](#getting-started), below, to download the latest version of the CardPointe Mobile Android SDK.
+
 ## Version 3.0.86
 
 This version includes the following changes from this and previous builds:
@@ -50,17 +51,20 @@ See the CardPointe Mobile Device User's Guide for more information on the ID TEC
 <!-- theme: danger -->
 > The ID TECH VP3300 is only available for merchants processing on the First Data Rapid Connect platform.
 > Support for NFC (contactless) transactions on the VP3300 is planned for a future update of the SDK.
+
 # Getting Started
 
 Download the latest version of the SDK to get started:
 
 > [CardPointe Mobile Android SDK v3.0.86 ZIP](https://github.com/Fiserv/card-pointe/raw/develop/assets/files/cardpointe-mobile-android-v3.0.86.zip)
+
 For new integrations, see the [Android SDK Integration Guide](#android-sdk-integration-guide), below for detailed information on integrating the SDK with your application.
 
 For migrating an existing app to the latest version of the SDK, see the [Android SDK Migration Guide](#andriod-sdk-migration-guide), below.
 
 <!-- theme: warning -->
 > The CardPointe Mobile Android SDK includes an API reference help file. Browse to **/docs/reference api** and double-click **help-doc.html** to launch the API help.
+
 ## Requirements
 
 Before you begin, ensure that you have the following:
@@ -77,6 +81,7 @@ Before you begin, ensure that you have the following:
 
 <!-- theme: danger -->
 > If you are using the ID TECH VP3300, your merchant account must be processing on the First Data Rapid Connect platform.
+
 - **(Optional) Android Device** - If you are using a mobile payment reader (swiper) device, you will need a physical Android device to test the integration.
 
 ## Customer and Merchant-Facing Applications
@@ -126,6 +131,7 @@ This guide provides information for integrating the CardPointe Mobile Android SD
 <!-- theme: warning -->
 > See the API reference documentation for detailed information on using the classes and methods described in this guide. Browse to **/docs/reference api** and double-click **help-doc.html** to launch the API help.
 > If you already integrated an older version of the Android SDK and want to migrate to the latest version, see the [Android SDK Migration Guide](#android-sdk-migration-guide), below.
+
 ## Importing the SDK to Your Project
 
 Do the following to import the SDK with your project:
@@ -180,6 +186,7 @@ Do the following to import the SDK with your project:
 > If you are using ProGuard with the R8 compiler to shrink and obfuscate your app, add the following line to your ProGuard rules file to keep the SDK:
 >
 > `-keep class com.bolt.consumersdk.** { *; }`
+
 ## Integrating the Customer Profile UI (optional)
 
 The SDK supports an integrated user interface for managing customer account profiles. The profile UI integrates the CardPointe Gateway's profile service and allows your app to:
@@ -841,6 +848,7 @@ If you or your merchants integrated the VP3300 CardPointe Mobile device with a v
 <!-- theme: warning -->
 > As of SDK version 3.0.40, the VP3300 CardPointe Mobile device must be running firmware v1.01.129 or higher
 > New devices should not require firmware or configuration updates. Future configuration updates will be applied automatically.
+
 ### Checking the Firmware Version
 
 To check the firmware version, using version 3.0.61 of the SDK, use a `SwiperControllerListener` to listen for `onDeviceConfigurationUpdate:` during the connection progress. This will return the firmware version of the device (for example, “Device firmware version: VP3300 Bluetooth NEO v1.01.129”). If your device is not running v1.01.129 or higher, contact isvintegrations@fiserv.com to update your device.
