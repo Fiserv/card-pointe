@@ -11,7 +11,10 @@
         "version": "1.0.0",
         "versionType": "major",
         "releaseNotesPath": "docs/release-notes/2022/march.md",
-        "apiSpecFileNames": ["openapi"]
+        "apiSpecFileNames": [
+          "CardSecureAPI",
+          "CardPointeIntegratedTerminalAPI"
+        ]
       }
   ],
   "product": {
