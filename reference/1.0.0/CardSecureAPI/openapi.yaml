@@ -37,46 +37,6 @@ servers:
  - {url: 'DNE', description: Production}
  - {url: 'DNE', description: Sandbox}
 paths:
-  /api/v2/listTerminals:
-    get:
-      tags:
-        - listTerminals Endpoint Definition
-      x-group-name: CardPointe Integrated Terminal API
-      x-proxy-name: listTerminals
-      x-default-name: Default
-      summary: The listTerminals endpoint returns an array of Hardware Serial Numbers (HSNs) for each terminal for the specified **Merchant ID**.
-      description: |+
-        The listTerminals endpoint returns an array of Hardware Serial Numbers (HSNs) for each terminal for the specified merchant ID.
-        This array can be displayed to prompt a user to select the terminal HSN to pair or use with the POS application.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/listTerminalsRequest'
-            examples:
-              listTerminals Example:
-                summary: listTerminals Example
-                $ref: '#/components/examples/listTerminalsExample'
-      parameters:
-        - {$ref: '#/components/parameters/ContentTypeHeader'}
-      responses:
-        200: 
-          description: Success
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/listTerminalsSuccess'}
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}        
-              
   /v1/cnn/tokenize:
     post:
       tags:
