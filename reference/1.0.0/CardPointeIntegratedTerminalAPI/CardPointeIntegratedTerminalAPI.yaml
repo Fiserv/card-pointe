@@ -56,7 +56,6 @@ paths:
               $ref: '#/components/schemas/listTerminalsRequest'
             examples:
               listTerminals Example:
-                summary: listTerminals Example
                 $ref: '#/components/examples/listTerminalsExample'
       parameters:
         - {$ref: '#/components/parameters/ContentTypeHeader'}
@@ -95,7 +94,6 @@ paths:
               $ref: '#/components/schemas/terminalDetailsRequest'
             examples:
               terminalDetails Example:
-                summary: terminalDetailss Example
                 $ref: '#/components/examples/terminalDetailsExample'
       parameters:
         - {$ref: '#/components/parameters/ContentTypeHeader'}
@@ -251,18 +249,19 @@ components:
     listTerminalsSuccess:
       x-model-version: 1.0
       description: List of terminals
+      type: object
       properties:
         terminals: {
           description: "An array of Hardware Serial Numbers (HSNs) for each terminal for the specified merchant ID.",
-          type: array,
           example: { 
+            terminals:
              [ 
                "12145SC70108037", 
                "14012PP20131409", 
                "12155SC70113974",
-               "12150SC70110741" 
+               "12150SC70110741"
              ] 
-            }
+            },
         }
     terminalDetailsSuccess:
       x-model-version: 1.0
@@ -272,7 +271,7 @@ components:
           description: "An array of Hardware Serial Numbers (HSNs) for each terminal for the specified merchant ID.",
           type: object,
           example:
-          { 
+          { terminals:
           [  
           {
             "hsn": "C042UQ93160289",
