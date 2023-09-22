@@ -235,7 +235,6 @@ components:
           description: "An array of Hardware Serial Numbers (HSNs) for each terminal for the specified merchant ID.",
           type: array,
           example: { 
-              "terminals" : 
              [ 
                "12145SC70108037", 
                "14012PP20131409", 
@@ -755,7 +754,6 @@ components:
     listTerminalsResponseExample:
       value:
         terminals: { 
-          "terminals" : 
            [ 
              "12145SC70108037", 
              "14012PP20131409", 
