@@ -253,15 +253,13 @@ components:
       properties:
         terminals: {
           description: "An array of Hardware Serial Numbers (HSNs) for each terminal for the specified merchant ID.",
-          example: { 
-            terminals:
+          example:  
              [ 
                "12145SC70108037", 
                "14012PP20131409", 
                "12155SC70113974",
                "12150SC70110741"
              ] 
-            },
         }
     terminalDetailsSuccess:
       x-model-version: 1.0
@@ -271,7 +269,6 @@ components:
           description: "An array of Hardware Serial Numbers (HSNs) for each terminal for the specified merchant ID.",
           type: object,
           example:
-          { terminals:
           [  
           {
             "hsn": "C042UQ93160289",
@@ -311,7 +308,7 @@ components:
                }
           }
                  ] 
-                }
+                
         }
     NotFoundError:
       x-model-version: 1.0
