@@ -288,7 +288,6 @@ components:
       properties:
         terminals: {
           description: "An array of Hardware Serial Numbers (HSNs) for each terminal for the specified merchant ID.",
-          type: object
           example:  
              [ 
                "12145SC70108037", 
