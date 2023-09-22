@@ -43,7 +43,6 @@ paths:
         - getPanPadVersion
       x-group-name: CardPointe Integrated Terminal API
       x-proxy-name: dateTime
-      x-default-name: Default
       summary: Returns PanPad version number
       description: |+
         A call to the getPanPadVersion endpoint returns the version of the terminal application running on the specified Ingenico terminal.
@@ -77,7 +76,6 @@ paths:
         - dateTime Endpoint Definition
       x-group-name: CardPointe Integrated Terminal API
       x-proxy-name: dateTime
-      x-default-name: Default
       summary: "The dateTime endpoint sends a request to change a terminal's date and time."
       description: |+
         A call to the dateTime endpoint sends a request to the specified terminal to set the system time for a terminal.
@@ -112,7 +110,6 @@ paths:
         - listTerminals Endpoint Definition
       x-group-name: CardPointe Integrated Terminal API
       x-proxy-name: listTerminals
-      x-default-name: Default
       summary: The listTerminals endpoint returns an array of Hardware Serial Numbers (HSNs) for each terminal for the specified **Merchant ID**.
       description: |+
         The listTerminals endpoint returns an array of Hardware Serial Numbers (HSNs) for each terminal for the specified merchant ID.
@@ -150,7 +147,6 @@ paths:
         - terminalDetails Endpoint Definition
       x-group-name: CardPointe Integrated Terminal API
       x-proxy-name: terminalDetails
-      x-default-name: Default
       summary: The terminalDetails endpoint returns an array of terminals for the specified **Merchant ID**.
       description: |+
         A call to the terminalDetails endpoint returns an array of terminals associated with the merchant ID specified in the request. The response includes one or more objects containing the hardware serial number (HSN), model, status, and features supported for each device. 
