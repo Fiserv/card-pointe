@@ -37,6 +37,41 @@ servers:
  - {url: 'DNE', description: Production}
  - {url: 'DNE', description: Sandbox}
 paths:
+  /api/v2/dateTime:
+    put:
+      tags:
+        - dateTime Endpoint Definition
+      x-group-name: CardPointe Integrated Terminal API
+      x-proxy-name: dateTime
+      x-default-name: Default
+      summary: "The dateTime endpoint sends a request to change a terminal's date and time."
+      description: |+
+        A call to the dateTime endpoint sends a request to the specified terminal to set the system time for a terminal.
+        You should include the dateTime request into your terminal connection workflow to ensure that the time for a terminal is accurate for transaction reporting and receipts, and to ensure that the nightly PCI reboot for the terminal occurs outside of your business hours, as intended.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dateTimeRequest'
+      parameters:
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Success200'}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
   /api/v2/listTerminals:
     post:
       tags:
@@ -349,6 +384,31 @@ components:
           description: 'Information specific to a propery or attribute.',
           type: string
         }
+    Success200:
+      x-model-version: 1.0
+      description: Success
+      example: 'OK'
+    dateTimeRequest:
+      x-model-version: 1.0
+      type: object
+      properties:
+        dateTime:
+          description: |+
+            The dateTime value must be formatted as an ISO-8601 local date time (no timezone offset).
+            Hyphens (-) for dates and colons (:) for times are required.
+          type: string
+          maxLength: 20
+          example: 2021-02-03T11:30:45
+        hsn:
+          description: The hardware service number for the terminal.
+          type: string
+          maxLength: 18
+          example: 14012PP20131409
+        merchantID:
+          description: Your Merchant ID, required for all requests.
+          type: string
+          maxLength: 16
+          example: 1234
     listTerminalsRequest:
       x-model-version: 1.0
       type: object
@@ -426,6 +486,13 @@ components:
       }
              ] 
             }
+    dateTimeSuccess:
+      x-model-version: 1.0
+      description: Success
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Success200'
     WrongVersion:
       x-model-version: 1.0
       description: Wrong version number
