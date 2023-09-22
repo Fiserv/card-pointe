@@ -37,6 +37,40 @@ servers:
  - {url: 'DNE', description: Production}
  - {url: 'DNE', description: Sandbox}
 paths:
+  /api/v2/getPanPadVersion:
+    post:
+      tags:
+        - getPanPadVersion
+      x-group-name: CardPointe Integrated Terminal API
+      x-proxy-name: dateTime
+      x-default-name: Default
+      summary: Returns PanPad version number
+      description: |+
+        A call to the getPanPadVersion endpoint returns the version of the terminal application running on the specified Ingenico terminal.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/getPanPadVersionRequest'
+      parameters:
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/getPanPadVersionSuccess'}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
   /api/v2/dateTime:
     put:
       tags:
@@ -281,6 +315,13 @@ components:
       in: header
       description: A message to send in the ping request and receive in the response. The value can be blank, however the message field must be included in the request.
   schemas:
+    getPanPadVersionSuccess:
+      x-model-version: 1.0
+      description: Pan Pad Version
+      properties: 
+        version: 
+          description: Device version number
+          example: 1060011
     listTerminalsSuccess:
       x-model-version: 1.0
       description: List of terminals
@@ -409,6 +450,20 @@ components:
           type: string
           maxLength: 16
           example: 1234
+    getPanPadVersionRequest:
+      x-model-version: 1.0
+      type: object
+      properties:
+        merchantID:
+          description: Your Merchant ID, required for all requests.
+          type: string
+          maxLength: 16
+          example: 1234
+        hsn:
+          description: The hardware service number for the terminal.
+          type: string
+          maxLength: 18
+          example: 14012PP20131409
     listTerminalsRequest:
       x-model-version: 1.0
       type: object
