@@ -37,7 +37,7 @@ servers:
  - {url: 'DNE', description: Production}
  - {url: 'DNE', description: Sandbox}
 paths:
-  /v1/cnn/tokenize:
+  /cardsecure/api/v1/cnn/tokenize:
     post:
       tags:
         - Tokenize Endpoint Definition
