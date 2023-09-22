@@ -266,11 +266,6 @@ components:
           type: string,
           example: Data not found
         }
-        errorcode: {
-          description: 'Error response code from the gateway',
-          type: integer,
-          example: 49
-        }
     BadRequestError:
       x-model-version: 1.0
       description: Error information
@@ -279,11 +274,6 @@ components:
           description: 'Information specific to a propery or attribute.',
           type: string,
           example: Keystore invalid processor
-        }
-        errorcode: {
-          description: 'Error response code from the gateway',
-          type: integer,
-          example: 65
         }
     ErrorCode: 
       description: An error code. Returns "00" if successful. All error codes contain four digits. Two zeros precede the codes.
