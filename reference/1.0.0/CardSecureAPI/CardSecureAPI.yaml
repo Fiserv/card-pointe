@@ -37,7 +37,7 @@ servers:
  - {url: 'DNE', description: Production}
  - {url: 'DNE', description: Sandbox}
 paths:
-  /v1/tokenize:
+  /cardsecure/api/v1/ccn/tokenize:
     post:
       tags:
         - Tokenize Endpoint Definition
@@ -91,7 +91,7 @@ paths:
           content:  
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
-  /v1/echo:
+  /cardsecure/api/v1/echo:
     x-model-version: 1.0
     post:
       tags:
