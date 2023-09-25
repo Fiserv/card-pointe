@@ -132,9 +132,6 @@ paths:
       responses:
         200: 
           description: Success
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/Success200'}
         400:
           description: Not Found
           content:
@@ -289,9 +286,12 @@ paths:
       responses:
         200: 
           description: Success
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/connectSuccess'}
+          headers:
+            X-CardConnect-SessionKey:
+              schema:
+                type: integer
+                example: →f4fb39ff5c9c4299b3d7b34ca7ce2348;expires=2018-09-25T16:26:48.482Z
+              description: The session key for the established connection.
         400:
           description: Not Found
           content:
@@ -481,7 +481,7 @@ components:
       properties:
         X-CardConnect-SessionKey:
           type: integer
-          description: The session key for the established connection.
+          description: The session key for the established connection
           example: →e3072040eb08454dac18ff67cd6c311c;expires=2018-08-22T23:49:55.684Z
     ping:
       x-model-version: 1.0
