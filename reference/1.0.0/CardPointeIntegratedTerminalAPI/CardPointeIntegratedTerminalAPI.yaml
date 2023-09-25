@@ -367,8 +367,8 @@ components:
       x-model-version: 1.0
       description: Returns connected if connected
         connected:
-        description: Returns true if the terminal is connected to the terminal service, or false if the terminal is not connected.
-        example: connected
+          description: Returns true if the terminal is connected to the terminal service, or false if the terminal is not connected.
+          example: connected
     getPanPadVersionSuccess:
       x-model-version: 1.0
       description: Pan Pad Version
