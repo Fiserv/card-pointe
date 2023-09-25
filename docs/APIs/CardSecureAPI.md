@@ -67,6 +67,7 @@ Content-Type: application/json
 <!-- type: card
 title: CardSecure API Changelog
 description: Visit the Changelog for more information on recent updates to the CardSecure API and documentation
+link: ?path=docs/changelog/CardSecureAPI.md
 -->
 
 <!--type: row-end -->
