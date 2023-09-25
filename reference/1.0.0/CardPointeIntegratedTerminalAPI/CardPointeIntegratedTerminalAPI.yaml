@@ -366,6 +366,7 @@ components:
     pingSuccess:
       x-model-version: 1.0
       description: Returns connected if connected
+      properties:
         connected:
           description: Returns true if the terminal is connected to the terminal service, or false if the terminal is not connected.
           example: connected
