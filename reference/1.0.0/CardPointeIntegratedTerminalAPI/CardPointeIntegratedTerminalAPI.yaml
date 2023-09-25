@@ -81,7 +81,7 @@ paths:
         - terminalDetails Endpoint Definition
       x-group-name: CardPointe Integrated Terminal API
       x-proxy-name: terminalDetails
-      summary: The terminalDetails endpoint returns an array of terminals for the specified **Merchant ID**.
+      summary: The terminalDetails endpoint returns an array of terminals for the specified <bold>Merchant ID</bold>.
       description: |+
         A call to the <code>terminalDetails</code> endpoint returns an array of terminals associated with the merchant ID specified in the request. The response includes one or more objects containing the hardware serial number (HSN), model, status, and features supported for each device. 
         This can be useful for merchants with multiple terminal models, to determine which supports signature capture or receipt printing, or for merchants with multiple locations, who need to determine which terminals are associated with each merchant ID. 
@@ -154,7 +154,7 @@ paths:
       x-proxy-name: dateTime
       summary: Returns PanPad version number
       description: |+
-        A call to the getPanPadVersion endpoint returns the version of the terminal application running on the specified Ingenico terminal.
+        A call to the <code>getPanPadVersion</code> endpoint returns the version of the terminal application running on the specified Ingenico terminal.
       requestBody:
         required: true
         content:
@@ -189,7 +189,7 @@ paths:
       x-proxy-name: ping
       summary: A call to the ping endpoint sends a ping command to the specified terminal. The response is true if communication with the terminal is successful. 
       description: |+
-        A call to the ping endpoint sends a ping command to the specified terminal. The response is true if communication with the terminal is successful. 
+        A call to the <code>ping</code> endpoint sends a ping command to the specified terminal. The response is true if communication with the terminal is successful. 
         You might want to send intermittent ping requests to the terminal to monitor the connection of the terminal to the terminal service.      
       requestBody:
         required: true
@@ -225,12 +225,12 @@ paths:
       x-proxy-name: preconnect
       summary: The preconnect endpoint initiates a two-factor authentication process between the terminal and the terminal service.
       description: |+
-        The preconnect endpoint initiates a two-factor authentication process between the terminal and the terminal service. a successful response displays a 6 character alpha-numeric token on the terminal, which must then be used to make a connect request to establish a session with the terminal service. The token displays for 60 seconds (configurable), or until a successful connect request is made. 
+        The <code>preconnect</code> endpoint initiates a two-factor authentication process between the terminal and the terminal service. a successful response displays a 6 character alpha-numeric token on the terminal, which must then be used to make a connect request to establish a session with the terminal service. The token displays for 60 seconds (configurable), or until a successful connect request is made. 
 
         To use this feature, two-factor authentication must be enabled for the merchant. Note that two-factor authentication is required when it is enabled.
 
-        * The preconnect endpoint is currently **NOT** supported for Clover terminals.
-        * The preconnect endpoint is **NOT** required for Ingenico terminals. To use this feature, two-factor authentication must be enabled for the merchant. Note that two-factor authentication is required when it is enabled.
+        * The preconnect endpoint is currently <bold>NOT</bold> supported for Clover terminals.
+        * The preconnect endpoint is <bold>NOT</bold> required for Ingenico terminals. To use this feature, two-factor authentication must be enabled for the merchant. Note that two-factor authentication is required when it is enabled.
       requestBody:
         required: true
         content:
@@ -264,17 +264,17 @@ paths:
       x-proxy-name: connect
       summary: A call to the connect endpoint establishes a session between the terminal and the terminal service. The response returns a session key to use in subsequent requests to the terminal.
       description: |+
-        A call to the connect endpoint establishes a session between the terminal and the terminal service. The response returns a session key to use in subsequent requests to the terminal.
+        A call to the <code>connect</code> endpoint establishes a session between the terminal and the terminal service. The response returns a session key to use in subsequent requests to the terminal.
 
         For example, if the response header returns 
 
-        **X-CardConnect-SessionKey →f4fb39ff5c9c4299b3d7b34ca7ce2348;expires=2018-09-25T16:26:48.482Z**
+        <bold>X-CardConnect-SessionKey →f4fb39ff5c9c4299b3d7b34ca7ce2348;expires=2018-09-25T16:26:48.482Z</bold>
 
         Then each subsequent request header must be:
 
-        **X-CardConnect-SessionKey: f4fb39ff5c9c4299b3d7b34ca7ce2348**
+        <bold>X-CardConnect-SessionKey: f4fb39ff5c9c4299b3d7b34ca7ce2348</bold>
 
-        If you use the **preconnect** endpoint to obtain an authorization token for two-factor authentication, you must also include the token in the connect request.
+        If you use the <code>preconnect</code> endpoint to obtain an authorization token for two-factor authentication, you must also include the token in the <code>connect</code> request.
         
         If force is set to true, any existing sessions will be destroyed and all in-flight operations on the terminal will be cancelled. The force parameter is optional and defaults to false.
         
@@ -318,8 +318,8 @@ paths:
       summary: A call to the disconnect endpoint closes the session and releases the session key provided in the request header.
 
       description: |+
-        A call to the disconnect endpoint closes the session and releases the session key provided in the request header. The session key can not be used in any subsequent requests; you must call the connect endpoint to retrieve a new session key.
-        * The disconnect command **does not** cancel an in-flight transaction (for example an **authCard** request in progress). To terminate an in-flight transaction, call the **cancel** endpoint.
+        A call to the <code>disconnect</code> endpoint closes the session and releases the session key provided in the request header. The session key can not be used in any subsequent requests; you must call the connect endpoint to retrieve a new session key.
+        * The disconnect command <bold>does not</bold> cancel an in-flight transaction (for example an <bold>authCard</bold> request in progress). To terminate an in-flight transaction, call the <bold>cancel</bold> endpoint.
 
       requestBody:
         required: true
@@ -352,7 +352,7 @@ paths:
       x-proxy-name: display
       summary: A call to the display endpoint sends a text string, which is displayed on the idle terminal. 
       description: |+
-        A call to the **display** endpoint sends a text string, which is displayed on the idle terminal.
+        A call to the <bold>display</bold> endpoint sends a text string, which is displayed on the idle terminal.
         
         On a Clover terminal, sending either a single or multi-line message replaces the idle image with the message, along with the logo image (if one is configured for the device).
         
