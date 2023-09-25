@@ -219,7 +219,7 @@ paths:
         - preconnect
       x-group-name: CardPointe Integrated Terminal API
       x-proxy-name: preconnect
-      summary: A call to the ping endpoint sends a ping command to the specified terminal. The response is true if communication with the terminal is successful. 
+      summary: The preconnect endpoint initiates a two-factor authentication process between the terminal and the terminal service.
       description: |+
         The preconnect endpoint initiates a two-factor authentication process between the terminal and the terminal service. a successful response displays a 6 character alpha-numeric token on the terminal, which must then be used to make a connect request to establish a session with the terminal service. The token displays for 60 seconds (configurable), or until a successful connect request is made. 
 
@@ -242,6 +242,56 @@ paths:
           content:
             application/json:
               schema: {$ref: '#/components/schemas/preconnectSuccess'}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /api/v2/connect:
+    post:
+      tags:
+        - connect
+      x-group-name: CardPointe Integrated Terminal API
+      x-proxy-name: connect
+      summary: A call to the connect endpoint establishes a session between the terminal and the terminal service. The response returns a session key to use in subsequent requests to the terminal.
+      description: |+
+        A call to the connect endpoint establishes a session between the terminal and the terminal service. The response returns a session key to use in subsequent requests to the terminal.
+
+        For example, if the response header returns 
+
+        **X-CardConnect-SessionKey →f4fb39ff5c9c4299b3d7b34ca7ce2348;expires=2018-09-25T16:26:48.482Z**
+
+        Then each subsequent request header must be:
+
+        **X-CardConnect-SessionKey: f4fb39ff5c9c4299b3d7b34ca7ce2348**
+
+        If you use the **preconnect** endpoint to obtain an authorization token for two-factor authentication, you must also include the token in the connect request.
+        
+        If force is set to true, any existing sessions will be destroyed and all in-flight operations on the terminal will be cancelled. The force parameter is optional and defaults to false.
+        
+        See Establishing a Session for more information.
+        
+        Once the session is complete, call the disconnect endpoint to end the session. Otherwise, the session key will expire at the the ISO-8601 expiration timestamp included in the initial connect response.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/connectRequest'
+      parameters:
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/Authorization'}
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/connectSuccess'}
         400:
           description: Not Found
           content:
@@ -399,16 +449,54 @@ components:
       in: header
       description: A message to send in the ping request and receive in the response. The value can be blank, however the message field must be included in the request.
   schemas:
+    connectRequest: 
+      x-model-version: 1.0
+      description: connect
+      properties:
+        hsn: 
+          description: The hardware service number for the terminal.
+          type: string
+          maxLength: 18
+          example: 14012PP20131409
+        merchantID:
+          description: Your Merchant ID, required for all requests.
+          type: string
+          maxLength: 16
+          example: 1234
+        token:
+          type: integer
+          description: If two-factor authentication is enabled, you must include the token returned by the **preconnect** endpoint.
+
+            This token is displayed on the terminal.
+          maxLength: 6
+          example: 123456
+        force:
+          type: boolean
+          description: If set to true, any existing sessions are destroyed and any in-flight operations on the terminal are cancelled.
+            If blank, this parameter defaults to defaults to false.
+          example: true
+    connectSuccess:
+      x-model-version: 1.0
+      description: Successful connect Response Parameters
+      properties:
+        X-CardConnect-SessionKey:
+          type: integer
+          description: The session key for the established connection.
+          example: →e3072040eb08454dac18ff67cd6c311c;expires=2018-08-22T23:49:55.684Z
     ping:
       x-model-version: 1.0
       description: ping
       properties: 
-        merchantid:
-          description: Terminal hardware serial number.
-          example: 1234
-        hsn:
+        hsn: 
           description: The hardware service number for the terminal.
+          type: string
+          maxLength: 18
           example: 14012PP20131409
+        merchantID:
+          description: Your Merchant ID, required for all requests.
+          type: string
+          maxLength: 16
+          example: 1234
     pingSuccess:
       x-model-version: 1.0
       description: Returns connected if connected
