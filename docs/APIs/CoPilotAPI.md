@@ -34,6 +34,7 @@ The thirdPartyProviderDetails object is optional, but requires the following fie
 <!-- type: card
 title: CoPilot API Changelog
 description: Visit the Changelog for more information on recent updates to the CoPilot API and documentation
+link: ?path=docs/changelog/CoPilotAPI.md
 -->
 
 <!-- type: row-end -->
