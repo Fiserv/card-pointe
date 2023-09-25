@@ -43,7 +43,7 @@ paths:
         - listTerminals Endpoint Definition
       x-group-name: CardPointe Integrated Terminal API
       x-proxy-name: listTerminals
-      summary: The listTerminals endpoint returns an array of Hardware Serial Numbers (HSNs) for each terminal for the specified **Merchant ID**.
+      summary: The listTerminals endpoint returns an array of Hardware Serial Numbers (HSNs) for each terminal for the specified <bold>Merchant ID</bold>.
       description: |+
         The listTerminals endpoint returns an array of Hardware Serial Numbers (HSNs) for each terminal for the specified merchant ID.
         This array can be displayed to prompt a user to select the terminal HSN to pair or use with the POS application.
@@ -83,7 +83,7 @@ paths:
       x-proxy-name: terminalDetails
       summary: The terminalDetails endpoint returns an array of terminals for the specified **Merchant ID**.
       description: |+
-        A call to the terminalDetails endpoint returns an array of terminals associated with the merchant ID specified in the request. The response includes one or more objects containing the hardware serial number (HSN), model, status, and features supported for each device. 
+        A call to the <code>terminalDetails</code> endpoint returns an array of terminals associated with the merchant ID specified in the request. The response includes one or more objects containing the hardware serial number (HSN), model, status, and features supported for each device. 
         This can be useful for merchants with multiple terminal models, to determine which supports signature capture or receipt printing, or for merchants with multiple locations, who need to determine which terminals are associated with each merchant ID. 
       requestBody:
         required: true
@@ -121,7 +121,7 @@ paths:
       x-proxy-name: dateTime
       summary: "The dateTime endpoint sends a request to change a terminal's date and time."
       description: |+
-        A call to the dateTime endpoint sends a request to the specified terminal to set the system time for a terminal.
+        A call to the <code>dateTime</code> endpoint sends a request to the specified terminal to set the system time for a terminal.
         You should include the dateTime request into your terminal connection workflow to ensure that the time for a terminal is accurate for transaction reporting and receipts, and to ensure that the nightly PCI reboot for the terminal occurs outside of your business hours, as intended.
       requestBody:
         required: true
