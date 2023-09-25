@@ -58,6 +58,7 @@ paths:
                 $ref: '#/components/examples/listTerminalsExample'
       parameters:
         - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/Authorization'}
       responses:
         200: 
           description: Success
@@ -95,6 +96,7 @@ paths:
                 $ref: '#/components/examples/terminalDetailsExample'
       parameters:
         - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/Authorization'}
       responses:
         200: 
           description: Success
@@ -129,6 +131,8 @@ paths:
               $ref: '#/components/schemas/dateTimeRequest'
       parameters:
         - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/Authorization'}
+        - {$ref: '#/components/parameters/X-CardConnect-SessionKey'}
       responses:
         200: 
           description: Success
@@ -159,6 +163,8 @@ paths:
               $ref: '#/components/schemas/getPanPadVersionRequest'
       parameters:
         - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/Authorization'}
+        - {$ref: '#/components/parameters/X-CardConnect-SessionKey'}
       responses:
         200: 
           description: Success
@@ -193,6 +199,7 @@ paths:
               $ref: '#/components/schemas/ping'
       parameters:
         - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/Authorization'}
         - {$ref: '#/components/parameters/X-CardConnect-SessionKey'}
       responses:
         200: 
@@ -292,6 +299,95 @@ paths:
                 type: integer
                 example: →f4fb39ff5c9c4299b3d7b34ca7ce2348;expires=2018-09-25T16:26:48.482Z
               description: The session key for the established connection.
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /api/v2/disconnect:
+    put:
+      tags:
+        - disconnect
+      x-group-name: CardPointe Integrated Terminal API
+      x-proxy-name: disconnect
+      summary: A call to the disconnect endpoint closes the session and releases the session key provided in the request header.
+
+      description: |+
+        A call to the disconnect endpoint closes the session and releases the session key provided in the request header. The session key can not be used in any subsequent requests; you must call the connect endpoint to retrieve a new session key.
+        * The disconnect command **does not** cancel an in-flight transaction (for example an **authCard** request in progress). To terminate an in-flight transaction, call the **cancel** endpoint.
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/disconnectRequest'
+      parameters:
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/Authorization'}
+        - {$ref: '#/components/parameters/X-CardConnect-SessionKey'}
+      responses:
+        200: 
+          description: Success
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /api/v2/display:
+    post:
+      tags:
+        - display
+      x-group-name: CardPointe Integrated Terminal API
+      x-proxy-name: display
+      summary: A call to the display endpoint sends a text string, which is displayed on the idle terminal. 
+      description: |+
+        A call to the **display** endpoint sends a text string, which is displayed on the idle terminal.
+        
+        On a Clover terminal, sending either a single or multi-line message replaces the idle image with the message, along with the logo image (if one is configured for the device).
+        
+        On an Ingenico terminal:
+        
+        Sending a single-line string displays the text in the display footer area, retaining the idle image.
+        
+        Sending a multi-line string displays the text in the primary display area, replacing the idle image.
+        
+        Additionally, you can send a blank string, which clears any existing prompts and returns the terminal display to an idle state. You can also call the clearDisplay endpoint to clear the terminal display.
+        * For Ingenico terminals, to include a percent sign (%) in the display text, you must include two percent signs (%%) in the request. If you include a single percent sign, the terminal will display an unexpected message string.
+        * The terminal display is limited to 1000 characters.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/displayRequest'
+            examples:
+              Single Line:
+                summary: display (Single Line) Request
+                $ref: '#/components/examples/displaySingleLineRequestExample'
+              Line Break:
+                summary: display (Line Break) Request
+                $ref: '#/components/examples/displayLineBreakRequestExample'
+              Clear:
+                summary: display (Clear) Request
+                $ref: '#/components/examples/displayClearRequestExample'
+      parameters:
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/Authorization'}
+        - {$ref: '#/components/parameters/X-CardConnect-SessionKey'}
+      responses:
+        200: 
+          description: Success
         400:
           description: Not Found
           content:
@@ -449,6 +545,26 @@ components:
       in: header
       description: A message to send in the ping request and receive in the response. The value can be blank, however the message field must be included in the request.
   schemas:
+    displayRequest:
+      x-model-version: 1.0
+      description: display
+      properties:
+        merchantID:
+          description: Your Merchant ID, required for all requests.
+          type: string
+          maxLength: 16
+          example: 1234
+        hsn: 
+          description: The hardware service number for the terminal.
+          type: string
+          maxLength: 18
+          example: 14012PP20131409
+        text:
+          description: The text to send to the terminal display. The terminal display is limited to 1000 characters.
+            
+            To create a line break to display a multi-line message, include \n.
+            
+            If this field is blank, the terminal display is cleared. 
     connectRequest: 
       x-model-version: 1.0
       description: connect
@@ -627,6 +743,19 @@ components:
           type: string
           maxLength: 16
           example: 1234
+    disconnectRequest:
+      x-model-version: 1.0 
+      properties:
+        merchantID:
+          description: Your Merchant ID, required for all requests.
+          type: string
+          maxLength: 16
+          example: 1234
+        hsn: 
+          description: The hardware service number for the terminal.
+          type: string
+          maxLength: 18
+          example: 14012PP20131409
     preconnectSuccess:
       x-model-version: 1.0
       properties:
@@ -1092,6 +1221,21 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   examples:
+    displaySingleLineRequestExample:
+      value:
+        merchantID: '1234'
+        hsn: '14012PP20131409'
+        text: 'Approved'
+    displayLineBreakRequestExample:
+      value:
+        merchantID: '1234'
+        hsn: '14012PP20131409'
+        text: Try \n Again
+    displayClearRequestExample:
+      value:
+        merchantID: '1234'
+        hsn: '14012PP20131409'
+        text: '' 
     Successful:
       value:
         errorcode: 0,
