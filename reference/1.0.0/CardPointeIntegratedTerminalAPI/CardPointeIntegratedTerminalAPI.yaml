@@ -37,108 +37,6 @@ servers:
  - {url: 'DNE', description: Production}
  - {url: 'DNE', description: Sandbox}
 paths:
-  /api/v2/ping:
-    post:
-      tags:
-        - ping
-      x-group-name: CardPointe Integrated Terminal API
-      x-proxy-name: ping
-      summary: A call to the ping endpoint sends a ping command to the specified terminal. The response is true if communication with the terminal is successful. 
-      description: |+
-        A call to the ping endpoint sends a ping command to the specified terminal. The response is true if communication with the terminal is successful. 
-        You might want to send intermittent ping requests to the terminal to monitor the connection of the terminal to the terminal service.      
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema: 
-              $ref: '#/components/schemas/ping'
-      parameters:
-        - {$ref: '#/components/parameters/ContentTypeHeader'}
-        - {$ref: '#/components/parameters/X-CardConnect-SessionKey'}
-      responses:
-        200: 
-          description: Success
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/pingSuccess'}
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
-  /api/v2/getPanPadVersion:
-    post:
-      tags:
-        - getPanPadVersion
-      x-group-name: CardPointe Integrated Terminal API
-      x-proxy-name: dateTime
-      summary: Returns PanPad version number
-      description: |+
-        A call to the getPanPadVersion endpoint returns the version of the terminal application running on the specified Ingenico terminal.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema: 
-              $ref: '#/components/schemas/getPanPadVersionRequest'
-      parameters:
-        - {$ref: '#/components/parameters/ContentTypeHeader'}
-      responses:
-        200: 
-          description: Success
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/getPanPadVersionSuccess'}
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
-  /api/v2/dateTime:
-    put:
-      tags:
-        - dateTime Endpoint Definition
-      x-group-name: CardPointe Integrated Terminal API
-      x-proxy-name: dateTime
-      summary: "The dateTime endpoint sends a request to change a terminal's date and time."
-      description: |+
-        A call to the dateTime endpoint sends a request to the specified terminal to set the system time for a terminal.
-        You should include the dateTime request into your terminal connection workflow to ensure that the time for a terminal is accurate for transaction reporting and receipts, and to ensure that the nightly PCI reboot for the terminal occurs outside of your business hours, as intended.
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/dateTimeRequest'
-      parameters:
-        - {$ref: '#/components/parameters/ContentTypeHeader'}
-      responses:
-        200: 
-          description: Success
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/Success200'}
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /api/v2/listTerminals:
     post:
       tags:
@@ -213,8 +111,156 @@ paths:
           content:  
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
+  /api/v2/dateTime:
+    put:
+      tags:
+        - dateTime Endpoint Definition
+      x-group-name: CardPointe Integrated Terminal API
+      x-proxy-name: dateTime
+      summary: "The dateTime endpoint sends a request to change a terminal's date and time."
+      description: |+
+        A call to the dateTime endpoint sends a request to the specified terminal to set the system time for a terminal.
+        You should include the dateTime request into your terminal connection workflow to ensure that the time for a terminal is accurate for transaction reporting and receipts, and to ensure that the nightly PCI reboot for the terminal occurs outside of your business hours, as intended.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/dateTimeRequest'
+      parameters:
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Success200'}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}  
+  /api/v2/getPanPadVersion:
+    post:
+      tags:
+        - getPanPadVersion
+      x-group-name: CardPointe Integrated Terminal API
+      x-proxy-name: dateTime
+      summary: Returns PanPad version number
+      description: |+
+        A call to the getPanPadVersion endpoint returns the version of the terminal application running on the specified Ingenico terminal.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/getPanPadVersionRequest'
+      parameters:
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/getPanPadVersionSuccess'}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /api/v2/ping:
+    post:
+      tags:
+        - ping
+      x-group-name: CardPointe Integrated Terminal API
+      x-proxy-name: ping
+      summary: A call to the ping endpoint sends a ping command to the specified terminal. The response is true if communication with the terminal is successful. 
+      description: |+
+        A call to the ping endpoint sends a ping command to the specified terminal. The response is true if communication with the terminal is successful. 
+        You might want to send intermittent ping requests to the terminal to monitor the connection of the terminal to the terminal service.      
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/ping'
+      parameters:
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/X-CardConnect-SessionKey'}
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/pingSuccess'}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /api/v2/preconnect:
+    post:
+      tags:
+        - preconnect
+      x-group-name: CardPointe Integrated Terminal API
+      x-proxy-name: preconnect
+      summary: A call to the ping endpoint sends a ping command to the specified terminal. The response is true if communication with the terminal is successful. 
+      description: |+
+        The preconnect endpoint initiates a two-factor authentication process between the terminal and the terminal service. a successful response displays a 6 character alpha-numeric token on the terminal, which must then be used to make a connect request to establish a session with the terminal service. The token displays for 60 seconds (configurable), or until a successful connect request is made. 
+
+        To use this feature, two-factor authentication must be enabled for the merchant. Note that two-factor authentication is required when it is enabled.
+
+        * The preconnect endpoint is currently **NOT** supported for Clover terminals.
+        * The preconnect endpoint is **NOT** required for Ingenico terminals. To use this feature, two-factor authentication must be enabled for the merchant. Note that two-factor authentication is required when it is enabled.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/preconnectRequest'
+      parameters:
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/Authorization'}
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/preconnectSuccess'}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
 components:
   parameters:
+    Authorization:
+      x-model-version: 1.0 
+      name: Authorization
+      schema: {type: integer, format: int64}
+      in: header
+      required: true
+      description: The Terminal API Authorization Key
     TimestampHeader:
       x-model-version: 1.0
       name: Timestamp
@@ -480,6 +526,27 @@ components:
           description: 'Information specific to a propery or attribute.',
           type: string
         }
+    preconnectRequest:
+      x-model-version: 1.0
+      properties:
+        hsn: 
+          description: The hardware service number for the terminal.
+          type: string
+          maxLength: 18
+          example: 14012PP20131409
+        merchantID:
+          description: Your Merchant ID, required for all requests.
+          type: string
+          maxLength: 16
+          example: 1234
+    preconnectSuccess:
+      x-model-version: 1.0
+      properties:
+        token:
+          type: integer
+          description: The 6-digit token to pass to the **connect** endpoint when two-factor authentication is enabled. This token is displayed on the terminal.
+          maxLength: 6
+          example: 123456
     Success200:
       x-model-version: 1.0
       description: Success
