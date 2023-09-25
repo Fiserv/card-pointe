@@ -28,6 +28,16 @@ This version of the iOS SDK includes the following updates:
 <!-- theme: warning -->
 > Display the messages from `swiper:displayMessage:canCancel:` to notify the user to remove the card. You can also use `BMSSwiperController.beepSetting` to enable the VP3300 to produce a tone while waiting for card removal.
 
+<!-- type: row -->
+
+<!-- type: card
+title: CardPointe Mobile iOS SDK Changelog
+description: Visit the Changelog for more information on recent updates to the CardPointe Mobile iOS SDK and documentation
+link: ?path=docs/changelog/CardPointeMobileiOSSDK.md
+-->
+
+<!-- type: row-end -->
+
 # Overview
 
 A complete mobile payment integration consists of two components:
