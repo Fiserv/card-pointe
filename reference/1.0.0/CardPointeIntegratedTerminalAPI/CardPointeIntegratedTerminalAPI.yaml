@@ -37,6 +37,41 @@ servers:
  - {url: 'DNE', description: Production}
  - {url: 'DNE', description: Sandbox}
 paths:
+  /api/v2/ping:
+    post:
+      tags:
+        - ping
+      x-group-name: CardPointe Integrated Terminal API
+      x-proxy-name: ping
+      summary: A call to the ping endpoint sends a ping command to the specified terminal. The response is true if communication with the terminal is successful. 
+      description: |+
+        A call to the ping endpoint sends a ping command to the specified terminal. The response is true if communication with the terminal is successful. 
+        You might want to send intermittent ping requests to the terminal to monitor the connection of the terminal to the terminal service.      
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/ping'
+      parameters:
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+           ## $ref: ''}
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/pingSuccess'}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
   /api/v2/getPanPadVersion:
     post:
       tags:
@@ -188,6 +223,13 @@ components:
       required: true
       description: Epoch timestamp in milliseconds in the request from a client system.
         Used for authorization header generation and time limit (5 minutes).
+    X-CardConnect-SessionKey:
+      x-model-version: 1.0
+      name: X-CardConnect-SessionKey
+      in: header
+      schema: {type: integer, format: int64}
+      required: true
+      description: The session key returned by the **connect** endpoint.
     MessageDigestHeader:
       x-model-version: 1.0
       name: Message-Digest
@@ -311,6 +353,22 @@ components:
       in: header
       description: A message to send in the ping request and receive in the response. The value can be blank, however the message field must be included in the request.
   schemas:
+    ping:
+      x-model-version: 1.0
+      description: ping
+      properties: 
+        merchantid:
+          description: Terminal hardware serial number.
+          example: 1234
+        hsn:
+          description: The hardware service number for the terminal.
+          example: 14012PP20131409
+    pingSuccess:
+      x-model-version: 1.0
+      description: Returns connected if connected
+        connected:
+        description: Returns true if the terminal is connected to the terminal service, or false if the terminal is not connected.
+        example: connected
     getPanPadVersionSuccess:
       x-model-version: 1.0
       description: Pan Pad Version
