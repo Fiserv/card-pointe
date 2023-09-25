@@ -38,6 +38,7 @@ Terminals will update automatically during the nightly reboot window; therefore,
 <!-- type: card
 title: CardPointe Integrated Terminal API Changelog
 description: Visit the Changelog for more information on recent updates to the CardPointe Integrated Terminal API
+link: ?path=docs/changelog/CardPointeIntegratedTerminalAPI.md
 -->
 
 <!-- type: row-end -->
