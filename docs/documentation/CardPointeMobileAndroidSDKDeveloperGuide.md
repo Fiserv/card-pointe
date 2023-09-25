@@ -26,7 +26,7 @@ This version includes the following changes from this and previous builds:
 <!-- type: card
 title: CardPointe Mobile Andriod SDK Changelog
 description: Visit the Changelog for more information on recent updates to the CardPointe Mobile Android SDK and documentation
-link:
+link: ?path=docs/changelog/CardPointeMobileAndroidSDK.md
 -->
 
 <!-- type: row-end -->
