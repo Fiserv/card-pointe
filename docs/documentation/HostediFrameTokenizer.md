@@ -69,6 +69,7 @@ The following optional URL parameters have been added to validate and return err
 <!-- type: card
 title: Hosted iFrame Tokenizer Changelog
 description: Visit the Changelog for more information on recent updates to the Hosted iFrame Tokenizer
+link: ?path=docs/changelog/HostediFrameTokenizer.md
 -->
 
 <!-- type: row-end -->
