@@ -41,7 +41,7 @@ Content-Type: application/json
 }
 ```
 
-See the [tokenize](../api/?type=post&path=/v1/cnn/tokenize) description for a complete example, and see the [Apple Pay Developer Guide](?path=docs/documentation/ApplePayDeveloperGuide.md) for detailed information on integrating support for Apple Pay, and formatting the payment token string for CardSecure. 
+See the [tokenize](../api/?type=post&path=/cardsecure/api/v1/cnn/tokenize) description for a complete example, and see the [Apple Pay Developer Guide](?path=docs/documentation/ApplePayDeveloperGuide.md) for detailed information on integrating support for Apple Pay, and formatting the payment token string for CardSecure. 
 
 ### Update a Token with CVV and Expiry
 
@@ -105,9 +105,9 @@ If the token is used in an authorization request to the CardPointe Gateway durin
 
 ## Encrypting and Tokenizing Payment Account Data 
 
-CardSecure allows clients to encrypt the account data (PAN or ACH) sent in a [tokenization request](../api/?type=post&path=/v1/cnn/tokenize) using a client-specific RSA public key. CardPointe support can generate a unique RSA key pair, provide the public key (in X.509 format) to you, and retain the private key.
+CardSecure allows clients to encrypt the account data (PAN or ACH) sent in a [tokenization request](../api/?type=post&path=/cardsecure/api/v1/cnn/tokenize) using a client-specific RSA public key. CardPointe support can generate a unique RSA key pair, provide the public key (in X.509 format) to you, and retain the private key.
 
-Data must be encrypted using RSA encryption in ECB mode with PKCS1 padding. The encrypted data must be Base64-encoded when sent to CardSecure in a [tokenization request](../api/?type=post&path=/v1/cnn/tokenize).
+Data must be encrypted using RSA encryption in ECB mode with PKCS1 padding. The encrypted data must be Base64-encoded when sent to CardSecure in a [tokenization request](../api/?type=post&path=/cardsecure/api/v1/cnn/tokenize).
 
 CardSecure uses the corresponding private key to decrypt the data. The decrypted data is temporarily stored in CardSecure's vault, and the token (generated from the encrypted data) is returned to your application for use in an authorization request to the CardPointe Gateway. Note that the token itself is not encrypted.
 
@@ -148,7 +148,7 @@ The following table lists the CardSecure API service endpoints and their functio
 
 | Service	| API Version	| Description |
 | --- | --- | --- |
-| [tokenize](../api/?type=post&path=/v1/cnn/tokenize) | v1	| Tokenizes sensitive data provided in the request, and returns a CardSecure token.
+| [tokenize](../api/?type=post&path=/cardsecure/api/v1/cnn/tokenize) | v1	| Tokenizes sensitive data provided in the request, and returns a CardSecure token.
 | [echo](../api/?type=post&path=/cardsecure/api/v1/echo) | v1	| Sends a ping command to the CardSecure server to verify the connection.
 
 # Error Codes and Messages 
