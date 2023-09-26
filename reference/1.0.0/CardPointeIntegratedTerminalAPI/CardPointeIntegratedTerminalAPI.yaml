@@ -230,6 +230,7 @@ paths:
         To use this feature, two-factor authentication must be enabled for the merchant. Note that two-factor authentication is required when it is enabled.
 
         * The preconnect endpoint is currently <bold>NOT</bold> supported for Clover terminals.
+        
         * The preconnect endpoint is <bold>NOT</bold> required for Ingenico terminals. To use this feature, two-factor authentication must be enabled for the merchant. Note that two-factor authentication is required when it is enabled.
       requestBody:
         required: true
@@ -319,6 +320,7 @@ paths:
 
       description: |
         A call to the <code>disconnect</code> endpoint closes the session and releases the session key provided in the request header. The session key can not be used in any subsequent requests; you must call the connect endpoint to retrieve a new session key.
+        
         * The disconnect command <bold>does not</bold> cancel an in-flight transaction (for example an <bold>authCard</bold> request in progress). To terminate an in-flight transaction, call the <bold>cancel</bold> endpoint.
 
       requestBody:
@@ -363,7 +365,9 @@ paths:
         Sending a multi-line string displays the text in the primary display area, replacing the idle image.
         
         Additionally, you can send a blank string, which clears any existing prompts and returns the terminal display to an idle state. You can also call the clearDisplay endpoint to clear the terminal display.
+        
         * For Ingenico terminals, to include a percent sign (%) in the display text, you must include two percent signs (%%) in the request. If you include a single percent sign, the terminal will display an unexpected message string.
+        
         * The terminal display is limited to 1000 characters.
       requestBody:
         required: true
@@ -456,6 +460,42 @@ paths:
           content: 
             application/json:
               schema: {$ref: '#/components/schemas/readConfirmationSuccess'}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}  
+  /api/v2/readInput: 
+    post:
+      tags:
+        - readInput
+      x-group-name: CardPointe Integrated Terminal API
+      x-proxy-name: readConfirmation
+      summary: A call to the readInput endpoint sends a prompt to the terminal to request user input, in a format specified in the request.
+      description: |
+        A call to the readInput endpoint sends a prompt to the terminal to request user input, in a format specified in the request.
+        See Using readInput to Capture Customer Information for more information.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/readInputRequest'
+      parameters:
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/Authorization'}
+        - {$ref: '#/components/parameters/X-CardConnect-SessionKey'}
+      responses:
+        200: 
+          description: Success
+          content: 
+            application/json:
+              schema: {$ref: '#/components/schemas/readInputSuccess'}
         400:
           description: Not Found
           content:
@@ -673,7 +713,50 @@ components:
           type: boolean
           description: If set to true, any existing sessions are destroyed and any in-flight operations on the terminal are cancelled.
             If blank, this parameter defaults to defaults to false.
-          example: true
+          example: 'true'
+    readInputSuccess:
+      x-model-version: 1.0
+      properties:
+        input:
+          description: Returns the input provided at the terminal. The type and format of the input value depends on the getInput format specified in the request.
+          example: "1-234-567-8901"
+    readInputRequest:
+      x-model-version: 1.0
+      description: readInput Request
+      properties:
+        hsn: 
+          description: The hardware service number for the terminal.
+          type: string
+          maxLength: 18
+          example: 14012PP20131409
+        merchantID:
+          description: Your Merchant ID, required for all requests.
+          type: string
+          maxLength: 16
+          example: 1234
+        prompt:
+          description: |
+            The text to send to the terminal display to prompt for confirmation. 
+            
+            To include a percent sign (%) in the prompt text, you must include two percent signs (%%) in the request. If you include a single percent sign, the terminal will display an unexpected message string.
+          type: string
+          example: phone number
+          maxLength: 1000
+        format:
+          description: | 
+            The readInput request reads data from the terminal keypad in the specified format.
+
+            The format must be a valid getInput format. For more information on this formating, refer to <a href="">getInputformat</a>.
+          type: string
+          example: PHONE
+          
+        beep:
+          description: | 
+            Specifies whether the terminal beeps until the prompt is accepted.
+            
+            If true, beep is enabled. If blank, the value defaults to false.
+          type: boolean
+          example: 'true'
     readConfirmationRequest:
       x-model-version: 1.0
       description: Successful readConfirmation Response Parameters
@@ -701,7 +784,7 @@ components:
             
             If true, beep is enabled. If blank, the value defaults to false.
           type: boolean
-          example: true
+          example: 'true'
     readConfirmationSuccess:
       x-model-version: 1.0
       description: Successful readConfirmation Response Parameters
@@ -709,7 +792,7 @@ components:
         confirmed:
           type: boolean
           description: Returns true if the prompt was accepted at the terminal, or false if the prompt was canceled.
-          example: true
+          example: 'true'
     connectSuccess:
       x-model-version: 1.0
       description: Successful connect Response Parameters
