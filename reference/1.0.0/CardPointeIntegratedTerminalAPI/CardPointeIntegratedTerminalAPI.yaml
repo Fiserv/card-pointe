@@ -44,7 +44,7 @@ paths:
       x-group-name: CardPointe Integrated Terminal API
       x-proxy-name: listTerminals
       summary: The listTerminals endpoint returns an array of Hardware Serial Numbers (HSNs) for each terminal for the specified <bold>Merchant ID</bold>.
-      description: |+
+      description: |
         The listTerminals endpoint returns an array of Hardware Serial Numbers (HSNs) for each terminal for the specified merchant ID.
         This array can be displayed to prompt a user to select the terminal HSN to pair or use with the POS application.
       requestBody:
@@ -82,7 +82,7 @@ paths:
       x-group-name: CardPointe Integrated Terminal API
       x-proxy-name: terminalDetails
       summary: The terminalDetails endpoint returns an array of terminals for the specified <bold>Merchant ID</bold>.
-      description: |+
+      description: |
         A call to the <code>terminalDetails</code> endpoint returns an array of terminals associated with the merchant ID specified in the request. The response includes one or more objects containing the hardware serial number (HSN), model, status, and features supported for each device. 
         This can be useful for merchants with multiple terminal models, to determine which supports signature capture or receipt printing, or for merchants with multiple locations, who need to determine which terminals are associated with each merchant ID. 
       requestBody:
@@ -120,7 +120,7 @@ paths:
       x-group-name: CardPointe Integrated Terminal API
       x-proxy-name: dateTime
       summary: "The dateTime endpoint sends a request to change a terminal's date and time."
-      description: |+
+      description: |
         A call to the <code>dateTime</code> endpoint sends a request to the specified terminal to set the system time for a terminal.
         You should include the dateTime request into your terminal connection workflow to ensure that the time for a terminal is accurate for transaction reporting and receipts, and to ensure that the nightly PCI reboot for the terminal occurs outside of your business hours, as intended.
       requestBody:
@@ -151,7 +151,7 @@ paths:
       tags:
         - getPanPadVersion
       x-group-name: CardPointe Integrated Terminal API
-      x-proxy-name: dateTime
+      x-proxy-name: getPanPadVersion
       summary: Returns PanPad version number
       description: |+
         A call to the <code>getPanPadVersion</code> endpoint returns the version of the terminal application running on the specified Ingenico terminal.
@@ -188,7 +188,7 @@ paths:
       x-group-name: CardPointe Integrated Terminal API
       x-proxy-name: ping
       summary: A call to the ping endpoint sends a ping command to the specified terminal. The response is true if communication with the terminal is successful. 
-      description: |+
+      description: |
         A call to the <code>ping</code> endpoint sends a ping command to the specified terminal. The response is true if communication with the terminal is successful. 
         You might want to send intermittent ping requests to the terminal to monitor the connection of the terminal to the terminal service.      
       requestBody:
@@ -224,7 +224,7 @@ paths:
       x-group-name: CardPointe Integrated Terminal API
       x-proxy-name: preconnect
       summary: The preconnect endpoint initiates a two-factor authentication process between the terminal and the terminal service.
-      description: |+
+      description: |
         The <code>preconnect</code> endpoint initiates a two-factor authentication process between the terminal and the terminal service. a successful response displays a 6 character alpha-numeric token on the terminal, which must then be used to make a connect request to establish a session with the terminal service. The token displays for 60 seconds (configurable), or until a successful connect request is made. 
 
         To use this feature, two-factor authentication must be enabled for the merchant. Note that two-factor authentication is required when it is enabled.
@@ -263,7 +263,7 @@ paths:
       x-group-name: CardPointe Integrated Terminal API
       x-proxy-name: connect
       summary: A call to the connect endpoint establishes a session between the terminal and the terminal service. The response returns a session key to use in subsequent requests to the terminal.
-      description: |+
+      description: |
         A call to the <code>connect</code> endpoint establishes a session between the terminal and the terminal service. The response returns a session key to use in subsequent requests to the terminal.
 
         For example, if the response header returns 
@@ -317,7 +317,7 @@ paths:
       x-proxy-name: disconnect
       summary: A call to the disconnect endpoint closes the session and releases the session key provided in the request header.
 
-      description: |+
+      description: |
         A call to the <code>disconnect</code> endpoint closes the session and releases the session key provided in the request header. The session key can not be used in any subsequent requests; you must call the connect endpoint to retrieve a new session key.
         * The disconnect command <bold>does not</bold> cancel an in-flight transaction (for example an <bold>authCard</bold> request in progress). To terminate an in-flight transaction, call the <bold>cancel</bold> endpoint.
 
@@ -351,7 +351,7 @@ paths:
       x-group-name: CardPointe Integrated Terminal API
       x-proxy-name: display
       summary: A call to the display endpoint sends a text string, which is displayed on the idle terminal. 
-      description: |+
+      description: |
         A call to the <bold>display</bold> endpoint sends a text string, which is displayed on the idle terminal.
         
         On a Clover terminal, sending either a single or multi-line message replaces the idle image with the message, along with the logo image (if one is configured for the device).
