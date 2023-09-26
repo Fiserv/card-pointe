@@ -40,9 +40,9 @@ paths:
   /cardsecure/api/v1/ccn/tokenize:
     post:
       tags:
-        - Tokenize Endpoint Definition
+        - tokenize Endpoint Definition
       x-group-name: CardSecure
-      x-proxy-name: Tokenize
+      x-proxy-name: tokenize
       x-default-example: PaymentCard
       summary: A request to the tokenize endpoint returns a CardSecure token generated from the data provided in the request.
       description: |+
@@ -95,9 +95,9 @@ paths:
     x-model-version: 1.0
     post:
       tags:
-        - Echo
+        - echo
       x-group-name: 'CardSecure'
-      x-proxy-name: 'Echo'
+      x-proxy-name: 'echo'
       summary: Send a ping command to the server.
       description: A call to the echo service endpoint sends a ping command to the CardSecure server to verify the application's connection.
       requestBody:
