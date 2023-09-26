@@ -122,7 +122,7 @@ Details about the REST implementation for each endpoint follow this section.
 
 | Service          | Resource Name    | Supported Version(s) | Requires Session Key |
 |------------------|------------------|----------------------|----------------------|
-| [listTerminals](../api/?type=post&path=/api/v2/connect) | listTerminals | v1 + v2 | false |
+| [listTerminals](../api/?type=post&path=/api/v2/listTerminals) | listTerminals | v1 + v2 | false |
 | [terminalDetails](../api/?type=post&path=/api/v3/terminalDetails) | terminalDetails  | v3 | false |
 | [dateTime](../api/?type=post&path=/api/v2/dateTime) | dateTime | v1 + v2 | v1: false <br> v2: true |
 | [getPanPadVersion](../api/?type=post&path=/api/v2/getPanPadVersion) | getPanPadVersion | v2 | true |
