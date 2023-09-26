@@ -122,26 +122,26 @@ Details about the REST implementation for each endpoint follow this section.
 
 | Service          | Resource Name    | Supported Version(s) | Requires Session Key |
 |------------------|------------------|----------------------|----------------------|
-| listTerminals    | listTerminals    | v1 + v2              | false                |
-| terminalDetails  | terminalDetails  | v3                   | false                |
-| dateTime         | dateTime         | v1 + v2              | v1: false <br> v2: true |
-| getPanPadVersion | getPanPadVersion | v2                   | true                 |
-| ping             | ping             | v1 + v2              | v1: false <br> v2: true |
-| preconnect       | preconnect       | v2                   | false                |
-| connect          | connect          | v2                   | false                |
-| disconnect       | disconnect       | v2                   | true                 |
-| display          | display          | v1 + v2              | v1: false <br> v2: true |
-| clearDisplay     | clearDisplay     | v3                   | true                 |
-| readConfirmation | readConfirmation | v2                   | true                 |
-| readInput        | readInput        | v2                   | true                 |
-| readSignature    | readSignature    | v2                   | true                 |
-| cancel           | cancel           | v1 + v2              | v1: false <br> v2: true |
-| readCard         | readCard         | v2                   | true                 |
-| readManual       | readManual       | v2                   | true                 |
-| authCard         | authCard         | v3                   | true                 |
-| authManual       | authManual       | v3                   | true                 |
-| tip              | tip              | v3                   | true                 |
-| printReceipt     | printReceipt     | v3                   | true                 |
+| [listTerminals](../api/?type=post&path=/api/v2/connect) | listTerminals | v1 + v2 | false |
+| [terminalDetails](../api/?type=post&path=/api/v3/terminalDetails) | terminalDetails  | v3 | false |
+| [dateTime](../api/?type=post&path=/api/v2/dateTime) | dateTime | v1 + v2 | v1: false <br> v2: true |
+| [getPanPadVersion](../api/?type=post&path=/api/v2/getPanPadVersion) | getPanPadVersion | v2 | true |
+| [ping](../api/?type=post&path=/api/v2/ping) | ping | v1 + v2 | v1: false <br> v2: true |
+| [preconnect](../api/?type=post&path=/api/v2/preconnect) | preconnect | v2 | false |
+| [connect](../api/?type=post&path=/api/v2/connect) | connect | v2 | false |
+| [disconnect](../api/?type=post&path=/api/v2/disconnect) | disconnect | v2 | true |
+| [display](../api/?type=post&path=/api/v2/display) | display | v1 + v2 | v1: false <br> v2: true |
+| [clearDisplay]     | clearDisplay     | v3                   | true                 |
+| [readConfirmation] | readConfirmation | v2                   | true                 |
+| [readInput]        | readInput        | v2                   | true                 |
+| [readSignature]    | readSignature    | v2                   | true                 |
+| [cancel]           | cancel           | v1 + v2              | v1: false <br> v2: true |
+| [readCard]         | readCard         | v2                   | true                 |
+| [readManual]       | readManual       | v2                   | true                 |
+| [authCard]         | authCard         | v3                   | true                 |
+| [authManual]       | authManual       | v3                   | true                 |
+| [tip]              | tip              | v3                   | true                 |
+| [printReceipt]     | printReceipt     | v3                   | true                 |
 
 # HTTP Response Codes
 
