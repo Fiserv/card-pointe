@@ -45,7 +45,7 @@ paths:
       x-proxy-name: listTerminals
       summary: The listTerminals endpoint returns an array of Hardware Serial Numbers (HSNs) for each terminal for the specified <bold>Merchant ID</bold>.
       description: |
-        The <code>listTerminals</code> endpoint returns an array of Hardware Serial Numbers (HSNs) for each terminal for the specified **merchant ID**.
+        The <code>listTerminals</code> endpoint returns an array of Hardware Serial Numbers (HSNs) for each terminal for the specified **Merchant ID**.
         This array can be displayed to prompt a user to select the terminal HSN to pair or use with the POS application.
       requestBody:
         required: true
