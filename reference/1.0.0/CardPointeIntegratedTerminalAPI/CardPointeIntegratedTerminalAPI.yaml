@@ -45,7 +45,7 @@ paths:
       x-proxy-name: listTerminals
       summary: The listTerminals endpoint returns an array of Hardware Serial Numbers (HSNs) for each terminal for the specified <bold>Merchant ID</bold>.
       description: |
-        The <code>listTerminals</code> endpoint returns an array of Hardware Serial Numbers (HSNs) for each terminal for the specified **Merchant ID**.
+        The <code>listTerminals</code> endpoint returns an array of Hardware Serial Numbers (HSNs) for each terminal for the specified Merchant ID.
         This array can be displayed to prompt a user to select the terminal HSN to pair or use with the POS application.
       requestBody:
         required: true
@@ -83,7 +83,7 @@ paths:
       x-proxy-name: terminalDetails
       summary: The terminalDetails endpoint returns an array of terminals for the specified <bold>Merchant ID</bold>.
       description: |
-        A call to the <code>terminalDetails</code> endpoint returns an array of terminals associated with the merchant ID specified in the request. The response includes one or more objects containing the hardware serial number (HSN), model, status, and features supported for each device. 
+        A call to the <code>terminalDetails</code> endpoint returns an array of terminals associated with the Merchant ID specified in the request. The response includes one or more objects containing the hardware serial number (HSN), model, status, and features supported for each device. 
         This can be useful for merchants with multiple terminal models, to determine which supports signature capture or receipt printing, or for merchants with multiple locations, who need to determine which terminals are associated with each merchant ID. 
       requestBody:
         required: true
@@ -122,7 +122,7 @@ paths:
       summary: "The dateTime endpoint sends a request to change a terminal's date and time."
       description: |
         A call to the <code>dateTime</code> endpoint sends a request to the specified terminal to set the system time for a terminal.
-        You should include the dateTime request into your terminal connection workflow to ensure that the time for a terminal is accurate for transaction reporting and receipts, and to ensure that the nightly PCI reboot for the terminal occurs outside of your business hours, as intended.
+        You should include the <code>dateTime</code> request into your terminal connection workflow to ensure that the time for a terminal is accurate for transaction reporting and receipts, and to ensure that the nightly PCI reboot for the terminal occurs outside of your business hours, as intended.
       requestBody:
         required: true
         content:
@@ -398,6 +398,74 @@ paths:
           content:  
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
+  /api/v3/clearDisplay:
+    post:
+      tags:
+        - clearDisplay
+      x-group-name: CardPointe Integrated Terminal API
+      x-proxy-name: clearDisplay
+      summary: A call to the clearDisplay endpoint sends a display command to the terminal with an empty string. This clears the current display prompt. 
+      description: |
+        A call to the <code>clearDisplay</code> endpoint sends a display command to the terminal with an empty string. This clears the current display prompt.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/clearDisplayRequest'
+      parameters:
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/Authorization'}
+        - {$ref: '#/components/parameters/X-CardConnect-SessionKey'}
+      responses:
+        200: 
+          description: Success
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'} 
+  /api/v3/readConfirmation:
+    post:
+      tags:
+        - readConfirmation
+      x-group-name: CardPointe Integrated Terminal API
+      x-proxy-name: readConfirmation
+      summary: A call to the readConfirmation endpoint retrieves a confirmation response (either true or false) from the specified terminal.
+      description: |
+        A call to the <code>readConfirmation</code> endpoint retrieves a confirmation response (either true or false) from the specified terminal.
+        Ensure that you allow at least a 1 second delay after sending the readConfirmation command, before sending a subsequent command (for example, authCard), to prevent "terminal in use" errors.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/readConfirmationRequest'
+      parameters:
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/Authorization'}
+        - {$ref: '#/components/parameters/X-CardConnect-SessionKey'}
+      responses:
+        200: 
+          description: Success
+          content: 
+            application/json:
+              schema: {$ref: '#/components/schemas/readConfirmationSuccess'}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}  
 components:
   parameters:
     Authorization:
@@ -560,11 +628,26 @@ components:
           maxLength: 18
           example: 14012PP20131409
         text:
+          type: string
           description: The text to send to the terminal display. The terminal display is limited to 1000 characters.
             
             To create a line break to display a multi-line message, include \n.
             
             If this field is blank, the terminal display is cleared. 
+    clearDisplayRequest:
+      x-model-version: 1.0
+      description: connect
+      properties:
+        merchantID:
+          description: Your Merchant ID, required for all requests.
+          type: string
+          maxLength: 16
+          example: 1234
+        hsn: 
+          description: The hardware service number for the terminal.
+          type: string
+          maxLength: 18
+          example: 14012PP20131409
     connectRequest: 
       x-model-version: 1.0
       description: connect
@@ -590,6 +673,42 @@ components:
           type: boolean
           description: If set to true, any existing sessions are destroyed and any in-flight operations on the terminal are cancelled.
             If blank, this parameter defaults to defaults to false.
+          example: true
+    readConfirmationRequest:
+      x-model-version: 1.0
+      description: Successful readConfirmation Response Parameters
+      properties:
+        hsn: 
+          description: The hardware service number for the terminal.
+          type: string
+          maxLength: 18
+          example: 14012PP20131409
+        merchantID:
+          description: Your Merchant ID, required for all requests.
+          type: string
+          maxLength: 16
+          example: 1234
+        prompt:
+          description: |
+            The text to send to the terminal display to prompt for confirmation. 
+            To include a percent sign (%) in the prompt text, you must include two percent signs (%%) in the request. If you include a single percent sign, the terminal will display an unexpected message string.
+          type: string
+          example: Please confirm
+          maxLength: 1000
+        beep:
+          description: | 
+            Specifies whether the terminal beeps until the prompt is accepted.
+            
+            If true, beep is enabled. If blank, the value defaults to false.
+          type: boolean
+          example: true
+    readConfirmationSuccess:
+      x-model-version: 1.0
+      description: Successful readConfirmation Response Parameters
+      properties:
+        confirmed:
+          type: boolean
+          description: Returns true if the prompt was accepted at the terminal, or false if the prompt was canceled.
           example: true
     connectSuccess:
       x-model-version: 1.0
