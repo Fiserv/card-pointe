@@ -506,6 +506,78 @@ paths:
           content:  
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}  
+  /api/v2/readSignature:
+    post:
+      tags:
+        - readSignature
+      x-group-name: CardPointe Integrated Terminal API
+      x-proxy-name: readSignature
+      summary: A call to the readSignature endpoint sends a prompt to the terminal to capture the cardholder's signature, which is then returned in the response.
+      description: |
+        A call to the <code>readSignature</code> endpoint sends a prompt to the terminal to capture the cardholder's signature, which is then returned in the response. The readSignature endpoint is supported for terminal devices that support signature capture.
+
+        See <a href="">Capturing and Handling Cardholder Signatures</a> for guidance on how and when to capture signatures.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/readSignatureRequest'
+      parameters:
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/Authorization'}
+        - {$ref: '#/components/parameters/X-CardConnect-SessionKey'}
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/readSignatureSuccess'
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /api/v2/cancel:
+    post:
+      tags:
+        - cancel
+      x-group-name: CardPointe Integrated Terminal API
+      x-proxy-name: cancel
+      summary: A call to the cancel endpoint sends a cancel command from the POS software to terminate any in-flight operations. 
+      description: |
+        A call to the cancel endpoint sends a cancel command from the POS software to terminate any in-flight operations. 
+        
+        If you use the cancel command to allow a merchant or cardholder to attempt to cancel a transaction in progress, you should also use the CardPointe Gateway API's <code>InquireByOrderid</code> request to verify the status of the transaction. A transaction cannot be canceled if the terminal service has already initiated the authorization request to the CardPointe Gateway; however, you can use the <code>InquireByOrderid</code> request to check the status of the transaction and void if necessary.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/getPanPadVersionRequest'
+      parameters:
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/Authorization'}
+        - {$ref: '#/components/parameters/X-CardConnect-SessionKey'}
+      responses:
+        200: 
+          description: Success
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
 components:
   parameters:
     Authorization:
@@ -653,6 +725,76 @@ components:
       in: header
       description: A message to send in the ping request and receive in the response. The value can be blank, however the message field must be included in the request.
   schemas:
+    readSignatureRequest:
+      x-model-version: 1.0
+      description: readSignature Request
+      properties:
+        merchantID:
+          description: Your Merchant ID, required for all requests.
+          type: string
+          maxLength: 16
+          example: 1234
+        hsn: 
+          description: The hardware service number for the terminal.
+          type: string
+          maxLength: 18
+          example: 14012PP20131409
+        prompt:
+          description: |
+            The text to send to the terminal display to prompt for confirmation. 
+            
+            To include a percent sign (%) in the prompt text, you must include two percent signs (%%) in the request. If you include a single percent sign, the terminal will display an unexpected message string.
+          type: string
+          example: phone number
+          maxLength: 1000
+        signatureFormat:
+          type: string
+          description: |
+            Specifies the signature file format. One of the following values:
+
+            * BMP (this is the default if the value is omitted)
+            
+            * JPG
+            
+            * PNG
+          example: png
+        gzipsignature:
+          description: | 
+            Determines if the captured signature is compressed using Gzip.
+
+            If true, the signature data returned is a JSON-escaped, Base64-encoded, Gzipped, bitmap (BMP) file.
+
+            If false, the signature data returned is an uncompressed BMP in base64-encoded. 
+
+            Defaults to true if not provided.
+          type: boolean
+          example: 'false'
+        signatureDimensions:
+          description: | 
+            Specifies the custom width and height of the signature image, in the format 'x,y'. The maximum value is 999,999.
+          type: integer
+          maxLength: 999999
+          example: 320, 450
+        signatureImageType:
+          description: |
+            Specifies if the image has a 1-bit color depth (binary) or 24-bit color depth (RGB).
+
+            This property defaults to binary (1-bit) for BMP and PNG files. JPG files will always be rgb (24-bit).
+
+            Possible values are:
+
+            * binary - 1-bit; the default for BMP and PNG files.
+            * rgb - 24-bit; the default for JPG files, and optional for PNG files.
+          type: string
+          example: rgb
+    readSignatureSuccess:
+      x-model-version: 1.0
+      description: Successful readSignatureResponse
+      properties:
+        signature:
+          type: object
+          description: base64-encoded, gzipped BMP of the signature image
+          example: <base64-encoded, gzipped BMP>
     displayRequest:
       x-model-version: 1.0
       description: display
