@@ -19,7 +19,7 @@ titles: CardSecure, CardPointe Gateway, CardPointe Integrated Terminal API, CoPi
 
 See the CardSecure Support Page for more information on CardSecure.
 
-See the CardSecure API documentation for detailed information on integrating CardSecure using the API.
+See the [CardSecure API documentation](?path=docs/APIs/CardSecureAPI.md) for detailed information on integrating CardSecure using the API.
 
 <!--
 type: tab
@@ -29,7 +29,7 @@ The CardPointe Gateway is the core of the [CardPointe](https://cardconnect.com/c
 
 See the CardPointe Gateway API Support Page for more information on the CardPointe Gateway.
 
-See the CardPointe Gateway API documentation for detailed information on integrating the CardPointe Gateway using the API.
+See the [CardPointe Gateway API documentation](?path=docs/APIs/CardPointeGatewayAPI.md) for detailed information on integrating the CardPointe Gateway using the API.
 
 <!--
 type: tab
@@ -39,7 +39,7 @@ The [CardPointe Integrated Terminal](https://cardconnect.com/cardpointe-integrat
 
 See the Support Page for general information and terminal user guides.
 
-See the CardPointe Integrated Terminal API documentation for detailed information on integrating the Terminal API.
+See the [CardPointe Integrated Terminal API documentation](?path=docs/APIs/CardPointeIntegratedTerminalAPI.md) for detailed information on integrating the Terminal API.
 
 <!--
 type: tab
@@ -47,7 +47,7 @@ type: tab
 
 CoPilot is our customer and merchant management platform. CoPilot provides our partners with all of the tools they need to manage their business portfolio. In addition to the cloud-based web portal, CoPilot provides an API for developers looking to integrate certain CoPilot capabilities directly with their business platform.
 
-See the CoPilot API documentation for detailed information on integrating the CoPilot API.
+See the [CoPilot API documentation](?path=docs/APIs/CoPilotAPI.md) for detailed information on integrating the CoPilot API.
 
 <!-- type: tab-end -->
 
