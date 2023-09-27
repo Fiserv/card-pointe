@@ -136,12 +136,12 @@ Details about the REST implementation for each endpoint follow this section.
 | [readInput](../api/?type=post&path=/api/v2/readInput) | readInput        | v2                   | true                 |
 | [readSignature](../api/?type=post&path=/api/v2/readSignature) | readSignature    | v2                   | true                 |
 | [cancel](../api/?type=post&path=/api/v2/cancel) | cancel           | v1 + v2              | v1: false <br> v2: true |
-| [readCard]         | readCard         | v2                   | true                 |
-| [readManual]       | readManual       | v2                   | true                 |
-| [authCard]         | authCard         | v3                   | true                 |
-| [authManual]       | authManual       | v3                   | true                 |
-| [tip]              | tip              | v3                   | true                 |
-| [printReceipt]     | printReceipt     | v3                   | true                 |
+| [readCard](../api/?type=post&path=/api/v2/readCard) | readCard         | v2                   | true                 |
+| [readManual](../api/?type=post&path=/api/v2/readManual) | readManual       | v2                   | true                 |
+| [authCard](../api/?type=post&path=/api/v3/authCard) | authCard         | v3                   | true                 |
+| [authManual](../api/?type=post&path=) | authManual       | v3                   | true                 |
+| [tip](../api/?type=post&path=) | tip              | v3                   | true                 |
+| [printReceipt](../api/?type=post&path=) | printReceipt     | v3                   | true                 |
 
 # HTTP Response Codes
 
