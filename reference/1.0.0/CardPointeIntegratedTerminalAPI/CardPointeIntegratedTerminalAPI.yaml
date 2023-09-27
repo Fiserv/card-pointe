@@ -475,7 +475,7 @@ paths:
       tags:
         - readInput
       x-group-name: CardPointe Integrated Terminal API
-      x-proxy-name: readConfirmation
+      x-proxy-name: readInput
       summary: A call to the readInput endpoint sends a prompt to the terminal to request user input, in a format specified in the request.
       description: |
         A call to the readInput endpoint sends a prompt to the terminal to request user input, in a format specified in the request.
