@@ -131,11 +131,11 @@ Details about the REST implementation for each endpoint follow this section.
 | [connect](../api/?type=post&path=/api/v2/connect) | connect | v2 | false |
 | [disconnect](../api/?type=post&path=/api/v2/disconnect) | disconnect | v2 | true |
 | [display](../api/?type=post&path=/api/v2/display) | display | v1 + v2 | v1: false <br> v2: true |
-| [clearDisplay]     | clearDisplay     | v3                   | true                 |
-| [readConfirmation] | readConfirmation | v2                   | true                 |
-| [readInput]        | readInput        | v2                   | true                 |
-| [readSignature]    | readSignature    | v2                   | true                 |
-| [cancel]           | cancel           | v1 + v2              | v1: false <br> v2: true |
+| [clearDisplay](../api/?type=post&path=/api/v3/clearDisplay) | clearDisplay     | v3                   | true                 |
+| [readConfirmation](../api/?type=post&path=/api/v3/readConfirmation) | readConfirmation | v2                   | true                 |
+| [readInput](../api/?type=post&path=/api/v2/readInput) | readInput        | v2                   | true                 |
+| [readSignature](../api/?type=post&path=/api/v2/readSignature) | readSignature    | v2                   | true                 |
+| [cancel](../api/?type=post&path=/api/v2/cancel) | cancel           | v1 + v2              | v1: false <br> v2: true |
 | [readCard]         | readCard         | v2                   | true                 |
 | [readManual]       | readManual       | v2                   | true                 |
 | [authCard]         | authCard         | v3                   | true                 |
