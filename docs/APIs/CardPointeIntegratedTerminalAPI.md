@@ -36,8 +36,8 @@ Terminals will update automatically during the nightly reboot window; therefore,
 <!-- type: row -->
 
 <!-- type: card
-title: CardPointe Integrated Terminal API Changelog
-description: Visit the Changelog for more information on recent updates to the CardPointe Integrated Terminal API
+title: <center> CardPointe Integrated Terminal API Changelog </center>
+description: <center> Visit the Changelog for more information on recent updates to the CardPointe Integrated Terminal API </center>
 link: ?path=docs/changelog/CardPointeIntegratedTerminalAPI.md
 -->
 
@@ -82,14 +82,14 @@ The following guides provide helpful information for developing your integration
 <!-- type: row -->
 
 <!-- type: card
-title: CardPointe Integrated Terminal Developer Guides
-description: Provides best practices and supplemental information for integrating the Terminal API with your point-of-sale application
+title: <center> CardPointe Integrated Terminal Developer Guides </center>
+description: <center> Provides best practices and supplemental information for integrating the Terminal API with your point-of-sale application </center>
 link: ?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md
 -->
 
 <!-- type: card
-title: CardPointe Integrated Terminal Developer Guide for Clover Terminals
-description: Provides specific details for integrating Clover terminals with a new or existing CardPointe Integrated Terminal solution
+title: <center> CardPointe Integrated Terminal Developer Guide for Clover Terminals </center>
+description: <center> Provides specific details for integrating Clover terminals with a new or existing CardPointe Integrated Terminal solution </center>
 link: ?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuideForCloverTerminals.md
 -->
 
