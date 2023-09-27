@@ -120,11 +120,11 @@ To authorize and capture a payment, your application interacts with the unattend
 
 **1.** Your application sends a DPT sale (`"paymentType":1`) request.
 
-    For example, to capture a payment for $1, your application sends the following command: 
+For example, to capture a payment for $1, your application sends the following command: 
 
-    `*PAE|DPT|CMD|1|{"OrderID":"A1B2C3", "paymentAmount":100, "paymentType":1, "paymentUser":"John"}|03878|*!PAE!*`
+`*PAE|DPT|CMD|1|{"OrderID":"A1B2C3", "paymentAmount":100, "paymentType":1, "paymentUser":"John"}|03878|*!PAE!*`
 
-    See the [DPT Request Syntax](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#DPT-Request-Syntax) for detailed information on the PAE command format and supported commands.
+See the [DPT Request Syntax](?path=docs/documentation/CardPointeUnattendedDeveloperGuide.md#DPT-Request-Syntax) for detailed information on the PAE command format and supported commands.
 
 **2.** The PAE requests the payment card data from the unattended device.
 
@@ -142,7 +142,7 @@ To authorize a payment, but delay the capture, your application interacts with t
 
 **1.** Your application sends a DPT Authorization-only (`"paymentType":6`) request. For example: `*PAE|DPT|CMD|1|{"OrderID":"A1B2C3", "paymentAmount":100, "paymentType":6, "paymentUser":"John"}|50955|*!PAE!*`
 
-    See the [DPT Request Syntax](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#DPT-Request-Syntax) for detailed information on the PAE command format and supported commands.
+See the [DPT Request Syntax](?path=docs/documentation/CardPointeUnattendedDeveloperGuide.md#DPT-Request-Syntax) for detailed information on the PAE command format and supported commands.
 
 **2.** The PAE requests the payment card data from the unattended device.
 
@@ -161,11 +161,11 @@ To refund a payment using the customer's card, instead of using the retrieval re
 
 **1.** Your application sends a DPT refund (`"paymentType":3`) request.
 
-    For example, to refund a $1 payment, your application sends the command `*PAE|DPT|CMD|1|{"orderId":"A1B2C3", "paymentAmount":100, "paymentType":3, "paymentUser”:”John”}|09282|*!PAE!*`
+For example, to refund a $1 payment, your application sends the command `*PAE|DPT|CMD|1|{"orderId":"A1B2C3", "paymentAmount":100, "paymentType":3, "paymentUser”:”John”}|09282|*!PAE!*`
 
 **Note**: _The_ `PaymentAmount` _value must be positive._
 
-See the [DPT Request Syntax](../../docs/documentation/CardPointeUnattendedDeveloperGuide.md#dpt-request-syntax) for detailed information on the PAE request format and supported payment types.
+See the [DPT Request Syntax](?path=docs/documentation/CardPointeUnattendedDeveloperGuide.md#dpt-request-syntax) for detailed information on the PAE request format and supported payment types.
 
 **2.** The PAE requests the payment card data from the unattended device.
 
@@ -189,9 +189,9 @@ To validate and tokenize a payment card, your application interacts with the una
 
 **1.** Your application sends a DPT tokenization (`"paymentType":5`) request. For example: `*PAE|DPT|CMD|1|{"OrderID":"A1B2C3", "paymentAmount":100, "paymentType":5, "paymentUser":"John"}|02519|*!PAE!*`
 
-   **Note**: _The_ `paymentAmount`, `paymentType`, _and_ `paymentUser` _fields are required to preserve the message format, but the values are ignored for a tokenization request._
+**Note**: _The_ `paymentAmount`, `paymentType`, _and_ `paymentUser` _fields are required to preserve the message format, but the values are ignored for a tokenization request._
 
-   See the [DPT Request Syntax](#dpt-request-syntax) for detailed information on the PAE command format and supported commands.
+See the [DPT Request Syntax](#dpt-request-syntax) for detailed information on the PAE command format and supported commands.
 
 **2.** The PAE requests the payment card data from the unattended device.
 
