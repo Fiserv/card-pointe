@@ -578,6 +578,45 @@ paths:
           content:  
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
+  /api/v2/readCard:
+    post:
+      tags:
+        - readCard
+      x-group-name: CardPointe Integrated Terminal API
+      x-proxy-name: readCard
+      summary: A call to the readCard endpoint initiates an MSR (magnetic stripe), EMV (chip), or NFC (contactless) payment card interaction and returns a token to be used in a subsequent authorization request to the CardPointe Gateway.  
+      description: |
+        A call to the readCard endpoint initiates an MSR (magnetic stripe), EMV (chip), or NFC (contactless) payment card interaction and returns a token to be used in a subsequent authorization request to the CardPointe Gateway. The readCard endpoint does not initiate an authorization or capture funds. 
+
+        To authorize and capture a transaction, call the authCard endpoint.
+
+        See Using the <a href= "">Terminal API Tokenization and Payment Endpoints</a> for more information.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/readCardRequest'
+      parameters:
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/Authorization'}
+        - {$ref: '#/components/parameters/X-CardConnect-SessionKey'}
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/readCardSuccess'}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
 components:
   parameters:
     Authorization:
@@ -725,6 +764,173 @@ components:
       in: header
       description: A message to send in the ping request and receive in the response. The value can be blank, however the message field must be included in the request.
   schemas:
+    readCardRequest:
+      x-model-version: 1.0
+      description: readSignature Request
+      properties:
+        merchantID:
+          description: |
+            Required Field
+            
+            Your Merchant ID, required for all requests.
+          type: string
+          maxLength: 16
+          example: 1234
+        hsn: 
+          description: |
+            Required Field
+            
+            The hardware service number for the terminal.
+          type: string
+          maxLength: 18
+          example: 14012PP20131409
+        amount:
+          description: | 
+            Required Field 
+            
+            The dollar amount to be authorized, with two implied decimal places (for example, to specify "$10.00," enter "1000"). 
+          type: integer
+          example: 100
+        includeAmountDisplay:
+          description: |
+            Determines if the transaction amount is displayed to the user during an MSR or EMV (card-present) transaction.
+
+            Defaults to true if not provided.
+          type: boolean
+          example: 'true'
+        confirmAmount:
+          description: |
+            Determines if the terminal prompts to confirm the the transaction amount prior to prompting to insert/swipe/tap the card.
+
+            Defaults to true if not provided.
+          type: boolean
+          example: 'true'
+        includeSignature:
+          description: |
+            Determines if the terminal prompts for a signature for devices that support signature capture.
+
+            Defaults to true if not provided.
+
+            The format of the signature data returned depends on the following parameters.
+          type: boolean
+          example: 'false'
+        signatureFormat:
+          type: string
+          description: |
+            Specifies the signature file format. One of the following values:
+
+            * BMP (this is the default if the value is omitted)
+            
+            * JPG
+            
+            * PNG
+          example: png
+        gzipsignature:
+          description: | 
+            Determines if the captured signature is compressed using Gzip.
+
+            If true, the signature data returned is a JSON-escaped, Base64-encoded, Gzipped, bitmap (BMP) file.
+
+            If false, the signature data returned is an uncompressed BMP in base64-encoded. 
+
+            Defaults to true if not provided.
+          type: boolean
+          example: 'false'
+        signatureDimensions:
+          description: | 
+            Specifies the custom width and height of the signature image, in the format 'x,y'. The maximum value is 999,999.
+          type: integer
+          maxLength: 999999
+          example: 320, 450
+        signatureImageType:
+          description: |
+            Specifies if the image has a 1-bit color depth (binary) or 24-bit color depth (RGB).
+
+            This property defaults to binary (1-bit) for BMP and PNG files. JPG files will always be rgb (24-bit).
+
+            Possible values are:
+
+            * binary - 1-bit; the default for BMP and PNG files.
+            * rgb - 24-bit; the default for JPG files, and optional for PNG files.
+          type: string
+          example: rgb
+        beep:
+          description: |
+            Determines if the terminal beeps to:
+
+            * Prompt the user to swipe/dip the card.
+            * Prompt the user to remove the card (EMV transactions).
+            * Register key presses during PIN entry for debit transactions.
+
+            If true, beep is enabled.
+
+            Defaults to false if not provided.
+          type: boolean
+          example: 'true'
+        aid:
+          description: |
+            Sets the default EMV application ID, which processes the request as either a PIN debit or a credit transaction.
+
+            See <a href="">Accepting PIN Debit Cards</a> for detailed information on PIN Debit requirements and application workflows.
+
+            **Note**: PIN debit is only supported for qualified merchants boarded on the First Data North and Rapid Connect processing platforms. 
+
+            Supported values are:
+
+            * <code>debit</code> - Set to <code>debit</code> for EMV cards with a debit AID to request a PIN.
+            * <code>credit</code> - Set to <code>credit</code> for all other cards. This is the default if no AID is specified.
+          type: string
+          example: credit
+          maxLength: 8
+        includePIN: 
+          description: |
+            Determines if the user is prompted to enter a PIN after card swipe for MSR (magnetic-stripe) debit cards that support PIN.
+
+            See <a href="">Accepting PIN Debit Cards</a> for detailed information on PIN Debit requirements and application workflows.
+
+            Note: PIN debit is only supported for qualified merchants boarded on the First Data North and Rapid Connect processing platforms. Contact Support for more information.
+
+            Set this value to <code>true</code> for MSR debit cards, to process the transaction as debit.
+
+            Defaults to <code>false</code> if not provided.
+          type: boolean
+          example: 'false'
+    readCardSuccess:
+      x-model-version: 1.0
+      description: readSignature Request
+      properties:
+        token:
+          type: integer
+          description: |
+            If two-factor authentication is enabled, you must include the token returned by the **preconnect** endpoint.
+
+            This token is displayed on the terminal.
+          maxLength: 6
+          example: 123456
+        expiry:
+          type: string
+          description: The card's expiration date in the format MMYY.
+          example: 0428
+          maxLength: 4
+        name:
+          type: string
+          description: |  
+            The cardholder's name on the card.
+
+            The name is not returned if the card or mobile wallet is read through NFC (contactless).
+          example: Dylan Wolf
+          maxLength: 32
+        singleUseToken:
+          description: |
+            Specifies if the token is only valid for a single use. 
+
+            Set to true if the card or mobile wallet is read through NFC (contactless).
+          type: boolean
+          example: 'false'
+        signature:
+          type: object
+          description: base64-encoded, gzipped BMP of the signature image
+          example: <base64-encoded, gzipped BMP>
     readSignatureRequest:
       x-model-version: 1.0
       description: readSignature Request
