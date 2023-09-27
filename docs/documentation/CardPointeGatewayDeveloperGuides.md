@@ -1170,23 +1170,9 @@ All files that are submitted to or retrieved from Secure Exchange must be PGP en
 
 Click below to download the public PGP keys for the UAT and Prod environments:
 
-<!-- type: row -->
+>[Secureexchange_uat](https://developer.cardpointe.com/assets/developer/assets/secureexchange_uat.txt)
 
-<!-- type: card
-title: Secureexchange_uat
-link: https://developer.cardpointe.com/assets/developer/assets/secureexchange_uat.txt
--->
-
-<!-- type: row-end -->
-
-<!-- type: row -->
-
-<!-- type: card
-title: Secureexchange_cardconnect_prod
-link: https://developer.cardpointe.com/assets/developer/assets/secureexchange_cardconnect_prod.txt
--->
-
-<!-- type: row-end -->
+>[Secureexchange_cardconnect_prod](https://developer.cardpointe.com/assets/developer/assets/secureexchange_cardconnect_prod.txt)
 
 Note that these keys are "armored." Run the "gpg --dearmor" command to de-armor the keys.
 
