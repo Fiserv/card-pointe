@@ -51,8 +51,8 @@ This update includes backend enhancements.
 <!-- type: row -->
 
 <!-- type: card
-title: CardPointe Gateway API Changelog
-description: Visit the Changelog for more information on recent updates to the CardPointe Gateway API and documentation
+title: <center> CardPointe Gateway API Changelog </center>
+description: <center> Visit the Changelog for more information on recent updates to the CardPointe Gateway API and documentation </center>
 link: ?path=docs/changelog/CardPointeGatewayAPI.md
 -->
 
