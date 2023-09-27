@@ -693,6 +693,121 @@ paths:
           content:  
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
+  /api/v3/authManual:
+    post:
+      tags:
+        - authManual
+      x-group-name: CardPointe Integrated Terminal API
+      x-proxy-name: authManual
+      summary: A call to the authManual endpoint requests manually-entered card data and initiates Authorization request to the CardPointe Gateway.
+      description: |
+        A call to the authManual endpoint requests manually-entered card data and initiates Authorization request to the CardPointe Gateway.
+
+        See Using the <a href="">Terminal API Tokenization and Payment Endpoints</a> for more information.
+        
+        The Terminal API does not provide the ability to void or inquire on transactions. See the <a href="">CardPointe Gateway API</a> for information on integrating these features and other advanced capabilities.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/authManualRequest'
+      parameters:
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/Authorization'}
+        - {$ref: '#/components/parameters/X-CardConnect-SessionKey'}
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/authManualSuccess'}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /api/v3/tip:
+    post:
+      tags:
+        - tip
+      x-group-name: CardPointe Integrated Terminal API
+      x-proxy-name: tip
+      summary: A call to the tip endpoint prompts the user to specify a tip amount on the terminal.
+      description: |
+        A call to the tip endpoint prompts the user to specify a tip amount on the terminal.
+
+        See Using the <a href="">Terminal API Tokenization and Payment Endpoints</a> for more information.
+        
+        For Ingenico terminals, the tip endpoint is only supported on terminals running firmware version 1.6.3.4 or higher.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/tipRequest'
+      parameters:
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/Authorization'}
+        - {$ref: '#/components/parameters/X-CardConnect-SessionKey'}
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/tipSuccess'}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /api/v3/printReceipt:
+    post:
+      tags:
+        - printReceipt
+      x-group-name: CardPointe Integrated Terminal API
+      x-proxy-name: printReceipt
+      summary: A call to the printReceipt endpoint prints one or two receipts for a past transaction, specified by the orderId.
+      description: |
+        A call to the printReceipt endpoint prints one or two receipts for a past transaction, specified by the orderId.
+
+        The printReceipt endpoint is only supported for Clover terminals. See the <a href="">CardPointe Integrated Terminal Developer Guide for Clover Terminals</a> for more information on printing receipts.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/printReceiptRequest'
+      parameters:
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/Authorization'}
+        - {$ref: '#/components/parameters/X-CardConnect-SessionKey'}
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/printReceiptSuccess'}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
 components:
   parameters:
     Authorization:
@@ -840,6 +955,513 @@ components:
       in: header
       description: A message to send in the ping request and receive in the response. The value can be blank, however the message field must be included in the request.
   schemas:
+    printReceiptSuccess:
+      x-model-version: 1.0
+      description: printReceipt Response
+      properties:
+        receiptData:
+          type: object
+          description: |
+            The receipt data details configured for the merchant account. 
+  
+            See <a href="">Receipt Data description</a> in the <code>CardPointe Integrated Terminal Developer Guide for Clover Terminals</code> for detailed information.
+          example: { dba: Dyl, address1: "1234 Dyl Ave, King of Prussia, PA 19355"}
+    printReceiptRequest:
+      x-model-version: 1.0
+      description: printReceipt Request
+      properties:
+        merchantID:
+          description: |
+            **Required Field**
+            
+            Your Merchant ID, required for all requests.
+          type: string
+          maxLength: 16
+          example: 1234
+        hsn: 
+          description: |
+            **Required Field**
+            
+            The hardware service number for the terminal.
+          type: string
+          maxLength: 18
+          example: 14012PP20131409
+        orderID:
+          description: |
+            **Required Field**
+            
+            The order ID for the transaction for which to print a receipt.
+
+            **Note**: If multiple transactions are found for the order ID, then the latest transaction with that order ID will be sent to the terminal for printing.
+          maxLength: 50
+          type: string
+          example: 1233200399
+        printDelay:
+          description: |
+            **Required** when <code>"printExtraReceipt":"true"</code>. The number of milliseconds to wait after printing the first receipt, before generating and printing the second receipt. On average, this process takes approximately 5 seconds (5000 ms); therefore, the total amount of time to print a second receipt is equal to the printDelay value + 5000ms.
+
+            Valid values range from 0 to 60000.
+          maxLength: 60000
+          type: integer
+          example: 2000
+        printExtraReceipt: 
+          description: |
+            Optional. If true the terminal prints a second copy of the receipt. Use the printDelay parameter to specify the amount of time (in milliseconds) to wait between printing each receipt.
+            Defaults to <code>false</code> if not specified.
+
+            **Note**: If <code>true</code>, the <code>printDelay</code> parameter is also required in the request, to specify the delay (in milliseconds) between printing the first and second receipts.
+          type: boolean
+          example: 'true'
+    tipSuccess:
+      x-model-version: 1.0
+      description: tip Response
+      properties: 
+        amount:
+          description: | 
+            The amount provided in the original request.
+          type: integer
+          example: 100
+        tip:
+          description: The calculated tip amount based on the user's selection or input.
+          type: integer
+          example: .06
+        total:
+          description: The calculated total transaction amount (amount + tip).
+          type: integer
+          example: 1.06
+    tipRequest:
+      x-model-version: 1.0
+      description: tip Request
+      properties: 
+        merchantID:
+          description: |
+            **Required Field**
+            
+            Your Merchant ID, required for all requests.
+          type: string
+          maxLength: 16
+          example: 1234
+        hsn: 
+          description: |
+            **Required Field**
+            
+            The hardware service number for the terminal.
+          type: string
+          maxLength: 18
+          example: 14012PP20131409
+        amount:
+          maxLength: 2147483647
+          description: | 
+            **Required Field**
+            
+            The dollar amount to be authorized, with two implied decimal places (for example, to specify "$10.00," enter "1000"). 
+          type: integer
+          example: 100
+        prompt:
+          description: |
+            **Required Field**
+            
+            The text to send to the terminal display to prompt for confirmation. 
+            
+            To include a percent sign (%) in the prompt text, you must include two percent signs (%%) in the request. If you include a single percent sign, the terminal will display an unexpected message string.
+          type: string
+          example: phone number
+          maxLength: 1000
+        includeAmountDisplay:
+          description: |
+            Determines if the transaction amount is displayed to the user during an MSR or EMV (card-present) transaction.
+
+            Defaults to true if not provided.
+          type: boolean
+          example: 'true'
+        includeCustomTipAmount:
+          description: |
+            Determines if a custom tip button is displayed on the terminal. If <code>false</code>, tipPercentPresets is required to provide a range of preset tip percentage values.
+
+            Defaults to <code>true</code> if not provided.
+          type: boolean
+          example: 'true'
+        tipPercentPresets:
+          type: array
+          description: |
+            An array of three preset tip percentages, in the format [n, n, n]. 
+
+            **Required** if <code>"includeCustomTipAmount:"false"</code>.
+
+            **Note**: The ability to set four preset values is planned for a future enhancement.
+          example: [10, 12, 20]
+    authManualSuccess:
+      x-model-version: 1.0
+      description: authCard Response
+      properties:
+        token:
+          type: integer
+          description: The token generated for the payment card.
+          example: 9445123546981111
+        expiry:
+          type: string
+          description: The card's expiration date in the format MMYY.
+          example: 0428
+          maxLength: 4
+        signature: 
+          type: object
+          description: base64-encoded, gzipped BMP of the signature image
+          example: <base64-encoded, gzipped BMP>
+        batchid:
+          description: The identifier for the batch that the transaction was added to. 
+          type: string
+          maxLength: 16
+          example: 100
+        retref:
+          description: The retrieval reference number userd to look up and manage the transaction.
+          type: string
+          maxLength: 16
+          example: 173006146691
+        avsresp:
+          description: |
+            Alpha-numeric AVS (zip code) verification response code.
+
+            **Note**: <code>avsresp</code> is typically only returned for approved authorizations, however this field can be returned in the response for a declined authorization if this setting is enabled for the merchant account.
+          type: string
+          example: Y
+        respproc:
+          description: An abbreviation that represents the platform and the processor for the transaction.
+          type: string
+          example: RPCT
+        amount: 
+          maxLength: 2147483647
+          example: 1.00
+          type: string
+          description: |
+            The authorized amount. For most transactions, this is the same as the request amount.
+  
+            For prepaid or gift cards, if partial authorization is enabled for the merchant account, the amount returned is the amount remaining on the card.
+  
+            For declines, the amount returned is "0.00"
+        resptext: 
+          description: A text description of the authorization response.
+          type: string
+          example: Approval
+        authcode:
+          description: The Authorization Code from the card issuer.
+          type: string
+          example: 909443
+        respcode:
+          description: An alpha-numeric response code that represents the description of the response
+          type: string
+          example: 000
+        merchid:
+          description: |
+            The merchant ID, copied from the authorization request.
+          type: string
+          maxLength: 16
+          example: 1234
+        cvvresp:
+          example: M
+          description: |
+            Alpha-numeric CVV (card verification value) verification response code, if returned by the processor.
+
+            One of the following values:
+
+            * **M** - Valid CVV Match.
+            * **N** - Invalid CVV.
+            * **P** - CVV Not Processed.
+            * **S** - Merchant indicated that the CVV is not present on the card.
+            * **U** - Card issuer is not certified and/or has not provided Visa encryption keys.
+            * **X** - No response.
+            
+            **Note**: <code>cvvresp</code> is typically only returned for approved authorizations, however this field can be returned in the response for a declined authorization if this setting is enabled for the merchant account.
+        respstat:
+          description: |
+            Indicates the status of the authorization request. 
+
+            One of the following values:
+            * **A** - Approved
+            * **B** - Retry
+            * **C** - Declined
+          example: A
+          type: string
+          maxLength: 1
+        acctid:
+          description: The account ID for the stored profile, created if <code>"createProfile":"true"</code> in the request.
+          example: N/A
+          type: string
+        profileid:
+          description: |
+            The profile ID for the stored profile, created if <code>"createProfile":"true"</code> in the request.
+          example: 123456
+          type: string
+        entrymode:
+          example: Swipe(Non EMV)
+          type: string
+          description: |
+            Only returned for merchants using the First Data North, First Data Rapid Connect, and Chase Paymentech Tampa processors.
+
+            Possible Values:
+
+            * Keyed
+            * Moto
+            * ECommerce
+            * Recurring
+            * Swipe(Non EMV)
+            * DigitalWallet
+            * EMVContact
+            * Contactless
+            * Fallback to Track
+            * Fallback to Keyed
+        bintype:
+          example: Prepaid
+          type: string
+          description: |
+            Possible Values:
+            * Corp
+            * FSA+Prepaid
+            * GSA+Purchase
+            * Prepaid
+            * Prepaid+Corp
+            * Prepaid+Purchase
+            * Purchase
+        receiptData:
+          type: object
+          description: |
+            An object that includes additional fields to be printed on a receipt.
+
+            See <a href="">Printing Receipts Using Authorization Data</a> in the <code>CardPointe Integrated Terminal Developer Guides</code> for detailed information.
+          example: { dba: Dyl, address1: "1234 Dyl Ave, King of Prussia, PA 19355"}
+    authManualRequest:
+      x-model-version: 1.0
+      description: authCard Request
+      properties:
+        merchantID:
+          description: |
+            **Required Field**
+            
+            Your Merchant ID, required for all requests.
+          type: string
+          maxLength: 16
+          example: 1234
+        hsn: 
+          description: |
+            **Required Field**
+            
+            The hardware service number for the terminal.
+          type: string
+          maxLength: 18
+          example: 14012PP20131409
+        amount:
+          description: | 
+            **Required Field**
+          
+            The dollar amount to be authorized, with two implied decimal places (for example, to specify "$10.00," enter "1000"). 
+          type: integer
+          maxLength: 2147483647
+          example: 100
+        authCode:
+          description: An authorization code returned by the issuer, when voice authorization is required to complete a transaction.
+          type: string
+          example: 100
+        authMerchantId: 
+          description: |
+            This value is only used if you have multiple merchant IDs, and want to process the transaction using a different merchant ID that is not associated with this terminal. The <code>authMerchantId</code> and <code>merchantId</code> must belong to the same customer account.
+
+            This setting must be enabled for your merchant account.
+
+            Contact <a href="mailto:integrationdelivery@fiserv.com>integrationdelivery@fiserv.com</a> for additional information.
+          type: string
+          maxLength: 16
+        bin: 
+          description: | 
+            Determines if the binInfo object is included in the authorization response. The binInfo data includes additional information about the payment card used in the authorization. See the CardPointe Gateway API's BIN endpoint description for more information.
+
+            Defaults to false if not provided.
+          type: boolean
+          example: 'false'
+        beep:
+          description: |
+            Determines if the terminal beeps to:
+
+            * Prompt the user to swipe/dip the card.
+            * Prompt the user to remove the card (EMV transactions).
+            * Register key presses during PIN entry for debit transactions.
+
+            If true, beep is enabled.
+
+            Defaults to false if not provided.
+          type: boolean
+          example: 'true'
+        capture: 
+          description: |
+            Determines whether or not to capture the amount for settlement within the authorization request.
+
+            If set to <code>false</code>, the retref or authcode must be captured in a separate request in order for the merchant to receive funding for the transaction.
+
+            Defaults to <code>true</code> if not provided.
+          type: boolean
+          example: 'true'
+        clearDisplayDelay:
+          description: | 
+            Determines the number of milliseconds to wait, after the request completes, before clearing the authorization status from the terminal display and returning to the idle display.
+
+            Set to 0 to disable clearing the display after an authCard request.
+          type: integer
+          example: 500
+        createProfile:
+          description: |
+            Determines whether or not to create a stored profile using the payment data in the request. 
+
+            If <code>true</code>, initiates a profile create request to the CardPointe Gateway API profile endpoint. 
+
+            If <code>false</code>, no profile is created. Defaults to false if not provided.
+
+            See the CardPointe Gateway API <a href="">profile endpoint description</a> for detailed information.
+          type: boolean
+        gzipSignature:
+          description: | 
+            Determines if the captured signature is compressed using Gzip.
+
+            If true, the signature data returned is a JSON-escaped, Base64-encoded, Gzipped, bitmap (BMP) file.
+
+            If false, the signature data returned is an uncompressed BMP in base64-encoded. 
+
+            Defaults to true if not provided.
+          type: boolean
+          example: 'false'
+        includeAmountDisplay:
+          description: |
+            Determines if the transaction amount is displayed to the user during an MSR or EMV (card-present) transaction.
+
+            Defaults to true if not provided.
+            
+            **Note**: This parameter is not supported for Clover terminals. The Clover terminal displays the amount to the user regardless of this parameter.
+          type: boolean
+          example: 'true'
+        includeAVS:
+          description: |
+            Determines if the user is prompted to enter the billing zip code for the card.
+
+            If true, prompts the user to enter the zip code.
+
+            Defaults to false if not provided.
+          type: boolean
+        includeCVV:
+          description: |
+            Determines if the user is prompted to enter the card verification value (CVV) for the card.
+
+            If true, prompts the user to enter the CVV.
+
+            Defaults to false if not provided.
+          example: 'false'
+          type: boolean
+        includeSignature:
+          description: |
+            Determines if the terminal prompts for a signature for devices that support signature capture.
+
+            Defaults to true if not provided.
+
+            The format of the signature data returned depends on the following parameters.
+          type: boolean
+          example: 'false'
+        InvoiceId:
+          description: A unique invoice ID, used for ClientLine reporting. This value is an alphanumeric string with a maximum of 12 characters.
+          type: string
+          maxLength: 12
+          example: 123456789012
+        orderID:
+          description: |
+            A unique order ID used to identify the transaction. This value is an alphanumeric string with a maximum of 50 characters. If no order ID is specified in the request, the terminal automatically generates a unique order ID in the format <HSN-timestamp> and amends it to the transaction record.
+
+            You can use the order ID to get information on a transaction using the CardPointe Gateway API inquireByOrderid endpoint.
+
+            Additionally, when an authorization attempt times out and the terminal service does not receive a response from the CardPointe Gateway, the terminal service uses the order ID to make an <a href="">inquireByOrderid</a> request to check the status of the transaction. If the transaction status cannot be determined, the terminal service makes three <a href="">voidByOrderId</a> requests to void the transaction. See <a href="">Handling Timeouts</a> in the <a href="">CardPointe Integrated Terminal Developer Guides</a> for more information.
+
+            **Note**: If you include an order ID it must meet the following requirements: 
+
+            * The order ID must be a unique value. Using duplicate order IDs can lead to the wrong transaction being voided in the event of a timeout.
+            
+            * The order ID must not include any portion of a payment account number (PAN), and no portion of the order ID should be mistaken for a PAN. If the order ID passes the Luhn check performed by the CardPointe Gateway, the value will be masked in the database, and attempts to use the order ID in an inquire, void, or refund request will fail.
+          maxLength: 50
+          type: string
+          example: 1233200399
+        printDelay:
+          description: |
+            For Clover terminals, specifies the amount of time (in milliseconds) to wait before printing generating and printing a second receipt, when "printExtraReceipt":"true". On average, this process takes approximately 5 seconds (5000 ms), therefore the total amount of time to print a second receipt is equal to the printDelay value + 5000ms.
+
+            Valid values range from 0 to 60000 (ms).
+
+            **Notes**:
+
+            * <code>printDelay</code> is required when <code>"printExtraReceipt":"true"</code>; otherwise, the response returns the following error:
+
+            <code>{"errorCode":1,"errorMessage":"printDelay is a required parameter when printExtraReceipt=true"}</code>
+
+            * If <code>printDelay</code> is set to a value outside of the allowed range, the response returns the following error:
+
+            <code>{"errorCode":3,"errorMessage":"'printDelay' value must be between 0 and 60,000"}</code>
+          type: integer
+          maxLength: 60000
+        printExtraReceipt:
+          description: |
+            For Clover terminals, if <code>true</code>, the terminal prints a second copy of the receipt once the authorization is complete and the initial receipt is printed. 
+
+            **Notes**:
+
+            * Only applicable if <code>printReceipt</code> is <code>true</code>.
+            
+            * If <code>true</code>, the <code>printDelay</code> parameter is also **required**.
+            
+            Defaults to <code>false</code> if not provided.
+          type: boolean
+          example: 'false'
+        printReceipt:
+          description: |
+            For Clover terminals, specifies whether or not the terminal prints a receipt.
+
+            Defaults to <code>false</code> if not provided.
+          type: boolean
+        signatureDimensions:
+          description: | 
+            Specifies the custom width and height of the signature image, in the format 'x,y'. The maximum value is 999,999.
+          type: integer
+          maxLength: 999999
+          example: 320, 450
+        signatureFormat:
+          type: string
+          description: |
+            Specifies the signature file format. One of the following values:
+
+            * BMP (this is the default if the value is omitted)
+            
+            * JPG
+            
+            * PNG
+          example: png
+        signatureImageType:
+          description: |
+            Specifies if the image has a 1-bit color depth (binary) or 24-bit color depth (RGB).
+
+            This property defaults to binary (1-bit) for BMP and PNG files. JPG files will always be rgb (24-bit).
+
+            Possible values are:
+
+            * binary - 1-bit; the default for BMP and PNG files.
+            * rgb - 24-bit; the default for JPG files, and optional for PNG files.
+        termId:
+          description: |
+            The Terminal Device ID, if required for ClientLine reporting. 
+
+            If specified, termId must be exactly 8 characters.
+          maxLength: 8
+          type: string
+        userFields:
+          type: object
+          description: |
+            Enables optional userFields to include additional data in the authorization request for future retrieval.
+
+            The value of the userFields object is a series of name-value pairs that are meaningful to the merchant. 
+
+            The userFields object is limited to 4000 bytes total.
+          example: {"UDF1" : "12345678", 
+                    "UDF2" : "Good info here"}
     authCardSuccess:
       x-model-version: 1.0
       description: authCard Response
@@ -888,6 +1510,7 @@ components:
           example: RPCT
         amount: 
           example: 1.00
+          maxLength: 2147483647
           type: string
           description: |
             The authorized amount. For most transactions, this is the same as the request amount.
@@ -897,18 +1520,19 @@ components:
             For declines, the amount returned is "0.00"
         resptext: 
           description: A text description of the authorization response.
+          type: string
           example: Approval
         authcode:
           description: The Authorization Code from the card issuer.
           type: string
           example: 909443
         respcode:
+          description: An alpha-numeric response code that represents the description of the response
+          type: string
           example: 000
         merchid:
           description: |
-            **Required Field**
-            
-            Your Merchant ID, required for all requests.
+            Your merchant ID, copied from the request
           type: string
           maxLength: 16
           example: 1234
@@ -1028,6 +1652,7 @@ components:
           maxLength: 18
           example: 14012PP20131409
         amount:
+          maxLength: 2147483647
           description: | 
             **Required Field**
           
@@ -1115,7 +1740,7 @@ components:
 
             See the CardPointe Gateway API <a href="">profile endpoint description</a> for detailed information.
           type: boolean
-        gzipsignature:
+        gzipSignature:
           description: | 
             Determines if the captured signature is compressed using Gzip.
 
@@ -1287,6 +1912,7 @@ components:
           maxLength: 18
           example: 14012PP20131409
         amount:
+          maxLength: 2147483647
           description: | 
             The dollar amount to be authorized, with two implied decimal places (for example, to specify "$10.00," enter "1000"). 
           type: integer
@@ -1311,7 +1937,7 @@ components:
             
             * PNG
           example: png
-        gzipsignature:
+        gzipSignature:
           description: | 
             Determines if the captured signature is compressed using Gzip.
 
@@ -1398,6 +2024,7 @@ components:
           maxLength: 18
           example: 14012PP20131409
         amount:
+          maxLength: 2147483647
           description: | 
             Required Field 
             
@@ -1438,7 +2065,7 @@ components:
             
             * PNG
           example: png
-        gzipsignature:
+        gzipSignature:
           description: | 
             Determines if the captured signature is compressed using Gzip.
 
@@ -1573,7 +2200,7 @@ components:
             
             * PNG
           example: png
-        gzipsignature:
+        gzipSignature:
           description: | 
             Determines if the captured signature is compressed using Gzip.
 
