@@ -31,8 +31,8 @@ This version of the iOS SDK includes the following updates:
 <!-- type: row -->
 
 <!-- type: card
-title: CardPointe Mobile iOS SDK Changelog
-description: Visit the Changelog for more information on recent updates to the CardPointe Mobile iOS SDK and documentation
+title: <center> CardPointe Mobile iOS SDK Changelog </center>
+description: <center> Visit the Changelog for more information on recent updates to the CardPointe Mobile iOS SDK and documentation </center>
 link: ?path=docs/changelog/CardPointeMobileiOSSDK.md
 -->
 
