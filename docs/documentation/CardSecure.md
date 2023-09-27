@@ -50,8 +50,8 @@ See the following guides for more information and integration details:
 <!-- type: row -->
 
 <!-- type: card 
-title: CardPointe Mobile SDKs
-description: Provides an overview of the CardPointe Mobile SDKs solution for integrating secure payments in your mobile app
+title: <center> CardPointe Mobile SDKs </center>
+description: <center> Provides an overview of the CardPointe Mobile SDKs solution for integrating secure payments in your mobile app </center>
 link: ?path=docs/documentation/CardPointeMobileSDKs.md
 -->
 
@@ -60,14 +60,14 @@ link: ?path=docs/documentation/CardPointeMobileSDKs.md
 <!-- type: row -->
 
 <!-- type: card
-title: CardPointe Mobile Andriod SDK Developer Guide
-description: Provides information for integrating the CardPointe Mobile SDK with your Android app
+title: <center> CardPointe Mobile Andriod SDK Developer Guide </center>
+description: <center> Provides information for integrating the CardPointe Mobile SDK with your Android app </center>
 link: ?path=docs/documentation/CardPointeMobileAndroidSDKDeveloperGuide.md
 -->
 
 <!-- type: card
-title: CardPointe Mobile iOS SDK Developer Guide
-description: Provides information for integrating the CardPointe Mobile SDK with your iOS app
+title: <center> CardPointe Mobile iOS SDK Developer Guide </center>
+description: <center> Provides information for integrating the CardPointe Mobile SDK with your iOS app </center>
 link: ?path=docs/documentation/CardPointeMobileiOSSDKDeveloperGuide.md
 -->
 
