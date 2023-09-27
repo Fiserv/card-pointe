@@ -177,7 +177,7 @@ link: ?path=/docs/documentation/HostedPaymentPageDeveloperGuide.md
 
 <!-- type: card
 title: <center> API Documentation </center>
-description: <center> Visit the Developer Center for complete API reference documentation </center>
+description: <center> Visit the API Explorer and API Overview for complete API reference documentation </center>
 -->
 
 <!-- type: row-end -->
@@ -189,6 +189,7 @@ description: <center> Visit the Developer Center for complete API reference docu
 <!-- type: card
 title: <center> Support Center </center>
 description: <center> Visit the Support Center for product support documentation and CardPointe support team contact information </center>
+link: https://support.cardpointe.com/
 -->
 
 <!-- type: row-end -->
