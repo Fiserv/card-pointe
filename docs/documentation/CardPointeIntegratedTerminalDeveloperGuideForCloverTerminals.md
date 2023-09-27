@@ -39,8 +39,8 @@ This release includes internal enhancements and bug fixes.
 <!-- type: row -->
 
 <!-- type: card
-title: Clover Terminal Changelog
-description: Visit the Changelog for more information on recent updates to the CardPointe Integrated Terminal API and application for Clover terminals.
+title: <center> Clover Terminal Changelog </center>
+description: <center> Visit the Changelog for more information on recent updates to the CardPointe Integrated Terminal API and application for Clover terminals. </center>
 link: ?path=docs/changelog/CardPointeIntegratedTerminalApplicationForCloverTerminals.md
 -->
 
