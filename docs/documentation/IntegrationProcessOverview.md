@@ -27,14 +27,14 @@ Before you begin, note the following requirements:
 <!-- type: row -->
 
 <!-- type: card
-title: API Basics and Best Practices
-description: Provides helpful information and important best practices to help you get the most of your integration
+title: <center> API Basics and Best Practices </center>
+description: <center> Provides helpful information and important best practices to help you get the most of your integration </center>
 link: ?path=docs/documentation/APIBasicsAndBestPractices.md
 -->
 
 <!-- type: card
-title: API Connectivity Guide
-description: Provides an overview of our APIs and services and how your integrated solution connects to them
+title: <center> API Connectivity Guide </center>
+description: <center> Provides an overview of our APIs and services and how your integrated solution connects to them </center>
 link: ?path=docs/documentation/APIConnectivityGuide.md
 -->
 
