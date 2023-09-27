@@ -28,7 +28,7 @@
 # the delivery of this work
 ################################################################################
 header:
-  productionDescription: Cardpointe Integrated Payments makes it quick and easy to add secure, card-present payment acceptance to any software environment. Our cloud payment integrations simplify the payment acceptance process and protect transactions with a powerful combination of EMV and tokenization. 
+  productionDescription: CardPointe Integrated Payments makes it quick and easy to add secure, card-present payment acceptance to any software environment. Our cloud payment integrations simplify the payment acceptance process and protect transactions with a powerful combination of EMV and tokenization. 
   whoIsItFor: REPLACEME
 benefits:
   - title: PCI Scope Reduction
