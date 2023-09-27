@@ -288,12 +288,7 @@ Ensure that your image meets the following requirements:
 
 To experiment with the volume, pitch, and duration of the beep heard when using the device, you can temporarily adjust these settings from the Beep menu. The terminal beeps when prompting the user to tap/insert/swipe a card, and when prompting to remove. 
 
-<!-- type: row -->
-<!-- type: card
-description: This feature is for testing purposes only. To permanently change your device's beep settings, note your desired settings and contact CardPointe Support.
--->
-
-<!-- type row-end -->
+> This feature is for testing purposes only. To permanently change your device's beep settings, note your desired settings and contact CardPointe Support.
 
 **1.** Access the Admin Menu:
    
