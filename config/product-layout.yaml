@@ -32,9 +32,9 @@ header:
   whoIsItFor: REPLACEME
 benefits:
   - title: PCI Scope Reduction
-    description: PCI-validated P2PE solutions, powered by CardSecure, help reduce your scope of PCI compliance by preventing sensitive account data from interacting with your application. 
+    description: PCI-validated P2PE solutions, powered by CardSecure, help reduce your scope of PCI compliance. 
   - title: Omnichannel Payments
-    description: Ecommerce, card-present, and mobile APIs and SDKs enable you to leverage omnichannel tokens and customer profiles for a seamless payment experience across your brand.
+    description: Omnichannel tokens and customer profiles enable a seamless payment experience across your brand.
   - title: Flexible APIs
     description: Our suite of APIs allows you to integrate a wide range of payment, reporting, and transaction management features depending on your needs.
 getStarted: /docs/getting-started.md
