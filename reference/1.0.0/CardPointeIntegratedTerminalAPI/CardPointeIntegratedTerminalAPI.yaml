@@ -617,6 +617,45 @@ paths:
           content:  
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
+  /api/v2/readManual:
+    post:
+      tags:
+        - readManual
+      x-group-name: CardPointe Integrated Terminal API
+      x-proxy-name: readManual
+      summary: A call to the readManual endpoint requests manually-keyed card data and returns a token to be used in a subsequent authorization request to the CardPointe Gateway.
+      description: |
+        A call to the readManual endpoint requests manually-keyed card data and returns a token to be used in a subsequent authorization request to the CardPointe Gateway. The readManual endpoint does not initiate an authorization or capture funds. To authorize and capture a transaction, call the authManual endpoint.
+
+        See Using the <a href="">Terminal API Tokenization and Payment Endpoints</a> for more information.
+        
+        WARNING: The readManual endpoint is currently not supported for Clover terminals. See the <a href="">CardPointe Integrated Terminal Developer Guide for Clover Terminals</a> for more information.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: '#/components/schemas/readCardRequest'
+      parameters:
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/Authorization'}
+        - {$ref: '#/components/parameters/X-CardConnect-SessionKey'}
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/readCardSuccess'}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
 components:
   parameters:
     Authorization:
@@ -764,6 +803,117 @@ components:
       in: header
       description: A message to send in the ping request and receive in the response. The value can be blank, however the message field must be included in the request.
   schemas:
+    readManualRequest:
+      x-model-version: 1.0
+      description: readSignature Request
+      properties:
+        merchantID:
+          description: |
+            Required Field
+            
+            Your Merchant ID, required for all requests.
+          type: string
+          maxLength: 16
+          example: 1234
+        hsn: 
+          description: |
+            Required Field
+            
+            The hardware service number for the terminal.
+          type: string
+          maxLength: 18
+          example: 14012PP20131409
+        amount:
+          description: | 
+            The dollar amount to be authorized, with two implied decimal places (for example, to specify "$10.00," enter "1000"). 
+          type: integer
+          example: 100
+        includeSignature:
+          description: |
+            Determines if the terminal prompts for a signature for devices that support signature capture.
+
+            Defaults to true if not provided.
+
+            The format of the signature data returned depends on the following parameters.
+          type: boolean
+          example: 'false'
+        signatureFormat:
+          type: string
+          description: |
+            Specifies the signature file format. One of the following values:
+
+            * BMP (this is the default if the value is omitted)
+            
+            * JPG
+            
+            * PNG
+          example: png
+        gzipsignature:
+          description: | 
+            Determines if the captured signature is compressed using Gzip.
+
+            If true, the signature data returned is a JSON-escaped, Base64-encoded, Gzipped, bitmap (BMP) file.
+
+            If false, the signature data returned is an uncompressed BMP in base64-encoded. 
+
+            Defaults to true if not provided.
+          type: boolean
+          example: 'false'
+        signatureDimensions:
+          description: | 
+            Specifies the custom width and height of the signature image, in the format 'x,y'. The maximum value is 999,999.
+          type: integer
+          maxLength: 999999
+          example: 320, 450
+        signatureImageType:
+          description: |
+            Specifies if the image has a 1-bit color depth (binary) or 24-bit color depth (RGB).
+
+            This property defaults to binary (1-bit) for BMP and PNG files. JPG files will always be rgb (24-bit).
+
+            Possible values are:
+
+            * binary - 1-bit; the default for BMP and PNG files.
+            * rgb - 24-bit; the default for JPG files, and optional for PNG files.
+          type: string
+          example: rgb
+        includeExpirationDate:
+          description: |
+            Determines if the terminal prompts the user to enter the expiration date for the card.
+
+            Defaults to true if not provided
+          type: boolean
+          example: "true"
+        beep:
+          description: |
+            Determines if the terminal beeps to:
+
+            * Prompt the user to swipe/dip the card.
+            * Prompt the user to remove the card (EMV transactions).
+            * Register key presses during PIN entry for debit transactions.
+
+            If true, beep is enabled.
+
+            Defaults to false if not provided.
+          type: boolean
+          example: 'true'
+    readManualSuccess:
+      x-model-version: 1.0
+      description: readSignature Request
+      properties:
+        token:
+          type: integer
+          description: The tokenized card data returned by CardSecure.
+          example: 9445123546981111
+        expiry:
+          type: string
+          description: The card's expiration date in the format MMYY.
+          example: 0428
+          maxLength: 4
+        signature:
+          type: object
+          description: base64-encoded, gzipped BMP of the signature image
+          example: <base64-encoded, gzipped BMP>
     readCardRequest:
       x-model-version: 1.0
       description: readSignature Request
@@ -901,12 +1051,8 @@ components:
       properties:
         token:
           type: integer
-          description: |
-            If two-factor authentication is enabled, you must include the token returned by the **preconnect** endpoint.
-
-            This token is displayed on the terminal.
-          maxLength: 6
-          example: 123456
+          description: The tokenized card data returned by CardSecure.
+          example: 9445123546981111
         expiry:
           type: string
           description: The card's expiration date in the format MMYY.
