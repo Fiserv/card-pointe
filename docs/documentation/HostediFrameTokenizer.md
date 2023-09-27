@@ -132,7 +132,7 @@ Each step in implementing the iFrame Tokenizer is covered in the basic HTML exam
 
 ## Implementation Steps
 
-1) Where the clear text credit card number is entered, place a reference to the embedded iframe page and style the iframe element on the primary payment page as needed.
+**1.** Where the clear text credit card number is entered, place a reference to the embedded iframe page and style the iframe element on the primary payment page as needed.
 
 #### Create HTML Form with Nested iFrame
 
@@ -142,7 +142,7 @@ Each step in implementing the iFrame Tokenizer is covered in the basic HTML exam
 </form>
 ```
 
-2) On the primary payment page, place a hidden input field to store the token after it is generated within the iframe.
+**2.** On the primary payment page, place a hidden input field to store the token after it is generated within the iframe.
 
 #### Append Hidden Input Field to Hold the Generated Token
 
@@ -153,7 +153,7 @@ Each step in implementing the iFrame Tokenizer is covered in the basic HTML exam
 </form>
 ```
 
-3) Attach a listener to detect when token generation is complete and assign the value to the input field above.
+**3.** Attach a listener to detect when token generation is complete and assign the value to the input field above.
 
 #### Include Javascript Event Listener in HTML Head
 
