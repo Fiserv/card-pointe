@@ -802,7 +802,7 @@ A successful authorization response includes the following fields. You should in
 | token (if requested) | Token | 19 | A token that replaces the card number in capture and settlement requests if requested |
 | amount | Amount | 12 | Authorized amount. Same as the request amount for most approvals. <br> The amount remaining on the card for prepaid/gift cards if partial authorization is enabled. <br> Not relevant for declines. |
 | batchid | Batch ID | 12 | Automatically created and assigned unless otherwise specified. Returned for a successful authorization with capture. |
-| orderid | Order ID | 19 | Order ID copied from the authorization request. |
+| orderid | Order ID | 50 | Order ID copied from the authorization request. |
 | merchid | Merchant ID | 12 | Copied from the authorization request. <br> **Note**: _If you include the merchant ID on a receipt, mask this value, except the last four digits_. |
 | respcode | [Response code](?path=docs/documentation/GatewayResponseCodes.md) | - | Alpha-numeric response code that represents the description of the response |
 | resptext | Response text | - | Text description of response |
@@ -1239,7 +1239,7 @@ Fields with a # indicate these fields can be used as part of a profile. See the 
 
 | Fields | Size | Type | Comments |
 | --- | --- | --- | --- |
-| **orderid** | 19 | AN | Source system order number. <br> <br> Populate this field with a unique value that can identify the sales order. <br> <br> This value will be associated with the response record. |
+| **orderid** | 50 | AN | Source system order number. <br> <br> Populate this field with a unique value that can identify the sales order. <br> <br> This value will be associated with the response record. |
 | **merchid** | 12 | N | CardPointe merchant ID (MID), required for all requests |
 | **amount** | 12 | N | Amount with decimal or without decimal in currency minor units (for example, USD Pennies or EUR Cents), <br> <br> This value identifies the authorization type: <br> <br> **Positive** - Authorization request <br> **Zero** - Account Verification request, if AVS and CVV verification is enabled for your merchant account. Account Verification is not supported for eCheck (ACH) authorizations. <br> **Negative** - Refund without reference (Forced Credit). Merchants must be enabled for forced credit. When referencing an existing authorization, use refund. |
 | currency | 3 | AN | Currency of merchant settlement <br> (USD for US dollars, CAD for Canadian Dollars, etc.) |
@@ -1382,7 +1382,7 @@ id,status,message,orderid,retref,amount,resptext,commcard,cvvresp,batchid,avsres
 | id | Integer | 20 | BAS transaction ID |
 | status | String | 10 | Final processing status: "DONE" or "ERROR" |
 | message | String | None | Details explaining "ERROR" or "LOAD_ERROR" |
-| orderid | Order ID | 19 | The orderid specified in the Request file |
+| orderid | Order ID | 50 | The orderid specified in the Request file |
 | retref | Retrieval reference number | 12 | CardPointe retrieval reference number from authorization response |
 | amount | Amount | 12 | Authorized amount. Same as the request amount for most approvals. The amount remaining on the card for prepaid/gift cards if partial authorization is enabled. Not relevant for declines. |
 | resptext | Response text | - | Text description of response |
