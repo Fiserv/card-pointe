@@ -74,14 +74,14 @@ For detailed information on the CardPointe Mobile SDKs, see the Android and iOS 
 <!-- type: row -->
 
 <!-- type: card 
-title: CardPointe Mobile iOS SDK Developer Guide
-description: Provides information for integrating the CardPointe Mobile SDK with your iOS app
+title: <center> CardPointe Mobile iOS SDK Developer Guide </center>
+description: <center> Provides information for integrating the CardPointe Mobile SDK with your iOS app </center>
 link: ?path=docs/documentation/CardPointeMobileiOSSDKDeveloperGuide.md
 -->
 
 <!-- type: card
-title: CardPointe Mobile Android SDK Developer Guide
-description: Provides information for integrating the CardPointe Mobile SDK with your Android app
+title: <center> CardPointe Mobile Android SDK Developer Guide </center>
+description: <center> Provides information for integrating the CardPointe Mobile SDK with your Android app </center>
 link: ?path=docs/documentation/CardPointeMobileAndroidSDKDeveloperGuide.md
 -->
 
