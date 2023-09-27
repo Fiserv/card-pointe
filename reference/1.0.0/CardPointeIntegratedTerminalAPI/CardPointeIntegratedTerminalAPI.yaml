@@ -114,7 +114,7 @@ paths:
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
   /api/v2/dateTime:
-    put:
+    post:
       tags:
         - dateTime Endpoint Definition
       x-group-name: CardPointe Integrated Terminal API
@@ -311,7 +311,7 @@ paths:
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
   /api/v2/disconnect:
-    put:
+    post:
       tags:
         - disconnect
       x-group-name: CardPointe Integrated Terminal API
@@ -682,7 +682,7 @@ paths:
           description: Success
           content:
             application/json:
-              schema: {$ref: '#/components/schemas/readManualSuccess'}
+              schema: {$ref: '#/components/schemas/authCardSuccess'}
         400:
           description: Not Found
           content:
@@ -840,9 +840,176 @@ components:
       in: header
       description: A message to send in the ping request and receive in the response. The value can be blank, however the message field must be included in the request.
   schemas:
+    authCardSuccess:
+      x-model-version: 1.0
+      description: authCard Response
+      properties:
+        token:
+          type: integer
+          description: The token generated for the payment card.
+          example: 9445123546981111
+        expiry:
+          type: string
+          description: The card's expiration date in the format MMYY.
+          example: 0428
+          maxLength: 4
+        signature: 
+          type: object
+          description: base64-encoded, gzipped BMP of the signature image
+          example: <base64-encoded, gzipped BMP>
+        name:
+          type: string
+          description: |  
+            The cardholder's name on the card.
+  
+            The name is not returned if the card or mobile wallet is read through NFC (contactless).
+          example: Dylan Wolf
+          maxLength: 32
+        batchid:
+          description: The identifier for the batch that the transaction was added to. 
+          type: string
+          maxLength: 16
+          example: 100
+        retref:
+          description: The retrieval reference number userd to look up and manage the transaction.
+          type: string
+          maxLength: 16
+          example: 173006146691
+        avsresp:
+          description: |
+            Alpha-numeric AVS (zip code) verification response code.
+
+            **Note**: <code>avsresp</code> is typically only returned for approved authorizations, however this field can be returned in the response for a declined authorization if this setting is enabled for the merchant account.
+          type: string
+          example: Y
+        respproc:
+          description: An abbreviation that represents the platform and the processor for the transaction.
+          type: string
+          example: RPCT
+        amount: 
+          example: 1.00
+          type: string
+          description: |
+            The authorized amount. For most transactions, this is the same as the request amount.
+  
+            For prepaid or gift cards, if partial authorization is enabled for the merchant account, the amount returned is the amount remaining on the card.
+  
+            For declines, the amount returned is "0.00"
+        resptext: 
+          description: A text description of the authorization response.
+          example: Approval
+        authcode:
+          description: The Authorization Code from the card issuer.
+          type: string
+          example: 909443
+        respcode:
+          example: 000
+        merchid:
+          description: |
+            **Required Field**
+            
+            Your Merchant ID, required for all requests.
+          type: string
+          maxLength: 16
+          example: 1234
+        cvvresp:
+          example: M
+          description: |
+            Alpha-numeric CVV (card verification value) verification response code, if returned by the processor.
+
+            One of the following values:
+
+            * **M** - Valid CVV Match.
+            * **N** - Invalid CVV.
+            * **P** - CVV Not Processed.
+            * **S** - Merchant indicated that the CVV is not present on the card.
+            * **U** - Card issuer is not certified and/or has not provided Visa encryption keys.
+            * **X** - No response.
+            
+            **Note**: <code>cvvresp</code> is typically only returned for approved authorizations, however this field can be returned in the response for a declined authorization if this setting is enabled for the merchant account.
+        respstat:
+          description: |
+            Indicates the status of the authorization request. 
+
+            One of the following values:
+            * **A** - Approved
+            * **B** - Retry
+            * **C** - Declined
+          example: A
+          type: string
+          maxLength: 1
+        emvTagData:
+          description: |
+            A string of receipt and EMV tag data (when applicable) returned from the processor.
+
+            **Note**: This string is returned for both EMV and non-EMV transactions on the First Data Rapid Connect (RPCT) front end platform.
+
+            This data returned should be presented on a receipt if applicable, and recorded with the transaction details for future reference.
+
+            See <a href="">Printing Receipts Using Authorization Data</a> in the <a href="">CardPointe Integrated Terminal Developer Guides</a> for detailed information. 
+          type: string 
+          example: N/A
+        tokenExpired:
+          description: |
+            Returned for contactless (NFC) payments. 
+            
+            <code>"tokenexpired":"true"</code> indicates that an NFC payment method was used, and that the token generated is valid only for this authorization. 
+          example: 'true'
+          type: boolean
+        acctid:
+          description: The account ID for the stored profile, created if <code>"createProfile":"true"</code> in the request.
+          example: N/A
+          type: string
+        profileid:
+          description: |
+            The profile ID for the stored profile, created if <code>"createProfile":"true"</code> in the request.
+          example: 123456
+          type: string
+        entrymode:
+          example: Swipe(Non EMV)
+          type: string
+          description: |
+            Only returned for merchants using the First Data North, First Data Rapid Connect, and Chase Paymentech Tampa processors.
+
+            Possible Values:
+
+            * Keyed
+            * Moto
+            * ECommerce
+            * Recurring
+            * Swipe(Non EMV)
+            * DigitalWallet
+            * EMVContact
+            * Contactless
+            * Fallback to Track
+            * Fallback to Keyed
+        bintype:
+          example: Prepaid
+          type: string
+          description: |
+            Possible Values:
+            * Corp
+            * FSA+Prepaid
+            * GSA+Purchase
+            * Prepaid
+            * Prepaid+Corp
+            * Prepaid+Purchase
+            * Purchase
+        orderid:
+          example: 1233200399
+          description: |
+            The unique order ID for this transaction. Returns the orderid specified in the request, otherwise returns the <code>orderid</code> generated by the terminal, in the format <code><HSN-timestamp></code>.
+          type: string
+        receiptData:
+          type: object
+          description: |
+            An object that includes additional fields to be printed on a receipt.
+
+            See <a href="">Printing Receipts Using Authorization Data</a> in the <code>CardPointe Integrated Terminal Developer Guides</code> for detailed information.
+          example: { dba: Dyl, address1: "1234 Dyl Ave, King of Prussia, PA 19355"}
     authCardRequest:
       x-model-version: 1.0
-      description: readSignature Request
+      description: authCard Request
       properties:
         merchantID:
           description: |
