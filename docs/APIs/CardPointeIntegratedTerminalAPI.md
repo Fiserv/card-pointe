@@ -139,9 +139,9 @@ Details about the REST implementation for each endpoint follow this section.
 | [readCard](../api/?type=post&path=/api/v2/readCard) | readCard         | v2                   | true                 |
 | [readManual](../api/?type=post&path=/api/v2/readManual) | readManual       | v2                   | true                 |
 | [authCard](../api/?type=post&path=/api/v3/authCard) | authCard         | v3                   | true                 |
-| [authManual](../api/?type=post&path=) | authManual       | v3                   | true                 |
-| [tip](../api/?type=post&path=) | tip              | v3                   | true                 |
-| [printReceipt](../api/?type=post&path=) | printReceipt     | v3                   | true                 |
+| [authManual](../api/?type=post&path=/api/v3/authManual) | authManual       | v3                   | true                 |
+| [tip](../api/?type=post&path=/api/v3/tip) | tip              | v3                   | true                 |
+| [printReceipt](../api/?type=post&path=/api/v3/printReceipt) | printReceipt     | v3                   | true                 |
 
 # HTTP Response Codes
 
