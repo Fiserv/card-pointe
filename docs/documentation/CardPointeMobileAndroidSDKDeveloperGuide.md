@@ -161,19 +161,19 @@ A build.gradle file is created for the newly added module. Additionally, the set
 
 Additionally, the SDK requires the GSON and Android support libraries. The following example illustrates a complete list of dependencies:
 
-        ```json
-        dependencies {
-            implementation fileTree(dir: 'libs', include: ['*.jar'])
-            implementation 'com.android.support:appcompat-v7:28.0.0'
-            testImplementation 'junit:junit:4.12'
-            androidTestImplementation 'com.android.support.test:runner:1.0.2'
-            androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-            implementation 'com.android.support:appcompat-v7:27.1.0'
-            implementation 'com.android.support:design:27.1.0'
-            implementation 'com.google.code.gson:gson:2.8.2'
-            implementation files('libs/boltsdk-release.aar')
-        }
-        ```
+```json
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation 'com.android.support:appcompat-v7:27.1.0'
+    implementation 'com.android.support:design:27.1.0'
+    implementation 'com.google.code.gson:gson:2.8.2'
+    implementation files('libs/boltsdk-release.aar')
+}
+```
 
 **7.** Add the following to the manifest file:
 
