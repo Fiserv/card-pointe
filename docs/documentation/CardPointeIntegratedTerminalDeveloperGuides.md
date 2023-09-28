@@ -182,11 +182,11 @@ Generally, an `authCard` or `authManual` request initiates the following sequenc
    
 **3.** The terminal service sends a series of commands to the terminal, based on the options specified in the request.
 
-   For example:
+**For example:**
 
-   - The terminal displays the transaction amount and prompts the user to confirm.
-   - The terminal prompts the user to swipe/insert/tap or manually enter the card data.
-   - The terminal prompts the user for a signature.
+- The terminal displays the transaction amount and prompts the user to confirm.
+- The terminal prompts the user to swipe/insert/tap or manually enter the card data.
+- The terminal prompts the user for a signature.
 
 **4.** The captured data is passed in an authorization request to the CardPointe Gateway, which returns the authorization response details.
    
@@ -204,11 +204,11 @@ Generally, a `readCard` or `readManual` request initiates the following sequence
    
 **3.** The terminal service sends a series of commands to the terminal, based on the options specified in the request.
 
-   For example:
+**For example:**
 
-   - The terminal displays the transaction amount and prompts the user to confirm.
-   - The terminal prompts the user to swipe/insert/tap or manually enter the card data.
-   - The terminal prompts the user for a signature.
+- The terminal displays the transaction amount and prompts the user to confirm.
+- The terminal prompts the user to swipe/insert/tap or manually enter the card data.
+- The terminal prompts the user for a signature.
 
 **4.** The terminal service returns the tokenized card number, signature, and any additional data to the client application.
    
@@ -292,8 +292,8 @@ To experiment with the volume, pitch, and duration of the beep heard when using 
 
 **1.** Access the Admin Menu:
    
-    - Press **F** and enter the default password of **CCMerchant**.
-    - Press **O** (green button) to confirm the password.
+- Press **F** and enter the default password of **CCMerchant**.
+- Press **O** (green button) to confirm the password.
       
 **2.** Press **O** (green button) to select **Settings**.
    
@@ -679,7 +679,7 @@ To run an authorization and capture a signature at the same time, do the followi
 
 **1.** Call the Terminal API authCard or authManual endpoint and include the **includeSignature = true** parameter.
 
-   The signature prompt and capture are integrated into the command sequence that the Terminal API sends to the terminal, and the authorization response and signature data are returned to your software.
+The signature prompt and capture are integrated into the command sequence that the Terminal API sends to the terminal, and the authorization response and signature data are returned to your software.
    
 **2.** Call the CardPointe Gateway API's signatureCapture endpoint, including the `retref` and signature returned in the authorization response, to add the signature to the transaction record.
 
@@ -689,11 +689,11 @@ To run an authorization and capture a signature later, do the following
 
 **1.** Call the Terminal API authCard or authManual endpoint and include the **includeSignature = false** parameter.
 
-    The authorization response is returned to your software.
+The authorization response is returned to your software.
    
 **2.** Call the Terminal API readSignature endpoint to prompt for and capture the cardholder's signature.
 
-    The signature data is returned to your software.
+The signature data is returned to your software.
    
 **3.** Call the CardPointe Gateway API signatureCapture endpoint, including the `retref` and signature returned in the authorization response, to add the signature to the transaction record.
 
@@ -705,15 +705,15 @@ For example, do the following:
 
 **1.** Call the Terminal API authCard endpoint and include the **includeSignature = false** parameter.
 
-    The authorization response is returned to your software. If the authorization response does not include an EMV tag data array, or if **entrymode = swipe**, then the transaction was processed as MSR.
+The authorization response is returned to your software. If the authorization response does not include an EMV tag data array, or if **entrymode = swipe**, then the transaction was processed as MSR.
    
 **2.** If you want to capture a signature for the transaction, do the following:
 
-    - Call the Terminal API readSignature endpoint to prompt for and capture the cardholder's signature.
+- Call the Terminal API readSignature endpoint to prompt for and capture the cardholder's signature.
 
-        The signature data is returned to your software.
+   The signature data is returned to your software.
   
-    - Call the CardPointe Gateway API signatureCapture endpoint, including the retref returned in the authCard response and the signature returned in the readSignature response to add the signature to the transaction record.
+- Call the CardPointe Gateway API signatureCapture endpoint, including the retref returned in the authCard response and the signature returned in the readSignature response to add the signature to the transaction record.
   
 # Printing Receipts Using Authorization Data
 
