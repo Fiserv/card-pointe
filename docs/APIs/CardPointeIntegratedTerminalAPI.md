@@ -238,3 +238,13 @@ The following table describes the various error codes that can be returned in an
 | 643	| Server failed	| CardSecure
 | 700	| Signature capture not supported by device	| readSignature or authCard, authManual, readCard, or readManual request including a signature
 | 800	| Printing not supported | authCard or authManual request including  `"printReceipt:"true"`, or printReceipt request, when the Clover Mini is running in low-power mode (not connected to AC power). <br> <br> _**Note**: This error response also includes the receiptData array for the associated transaction._
+
+<!-- type: row -->
+
+<!-- type: card
+title: <center> API Explorer </center>
+description: <center> Click Learn More to see each API service endpoint included in the CardPointe Integrated Terminal API explorer. </center>
+link: 
+-->
+
+<!-- type: row-end -->
