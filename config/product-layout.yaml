@@ -95,7 +95,7 @@ featuredFeatures:
       - relatedDoc: 
         title: CardPointe Integrated Terminal Developer Guide
         description: The CardPointe Integrated Terminal Developer Guide provides helpful information for integrating the Terminal API.
-        link: /docs/documentation/CardPointeIntegratedTerminalDeveloperGuide.md
+        link: /docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md
     relatedAPIs:
       - relatedAPI: 
         title: authCard
