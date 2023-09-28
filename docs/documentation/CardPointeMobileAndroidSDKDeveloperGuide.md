@@ -145,19 +145,21 @@ Do the following to import the SDK with your project:
 **4.** Launch Android Studio and open your project.
 
 **5.** Do the following to import the SDK:
-    - Click **File**, select **New**, then select **New Module**.
-    - On the Create New Module dialog select **Import .JAR/.AAR Package** and click **Next**.
-    - Browse to the **boltsdk-release.aar** file, then click **Finish**.
+   
+- Click **File**, select **New**, then select **New Module**.
+- On the Create New Module dialog select **Import .JAR/.AAR Package** and click **Next**.
+- Browse to the **boltsdk-release.aar** file, then click **Finish**.
 
-        A build.gradle file is created for the newly added module. Additionally, the settings.gradle file has an entry for both the main project and the newly added module. Each submodule has an entry in the settings.gradle file to tell the build system that the module is now available.
+A build.gradle file is created for the newly added module. Additionally, the settings.gradle file has an entry for both the main project and the newly added module. Each submodule has an entry in the settings.gradle file to tell the build system that the module is now available.
 
 **6.** Do the following to make the module available to your project:
-    - In the Project pane, select the **build.gradle** file for your app.
-    - Add the following line to the dependencies section:
+    
+- In the Project pane, select the **build.gradle** file for your app.
+- Add the following line to the dependencies section:
 
-        `implementation files('libs/boltsdk-release.aar')`
+`implementation files('libs/boltsdk-release.aar')`
 
-        Additionally, the SDK requires the GSON and Android support libraries. The following example illustrates a complete list of dependencies :
+Additionally, the SDK requires the GSON and Android support libraries. The following example illustrates a complete list of dependencies:
 
         ```json
         dependencies {
@@ -214,7 +216,7 @@ To integrate the Customer Profile UI, do the following:
 
 **2.** Declare a specific theme that inherits from AppConsumerTheme.NoActionBar.
 
-    See the Theme Guide included in the SDK package for details on specific theme configuration attributes.
+See the Theme Guide included in the SDK package for details on specific theme configuration attributes.
 
 ```java
 <style name="ConsumerAppImplementer.Theme" parent="AppConsumerTheme.NoActionBar">
@@ -322,11 +324,11 @@ The Android SDK enables your application to capture payment information and gene
 
 **1.** Set the CardSecure URL you were provided.
 
-    The SDK requires access to CardSecure to tokenize card information. 
+The SDK requires access to CardSecure to tokenize card information. 
 
-    To set this URL in your application, call the `CCConsumer` class which provides a Singleton to facilitate communication with the API:
+To set this URL in your application, call the `CCConsumer` class which provides a Singleton to facilitate communication with the API:
 
-    `CCConsumer._getInstance_().getApi().setEndPoint(""https://url/to/tokenize/data"" );`
+`CCConsumer._getInstance_().getApi().setEndPoint(""https://url/to/tokenize/data"" );`
 
 **2.** Implement `CCConsumerTokenCallback` to listen for events from the API.
 
@@ -355,18 +357,18 @@ public class MainActivity extends AppCompatActivity implements CCConsumerTokenCa
 
 **3.** Populate information to the `CCConsumerCardInfo` object using one of the following methods:
 
-    - Use the following UI components to retrieve card data:
-        - `CCConsumerCreditCardNumberEditText`
-        - `CCConsumerCvvEditText`
-        - `CCConsumerExpirationDateEditText`
+- Use the following UI components to retrieve card data:
+    - `CCConsumerCreditCardNumberEditText`
+    - `CCConsumerCvvEditText`
+    - `CCConsumerExpirationDateEditText`
           
-        These components provide configurable format options. See the API reference in the **/docs/reference api** folder in the SDK package for details. 
+  These components provide configurable format options. See the API reference in the **/docs/reference api** folder in the SDK package for details. 
 
-        Card information through these components is not accessible from the application side, therefore you must pass the `CCConsumerCardInfo` object to every component to populate internally. Review the sample application for an example of these components in use.
+Card information through these components is not accessible from the application side, therefore you must pass the `CCConsumerCardInfo` object to every component to populate internally. Review the sample application for an example of these components in use.
 
-    - Populate the `CCConsumerCardInfo` object manually.
+- Populate the `CCConsumerCardInfo` object manually.
       
-        In this case, real card information should be set in the object.
+    In this case, real card information should be set in the object.
 
 **4.** Call `generateTokenWithCard` to generate a token using the data in the `CCConsumerCardInfo` object, as follows:
 
@@ -732,11 +734,11 @@ If you are using an ID TECH VP3300 mobile payment reader (swiper) device, do the
 
 **1.** To start finding devices, call `CCConsumer.getInstance().getApi().startBluetoothDeviceSearch(BluetoothSearchResponseListener, Context);`.
 
-    Found devices will be returned to `BluetoothSearchResponseListener.onDeviceFound`.
+Found devices will be returned to `BluetoothSearchResponseListener.onDeviceFound`.
 
 **2.** To connect to the device, call `CCSwiperControllerFactory().create(context, SwiperType, SwiperControllerListener, MacAddress)`
 
-    Once connected, the swiper will begin waiting for a card and `SwiperControllerListener.onLogUpdate()` will be called.
+Once connected, the swiper will begin waiting for a card and `SwiperControllerListener.onLogUpdate()` will be called.
 
 ### Getting a Token from a Mobile Payment Reader
 
