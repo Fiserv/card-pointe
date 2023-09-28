@@ -356,7 +356,7 @@ Similarly to testing specific authorization response scenarios using amount-driv
 
 **2.** Run a rfund request including the `retref` from the authorization response and `"amount":"1nnn.00"`, where `nnn` is the 2 (including leading 0) or 3-digit decline response code you want to receive.
 
-    For example, to return a RPCT 500 "Decline" response, include `"amount":"1500.00"` in the refund request.
+For example, to return a RPCT 500 "Decline" response, include `"amount":"1500.00"` in the refund request.
 
 ### Testing Partial Authorizations
 
