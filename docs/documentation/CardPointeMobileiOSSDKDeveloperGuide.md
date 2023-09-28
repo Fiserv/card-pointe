@@ -141,11 +141,11 @@ To connect to a mobile payment reader, do the following:
 
 **1.** Select IDTech VP3300 to connect to a VP3300 device.
 
-    The app displays a list of available devices. 
+- The app displays a list of available devices. 
 
 **2.** Select a device to connect to it.
 
-    The device is now connected and ready for use.
+- The device is now connected and ready for use.
 
 ## Tokenization Methods
 
@@ -177,7 +177,7 @@ The **Stack Profile View** presents the Profile UI in a new stack in the existin
 
 Both versions of the demo include sample profile data, and the ability to add, edit, and delete profiles.
 
-To add a new profile, do the following:
+**To add a new profile, do the following:**
 
 **1.** Tap **Add New Account** on the Accounts page.
 
@@ -185,13 +185,13 @@ To add a new profile, do the following:
 
 **3.** Tap **Done** then tap **Create Account** to save the new profile. 
 
-To edit a profile, do the following:
+**To edit a profile, do the following:**
 
 **1.** Tap **Edit** on the Accounts page.
 
 **2.** Tap the stored payment card that you want to edit.
 
-    Alternatively, tap the delete icon to delete the stored payment card.
+- Alternatively, tap the delete icon to delete the stored payment card.
 
 **3.** On the Edit Account page, you can edit the expiration date and set the stored card as the default payment method.  
 
@@ -247,11 +247,11 @@ Do the following to configure your project:
 
 **1.** Import the SDK into your prefix or source files:
 
-    `#import <BoltMobileSDK/BoltMobileSDK.h>`
+`#import <BoltMobileSDK/BoltMobileSDK.h>`
 
 **2.** Set your endpoint on BMSAPI (for example, <host>.cardconnect.com)
 
-    `[BMSAPI instance].endpoint = @”<endpoint provided for your account>”;`
+`[BMSAPI instance].endpoint = @”<endpoint provided for your account>”;`
 
 ## Adding Support for Mobile Payment Readers
 
@@ -289,22 +289,22 @@ To use a mobile payment reader (swiper) device, perform the following steps to i
 
 **2.** Add the required methods from `BMSSwiperControllerDelegate` and its super protocol `BMSSwiperDelegate` to your view:
 
-    - `swiper:didGenerateTokenWithAccount:completion:`
-    - `swiper:didFailWithError:completion:`
-    - `swiper:foundDevices:`
-    - `swiper:displayMessage:canCancel:`
+- `swiper:didGenerateTokenWithAccount:completion:`
+- `swiper:didFailWithError:completion:`
+- `swiper:foundDevices:`
+- `swiper:displayMessage:canCancel:`
 
 **3.** Create a `BMSSwiperController` property in your view and initialize it in `viewWillAppear:` as follows:
 
-    `self.swiper = [BMSSwiperController alloc] initWithDelegate:self swiper:{BMSSwiperType} loggingEnabled:YES];`
+`self.swiper = [BMSSwiperController alloc] initWithDelegate:self swiper:{BMSSwiperType} loggingEnabled:YES];`
 
 **4.** Release the swiper and set it to nil in `viewWillDisappear:` as follows:
 
-    `[self.swiper releaseDevice];`
+`[self.swiper releaseDevice];`
 
-    `self.swiper = nil;`
+`self.swiper = nil;`
 
-    The swiper should initialize when the view appears. You can get the connection status using the optional methods in `BMSSwiperDelegate`.
+The swiper should initialize when the view appears. You can get the connection status using the optional methods in `BMSSwiperDelegate`.
 
 **5.** If you are using a VP3300 device, continue to [Integrating a VP3300 Device](#integrating-a-vp3300-device).
 
@@ -343,13 +343,13 @@ Do the following to find and connect to the VP3300:
 
 **1.** To start finding devices, call [self.swiper findDevices];.
 
-    Found devices will be returned to swiper:foundDevices:.
+- Found devices will be returned to swiper:foundDevices:.
 
 **2.** Once you select a device, call [self.swiper cancelFindDevices];.
 
 **3.** To connect to the device, call [self.swiper connectToDevice:device.uuid];.
 
-    Once connected, the swiper will begin waiting for a card and swiper:displayMessage:canCancel will be called.
+- Once connected, the swiper will begin waiting for a card and swiper:displayMessage:canCancel will be called.
 
 > All messages from `swiper:displayMessage:canCancel:` must be displayed. If the **cancelable** parameter is set to **true**, you can use `[self.swiper cancelTransaction];` to include a cancel function.
 
@@ -399,11 +399,11 @@ To use the integrated UI, do the following:
 
 **1.** Create a class that conforms to `BMSAPIBridgeProtocol`.
 
-    This class calls the backend to perform the actions required by the UI.
+- This class calls the backend to perform the actions required by the UI.
 
 **2.** Set up your root view controller.
 
-    This will be the view that presents and responds to the integrated profile UI flow (for example, the screen that appears before the user selects a payment method).
+- This will be the view that presents and responds to the integrated profile UI flow (for example, the screen that appears before the user selects a payment method).
 
 **3.** In your root view controller, add strong properties for your class that conform to `BMSAPIBridgeProtocol` and `BMSPaymentController`. Additionally, if you want to use a custom theme, create a property for it.
 
@@ -413,13 +413,13 @@ To use the integrated UI, do the following:
 
 **6.** The payment controller supports two display methods: integrated with your current stack, or in a separate modal. Depending on which design you want to integrate, do the following:
 
-    - To push the integrated profile UI flow onto your current navigation stack, call `[BMSPaymentController pushPaymentView]`.
+- To push the integrated profile UI flow onto your current navigation stack, call `[BMSPaymentController pushPaymentView]`.
 
-        **Note**: This requires your root view to be contained within a navigation controller.
+    **Note**: This requires your root view to be contained within a navigation controller.
 
-    - To present the integrated UI flow modally, call `[BMSPaymentController presentPaymentView]`.
+- To present the integrated UI flow modally, call `[BMSPaymentController presentPaymentView]`.
 
-    The integrated profile UI is now configured to display in the method you selected and use your API bridge class to supply data to the user. When the user finishes and selects a payment method, the controller is dismissed and the account is returned to your root view.
+The integrated profile UI is now configured to display in the method you selected and use your API bridge class to supply data to the user. When the user finishes and selects a payment method, the controller is dismissed and the account is returned to your root view.
 
 ## Integrating Field Formatting and Validation
 
@@ -437,13 +437,13 @@ The SDK includes the following delegate classes, which provide functions for fie
 
 **2.** Link your `UITextField` for card number to this class as its delegate.
 
-    If you want callbacks for other `UITextFieldDelegate` calls sent to your view controller, link the `BMSCardFormatterDelegate` class `originalDelegate` property to your view controller.
+- If you want callbacks for other `UITextFieldDelegate` calls sent to your view controller, link the `BMSCardFormatterDelegate` class `originalDelegate` property to your view controller.
 
 **3.** If you want to modify the masking of the text field, set a reference outlet to your view controller as well.
 
-    The text input field will now auto-format user input and provide validation using the `BMSCardFormatterDelegate` method `isValidCard`.
+- The text input field will now auto-format user input and provide validation using the `BMSCardFormatterDelegate` method `isValidCard`.
 
-    To generate a token, use the `BMSCardFormatterDelegate` function `setCardNumberOnCardInfo:` to get the card number.
+- To generate a token, use the `BMSCardFormatterDelegate` function `setCardNumberOnCardInfo:` to get the card number.
 
 <!-- theme: warning -->
 > When clearing text fields using the custom delegate classes, call `clearTextField` on the delegates themselves to clear internal information.
@@ -456,8 +456,8 @@ You use the `BMSCardInfo` and `BMSAPI` classes to send a payment card data to Ca
 
 **2.** Using your card info object call the `BMSAPI` function to generate a token as follows:
 
-    `[BMSAPI instance] generateAccountForCard:<your card object> completion:^(BMSAccount *account, NSError *error){}];`
+`[BMSAPI instance] generateAccountForCard:<your card object> completion:^(BMSAccount *account, NSError *error){}];`
 
-    A token is generated for the account and returned to your application.
+- A token is generated for the account and returned to your application.
 
 **3.** Optionally, you can use `BMSAccount` to save an account for a profile on the CardPointe Gateway using the [iOS SDK Integrated Customer Profile UI](#Integrating-The-Customer-Profile-UI) or CardPointe Gateway API.
