@@ -148,7 +148,7 @@ The following table lists the CardSecure API service endpoints and their functio
 
 | Service	| API Version	| Description |
 | --- | --- | --- |
-| [tokenize](../api/?type=post&path=//cardsecure/api/v1/ccn/tokenize) | v1	| Tokenizes sensitive data provided in the request, and returns a CardSecure token.
+| [tokenize](../api/?type=post&path=/cardsecure/api/v1/ccn/tokenize) | v1	| Tokenizes sensitive data provided in the request, and returns a CardSecure token.
 | [echo](../api/?type=post&path=/cardsecure/api/v1/echo) | v1	| Sends a ping command to the CardSecure server to verify the connection.
 
 # Error Codes and Messages 
