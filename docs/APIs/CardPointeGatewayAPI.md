@@ -121,3 +121,13 @@ PUT /cardconnect/rest/ Host: <site>Authorization: Basic <base64 encoded mid-leve
 ```
 
 If the credentials are valid, the response returns the message "CardConnect REST Servlet." 
+
+<!-- type: row -->
+
+<!-- type: card
+title: <center> API Explorer </center>
+description: <center> Click Learn More to see each API service endpoint included in the CardPointe Gateway API explorer. </center>
+link: 
+-->
+
+<!-- type: row-end -->
