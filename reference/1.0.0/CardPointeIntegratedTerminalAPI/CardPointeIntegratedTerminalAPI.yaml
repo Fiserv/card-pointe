@@ -479,7 +479,7 @@ paths:
       summary: A call to the readInput endpoint sends a prompt to the terminal to request user input, in a format specified in the request.
       description: |
         A call to the readInput endpoint sends a prompt to the terminal to request user input, in a format specified in the request.
-        See Using readInput to Capture Customer Information for more information.
+        See <a href=".../docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md#using-readinput-to-capture-customer-information">Using readInput to Capture Customer Information</a> for more information.
       requestBody:
         required: true
         content:
