@@ -1081,15 +1081,15 @@ components:
             Defaults to <code>true</code> if not provided.
           type: boolean
           example: 'true'
-        tipPercentPresets:
-          type: array
-          description: |
-            An array of three preset tip percentages, in the format [n, n, n]. 
-
-            **Required** if <code>"includeCustomTipAmount:"false"</code>.
-
-            **Note**: The ability to set four preset values is planned for a future enhancement.
-          example: [10, 12, 20]
+        tipPercentPresets: {
+          example: 
+            [
+              10, 
+              12, 
+              20
+            ],
+          description: 'An array of three preset tip percentages, in the format [n, n, n]. **Required** if <code>"includeCustomTipAmount:"false"</code>. **Note**: The ability to set four preset values is planned for a future enhancement.'
+        }
     authManualSuccess:
       x-model-version: 1.0
       description: authCard Response
