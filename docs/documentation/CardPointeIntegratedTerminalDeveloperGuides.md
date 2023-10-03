@@ -79,7 +79,7 @@ In this case, send a connect request including "force" : `"true" to forcibly` te
 
 ## Setting the Terminal's Time
 
-You should include the dateTime request into your terminal connection workflow to ensure that the terminal's time is accurate for transaction reporting and receipts, and to ensure that the terminal's nightly PCI reboot occurs outside of your business hours, as intended.
+You should include the [dateTime](../api/?type=post&path=/api/v2/dateTime) request into your terminal connection workflow to ensure that the terminal's time is accurate for transaction reporting and receipts, and to ensure that the terminal's nightly PCI reboot occurs outside of your business hours, as intended.
 
 ## Getting a Token and Running a Payment
 
@@ -87,10 +87,10 @@ The Terminal API provides the following methods for either tokenizing payment ca
 
 > Regardless of which method you implement, tokenization is handled by CardSecure, and the payment authorization is handled by the CardPointe Gateway.
 
-- If you use the Terminal API readCard or readManual endpoint to get a token, you must then pass that token in an authorization request from your client application, using the CardPointe Gateway API.
-- If you use the Terminal API authCard or authManual endpoint to get a token, the terminal passes the token in an authorization request to the CardPointe Gateway.
+- If you use the Terminal API [readCard](../api/?type=post&path=/api/v2/readCard) or [readManual](../api/?type=post&path=/api/v2/readManual) endpoint to get a token, you must then pass that token in an authorization request from your client application, using the CardPointe Gateway API.
+- If you use the Terminal API [authCard](../api/?type=post&path=/api/v3/authCard) or [authManual](../api/?type=post&path=/api/v3/authManual) endpoint to get a token, the terminal passes the token in an authorization request to the CardPointe Gateway.
 
-In addition to handling payment requests, the CardPointe Gateway also provides methods for voiding and refunding transactions, and for gathering reporting data. Integrate your application using the CardPointe Gateway API to take full advantage of these and other features offered by the CardPointe Gateway. For more information, see the CardPointe Gateway API documentation.
+In addition to handling payment requests, the CardPointe Gateway also provides methods for voiding and refunding transactions, and for gathering reporting data. Integrate your application using the CardPointe Gateway API to take full advantage of these and other features offered by the CardPointe Gateway. For more information, see the [CardPointe Gateway API documentation](?path=docs/APIs/CardPointeGatewayAPI.md).
 
 # Running the API in Postman
 
@@ -109,7 +109,7 @@ Once you have received a CardPointe Integrated Terminal device and API key, you 
 - **Authorization** - Set this value to the API key that you received. The `{{Authorization}}` variable is used in the header of every request.
 - **merchantId** - Set this value to your CardPointe merchant ID. The `{{merchantid}}` variable is used in the body of most requests.
 - **hsn** - Set this value to the hardware serial number (HSN) for your terminal. The `{{HSN}}` variable is used in the body of most requests.
-- **X-CardConnect-SessionKey** - Set this value to a valid session key. Session keys are returned by successful requests to the connect endpoint. The `{{X-CardConnect-SessionKey}}` variable is required in the header of some requests.
+- **X-CardConnect-SessionKey** - Set this value to a valid session key. Session keys are returned by successful requests to the [connect](../api/?type=post&path=/api/v2/connect) endpoint. The `{{X-CardConnect-SessionKey}}` variable is required in the header of some requests.
 
 To configure environment variables, do the following in Postman:
 
@@ -144,7 +144,7 @@ The following topics describe the use of these endpoints, and provide tips for u
 
 You use the following endpoints to connect, disconnect, and pair terminals with your point-of-sale system:
 
-> See the Terminal API Documentation for a complete description of each request and response.
+> See the [Terminal API Documentation](?path=docs/APIs/CardPointeIntegratedTerminalAPI.md) for a complete description of each request and response.
 
 | API Service Endpoint | Description |
 | --- | --- |
@@ -160,7 +160,7 @@ You use the following endpoints to connect, disconnect, and pair terminals with 
 
 You use the following endpoints to tokenize payment card data and run authorizations:
 
-> See the Terminal API Documentation for a complete description of each request and response
+> See the [Terminal API Documentation](?path=docs/APIs/CardPointeIntegratedTerminalAPI.md) for a complete description of each request and response
 
 | Endpoint | Environment | Description |
 | --- | --- | --- |
@@ -218,7 +218,7 @@ Generally, a `readCard` or `readManual` request initiates the following sequence
 
 You use the following endpoints to capture information for use by your point-of-sale system:
 
-> See the Terminal API Documentation for a complete description of each request and response.
+> See the [Terminal API Documentation](?path=docs/APIs/CardPointeIntegratedTerminalAPI.md) for a complete description of each request and response.
 
 | API Service Endpoint | Description |
 | --- | --- |
@@ -322,7 +322,7 @@ CardPointe Integrated Terminal devices are identified by a unique hardware seria
 
 All Terminal API requests require a MID. Typically, the integrated POS software uses the MID assigned to the terminal to tokenize credit card numbers and send authorization requests.
 
-Tokens are site-specific; however, a token can be used by any MID on the same site. Therefore, you can use the MID assigned to the terminal to tokenize a credit card using a readCard or readManual request, and then use another MID on your site to use that token to make an authorization request to the CardPointe Gateway.
+Tokens are site-specific; however, a token can be used by any MID on the same site. Therefore, you can use the MID assigned to the terminal to tokenize a credit card using a [readCard](../api/?type=post&path=/api/v2/readCard) or [readManual](../api/?type=post&path=/api/v2/readManual) request, and then use another MID on your site to use that token to make an authorization request to the CardPointe Gateway.
 
 The following topics describe this workflow in greater detail, including required parameters and best practices.
 
@@ -373,7 +373,7 @@ When multiple POS systems are sharing a terminal, and `"force" : "false"`, a POS
 
 ## Getting a Token
 
-Once your POS system is connected and has a valid session key, it can begin to make tokenization requests by calling the readCard endpoint for card present transactions, or readManual endpoint for card not present transactions.
+Once your POS system is connected and has a valid session key, it can begin to make tokenization requests by calling the [readCard](../api/?type=post&path=/api/v2/readCard) endpoint for card present transactions, or [readManual](../api/?type=post&path=/api/v2/readManual) endpoint for card not present transactions.
 
 These requests prompt the terminal's user to swipe/insert/tap or manually enter the payment card information.
 
@@ -517,7 +517,7 @@ X-CardConnect-SessionKey: e3072040eb049990aahgk39937cd6c311c
 
 ## Handling PIN Prompts
 
-You can use the readConfirmation request to prompt the customer to specify whether they intend to pay with a credit or debit card prior to initiating the readCard or authCard sequence. This can be useful to create a conditional application sequence in which the user's credit or debit selection determines the values that your application passes in the `aid` and `includePIN` parameters in the subsequent `readCard` or `authCard` request.
+You can use the [readConfirmation](../api/?type=post&path=/api/v3/readConfirmation) request to prompt the customer to specify whether they intend to pay with a credit or debit card prior to initiating the readCard or authCard sequence. This can be useful to create a conditional application sequence in which the user's credit or debit selection determines the values that your application passes in the `aid` and `includePIN` parameters in the subsequent `readCard` or `authCard` request.
 
 A call to the `readConfirmation` endpoint prompts the user to acknowledge or reply to a message on the terminal. 
 
@@ -558,7 +558,7 @@ The following topics provide information for understanding and handling transact
 
 ## Understanding Timeouts
 
-The payment flow includes requests to and responses from both the Terminal API and the CardPointe Gateway API. Both of these APIs support synchronous communication; therefore, your application must make requests and expect responses in sync with the terminal service and CardPointe Gateway service.
+The payment flow includes requests to and responses from both the [Terminal API](?path=docs/APIs/CardPointeIntegratedTerminalAPI.md) and the [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md). Both of these APIs support synchronous communication; therefore, your application must make requests and expect responses in sync with the terminal service and CardPointe Gateway service.
 
 As a developer integrating these solutions with your point-of-sale software, it is important for you to understand how long the steps of the payment process can take so your software can interact accordingly. 
 
@@ -572,7 +572,7 @@ If the terminal service does not receive a response from the terminal within 2 m
 
 ### Terminal API Authorization Request Timeout (2 Minutes + 32 Seconds)
 
-When you use the Terminal API authCard or authManual requests to authorize a payment, you must consider the individual timeout thresholds for both the Terminal API and the CardPointe Gateway API requests and responses. The Terminal API authorization requests combine the time needed for a terminal request (2 minutes) and the time it takes to handle the authorization request and response through the CardPointe Gateway (32 seconds).
+When you use the Terminal API [authCard](../api/?type=post&path=/api/v3/authCard) or [authManual](../api/?type=post&path=/api/v3/authManual) requests to authorize a payment, you must consider the individual timeout thresholds for both the Terminal API and the CardPointe Gateway API requests and responses. The Terminal API authorization requests combine the time needed for a terminal request (2 minutes) and the time it takes to handle the authorization request and response through the CardPointe Gateway (32 seconds).
 
 After the request is sent, the terminal collects payment data from the user and sends it to the terminal service. The terminal service then makes an authorization request to the CardPointe Gateway.
 
@@ -580,17 +580,17 @@ The CardPointe Gateway sends the authorization request to the payment processing
 
 In some cases (for example, a network error), the terminal service might not receive a response from the CardPointe Gateway. In these cases, the terminal service automatically initiates a timeout reversal sequence to ensure that the transaction is voided. 
 
-See Terminal API Timeout Handling, later in this guide, for more information.
+See [Terminal API Timeout Handling](terminal-api-timeout-handling), later in this guide, for more information.
 
 ### CardPointe Gateway Authorization Timeout (32 Seconds)
 
-When you use the Terminal API readCard or readManual requests to tokenize card data for use in a CardPointe Gateway authorization request, you only need to consider the CardPoint Gateway timeout threshold. The CardPointe Gateway sends the request to the payment processing network and allows 31 seconds for a response. If the CardPointe Gateway does not receive a response within this limit, the request times out at 32 seconds and returns a "Timed Out" response. 
+When you use the Terminal API [readCard](../api/?type=post&path=/api/v2/readCard) or [readManual](../api/?type=post&path=/api/v2/readManual) requests to tokenize card data for use in a CardPointe Gateway authorization request, you only need to consider the CardPoint Gateway timeout threshold. The CardPointe Gateway sends the request to the payment processing network and allows 31 seconds for a response. If the CardPointe Gateway does not receive a response within this limit, the request times out at 32 seconds and returns a "Timed Out" response. 
 
 See the [Handling Timed-Out Transactions](?path=docs/documentation/CardPointeGatewayDeveloperGuides.md#handling-timed-out-transactions) in the [CardPointe Gateway Developer Guides](?path=docs/documentation/CardPointeGatewayDeveloperGuides.md) for information on handling Gateway-only time outs.
 
 ## Terminal API Timeout Handling
 
-If your application uses authCard or authManual requests to authorize payments, you should allow it to handle the following scenarios:
+If your application uses [authCard](../api/?type=post&path=/api/v3/authCard) or [authManual](../api/?type=post&path=/api/v3/authManual) requests to authorize payments, you should allow it to handle the following scenarios:
 
 - The application receives a ["Timed out" response](#gateway-timed-out-response-returned) from the CardPointe Gateway or terminal service.
 - The application receives [no response](#no-response-returned).
@@ -677,7 +677,7 @@ Capturing signatures requires a direct integration to the CardPointe Gateway API
 
 To run an authorization and capture a signature at the same time, do the following:
 
-**1.** Call the Terminal API authCard or authManual endpoint and include the **includeSignature = true** parameter.
+**1.** Call the Terminal API [authCard](../api/?type=post&path=/api/v3/authCard) or [authManual](../api/?type=post&path=/api/v3/authManual) endpoint and include the **includeSignature = true** parameter.
 
 The signature prompt and capture are integrated into the command sequence that the Terminal API sends to the terminal, and the authorization response and signature data are returned to your software.
    
@@ -687,11 +687,11 @@ The signature prompt and capture are integrated into the command sequence that t
 
 To run an authorization and capture a signature later, do the following
 
-**1.** Call the Terminal API authCard or authManual endpoint and include the **includeSignature = false** parameter.
+**1.** Call the Terminal API [authCard](../api/?type=post&path=/api/v3/authCard) or [authManual](../api/?type=post&path=/api/v3/authManual) endpoint and include the **includeSignature = false** parameter.
 
 The authorization response is returned to your software.
    
-**2.** Call the Terminal API readSignature endpoint to prompt for and capture the cardholder's signature.
+**2.** Call the Terminal API [readSignature](../api/?type=post&path=/api/v2/readSignature) endpoint to prompt for and capture the cardholder's signature.
 
 The signature data is returned to your software.
    
@@ -703,13 +703,13 @@ If you only want to capture a signature for transactions using MSR (magnetic-str
 
 For example, do the following:
 
-**1.** Call the Terminal API authCard endpoint and include the **includeSignature = false** parameter.
+**1.** Call the Terminal API [authCard](../api/?type=post&path=/api/v3/authCard) endpoint and include the **includeSignature = false** parameter.
 
 The authorization response is returned to your software. If the authorization response does not include an EMV tag data array, or if **entrymode = swipe**, then the transaction was processed as MSR.
    
 **2.** If you want to capture a signature for the transaction, do the following:
 
-- Call the Terminal API readSignature endpoint to prompt for and capture the cardholder's signature.
+- Call the Terminal API [readSignature](../api/?type=post&path=/api/v2/readSignature) endpoint to prompt for and capture the cardholder's signature.
 
    The signature data is returned to your software.
   
