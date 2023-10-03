@@ -30,14 +30,14 @@
 
 openapi: 3.0.2
 info:
-  title: CardSecure API Service Endpoints
-  description: This API documentation provides technical guidance when utilizing CardSecure.
+  title: CardPointe Gateway API Service Endpoints
+  description: This API documentation provides technical guidance when utilizing CardPointe Gateway.
   version: 1.0.0
 servers:
  - {url: 'DNE', description: Production}
  - {url: 'DNE', description: Sandbox}
 paths:
-  /cardsecure/api/v1/ccn/tokenize:
+  /cardconnect/rest/inquireMerchant:
     post:
       tags:
         - tokenize Endpoint Definition
