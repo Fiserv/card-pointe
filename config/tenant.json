@@ -13,7 +13,8 @@
         "releaseNotesPath": "docs/release-notes/2022/march.md",
         "apiSpecFileNames": [
           "CardSecureAPI/CardSecureAPI",
-          "CardPointeIntegratedTerminalAPI/CardPointeIntegratedTerminalAPI"
+          "CardPointeIntegratedTerminalAPI/CardPointeIntegratedTerminalAPI",
+          "CardPointeGatewayAPI/CardPointeGatewayAPI"
         ]
       }
   ],
