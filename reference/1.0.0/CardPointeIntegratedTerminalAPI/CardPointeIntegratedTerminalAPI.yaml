@@ -966,8 +966,8 @@ components:
           type: string
           example: header
           description: "A customizable field to display an alphanumeric message. For example, a specific terms, disclosure, or cardholder agreement statement."
-        dba: {type: string, maxLength: 32, example: Dyl, description: The merchant's Doing Business As (DBA) name.}
-        address1: {type: string, example: "1234 Dyl Ave, King of Prussia, PA 19355", description: "Line 1 of the merchant's address."}
+        dba: {type: string, maxLength: 32, example: Business, description: The merchant's Doing Business As (DBA) name.}
+        address1: {type: string, example: "1000 Continental Dr, King of Prussia, PA 19406", description: "Line 1 of the merchant's address."}
         address2: {type: string, description: "Line 2 of the merchant's address", example: }
         phone: {type: integer, description: "The merchant's phone number", example: "717-717-7171"}
         dateTime: {type: string, format: dateTime, description: "The date and time of the transaction (YYYYMMDDHHMMSS).", example: }
@@ -1495,7 +1495,7 @@ components:
             The cardholder's name on the card.
   
             The name is not returned if the card or mobile wallet is read through NFC (contactless).
-          example: Dylan Wolf
+          example: John Smith
           maxLength: 32
         batchid:
           description: The identifier for the batch that the transaction was added to. 
