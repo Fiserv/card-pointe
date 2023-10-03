@@ -244,7 +244,7 @@ The following table describes the various error codes that can be returned in an
 <!-- type: card
 title: <center> API Explorer </center>
 description: <center> Click Learn More to see each API service endpoint included in the CardPointe Integrated Terminal API explorer. </center>
-link: ?path=api/?type=post&path=/api/v3/authCard
+link: ?path=../api/?type=post&path=/api/v3/authCard
 -->
 
 <!-- type: row-end -->
