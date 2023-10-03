@@ -54,12 +54,12 @@ featuredFeatures:
         title: tokenize
         description: Tokenize a payment card or electronic bank account number.
         type: "post"        
-        path: "/v1/tokenize"
+        path: "/cardsecure/api/v1/ccn/tokenize"
       - relatedAPI: 
         title: echo
         description: Verify your application's connection to CardSecure.
         type: "post"        
-        path: "/v1/echo"
+        path: "/cardsecure/api/v1/echo"
   - title: Customer Profiles
     groupName: Omnicommerce
     description:  Use the CardPointe Gateway API to create and manage secure customer profiles for a seamless omnichannel payment experience.
@@ -101,9 +101,9 @@ featuredFeatures:
         title: authCard
         description: Tokenize and authorize a payment card in a single operation.
         type: "post"        
-        path: "/v1/authCard"
+        path: "/api/v3/authCard"
       - relatedAPI: 
         title: readCard
         description: Tokenize a payment card to use for a future payment or store in a customer profile.
         type: "post"        
-        path: "/v1/readCard"
+        path: "/api/v2/readCard"
