@@ -127,7 +127,7 @@ If the credentials are valid, the response returns the message "CardConnect REST
 <!-- type: card
 title: <center> API Explorer </center>
 description: <center> Click Learn More to see each API service endpoint included in the CardPointe Gateway API explorer. </center>
-link: 
+link: ?path=../api/?type=post&path=
 -->
 
 <!-- type: row-end -->
