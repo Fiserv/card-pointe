@@ -61,7 +61,7 @@ paths:
           description: Success
           content:
             application/json:
-              schema: {$ref: '#/components/schemas/TokenizeSuccess'}
+              schema: {$ref: '#/components/schemas/inquireMerchantSuccess'}
         400:
           description: Not Found
           content:
@@ -291,16 +291,84 @@ components:
         * Y
         * N
       example: N
+    enabled:
+      type: boolean
+      example: true
+      description: Specifies whether the MID is currently enabled for use. 
+    fee_format:
+      type: string
+      description: | 
+        Specifies the surcharge fee format.
+          
+        Possible values are:
+        
+        * <code>flat</code>
+        * <code>percent</code>
+      example: percent
+      maxLength: 7
+    fee_merchid:
+      type: string
+      maxLength: 16
+      example: 55555666959
+      description: |
+        Specifies the linked MID used for processing transactions with surcharge enabled.
+
+        If not applicable, this field is returned as an empty string.
+    fee_type: 
+      type: string
+      example: S
+      description: |
+        Specifies whether the merchant has convenience or surcharge fees enabled.
+        
+        Possible values are:
+        
+        * C - convenience fee
+        * F - service fee
+        * S - surcharge fee
+        * N - none
+    fee_value:
+      type: integer
+      example: 4
+      description: |
+        Specifies the fee value configured for the MID, where the value is either a percentage or flat amount, used to calculate the fee for each transaction.
     merchid:
       maxLength: 16
       type: string
-    inquireMerchantRequest:
+    site: 
+      type: string
+      example: <mid site>
+      description: The site that the MID is configured to use.
+      maxLength: 12
+    inquireMerchantSuccess:
       x-model-version:
-      description: inquireMerchant Request
+      description: inquireMerchant Response
       properties:
+        acctupdater:
+          $ref: "#/components/schemas/acctupdater"
+        avs:
+          $ref: "#/components/schemas/avs"
+        cardproc:
+          $ref: '#/components/schemas/cardproc'
+        cvv:
+          $ref: '#/components/schemas/cvv'
+        echeck:
+          $ref: '#/components/schemas/echeck'
+        enabled:
+          $ref: '#/components/schemas/enabled'
+        fee_format:
+          $ref: '#/components/schemas/fee_format'
+        fee_merchid:
+          $ref: '#/components/schemas/fee_merchid'
+        fee_type:
+          $ref: '#/components/schemas/fee_type'
+        fee_value:
+          $ref: '#/components/schemas/fee_value'
         merchid:
           description: The MID to validate against the site specified in the request URL.
           example: 496082673999
+          $ref: '#/components/schemas/merchid'
+        site:
+          $ref: '#/components/schemas/site'
     TokenizeSuccess:
       x-model-version: 1.0
       description: Error information
