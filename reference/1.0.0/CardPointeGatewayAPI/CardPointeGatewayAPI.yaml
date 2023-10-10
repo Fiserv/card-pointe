@@ -72,39 +72,6 @@ paths:
           content:  
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
-  /cardsecure/api/v1/echo:
-    x-model-version: 1.0
-    post:
-      tags:
-        - echo
-      x-group-name: CardPointe Gateway API
-      x-proxy-name: 'echo'
-      summary: Send a ping command to the server.
-      description: A call to the echo service endpoint sends a ping command to the CardSecure server to verify the application's connection.
-      requestBody:
-        required: true
-        content:
-          application/JSON:
-            schema:
-              $ref: '#/components/schemas/EchoRequest'
-      parameters:
-        - $ref: '#/components/parameters/ContentTypeHeader'
-      responses:          
-        200:
-          description: Success
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/EchoSuccess'}
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
 components:
   parameters:
     TimestampHeader:
