@@ -77,7 +77,7 @@ paths:
       tags:
         - surcharge Endpoint Definition
       x-group-name: CardPointe Gateway API
-      x-proxy-name: inquireMerchant
+      x-proxy-name: surcharge
       x-default-example: PaymentCard
       summary: The surcharge endpoint is used to determine whether a surcharge fee will be applied to a transaction, based on the cardholder's postal code and payment method.
       description: |+ 
