@@ -37,7 +37,7 @@ servers:
  - {url: 'DNE', description: Production}
  - {url: 'DNE', description: Sandbox}
 paths:
-  /cardconnect/rest/inquireMerchant/{merchid}:
+  /cardconnect/rest/inquireMerchant:
     get:
       tags:
         - inquireMerchant Endpoint Definition
@@ -48,12 +48,60 @@ paths:
       description: |+
         A GET request to the inquireMerchant endpoint returns information on the merchant account configuration. This can be helpful for partners who need to validate their CardPointe merchant IDs or for businesses with merchants operating in multiple locations, to ensure that the merchant ID is boarded to the correct site.
       parameters:
-      - in: path
+      - in: query
         name: merchid
         required: true
         schema:
           $ref: '#/components/schemas/merchid'
           description: The MID to validate against the site specified in the request URL.
+      - in: header
+        $ref: '#/components/parameters/ContentTypeHeader'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/inquireMerchantSuccess'}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /cardconnect/rest/surcharge:
+    get:
+      tags:
+        - surcharge Endpoint Definition
+      x-group-name: CardPointe Gateway API
+      x-proxy-name: inquireMerchant
+      x-default-example: PaymentCard
+      summary: The surcharge endpoint is used to determine whether a surcharge fee will be applied to a transaction, based on the cardholder's postal code and payment method.
+      description: |+ 
+        The surcharge endpoint is used to determine whether or not a surcharge fee will be   applied to a transaction, based on the cardholder's postal code and payment method. This allows your application to notify the cardholder of the potential credit card surcharge prior to completing a transaction.
+        
+        This request does not effect whether a surcharge is applied to a transaction; the CardPointe Gateway automatically applies a surcharge depending on the merchant configuration and the eligibility of the payment account. This request is used only for informational purposes.
+      parameters:
+      - in: query
+        name: merchid
+        required: true
+        schema:
+          $ref: '#/components/schemas/merchid'
+          description: The MID to validate against the site specified in the request URL.
+      - in: query
+        name: postal
+        required: false
+        schema:
+          $ref: '#/components/schemas/postal'
+          description: The cardholder's postal code used to verify that hte cardholder's state supports surcharging. Optional if token is specified.
+      - in: query
+        name: token
+        required: false
+        schema:
+          $ref: '#/components/schemas/token'
       - in: header
         $ref: '#/components/parameters/ContentTypeHeader'
       responses:
@@ -301,11 +349,25 @@ components:
     merchid:
       maxLength: 16
       type: string
+    postal:
+      maxLength: 9
+      type: string
+      description: | 
+        The cardholder's postal code used to verify that the cardholder's state supports surcharging.
+
+        Optional if token is specified.
     site: 
       type: string
       example: <mid site>
       description: The site that the MID is configured to use.
       maxLength: 12
+    token: 
+      maxLength: 19
+      type: integer
+      description: | 
+        The tokenized account number used to verify that the card type is eligible for surcharging.
+
+        Optional if postal is specified.
     inquireMerchantSuccess:
       x-model-version:
       description: inquireMerchant Response
