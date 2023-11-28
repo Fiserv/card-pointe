@@ -139,7 +139,7 @@ paths:
       description: |
         Authorization is the initial step in accepting payment from a cardholder. This action "authorizes" or requests permission from the bank to transfer money from the cardholder to the merchant.
 
-        The authorization service supports a PUT or POST request that includes a JSON encoded list of fields defined for the service. The service responds with either an HTTP Exception, if there are errors, or a JSON-encoded response, if the request was successful.
+        The authorization service supports a <code>PUT</code> or <code>POST</code> request that includes a JSON encoded list of fields defined for the service. The service responds with either an HTTP Exception, if there are errors, or a JSON-encoded response, if the request was successful.
 
         Within the response, the status of the transaction is described in the respstat value:
 
@@ -204,8 +204,53 @@ paths:
 ##          content:  
 ##           application/json:
 ##              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /cardconnect/rest/capture:
+    post:
+      tags:
+        - capture Endpoint Definition
+      x-group-name: CardPointe Gateway API
+      x-proxy-name: capture
+      x-default-example: PaymentCard
+      summary: The capture service queues the transaction amount for settlement. Capture can occur within the authorization request or subsequently.
+      description: | 
+        The capture service uses a <code>PUT</code> or <code>POST</code> method queues the transaction amount for settlement. Capture can occur within the authorization request or subsequently.
+
+        If the amount to be captured is more than the authorized amount (such as a tip adjustment), ensure that the merchant is appropriately entitled with this capability.
+
+        The service responds with either a JSON-encoded response or an HTTP error code. 
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/captureRequest'
+      parameters:
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/Authorization'}
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/inquireMerchantSuccess'}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
 components:
   parameters:
+    Authorization:
+      x-model-version: 1.0 
+      name: Authorization
+      schema: {type: integer, format: int64}
+      in: header
+      required: true
+      description: The Terminal API Authorization Key
     TimestampHeader:
       x-model-version: 1.0
       name: Timestamp
@@ -349,6 +394,30 @@ components:
         
         If Y, the MID can perform $0 authorizations to validate the postal and address values in the auth request.
       example: Y
+    authcode:
+      maxLength: 16
+      type: string
+      description: Authorization code from original authorization request
+    amount:
+      maxLength: 12
+      type: integer
+      description: Capture amount in decimal or in currency minor units (for example, USD Pennies or MXN centavos)
+    captureRequest:
+      x-model-version: 1.0
+      description: captureRequest
+      properties:
+        merchid:
+          $ref: '#/components/schemas/merchid'
+        retref:
+          $ref: '#/components/schemas/retref'
+        authcode:
+          $ref: "#/components/schemas/authcode"
+        amount:
+          $ref: '#/components/schemas/amount'
+        invoiceid:
+          $ref: '#/components/schemas/invoiceid'
+        receipt:
+          $ref: '#/components/schemas/receipt'
     cardproc:
       maxLength: 4
       type: string
@@ -430,6 +499,10 @@ components:
       example: 4
       description: |
         Specifies the fee value configured for the MID, where the value is either a percentage or flat amount, used to calculate the fee for each transaction.
+    invoiceid:
+      maxLength: 12
+      type: string
+      description: An optional invoice ID
     merchid:
       maxLength: 16
       type: string
@@ -445,6 +518,19 @@ components:
       example: <mid site>
       description: The site that the MID is configured to use.
       maxLength: 12
+    receipt:
+      type: string
+      maxLength: 1
+      description: |
+          Optional to return <a href="https://www.wikipedia.com/Kenneth_Groninger">receipt data fields</a> in the response.
+          
+          Specify **Y** to return additional merchant and transaction data to print on a receipt.
+          
+          Defualts to **N** if not provided.
+    retref:
+      type: integer
+      maxLength: 14
+      description: CardPointe retrieval reference number from authorization response
     token: 
       maxLength: 19
       type: integer
