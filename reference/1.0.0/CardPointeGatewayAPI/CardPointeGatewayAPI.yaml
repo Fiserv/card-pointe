@@ -162,48 +162,48 @@ paths:
           content:  
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
-   put:
-      tags:
-        - auth PUT Endpoint Definition
-      x-group-name: CardPointe Gateway API
-      x-proxy-name: auth
-      x-default-example: PaymentCard
-      summary: A GET request to the inquireMerchant endpoint returns information on the merchant account configuration.
-      description: |
-        Authorization is the initial step in accepting payment from a cardholder. This action "authorizes" or requests permission from the bank to transfer money from the cardholder to the merchant.
+##   put:
+##      tags:
+##        - auth PUT Endpoint Definition
+##      x-group-name: CardPointe Gateway API
+##      x-proxy-name: auth
+##      x-default-example: PaymentCard
+##      summary: A GET request to the inquireMerchant endpoint returns information on the merchant account configuration.
+##      description: |
+##        Authorization is the initial step in accepting payment from a cardholder. This action "authorizes" or requests permission from the bank to transfer money from the cardholder to the merchant.
 
-        The authorization service supports a PUT or POST request that includes a JSON encoded list of fields defined for the service. The service responds with either an HTTP Exception, if there are errors, or a JSON-encoded response, if the request was successful.
+##        The authorization service supports a PUT or POST request that includes a JSON encoded list of fields defined for the service. The service responds with either an HTTP Exception, if there are errors, or a JSON-encoded response, if the request was successful.
 
-        Within the response, the status of the transaction is described in the respstat value:
-
-        * A - Approved
-        * B - Retry
-        * C - Declined
-      parameters:
-      - in: query
-        name: merchid
-        required: true
-        schema:
-          $ref: '#/components/schemas/merchid'
-          description: The MID to validate against the site specified in the request URL.
-      - in: header
-        $ref: '#/components/parameters/ContentTypeHeader'
-      responses:
-        200: 
-          description: Success
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/inquireMerchantSuccess'}
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
+##        Within the response, the status of the transaction is described in the respstat value:
+##
+##        * A - Approved
+##        * B - Retry
+##        * C - Declined
+##      parameters:
+##      - in: query
+##        name: merchid
+##        required: true
+##        schema:
+##          $ref: '#/components/schemas/merchid'
+##          description: The MID to validate against the site specified in the request URL.
+##      - in: header
+##        $ref: '#/components/parameters/ContentTypeHeader'
+##      responses:
+##        200: 
+##          description: Success
+##          content:
+##            application/json:
+##              schema: {$ref: '#/components/schemas/inquireMerchantSuccess'}
+##        400:
+##          description: Not Found
+##          content:
+##            application/json:
+##              schema: {$ref: '#/components/schemas/NotFoundError'}
+##        404:
+##          description: Bad Request
+##          content:  
+##           application/json:
+##              schema: {$ref: '#/components/schemas/BadRequestError'}
 components:
   parameters:
     TimestampHeader:
