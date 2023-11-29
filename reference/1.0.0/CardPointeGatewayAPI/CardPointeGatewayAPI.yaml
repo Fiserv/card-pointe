@@ -214,6 +214,8 @@ paths:
       summary: The capture service queues the transaction amount for settlement. Capture can occur within the authorization request or subsequently.
       description: | 
         The capture service uses a <code>PUT</code> or <code>POST</code> method queues the transaction amount for settlement. Capture can occur within the authorization request or subsequently.
+        
+        Both <code>merchid</code> and <code>retref</code> are required fields.
 
         If the amount to be captured is more than the authorized amount (such as a tip adjustment), ensure that the merchant is appropriately entitled with this capability.
 
@@ -231,7 +233,7 @@ paths:
           description: Success
           content:
             application/json:
-              schema: {$ref: '#/components/schemas/inquireMerchantSuccess'}
+              schema: {$ref: '#/components/schemas/captureSuccess'}
         400:
           description: Not Found
           content:
@@ -382,6 +384,11 @@ components:
       in: header
       description: A message to send in the ping request and receive in the response. The value can be blank, however the message field must be included in the request.
   schemas:
+    account:
+      maxLength: 19
+      type: integer
+      description: Masked account number
+      example: 9441149619831111
     avs:
       maxLength: 1
       type: string
@@ -398,10 +405,17 @@ components:
       maxLength: 16
       type: string
       description: Authorization code from original authorization request
+      example: 046221
     amount:
       maxLength: 12
       type: integer
       description: Capture amount in decimal or in currency minor units (for example, USD Pennies or MXN centavos)
+      example: 0.01
+    batchid:
+      maxLength: 12
+      type: string
+      description: The Batch ID automatically created and assigned to transaction unless specified otherwise.
+      example: 1900941262
     captureRequest:
       x-model-version: 1.0
       description: captureRequest
@@ -418,11 +432,41 @@ components:
           $ref: '#/components/schemas/invoiceid'
         receipt:
           $ref: '#/components/schemas/receipt'
+    captureSuccess:
+      x-model-version: 1.0
+      description: captureSuccess
+      properties:
+        merchid:
+          $ref: '#/components/schemas/merchid'
+        account: 
+          $ref: '#/components/schemas/account'
+        authcode:
+          $ref: "#/components/schemas/authcode"
+        orderid:
+          $ref: '#/components/schemas/orderId'
+        amount:
+          $ref: '#/components/schemas/amount'
+        retref:
+          $ref: '#/components/schemas/retref'
+        batchid:
+          $ref: '#/components/schemas/batchid'
+        commcard:
+          $ref: '#/components/schemas/commcard'
+        setlstat:
+          $ref: '#/components/schemas/setlstat'
+        receipt:
+          $ref: '#/components/schemas/receipt'
     cardproc:
       maxLength: 4
       type: string
       description: The card processor that the MID is configured to use.
       example: RPCT
+    commcard:
+      maxLength: 1
+      type: string
+      description: |
+        **Y** if corporate card
+      example: N
     cvv:
       maxLength: 1
       type: string
@@ -503,9 +547,11 @@ components:
       maxLength: 12
       type: string
       description: An optional invoice ID
+      example: 120393822
     merchid:
       maxLength: 16
       type: string
+      example: 123456789012
     postal:
       maxLength: 9
       type: string
@@ -513,6 +559,17 @@ components:
         The cardholder's postal code used to verify that the cardholder's state supports surcharging.
 
         Optional if token is specified.
+      example: 19355
+    orderId:
+      maxLength: 50
+      type: string
+      description: |
+        The <code>orderId</code>, copied from the authorization request.
+
+        The <code>orderId</code> is returned in the response when the request includes an <code>orderId</code> and <code>"receipt":"y"</code>.
+
+        If no <code>orderId</code> was passed and <code>"receipt":"json"</code>, <code>"n"</code>, or omitted the <code>orderId</code> field is omitted from the response.
+      example: "7372819823727189E76"
     site: 
       type: string
       example: <mid site>
@@ -527,10 +584,25 @@ components:
           Specify **Y** to return additional merchant and transaction data to print on a receipt.
           
           Defualts to **N** if not provided.
+      example: N
     retref:
       type: integer
       maxLength: 14
       description: CardPointe retrieval reference number from authorization response
+    setlstat:
+      maxLength: 40
+      type: string
+      description: |
+        The current settlement status. The settlement status changes throughout the transaction lifecycle, from authorization to settlement. The following values can be returned in the capture response:
+
+        ***Note: See Settlement Status Response Values for a complete list of setlstat values.***
+
+        * Authorized - The authorization was approved, but the transaction has not yet been captured. 
+        * Declined - The authorization was declined; therefore, the transaction can not be captured.
+        * Queued for Capture - The authorization was approved and captured but has not yet been sent for settlement.
+        * Voided - The authorization was voided; therefore, the transaction cannot be captured.
+        * Zero Amount - The authorization was a $0 auth for account validation, which cannot be captured. 
+      example: Authorized
     token: 
       maxLength: 19
       type: integer
