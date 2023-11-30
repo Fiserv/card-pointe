@@ -244,6 +244,53 @@ paths:
           content:  
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
+  /cardconnect/rest/void:
+    post:
+      tags:
+        - void Endpoint Definition
+      x-group-name: CardPointe Gateway API
+      x-proxy-name: void
+      x-default-example: PaymentCard
+      summary: The void service cancels a transaction that is in either "Authorized" or "Queued for Capture" status.
+      description: | 
+        The void service cancels a transaction that is in either "Authorized" or "Queued for Capture" status.
+
+        Partial voids are not supported for debit transactions. If you specify a partial void amount for a debit transaction, the entire amount is voided. Omit the amount or specify the full amount for a debit void.
+
+        You can retrieve the status of a transaction using the inquire or inquireByOrderid endpoint. 
+
+        The response includes a voidable field, which indicates whether or not the transaction can be voided.
+
+        The setlstatfield in determines the amount that can be voided, where:
+
+        "setlstat" : "Authorized"
+        This status indicates the transaction has been authorized but not queued for capture. The entire amount or a partial amount can be voided.
+        "setlstat" : "Queued for Capture"
+        Only the entire amount can be voided.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/voidRequest'
+      parameters:
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/Authorization'}
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/captureSuccess'}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
 components:
   parameters:
     Authorization:
@@ -467,6 +514,11 @@ components:
       description: |
         **Y** if corporate card
       example: N
+    currency:
+      maxLength: 3
+      type: string
+      description: Currency type taken from the original authorization request.
+      example: USD
     cvv:
       maxLength: 1
       type: string
@@ -497,6 +549,7 @@ components:
       maxLength: 1
       type: string
       description: |
+
         Specifies whether or not the MID is enrolled in the Card Account Updater service.
         
         Possible values are:
@@ -575,6 +628,65 @@ components:
       example: <mid site>
       description: The site that the MID is configured to use.
       maxLength: 12
+    voidRequest:
+      x-model-version: 1.0
+      description: voidRequest
+      properties:
+        merchid:
+          $ref: '#/components/schemas/merchid'
+        retref:
+          $ref: '#/components/schemas/retref'
+        amount:
+          $ref: '#/components/schemas/amount'
+    voidResponse:
+      x-model-version: 1.0
+      description: voidResponse
+      properties:
+        merchid:
+          $ref: '#/components/schemas/merchid'
+        orderId:
+          $ref: '#/components/schemas/orderId'
+        amount:
+          $ref: '#/components/schemas/amount'
+        currency:
+          $ref: '#/components/schemas/currency'
+        retref:
+          $ref: '#/components/schemas/retref'
+        respcode:
+          $ref: '#/components/schemas/respcode'
+        respproc:
+          $ref: '#/components/schemas/respproc'
+        respstat:
+          $ref: '#/components/schemas/respstat'
+        resptext:
+          $ref: '#/components/schemas/resptext'
+        receipt:
+          $ref: '#/components/schemas/receipt'
+    respstat:
+      example: A
+      maxLength: 1
+      type: string
+      description: |
+        Indicates the status of the request. Can be one of the following values:
+          
+        * A - Approved
+        * B - Retry
+        * C - Declined
+    respcode:
+      maxLength: 3
+      type: string
+      description: Alpha-numeric <a href=https://developer.cardpointe.com/gateway-response-codes>response code</a> that represents the description of the response. 
+      example: 00
+    respproc: 
+      type: string
+      maxLength: 4
+      description: Abbreviation that reprersents the platform and the processor for the trransaction
+      example: FNOR
+    resptext:
+      type: string
+      maxLength: 40
+      description: Text description of the response
+      example: Approval
     receipt:
       type: string
       maxLength: 1
@@ -589,6 +701,7 @@ components:
       type: integer
       maxLength: 14
       description: CardPointe retrieval reference number from authorization response
+      example: 123456789012
     setlstat:
       maxLength: 40
       type: string
