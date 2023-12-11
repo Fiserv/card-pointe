@@ -291,6 +291,54 @@ paths:
           content:  
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
+  /cardconnect/rest/refund:
+    post:
+      tags:
+        - refund Endpoint Definition
+      x-group-name: CardPointe Gateway API
+      x-proxy-name: refund
+      x-default-example: PaymentCard
+      summary: The refund service is used for transactions that are in a settled status.
+      description: | 
+        The refund service is used for transactions that are in a settled status.
+        
+        <code>merchid</code> and <code>retref</code> are required fields.
+
+        You can refund a specific transaction using the retrieval reference number <code>retref</code> provided in the authorization response. 
+        
+        You can retrieve the status of a transaction using the <a href="https://developerstudio.fiserv.com/product/CardPointe/api/?type=get&path=/cardconnect/rest/inquire">inquire</a> or <a href="https://developerstudio.fiserv.com/product/CardPointe/api/?type=get&path=/cardconnect/rest/inquireByOrderid">inquireByOrderid</a> endpoint.
+
+        The response includes a <code>refundable</code> field, which indicates whether or not the transaction can be refunded.
+
+        The specific transaction status is recorded in the <code>setlstat</code> field.
+        
+        Some banks impose maximum time limits (for example, 6 months) to perform a refund using a retref. 
+
+        If you do not have a retref for the transaction, you can return funds to an account by passing a negative <code>amount</code> (forced credit) in an authorization and subsequent capture request. 
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/refundRequest'
+      parameters:
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/Authorization'}
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/refundResponse'}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
 components:
   parameters:
     Authorization:
@@ -596,6 +644,42 @@ components:
       example: 4
       description: |
         Specifies the fee value configured for the MID, where the value is either a percentage or flat amount, used to calculate the fee for each transaction.
+    declineCategory:
+      type: integer
+      maxLength: 1
+      description: |
+        A numeric decline category code, only returned for declined transactions using Visa accounts.
+
+        See <a href="https://support.cardpointe.com/compliance/visa-decline-rules">Visa Decline Rules and Responses</a> for detailed information on handling Visa declines.
+
+        One of the following values:
+
+        * 1 - Issuer Will Never Approve.
+
+        In this case, the merchant should never reattempt to authorize the transaction, and the cardholder must provide an alternate payment method. This code can be returned for accounts that are blocked, never existed, or are otherwise flagged as invalid by the issuer.
+
+        * 2 - Issuer Cannot Approve at this Time.
+
+        In this case, the merchant may reattempt the authorization at a later time. Reasons for this decline can include velocity controls, credit risk holds, or system errors.
+
+        Note: You may reattempt this transaction a maximum of 15 times in a 30-day period before incurring excessive reattempt fees, unless you receive an updated declineCategory of 1, in which case you should no longer reattempt this transaction.
+
+        * 3 - Issuer Cannot Approve Based on Details Provided.
+
+        In this case, the card has been declined due to incorrect data, such as the CVV, expiry, or PIN. The merchant may attempt the authorization, after obtaining the corrected data.
+
+        Note: You may reattempt this transaction a maximum of 15 times in a 30-day period before incurring excessive reattempt fees, unless you receive an updated declineCategory of 1, in which case you should no longer reattempt this transaction.
+    declineCategoryText:
+      type: string
+      maxLength: 25
+      description: |
+        A text description of the declineCategory value.
+
+        One of the following:
+
+        * <code>Do not retry</code> - Returned for declineCategory 1.
+        * <code>Wait to retry</code> - Returned for declineCategory 2.
+        * <code>Fix the request and retry</code> - Returned for declineCategory 3. 
     invoiceid:
       maxLength: 12
       type: string
@@ -622,6 +706,10 @@ components:
         The <code>orderId</code> is returned in the response when the request includes an <code>orderId</code> and <code>"receipt":"y"</code>.
 
         If no <code>orderId</code> was passed and <code>"receipt":"json"</code>, <code>"n"</code>, or omitted the <code>orderId</code> field is omitted from the response.
+        
+        The order ID must be a unique value. Using duplicate order IDs can lead to the wrong transaction being voided in the event of a timeout.
+        
+        The order ID must not include any portion of a payment account number (PAN), and no portion of the order ID should be mistaken for a PAN. If the order ID passes the Luhn check performed by the CardPointe Gateway, the value will be masked in the database, and attempts to use the order ID in an inquire, void, or refund request will fail.
       example: "7372819823727189E76"
     site: 
       type: string
@@ -662,6 +750,44 @@ components:
           $ref: '#/components/schemas/resptext'
         receipt:
           $ref: '#/components/schemas/receipt'
+    refundRequest:
+      x-model-version: 1.0
+      description: refundRequest
+      properties:
+        merchid:
+          $ref: '#/components/schemas/merchid'
+        retref:
+          $ref: '#/components/schemas/retref'
+        amount:
+          $ref: '#/components/schemas/amount'
+        orderid:
+          $ref: '#/components/schemas/orderId'
+    refundResponse:
+      x-model-version: 1.0
+      description: refundResponse
+      properties: 
+        merchid:
+          $ref: '#/components/schemas/merchid'
+        retref:
+          $ref: '#/components/schemas/retref'
+        amount:
+          $ref: '#/components/schemas/amount'
+        orderid:
+          $ref: '#/components/schemas/orderId'
+        respcode:
+          $ref: '#/components/schemas/respcode'
+        respproc:
+          $ref: '#/components/schemas/respproc'
+        respstat:
+          $ref: '#/components/schemas/respstat'
+        resptext:
+          $ref: '#/components/schemas/resptext'
+        receipt:
+          $ref: '#/components/schemas/receipt'
+        declineCategory:  
+          $ref: '#/components/schemas/declineCategory'
+        declineCategoryText:
+          $ref: '#/components/schemas/declineCategoryText'
     respstat:
       example: A
       maxLength: 1
