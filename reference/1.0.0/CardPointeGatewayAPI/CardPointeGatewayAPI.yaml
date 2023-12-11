@@ -280,7 +280,7 @@ paths:
           description: Success
           content:
             application/json:
-              schema: {$ref: '#/components/schemas/captureSuccess'}
+              schema: {$ref: '#/components/schemas/voidResponse'}
         400:
           description: Not Found
           content:
