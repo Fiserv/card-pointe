@@ -151,7 +151,7 @@ paths:
           description: Success
           content:
             application/json:
-              schema: {$ref: '#/components/schemas/inquireMerchantSuccess'}
+              schema: {$ref: '#/components/schemas/authResponse'}
         400:
           description: Not Found
           content:
@@ -539,6 +539,13 @@ components:
         
         If Y, the MID can perform $0 authorizations to validate the postal and address values in the auth request.
       example: Y
+    avsresp:
+      maxLength: 2
+      type: string
+      description: |
+        	Alpha-numeric AVS (zip code) verification response code.
+
+          Note: <code>avsresp</code> is typically only returned for approved authorizations, however this field can be returned in the response for a declined authorization if this setting is enabled for the merchant account.
     authcode:
       maxLength: 16
       type: string
@@ -570,14 +577,50 @@ components:
           $ref: '#/components/schemas/resptext'
         respproc:
           $ref: '#/components/schemas/respproc'
-##        cof:
-##          $ref: '#/components/schemas/cof'
-##        avsresp:
-##          $ref: '#/components/schemas/avsresp'
-##        cvvresp:
-##          $ref: '#/components/schemas/cvvresp'
-          
-        
+        cof:
+          $ref: '#/components/schemas/cof'
+        avsresp:
+          $ref: '#/components/schemas/avsresp'
+        cvvresp:
+          $ref: '#/components/schemas/cvvresp'
+        binInfo:
+          $ref: '#/components/schemas/binInfo'
+        bintype:
+          $ref: '#/components/schemas/bintype'
+        entrymode:
+          $ref: '#/components/schemas/entrymode'
+        fee_amount:
+          $ref: '#/components/schemas/fee_amount'
+        fee_authcode:
+          $ref: '#/components/schemas/fee_authcode'
+        fee_format:
+          $ref: '#/components/schemas/fee_format'
+        fee_merchid:
+          $ref: '#/components/schemas/fee_merchid'
+        fee_retref:
+          $ref: '#/components/schemas/fee_retref'
+        fee_type:
+          $ref: '#/components/schemas/fee_type'
+        fee_value:
+          $ref: '#/components/schemas/fee_value'
+        declineCategory:
+          $ref: '#/components/schemas/declineCategory'
+        declineCategoryText:
+          $ref: '#/components/schemas/declineCategoryText'
+        authcode:
+          $ref: '#/components/schemas/authcode'
+        signature:
+          $ref: '#/components/schemas/signature'
+        commcard:
+          $ref: '#/components/schemas/commcard'
+        emv:
+          $ref: '#/components/schemas/emv'
+        emvTagData:
+          $ref: '#/components/schemas/emvTagData'
+        receipt:
+          $ref: '#/components/schemas/receipt'
+        receiptObj:
+          $ref: '#/components/schemas/receiptObj'
     amount:
       maxLength: 12
       type: integer
@@ -597,6 +640,82 @@ components:
         * Prepaid+Purchase
         * Purchase
       example: ""
+    binInfo:
+      type: array
+      items:
+        properties:
+          country:
+            type: string
+            description: Issuer country of origin
+            example: USA
+          product:
+            type: string
+            example: D
+            description: |
+              Card type, one of the following:
+                * A = Amex
+                * D = Discover
+                * M = Mastercard
+                * N = Non-co-branded debit card
+                * V = Visa
+          bin:
+            type: integer
+            example: 601101
+            description: The bank identification number (BIN) of the card used.
+          cardusestring:
+            type: string
+            example: True credit, No PIN/Signature capability
+            description: |
+              General usage type, one of the following:
+                * Credit Hybrid (PIN and Signature)
+                * PIN Only Debit with Electronic Benefit Transfer
+                * Debit Hybrid (PIN and Signature)
+                * USA Commercial Debit, Signature Only, No PIN Access
+                * USA Commercial Debit, PIN Capable
+                * Non USA Consumer Debit, No PIN Access
+                * Non USA Commercial Debit, No PIN Access
+                * Non USA Consumer Debit, PIN Capable
+                * Non USA Commercial Debit, PIN Capable
+                * PIN Only Debit without Electronic Benefit Transfer
+                * Private Label Credit (MasterCard)
+                * Signature only Debit, No PIN Access
+                * True credit, No PIN/Signature capability
+          gsa:
+            type: boolean
+            example: false
+            description: Indicates if card used is a GSA card.
+          corporate:
+            type: boolean
+            example: false
+            description: Indicates if card used is a corporate card. 
+          fsa:
+            type: boolean
+            example: false
+            description: Indicates if card used is an FSA card. 
+          subtype:
+            type: string
+            example: Consumer Credit - Rewards
+            description: Detailed subtype of card, blank if not available.
+          purchase:
+            type: boolean
+            example: false
+            description: Indicates if card used is a purchase card.
+          prepaid:
+            type: boolean
+            example: false
+            description: Indicates if card used is a prepaid card.
+          issuer:
+            type: string
+            example: " "
+            description: Card issuing bank/institution 
+          binlo:
+            type: integer
+            example: 601100XXX
+            description: The low end of the BIN range that includes the card's BIN value. Masked after the first six digits.
+          binhi:
+            type: integer
+            example: 601102XXX
+            description: The high end of the BIN range that includes the card's BIN value. Masked after the first six digits.
     batchid:
       maxLength: 12
       type: string
@@ -652,6 +771,16 @@ components:
       type: string
       description: The card processor that the MID is configured to use.
       example: RPCT
+    cof:
+      maxLength: 1
+      type: string
+      description: | 
+        Returns the <code>cof</code> value, if included in the authorization request. 
+
+        One for the following values:
+          * C - Customer-Initiated Transaction (CIT)
+          * M - Merchant-Initiated Transaction (MIT)
+      example: C
     commcard:
       maxLength: 1
       type: string
@@ -676,6 +805,20 @@ components:
   
         If Y, the MID can perform $0 authorizations to validate the cvv2 value in the auth request.
       example: Y
+    cvvresp:
+      maxLength: 1
+      type: string
+      description: |
+        Alpha-numeric CVV (card verification value) verification response code, if returned by the processor.
+
+        One of the following values:
+          * M - Valid CVV Match.
+          * N - Invalid CVV.
+          * P - CVV Not Processed.
+          * S - Merchant indicated that the CVV is not present on the card.
+          * U - Card issuer is not certified and/or has not provided Visa encryption keys.
+          * X or blank - No response. 
+        Note: <code>cvvresp</code> is typically only returned for approved authorizations, however this field can be returned in the response for a declined authorization if this setting is enabled for the merchant account.
     echeck:
       maxLength: 1
       type: string
@@ -733,7 +876,7 @@ components:
             type: string
             example: Verified by PIN
             description: | 
-              Indicates the results of the last CVM performed. If PIN was entered, then "Verified by PIN"	
+              Indicates the results of the last CVM performed. If PIN was entered, then "Verified by PIN"  
               
               Tag: 9F34
           Signature:
@@ -790,7 +933,7 @@ components:
           Application Label:
             example: VISA CREDIT
             type: string
-            description: Mnemonic associated with the AID according to ISO/IEC 7816-5. If unavailable Application Preferred Name displayed. 	
+            description: Mnemonic associated with the AID according to ISO/IEC 7816-5. If unavailable Application Preferred Name displayed.   
     enabled:
       type: boolean
       example: true
@@ -799,6 +942,10 @@ components:
       type: string
       example: 1228
       description: The account's expiration date in MMYY.
+    emv:
+      description: Authorization Response Cryptogram (ARPC). This is returned only when EMV data is present within the Track Parameter.
+      type: string
+      example: " "
     entrymode:
       maxLength: 25
       example: Digital Wallet
@@ -819,6 +966,11 @@ components:
       maxLength: 6
       type: integer
       description: Duplicate of the <code>authcode</code> field included if the transaction included a fee (for example, a credit card surcharge).
+    fee_amount:
+      maxLength: 14
+      example: 1402
+      description: The fee amount (for example a credit card surcharge amount) applied to the transaction in dollars and cents.
+      type: number
     fee_format:
       type: string
       description: | 
@@ -1129,6 +1281,114 @@ components:
           
           Defualts to **N** if not provided.
       example: N
+    receiptObj:
+      type: array 
+      items:
+        properties:
+          address1:
+            type: string 
+            description: First line of the merchant's address.
+            example: 1000 Continental Dr., King of Prussia, PA. 19355
+          address2:
+            type: string
+            description: Second line of merchant's address.
+            example: " "
+          Application Label:
+            type: string
+            description: Duplicated from the <code>emvTagData</code> object. Mnemonic associated with the AID according to ISO/IEC 7816-5. 
+            example: VISA CREDIT
+          dateTime:
+            type: number
+            description: The date and time of the transaction (YYYYMMDDHHMMSS).
+            example: 202408020322
+          dba:
+            type: string
+            description: The merchant's Doing Business As (DBA) name. 
+            example: Dyl's Deals
+          emv:
+            type: array
+            items:
+              properties:
+                TVR:
+                  description: |
+                    Terminal Verification Results displays the status of the different functions as seen from the terminal.
+                    
+                    Tag: 95
+                  type: number
+                  example: 0001100129
+                ARC:
+                  description: |
+                    The Authorization Response Code indicates the transaction disposition of the transaction received from the issuer for theonline authorization.
+                    
+                    Tag: 8A
+                  type: string
+                  example: 00
+                TSI:
+                  description: |
+                    The Transaction Status Information field indicates the functions performed in a transaction. 
+                    
+                    Tag: 9B
+                  type: integer
+                  example: 6800
+                AID:
+                  example: A0000000031010
+                  type: string
+                  description: The Application Identified Data identifies the application as described in ISO/IEC 7816-5.
+                IAD: 
+                  example: 06010A03A0B800
+                  type: string
+                  description: The Issuer Application Data contains proprietary application data for transmission to the issuer in an online transaction.
+        Entry Method:
+          type: string
+          description: |
+            Duplicated from the emvTagData object. 
+            Indicator identifying how the card information was obtained.
+            
+            One of the following values:
+            
+            * Manual
+            * Chip Read
+            * Contactless Chip
+            * Fallback Keyed
+          example: Chip Read
+        footer:
+          type: string
+          description: A customizable field to display an alphanumeric message. For example, a specific terms, disclosure, or cardholder agreement statement.
+          example: " "
+        header: 
+          type: string
+          description: A customizable field to display an alphanumeric message. For example, a specific terms, disclosure, or cardholder agreement statement.
+          example: " "
+        items: 
+          type: string
+          description: A custom item descriptor, if included in the userFields in the authorization request.
+          example: " "
+        Mode: 
+          type: string
+          description: Duplicated from the <code>emvTagData</code> object. Identifies the mode used to authorize (or decline) the transaction. Always Issuer.
+          example: Issuer
+        nameOnCard:
+          type: string
+          description: The Cardholder's name, if included in the authorization request.
+          example: Dylan Wolf
+        orderNote:
+          type: string
+          description: A custom order note, if included in the userFields in the authorization request.
+          example: " "
+        phone:
+          type: string
+          description: The merchant's phone number.
+          exampel: 123-456-7890
+        PIN: 
+          type: string
+          description:  Duplicated from the <code>emvTagData</code> object. Indicates the results of the last CVM performed. If PIN was entered, then "Verified by PIN"
+          example: Verified by PIN
+        Signature:
+          type: string
+          description: |
+            Duplicated from the <code>emvTagData</code> object. Indicates the results of the last CVM performed. If "true" then CVM supports signature and signature line may be applicable. However, card brands have moved away from requiring signature.
+
+            Returns "unknown" if the signature requirement could not be determined.
     refundable:
       type: string
       description: |
