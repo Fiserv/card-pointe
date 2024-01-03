@@ -382,6 +382,65 @@ paths:
           content:  
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
+  /cardconnect/rest/inquireByOrderdid:
+    get:
+      tags:
+        - inquireByOrderid Endpoint Definition
+      x-group-name: CardPointe Gateway API
+      x-proxy-name: inquireByOrderid
+      x-default-example: PaymentCard
+      summary: Similar to the inquire endpoint, requests to the inquireByOrderid endpoint return information for an authorization; however, inquireByOrderid references the Order ID associated with the transaction instead of the retrieval reference number (retref). 
+      description: | 
+        Similar to the inquire endpoint, requests to the inquireByOrderid endpoint return information for an authorization; however, inquireByOrderid references the Order ID associated with the transaction instead of the retrieval reference number (retref). 
+        
+        This allows you to get information about a transaction if the original authorization was interrupted and no response was returned, including the retref (if one was generated).
+        
+        This request returns all transactions for the specified merchant ID (MID), using the specified Order ID. 
+
+        Specify **1** for the <code>set</code> parameter to restrict the inquiry to the specified MID. 
+        
+        If you have multiple MIDs and do not know which MID was used in the original transaction, you can omit the set parameter from the end of the request to optionally inquire on the order ID across all MIDs on the site.
+      parameters:
+      - in: query
+        name: merchid
+        required: true
+        schema:
+          $ref: '#/components/schemas/merchid'
+          description: The MID from the original authorization.
+      - in: query
+        name: orderid
+        required: true
+        schema:
+          $ref: '#/components/schemas/orderId'
+          description: The Order ID from the original authorization.
+      - in: query
+        name: set
+        required: false
+        schema:
+          description: Set this field to 1 to restrict the inquiry to the merchant ID (MID) specified in the request. If you have multiple MIDs and want to search for the order ID across all MIDs, omit this parameter.
+          example: " "
+          type: string
+          maxLength: 1
+      - in: header
+        $ref: '#/components/parameters/ContentTypeHeader'
+      - in: header
+        $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/inquireByOrderIDResponse'}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
 components:
   parameters:
     Authorization:
@@ -618,50 +677,7 @@ components:
         emvTagData:
           $ref: '#/components/schemas/emvTagData'
         receipt:
-          type: array
-          description: The receipt and receiptObj data fields provide additional merchant and authorization details for use in printing receipts. The receipt data includes merchant account information, populated using the merchant properties configured for the MID, as well as additional transaction details from the authorization response. You can optionally include a custom order note (orderNote) and item details (items), by including a userFields object in the authorization request. 
-          items:
-            properties:
-              address1:
-                type: string 
-                description: First line of the merchant's address.
-                example: 1000 Continental Dr., King of Prussia, PA. 19355
-              address2:
-                type: string
-                description: Second line of merchant's address.
-                example: " "
-              dateTime:
-                type: number
-                description: The date and time of the transaction (YYYYMMDDHHMMSS).
-                example: 202408020322
-              dba:
-                type: string
-                description: The merchant's Doing Business As (DBA) name. 
-                example: Dyl's Deals
-              footer:
-                type: string
-                description: A customizable field to display an alphanumeric message. For example, a specific terms, disclosure, or cardholder agreement statement.
-                example: " "
-              header: 
-                type: string
-                description: A customizable field to display an alphanumeric message. For example, a specific terms, disclosure, or cardholder agreement statement.
-                example: " "
-              items: 
-                type: string
-                description: A custom item descriptor, if included in the userFields in the authorization request.
-                example: " "
-              nameOnCard:
-                type: string
-                description: The Cardholder's name, if included in the authorization request.
-                example: Dylan Wolf
-              orderNote:
-                type: string
-                description: A custom order note, if included in the userFields in the authorization request.
-                example: " "
-              phone:
-                type: string
-                description: The merchant's phone number.
-                example: 123-456-7890
+          $ref: '#/components/schemas/receiptdata'
         receiptObj:
           $ref: '#/components/schemas/receiptObj'
     amount:
@@ -1166,6 +1182,72 @@ components:
           $ref: '#/components/schemas/declineCategory'
         declineCategoryText:
           $ref: '#/components/schemas/declineCategoryText'
+    inquireByOrderIDResponse:
+      x-model-version: 1.0
+      description: inquireByOrderID Response
+      properties:
+        amount:
+          $ref: '#/components/schemas/amount'
+        orderId:
+          $ref: '#/components/schemas/orderId'
+        resptext:
+          $ref: '#/components/schemas/resptext'
+        setlstat:
+          $ref: '#/components/schemas/setlstat'
+        respcode:
+          $ref: '#/components/schemas/respcode'
+        merchid:
+          $ref: '#/components/schemas/merchid'
+        token:
+          $ref: '#/components/schemas/token'
+        respproc:
+          $ref: '#/components/schemas/respproc'
+        authdate:
+          $ref: '#/components/schemas/authdate'
+        lastfour:
+          $ref: '#/components/schemas/lastfour'
+        name:
+          $ref: '#/components/schemas/name'
+        expiry:
+          $ref: '#/components/schemas/expiry'
+        currency:
+          $ref: '#/components/schemas/currency'
+        retref:
+          $ref: '#/components/schemas/retref'
+        respstat:
+          $ref: '#/components/schemas/respstat'
+        account:
+          $ref: '#/components/schemas/account'
+        bintype:
+          $ref: '#/components/schemas/bintype'
+        entrymode:
+          $ref: '#/components/schemas/entrymode'
+        fee_authcode:
+          $ref: '#/components/schemas/fee_authcode'
+        fee_format:
+          $ref: '#/components/schemas/fee_format'
+        fee_merchid:
+          $ref: '#/components/schemas/fee_merchid'
+        fee_retref:
+          $ref: '#/components/schemas/fee_retref'
+        fee_type:
+          $ref: '#/components/schemas/fee_type'
+        fee_value:
+          $ref: '#/components/schemas/fee_value'
+        emvTagData:
+          $ref: '#/components/schemas/emvTagData'
+        receipt:
+          $ref: '#/components/schemas/receiptdata'
+        userfields:
+          $ref: '#/components/schemas/userfields'
+        voidable:
+          $ref: '#/components/schemas/voidable'
+        refundable:
+          $ref: '#/components/schemas/refundable'
+        declineCategory:
+          $ref: '#/components/schemas/declineCategory'
+        declineCategoryText:
+          $ref: '#/components/schemas/declineCategoryText'
     invoiceid:
       maxLength: 12
       type: string
@@ -1324,6 +1406,51 @@ components:
           
           Defualts to **N** if not provided.
       example: N
+    receiptdata:
+          type: array
+          description: The receipt and receiptObj data fields provide additional merchant and authorization details for use in printing receipts. The receipt data includes merchant account information, populated using the merchant properties configured for the MID, as well as additional transaction details from the authorization response. You can optionally include a custom order note (orderNote) and item details (items), by including a userFields object in the authorization request. 
+          items:
+            properties:
+              address1:
+                type: string 
+                description: First line of the merchant's address.
+                example: 1000 Continental Dr., King of Prussia, PA. 19355
+              address2:
+                type: string
+                description: Second line of merchant's address.
+                example: " "
+              dateTime:
+                type: number
+                description: The date and time of the transaction (YYYYMMDDHHMMSS).
+                example: 202408020322
+              dba:
+                type: string
+                description: The merchant's Doing Business As (DBA) name. 
+                example: Dyl's Deals
+              footer:
+                type: string
+                description: A customizable field to display an alphanumeric message. For example, a specific terms, disclosure, or cardholder agreement statement.
+                example: " "
+              header: 
+                type: string
+                description: A customizable field to display an alphanumeric message. For example, a specific terms, disclosure, or cardholder agreement statement.
+                example: " "
+              items: 
+                type: string
+                description: A custom item descriptor, if included in the userFields in the authorization request.
+                example: " "
+              nameOnCard:
+                type: string
+                description: The Cardholder's name, if included in the authorization request.
+                example: Dylan Wolf
+              orderNote:
+                type: string
+                description: A custom order note, if included in the userFields in the authorization request.
+                example: " "
+              phone:
+                type: string
+                description: The merchant's phone number.
+                example: 123-456-7890
     receiptObj:
       type: array 
       description: The receipt and receiptObj data fields provide additional merchant and authorization details for use in printing receipts. The receipt data includes merchant account information, populated using the merchant properties configured for the MID, as well as additional transaction details from the authorization response. You can optionally include a custom order note (orderNote) and item details (items), by including a userFields object in the authorization request. 
