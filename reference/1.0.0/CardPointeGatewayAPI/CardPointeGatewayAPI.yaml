@@ -618,7 +618,50 @@ components:
         emvTagData:
           $ref: '#/components/schemas/emvTagData'
         receipt:
-          $ref: '#/components/schemas/receipt'
+          type: array
+          description: The receipt and receiptObj data fields provide additional merchant and authorization details for use in printing receipts. The receipt data includes merchant account information, populated using the merchant properties configured for the MID, as well as additional transaction details from the authorization response. You can optionally include a custom order note (orderNote) and item details (items), by including a userFields object in the authorization request. 
+          items:
+            properties:
+              address1:
+                type: string 
+                description: First line of the merchant's address.
+                example: 1000 Continental Dr., King of Prussia, PA. 19355
+              address2:
+                type: string
+                description: Second line of merchant's address.
+                example: " "
+              dateTime:
+                type: number
+                description: The date and time of the transaction (YYYYMMDDHHMMSS).
+                example: 202408020322
+              dba:
+                type: string
+                description: The merchant's Doing Business As (DBA) name. 
+                example: Dyl's Deals
+              footer:
+                type: string
+                description: A customizable field to display an alphanumeric message. For example, a specific terms, disclosure, or cardholder agreement statement.
+                example: " "
+              header: 
+                type: string
+                description: A customizable field to display an alphanumeric message. For example, a specific terms, disclosure, or cardholder agreement statement.
+                example: " "
+              items: 
+                type: string
+                description: A custom item descriptor, if included in the userFields in the authorization request.
+                example: " "
+              nameOnCard:
+                type: string
+                description: The Cardholder's name, if included in the authorization request.
+                example: Dylan Wolf
+              orderNote:
+                type: string
+                description: A custom order note, if included in the userFields in the authorization request.
+                example: " "
+              phone:
+                type: string
+                description: The merchant's phone number.
+                example: 123-456-7890
         receiptObj:
           $ref: '#/components/schemas/receiptObj'
     amount:
@@ -1283,6 +1326,7 @@ components:
       example: N
     receiptObj:
       type: array 
+      description: The receipt and receiptObj data fields provide additional merchant and authorization details for use in printing receipts. The receipt data includes merchant account information, populated using the merchant properties configured for the MID, as well as additional transaction details from the authorization response. You can optionally include a custom order note (orderNote) and item details (items), by including a userFields object in the authorization request. 
       items:
         properties:
           address1:
