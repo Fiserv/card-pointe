@@ -146,6 +146,11 @@ paths:
         * A - Approved
         * B - Retry
         * C - Declined
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/authRequest'
       responses:
         200: 
           description: Success
@@ -610,6 +615,223 @@ components:
       type: string
       description: Authorization code from original authorization request
       example: 046221
+    authRequest:
+      x-model-version:
+      description: auth Request
+      properties:
+        merchid:
+          $ref: '#/components/schemas/merchid'
+        amount:
+          $ref: '#/components/schemas/amount'
+        expiry:
+          $ref: '#/components/schemas/expiry'
+        account:
+          $ref: '#/components/schemas/account'
+        postal:
+          $ref: '#/components/schemas/postal'
+        cvv2:
+          $ref: '#/components/schemas/cvv2'
+        ecomind:
+          $ref: '#/components/schemas/ecomind'
+        cof:
+          $ref: '#/components/schemas/cof'
+        cofpermission:
+          $ref: '#/components/schemas/cofpermission'
+        cofscheduled:
+          $ref: '#/components/schemas/cofscheduled'
+        currency:
+          $ref: '#/components/schemas/currency'
+        bankaba:
+          $ref: '#/components/schemas/bankaba'
+        track:
+          $ref: '#/components/schemas/track'
+        receipt:
+          $ref: '#/components/schemas/receipt'
+        bin:
+          $ref: '#/components/schemas/bin'
+        profile:
+          $ref: '#/components/schemas/profile'
+        auoptout:
+          $ref: '#/components/schemas/auoptout'
+        capture:
+          $ref: '#/components/schemas/capture'
+        tokenize:
+          $ref: '#/components/schemas/tokenize'
+        signature:
+          $ref: '#/components/schemas/signature'
+        name:
+          $ref: '#/components/schemas/name'
+        company:
+          $ref: '#/components/schemas/company'
+        address:
+          $ref: '#/components/schemas/address'
+        address2:
+          $ref: '#/components/schemas/address2'
+        city:
+          $ref: '#/components/schemas/city'
+        region:
+          $ref: '#/components/schemas/region'
+        country:
+          $ref: '#/components/schemas/country'
+        phone:
+          $ref: '#/components/schemas/phone'
+        email:
+          $ref: '#/components/schemas/email'
+        orderid:
+          $ref: '#/components/schemas/orderid'
+        authcode:
+          $ref: '#/components/schemas/authcode'
+        taxexempt:
+          $ref: '#/components/schemas/taxexempt'
+        taxamnt:
+          $ref: '#/components/schemas/taxamnt'
+        termid:
+          $ref: '#/components/schemas/termid'
+        accttype:
+          $ref: '#/components/schemas/accttype'
+    track:
+      maxLength: 76
+      type: string
+      description: Payment card track data captured using a supported card reader device (for example, a <a href='https://developer.cardpointe.com/guides/desktop'>desktop card reader</a> device). Can be unencrypted Track 1 or Track 2 data, or encrypted swipe data (containing Track 1 and/or Track 2) data. 
+      example: " "
+    bin:
+      maxLength: 1
+      type: string
+      example: Y
+      description: |
+        Optional, to return <a href='https://developer.cardpointe.com/cardconnect-api#bin-response'>BIN lookup fields</a> in the authorization response.
+
+        Specify Y to retrieve the BIN data for the card. 
+        
+        Defaults to N if not provided.
+    tokenize: 
+      maxLength: 1
+      type: string
+      description: Optional, specify N or omit to return an account token in the account field in the response. If tokenize is Y the masked card or ACH account number is returned in the response.
+      example: Y
+    termid:
+      maxLength: 8
+      type: string
+      example: 21341324
+      description: |
+        The Terminal Device ID, required when the Send Terminal ID for Reporting feature is enabled for First Data ClientLine Reporting.
+
+        termid must be exactly 8 characters long, and the last 5 characters (used to display on the report)  must be numbers.
+        
+        Note: This field is not used for CardPointe transaction reporting.
+    accttype:
+      maxLength: 6
+      type: string
+      example: " "
+      description: |
+        The account type, not required unless one of the following:
+        
+        ECHK - Electronic checking account, for ACH transactions.
+        ESAV - Electronic savings account, for ACH transactions.
+        PDEBIT - For PINless Debit transactions. Must be enabled for the merchant account.
+    orderid:
+      maxLength: 50
+      type: string
+      description: |
+        Source system order number.
+        
+        Note: If you include an order ID it must meet the following requirements:
+        
+        * The order ID must be a unique value. Using duplicate order IDs can lead to the wrong transaction being voided in the event of a timeout.
+        * The order ID must not include any portion of a payment account number (PAN), and no portion of the order ID should be mistaken for a PAN. If the order ID passes the Luhn check performed by the CardPointe Gateway, the value will be masked in the database, and attempts to use the order ID in an inquire, void, or refund request will fail.
+      example: 14038635721239
+    taxamnt:
+      maxLength: 12
+      type: integer
+      example: 0
+      description: | 
+        Tax amount for the order, either decimal or in currency minor units (for example, USD Pennies or MXN Centavos).
+
+        If taxexempt is Y, taxamnt must be zero or omitted. If taxexempt is N, taxamnt must be a positive, non-zero value.
+    taxexempt:
+      maxLength: 1
+      type: string
+      example: N
+      description: 	If taxexempt is set to N for the transaction and a tax is not passed, the default configuration data is used. If taxexempt is set to Y, the taxamnt is $0.00. 
+    company:
+      maxLength: 128
+      type: string
+      example: Dylan's Travel Agency
+      description: Account holder's company name
+    address:
+      maxLength: 30
+      type: string
+      example: 1000 Continental Dr., King of Prussia, PA. 19355
+      description: Account holder's street address required for AVS verification. 
+    address2:
+      maxLength: 30
+      type: string
+      description: Second address line (for example, apartment or suite number)
+      example: 300
+    city: 
+      maxLength: 30
+      type: string
+      description: Account holder's ciy
+      example: King of Prussia
+    region: 
+      maxLength: 20
+      type: string
+      description: Account holder's region, US State, Mexican State, Canadian Province
+      example: PA
+    country:
+      maxLength: 2
+      type: string
+      description: |
+        Account holder's country (2-character country code), defaults to "US". 
+
+        Required for all non-US addresses
+      example: US
+    phone:
+      maxLength: 15
+      type: string
+      description: account holder's phone number.
+      example: 777-777-7777
+    email: 
+      type: string
+      maxLength: 128
+      description: Account holder's email address
+      example: johndoe@johndoe.com
+    capture:
+      maxLength: 1
+      type: string
+      example: Y
+      description: |
+        Optional, specify Y to capture the transaction for settlement if approved.
+
+        Defaults to N if not provided.
+        
+        Note: When "capture":"y", you can optionally include Level 2 and Level 3 transaction details in the authorization request. 
+    profile:
+      maxLength: 24
+      type: string
+      description: |
+        Optional, to create a stored customer profile or to use an existing profile.
+
+        To create a profile using the account holder data provided in the request, specify Y.
+        
+        Note: If the authorization request fails or is declined, the profile is not created.
+        
+        To use an existing profile for this authorization, omit the account parameter and instead use the profile parameter to supply the 20-digit profile id and 1-3-digit account id string in the format <profileid>/<acctid>. See Profiles for more information.
+        
+        Note: You can submit a $0 authorization, including CVV and AVS verification, to validate the customer's information before creating a profile.
+      example: Y
+    auoptout:
+      maxLength: 1
+      type: string
+      description: |
+        Optional, when creating a profile, to specify whether or not the profile is set to opt out of the Card Account Updater service. Requires the merchant account to be enrolled in the Card Account Updater add-on.
+        Specify one of the following values:
+        
+        * Y - Yes; updates are not retrieved for this profile.
+        * N - No; updates are retrieved for this profile.
+        
+        Defaults to N if not provided.
+      example: Y
     authResponse: 
       x-model-version: 1.0
       description: auth Response
@@ -685,6 +907,19 @@ components:
       type: integer
       description: Capture amount in decimal or in currency minor units (for example, USD Pennies or MXN centavos)
       example: 0.01
+    bankaba:
+      maxLength: 9
+      type: string
+      description: |
+        Optionally, when "profile":"y" to create a stored profile, include "cofpermission":"y" to indicate that you obtained the cardholder's permission to store their payment data. This field is only used for reporting purposes, via the get profile response.
+
+        Specify one of the following values:
+        
+        * Y - The cardholder provided their consent to store and reuse their payment details.
+        * N - The cardholder did not provide their consent.
+        
+        Defaults to N if not provided.
+      example: Y
     bintype:
       maxLength: 16
       description: |
@@ -840,6 +1075,32 @@ components:
           * C - Customer-Initiated Transaction (CIT)
           * M - Merchant-Initiated Transaction (MIT)
       example: C
+    cofpermission:
+      maxLength: 1
+      type: string
+      description: |
+        Optionally, when "profile":"y" to create a stored profile, include "cofpermission":"y" to indicate that you obtained the cardholder's permission to store their payment data. This field is only used for reporting purposes, via the get profile response.
+
+        Specify one of the following values:
+        
+        * Y - The cardholder provided their consent to store and reuse their payment details.
+        * N - The cardholder did not provide their consent.
+        
+        Defaults to N if not provided.
+      example: N
+    cofscheduled:
+      maxLength: 1
+      type: string
+      description: |
+        Optionally, when "profile":"y" to create a stored profile, include "cofpermission":"y" to indicate that you obtained the cardholder's permission to store their payment data. This field is only used for reporting purposes, via the get profile response.
+
+        Specify one of the following values:
+        
+        * Y - The cardholder provided their consent to store and reuse their payment details.
+        * N - The cardholder did not provide their consent.
+        
+        Defaults to N if not provided.
+      example: N
     commcard:
       maxLength: 1
       type: string
@@ -864,6 +1125,14 @@ components:
   
         If Y, the MID can perform $0 authorizations to validate the cvv2 value in the auth request.
       example: Y
+    cvv2:
+      maxLength: 4
+      type: integer
+      description: |
+        The 3 or 4-digit cardholder verification value (CVV2/CVC/CID) value present on the card.
+        
+        **Note**: It is strongly recommended that your application prompts for CVV for card-not-present transactions for fraud prevention and to avoid declines on the CardPointe Gateway if the CVV verification option is enabled for your merchant account.
+      example: 3124
     cvvresp:
       maxLength: 1
       type: string
@@ -891,6 +1160,21 @@ components:
 
         If Y, the MID can perform ACH transactions.
       example: N
+    ecomind:
+      maxLength: 1
+      type: string
+      description: |
+        A transaction origin indicator, for card-not-present and eCheck (ACH) transactions only.
+
+        For ProfitStars ACH transactions, see Making an ACH Authorization Request for more information.
+        
+        For card-not-present transactions, one of the following values:
+        
+        * T - telephone or mail payment
+        * R - recurring billing
+        * E - e-commerce web or mobile application
+        **Note**: You should include the appropriate ecomind value for all card-not-present transactions, to ensure that the transaction processes at the appropriate interchange level. Do not include ecomind for card-present transactions, in which the payment card data is obtained using a POS device.
+      example: E
     acctid:
       maxLength: 3
       type: integer
