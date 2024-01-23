@@ -508,6 +508,62 @@ paths:
           content:  
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
+  /cardconnect/rest/settlestat:
+    get:
+      tags:
+        - settlestat Endpoint Definition
+      x-group-name: CardPointe Gateway API
+      x-proxy-name: settlestat
+      x-default-example: PaymentCard
+      summary: The settlement status service returns the status of transactions which have been submitted to the processor for settlement. The transaction’s setlstatus is updated appropriately when the CardPointe Gateway receives a response from the processor. You can either specify a batchid to return a specific batch of transactions, or use a date to return all transactions settled for that date. 
+      description: | 
+        For the settlement status of an individual transaction that has not been settled, use the inquire service. 
+
+        The settlement status service returns the status of transactions which have been submitted to the processor for settlement. The transaction’s setlstatus is updated appropriately when the CardPointe Gateway receives a response from the processor. You can either specify a batchid to return a specific batch of transactions, or use a date to return all transactions settled for that date. 
+        
+        "Null Batches" is returned when no data is available for display. When passing the merchid as the only parameter,  only batches not previously requested are shown. If the merchid has previously been queried for batches, responses will contain only batches not previously returned.
+      parameters:
+      - in: query
+        name: merchid
+        required: true
+        schema:
+          $ref: '#/components/schemas/merchid'
+          description: The MID from the original authorization.
+      - in: query
+        name: batchid
+        required: true
+        schema:
+          $ref: '#/components/schemas/batchid'
+          description: The Batch ID from the original authorization. Required if date is not provided. Queries all settled transactions by Batch ID. 
+      - in: query
+        name: date
+        required: false
+        schema:
+          description: |
+            Required if Batch ID is not provided. Queries all settled transactions by date given in MMDD.
+          example: " "
+          type: integer
+          maxLength: 4
+      - in: header
+        $ref: '#/components/parameters/ContentTypeHeader'
+      - in: header
+        $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/settlestatResponse'} 
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
 components:
   parameters:
     Authorization:
@@ -1640,6 +1696,102 @@ components:
         
         The order ID must not include any portion of a payment account number (PAN), and no portion of the order ID should be mistaken for a PAN. If the order ID passes the Luhn check performed by the CardPointe Gateway, the value will be masked in the database, and attempts to use the order ID in an inquire, void, or refund request will fail.
       example: "7372819823727189E76"
+    settlestatResponse:
+      x-model-version: 1.0
+      description: settlestatResponse
+      properties: 
+        batchid:
+          $ref: '#/components/schemas/batchid'
+        hoststat:
+          $ref: '#/components/schemas/hoststat'
+        hostbatch:
+          $ref: '#/components/schemas/hostbatch'
+        merchid:
+          $ref: '#/components/schemas/merchid'
+        respproc:
+          $ref: '#/components/schemas/respproc'
+        txns:
+          $ref: '#/components/schemas/txns'
+    hoststat:
+      type: string
+      maxLength: 12
+      description: Copied from the capture request.
+      example: GB
+    hostbatch:
+      description: The batch identifier assigned by the payment processor.
+      maxLength: 16
+      type: string
+      example: 19000941820
+    txns:
+      type: array
+      description: Array of transactions
+      items:
+        properties:
+          authcode:
+            $ref: '#/components/schemas/authcode'
+          cardtype:
+            $ref: '#/components/schemas/cardtype'
+          retref:
+            $ref: '#/components/schemas/retref'
+          setlamount:
+            $ref: '#/components/schemas/setlamount'
+          salesdoc:
+            $ref: '#/components/schemas/salesdoc'
+          setlstat:
+            type: string
+            maxLength: 1
+            example: Y
+            description: |
+              The current settlement status. The settlement status changes throughout the transaction lifecycle, from authorization to settlement. The following values can be returned in the settlestat response:
+              
+              * F - Format Error - The order did not transmit for settlement due to unexpected or invalid order or item data. Contact Support if you encounter this status.
+              * N - Rejected - The batch was sent for settlement, but the transaction was rejected for funding. Contact Support if you encounter this status.
+              * P - Pin Debit - Vantiv only. PIN debit transactions are settled by Vantiv, and are not submitted with the batch for settlement.
+              * T - Token Decrypt - The transaction was not settled due to a token decryption error. Contact Support if you encounter this status.
+              * W - Amount under review - First Data North and Rapid Connect only. The batch for this transaction was transmitted for settlement, and the transaction was placed under review because the amount exceeded a configured threshold. The transaction should be accepted or rejected for funding the next day; however, the setlstat field may not be updated. Check CardPointe for the current status.
+              * Y - Accepted - The batch for this transaction was transmitted and accepted for funding.
+      example: 
+        "txns": 
+          [
+           {
+              "authcode": "PPS930",
+              "setlamount": "53.43",
+              "setlstat": "Y",
+              "salesdoc": "MPIP10001589",
+              "cardtype":"VISA",               
+              "retref": "200081244288"
+           },
+           {
+              "authcode":"PPS961",
+              "setlamount": "200.00",
+              "setlstat": "Y",
+              "salesdoc": "423625",
+              "cardtype":"VISA",            
+              "retref": "224604245655"
+           }
+          ]
+    cardtype:
+      type: string
+      maxLength: 4
+      description: The card brand or account type returned by the processor.
+      example: VISA
+    setlamount:
+      type: integer
+      maxLength: 12
+      description: The transaction amount settled for the authorization.
+      example: 200.00
+    salesdoc:
+      type: string
+      maxLength: 50
+      example: 423625
+      description: |
+        Optional additional field for Order ID or similar.
+  
+        The order ID associated with the authorization, if present.
+          
+        orderId is returned in the salesdoc field when the corresponding authorization request included an orderid and "receipt":"y".
+          
+        If no orderid was passed, but "receipt":"y", the orderId field is returned with no value ("orderId":""); however, if no orderid was passed and "receipt":"json", "n", or omitted, the orderId field is omitted.
     site: 
       type: string
       example: <mid site>
