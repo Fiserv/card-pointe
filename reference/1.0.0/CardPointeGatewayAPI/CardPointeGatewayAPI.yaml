@@ -660,6 +660,55 @@ paths:
           content:  
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
+  /cardconnect/rest/bin/{merchid}/{token}:
+    get:
+      tags:
+        - sigcap Endpoint Definition
+      x-group-name: CardPointe Gateway API
+      x-proxy-name: sigcap
+      x-default-example: PaymentCard
+      summary: The BIN service allows you to use a CardSecure token to determine what type of payment card is being used. The first six (6) digits of a credit card are known as the Bank Identifier Number (BIN), also known as an Issuer Identification Number (IIN). 
+
+      description: | 
+        The BIN service allows you to use a CardSecure token to determine what type of payment card is being used. The first six (6) digits of a credit card are known as the Bank Identifier Number (BIN), also known as an Issuer Identification Number (IIN). 
+
+        The BIN service supports the Visa, Mastercard, Amex, Discover, Diners, and JCB card brands.  
+        
+        Visa and Mastercard return all parameters described in the BIN response. For other card brands, only the country, product, and bin parameters are relevant.
+
+      parameters:
+      - name: merchid
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/merchid'
+          description: The MID from the original authorization.
+      - name: token
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/token'
+          description: The token associated with the transaction.
+      - in: header
+        $ref: '#/components/parameters/ContentTypeHeader'
+      - in: header
+        $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/binResponse'}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
 components:
   parameters:
     Authorization:
@@ -918,6 +967,119 @@ components:
         Specify Y to retrieve the BIN data for the card. 
         
         Defaults to N if not provided.
+    binMissingorErrorResponse:
+      x-model-version:
+      description: BIN Missing or Error Response
+      properties:
+        success:
+          $ref: '#/components/schemas/success'
+        errormsg:
+          $ref: '#/components/schemas/errormsg'
+    success:
+      type: boolean
+      example: true
+      description: |
+        True = successful request, but no BIN information available.
+        False = an error occurred during the request
+    errormsg:
+      type: string
+      description: Reason for error
+      example: No bin information found.
+    binResponse:
+      x-model-version: 1.0
+      description: bin Response
+      properties:
+        country:
+          $ref: '#/components/schemas/country'
+        product:
+          $ref: '#/components/schemas/product'
+        bin:
+          $ref: '#/components/schemas/bin'
+        cardusestring:
+          $ref: '#/components/schemas/cardusestring'
+        gsa:
+          $ref: '#/components/schemas/gsa'
+        corporate:
+          $ref: '#/components/schemas/corporate'
+        fsa:
+          $ref: '#/components/schemas/fsa'
+        subtype:
+          $ref: '#/components/schemas/subtype'
+        purchase:
+          $ref: '#/components/schemas/purchase'
+        prerpaid:
+          $ref: '#/components/schemas/prepaid'
+        issuer:
+          $ref: '#/components/schemas/issuer'
+        binlo:
+          $ref: '#/components/schemas/binlo'
+        binhi:
+          $ref: '#/components/schemas/binhi'
+    product:
+      type: string
+      example: V
+      description: |
+        Card type, one of the following:
+        A = Amex
+        D = Discover
+        M = Mastercard
+        N = Non-co-branded debit card
+        V = Visa
+    gsa:
+      type: string
+      example: false
+      description: Indicates if a GSA card was used.
+    corporate:
+      type: boolean
+      example: false
+      description: Indicates if a Corporate card was used. 
+    fsa:
+      type: boolean
+      example: false
+      description: Indicates if a FSA card was used.
+    subtype:
+      type: string
+      description: Detailed subtype of card, blank if not available.
+      example: Consumer Credit - Rewards
+    purchase:
+      type: boolean
+      description: Indicates if a Purchase card was used.
+      example: false
+    prepaid:
+      type: boolean
+      description: Indicates if a Prepaid card was used.
+      example: false
+    issuer:
+      description: Card issuing bank/institution
+      type: string
+      example: 
+    binlo:
+      description: The low end of the BIN range that includes the card’s BIN value. Masked after the first six (6) digits.
+      type: string
+      example: 601100XXX
+    binhi:
+      description: The high end of the BIN range that includes the card’s BIN value. Masked after the first six (6) digits.
+      type: string
+      example: 601102XXX
+    cardusestring:
+      type: string
+      example: True credit, No PIN/Signature capability
+      description: |
+        General usage type, one of the following:
+        
+        * Credit Hybrid (PIN and Signature)
+        * PIN Only Debit with Electronic Benefit Transfer
+        * Debit Hybrid (PIN and Signature)
+        * USA Commercial Debit, Signature Only, No PIN Access
+        * USA Commercial Debit, PIN Capable
+        * Non USA Consumer Debit, No PIN Access
+        * Non USA Commercial Debit, No PIN Access
+        * Non USA Consumer Debit, PIN Capable
+        * Non USA Commercial Debit, PIN Capable
+        * PIN Only Debit without Electronic Benefit Transfer
+        * Private Label Credit (MasterCard)
+        * Signature only Debit, No PIN Access
+        * True credit, No PIN/Signature capability
     tokenize: 
       maxLength: 1
       type: string
