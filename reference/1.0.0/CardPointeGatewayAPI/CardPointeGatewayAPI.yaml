@@ -564,6 +564,66 @@ paths:
           content:  
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
+  /cardconnect/rest/funding:
+    get:
+      tags:
+        - funding Endpoint Definition
+      x-group-name: CardPointe Gateway API
+      x-proxy-name: funding
+      x-default-example: PaymentCard
+      summary: The settlement status service returns the status of transactions which have been submitted to the processor for settlement. The transaction’s setlstatus is updated appropriately when the CardPointe Gateway receives a response from the processor. You can either specify a batchid to return a specific batch of transactions, or use a date to return all transactions settled for that date. 
+      description: | 
+        The funding endpoint provides merchant funding information and supplemental transaction and funding adjustment details. This information is provided by the host payment processing platform (for example, First Data Omaha). 
+         
+        Funding data is only available for merchants with the funding service configured and enabled in the production environment.
+        
+        For merchants with next day funding, funding data is typically available between 1PM and 6PM ET on the day following settlement. 
+        
+        For merchants without next day funding, funding data is typically available within 1-2 business days between 1PM and 6PM ET.
+        
+        Profitstars ACH funding data is typically available within 72 hours.
+        
+        A request to the funding endpoint returns all available funding data for the merchant on the date specified, in an array of fundings, txns (transactions), adjustments, and chargebacks records. If no adjustment or chargeback data is present for the date specified, these arrays are not returned.
+        
+        If no batches are found or are ready to return, the service returns
+
+        <code>{"errormsg":"No deposits match your request"}</code>.
+      parameters:
+      - in: query
+        name: merchid
+        required: true
+        schema:
+          $ref: '#/components/schemas/merchid'
+          description: The MID from the original authorization.
+      - in: query
+        name: date
+        required: false
+        schema:
+          description: |
+            Queries by date given in MMDD or YYYYMMDD. date is optional, and can be specified in the format MMDD to specify a day within the current calendar year, or YYYYMMDD to specify a date in a previous calendar year. If no date is specified, the service checks for any funding data that has not already been retrieved.
+          example: "20180518"
+          type: integer
+          maxLength: 8
+      - in: header
+        $ref: '#/components/parameters/ContentTypeHeader'
+      - in: header
+        $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/fundingResponse'} 
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
 components:
   parameters:
     Authorization:
@@ -725,7 +785,7 @@ components:
       maxLength: 2
       type: string
       description: |
-        	Alpha-numeric AVS (zip code) verification response code.
+          Alpha-numeric AVS (zip code) verification response code.
 
           Note: <code>avsresp</code> is typically only returned for approved authorizations, however this field can be returned in the response for a declined authorization if this setting is enabled for the merchant account.
     authcode:
@@ -870,7 +930,7 @@ components:
       maxLength: 1
       type: string
       example: N
-      description: 	If taxexempt is set to N for the transaction and a tax is not passed, the default configuration data is used. If taxexempt is set to Y, the taxamnt is $0.00. 
+      description:   If taxexempt is set to N for the transaction and a tax is not passed, the default configuration data is used. If taxexempt is set to Y, the taxamnt is $0.00. 
     company:
       maxLength: 128
       type: string
@@ -1472,6 +1532,475 @@ components:
       type: integer
       example: ""
       description: The unique retrieval reference number for a fee. If not applicable or the same as the transaction retref, returns an empty value ("").
+    fundingResponse:
+      x-model-version: 1.0
+      description: funding endpoint Response
+      items:
+        properties:
+          fundings:
+            $ref: '#/components/schemas/fundings'
+          txns:
+            type: array
+            items:
+              properties:
+                fundingtxnid:
+                  $ref: '#/components/schemas/fundingtxnid'
+                retref:
+                  $ref: '#/components/schemas/retref'
+                authcode:
+                  $ref: '#/components/schemas/authcode'
+                authdate:
+                  $ref: '#/components/schemas/authdate'
+                respcode:
+                  $ref: '#/components/schemas/respcode'
+                batchid:
+                  $ref: '#/components/schemas/batchid'
+                cardproc:
+                  $ref: '#/components/schemas/cardproc'
+                interchangeunitfee:
+                  $ref: '#/components/schemas/interchangeunitfee'
+                interchangepercentfee:
+                  $ref: '#/components/schemas/interchangepercentfee'
+                date:
+                  $ref: '#/components/schemas/date'
+                cardnumber:
+                  $ref: '#/components/schemas/cardnumber'
+                cardtype:
+                  $ref: '#/components/schemas/cardtype'
+                cardbrand:
+                  $ref: '#/components/schemas/cardbrand'
+                amount:
+                  $ref: '#/components/schemas/amount'
+                currency:
+                  $ref: '#/components/schemas/currency'
+                type:
+                  $ref: '#/components/schemas/type'
+                status:
+                  $ref: '#/components/schemas/status'
+                userfieldn:
+                  $ref: '#/components/schemas/userfieldn'
+                fundingid:
+                  $ref: '#/components/schemas/fundingid'
+                plancode:
+                  $ref: '#/components/schemas/plancode'
+                downgradereasoncodes:
+                  $ref: '#/components/schemas/downgradereasoncodes'
+                invoicenumber:
+                  $ref: '#/components/schemas/invoicenumber'
+                sourcetransactionid:
+                  $ref: '#/components/schemas/sourcetransactionid'
+                terminalnumber:
+                  $ref: '#/components/schemas/terminalnumber'
+                achreturncode:
+                  $ref: '#/components/schemas/achreturncode'
+                parentretref:
+                  $ref: '#/components/schemas/parentretref'
+          adjustments:
+            $ref: '#/components/schemas/adjustments'
+          chargebacks:
+            $ref: '#/components/schemas/chargebacks'
+          fundingdate:
+            $ref: '#/components/schemas/fundingdate'
+          merchid:
+            $ref: '#/components/schemas/merchid'
+          datechanged:
+            $ref: '#/components/schemas/datechanged'
+          fundingmasterid:
+            $ref: '#/components/schemas/fundingmasterid'
+    chargebacks: 
+      type: array
+      description: Chargeback data is only applicable to specific clients that have been configured appropriately. This node is only returned if chargeback records are present for the given date.
+      items:
+        properties:
+          depositdate:
+            $ref: '#/components/schemas/depositdate'
+          amount:
+            $ref: '#/components/schemas/amount'
+          transactiondate:
+            $ref: '#/components/schemas/transactiondate'
+          reasondescription:
+            $ref: '#/components/schemas/reasondescription'
+          reasoncode:
+            $ref: '#/components/schemas/reasoncode'
+          datechanged:
+            $ref: '#/components/schemas/datechanged'
+          sourcetransactionid:
+            $ref: '#/components/schemas/sourcetransactionid'
+          transactionamount:
+            $ref: '#/components/schemas/transactionamount'
+          chargebackdate:
+            $ref: '#/components/schemas/chargebackdate'
+          sequencenumber:
+            $ref: '#/components/schemas/sequencenumber'
+          dateadded:
+            $ref: '#/components/schemas/dateadded'
+          merchid:
+            $ref: '#/components/schemas/merchid'
+          authcode:
+            $ref: '#/components/schemas/authcode'
+          fundingmasterid:
+            $ref: '#/components/schemas/fundingmasterid'
+          fundingchargebackid: 
+            $ref: '#/components/schemas/fundingchargebackid'
+          casenumber:
+            $ref: '#/components/schemas/casenumber'
+          acquirereferencenumber:
+            $ref: '#/components/schemas/acquirereferencenumber'
+          cardnumber:
+            $ref: '#/components/schemas/cardnumber'
+          retref:
+            $ref: '#/components/schemas/retref'
+          invoicenumber:
+            $ref: '#/components/schemas/invoicenumber'
+    depositdate:
+      type: string
+      maxLength: 10
+      example: 2017-10-05
+      description: The merchant's deposit date associated with the chargeback record, in the format <code>YYYY-MM-DD</code>.
+    transactiondate:
+      type: string
+      maxLength: 10
+      example: 2017-10-05
+      description: The date of the original transaction, in the format <code>YYYY-MM-DD</code>.
+    reasondescription: 
+      type: string
+      maxLength: 200
+      example: Duplicate Processing
+      description: |
+        A description of the chargeback reason, useful in understanding or disputing the chargeback.
+        
+        See Chargeback Reason Codes and Descriptions in the <a href="www.google.com">Response Appendix</a> for more information.
+    reasoncode: 
+      description: | 
+        An alphanumeric code returned by the issuer, that provides the reason for the chargeback. 
+        
+        See Chargeback Reason Codes and Descriptions in the <a href="www.google.com">Response Appendix</a> for more information.
+      type: string
+      maxLength: 10
+      example: 32
+    transactionamount:
+      maxLength: 22
+      type: number
+      description: The amount of the original transaction associated with the chargeback.
+      example: 92.15
+    chargebackdate:
+      description: The date that the chargeback event occurred, in the format <code>YYYY-MM-DD</code>.
+      type: string
+      example: 2019-10-5
+      maxLength: 10
+    sequencenumber: 
+      description: The chargeback sequence number, returned by the processor.
+      maxLength: 30
+      type: string
+      example: 82390482309
+    fundingchargebackid:
+      description: The unique ID for the chargeback record within the parent funding record.
+      type: string
+      example: 5
+    casenumber:
+      description: A unique case number returned by the processor.
+      type: number
+      maxLength: 30
+      example: 771886445001
+    acquirereferencenumber:
+      description: A unique reference number for the chargeback record, returned by the acquirer/issuer.
+      maxLength: 30
+      type: number
+      example: 55500807123206000059099
+    fundings:
+      type: array
+      items:
+        properties:
+          fundingmasterid:
+            $ref: '#/components/schemas/fundingmasterid'
+          merchid:
+            $ref: '#/components/schemas/merchid'
+          netsales:
+            $ref: '#/components/schemas/netsales'
+          thirdparty:
+            $ref: '#/components/schemas/thirdparty'
+          adjustment:
+            $ref: '#/components/schemas/adjustment'
+          interchangefee:
+            $ref: '#/components/schemas/interchangefee'
+          servicecharge:
+            $ref: '#/components/schemas/servicecharge'
+          fee:
+            $ref: '#/components/schemas/fee'
+          reversal:
+            $ref: '#/components/schemas/reversal'
+          otheradjustment:
+            $ref: '#/components/schemas/otheradjustment'
+          totalfunding:
+            $ref: '#/components/schemas/totalfunding'
+          fundingdate:
+            $ref: '#/components/schemas/fundingdate'
+          currency:
+            $ref: '#/components/schemas/currency'
+          ddanumber:
+            $ref: '#/components/schemas/ddanumber'
+          abanumber:
+            $ref: '#/components/schemas/abanumber'
+          fundingid:
+            $ref: '#/components/schemas/fundingid'
+          datechanged:
+            $ref: '#/components/schemas/datechanged'
+          dateadded:
+            $ref: '#/components/schemas/dateadded'
+          deposittrancode:
+            $ref: '#/components/schemas/deposittrancode'
+          depositachtracenumber:
+            $ref: '#/components/schemas/depositachtracenumber'
+    adjustments:
+      type: array
+      items:
+        properties:
+          fundingtxnid:
+            $ref: '#/components/schemas/fundingtxnid'
+          retref:
+            $ref: '#/components/schemas/retref'
+          autchode:
+            $ref: '#/components/schemas/authcode'
+          authdate:
+            $ref: '#/components/schemas/authdate'
+          respcode:
+            $ref: '#/components/schemas/respcode'
+          batchid:
+            $ref: '#/components/schemas/batchid'
+          cardproc:
+            $ref: '#/components/schemas/cardproc'
+          interchangeunitfee:
+            $ref: '#/components/schemas/interchangeunitfee'
+          interchangepercentfee:
+            $ref: '#/components/schemas/interchangepercentfee'
+          date:
+            $ref: '#/components/schemas/date'
+          cardnumber:
+            $ref: '#/components/schemas/cardnumber'
+          cardtype:
+            $ref: '#/components/schemas/cardtype'
+          cardbrand:
+            $ref: '#/components/schemas/cardbrand'
+          amount:
+            $ref: '#/components/schemas/amount'
+          currency:
+            $ref: '#/components/schemas/currency'
+          type:
+            $ref: '#/components/schemas/type'
+          status:
+            $ref: '#/components/schemas/status'
+          userfieldn:
+            $ref: '#/components/schemas/userfieldn'
+          fundingid:
+            $ref: '#/components/schemas/fundingid'
+          plancode:
+            $ref: '#/components/schemas/plancode'
+          downgradereasoncodes:
+            $ref: '#/components/schemas/downgradereasoncodes'
+          invoicenumber:
+            $ref: '#/components/schemas/invoicenumber'
+          sourcetransactionid:
+            $ref: '#/components/schemas/sourcetransactionid'
+          terminalnumber:
+            $ref: '#/components/schemas/terminalnumber'
+          achreturncode:
+            $ref: '#/components/schemas/achreturncode'
+          parentretref:
+            $ref: '#/components/schemas/parentretref'
+    cardbrand:
+      description: The brand associated with the card.
+      type: string
+      maxLength: 30
+      example: MC
+    plancode:
+      description: An alpha-numeric value representing the applicable interchange rate.
+      type: string
+      maxLength: 10
+      example: 
+    downgradereasoncodes:
+      description: The downgrade reason codes associated with the transaction, if applicable.
+      type: string
+      maxLength: 100
+      example: 
+    terminalnumber:
+      description: The Terminal Number
+      type: string
+      maxLength: 10
+      example:
+    achreturncode:
+      example: 
+      description: |
+        Alpha-numeric code that provides additional information for rejected ACH transactions.
+
+        See Using the <a  href="www.google.com">Funding Endpoint</a> in the <a  href="www.google.com">CardPointe Gateway Developer Guides</a> for possible field values.
+      type: string
+      maxLength: 5
+    parentretref:
+      example:
+      description: The original (or prior) transaction associated with a refund or ACH Return.
+      maxLength: 30
+      type: string
+    invoicenumber:
+      description: The invoice number from the original transaction, if applicable.
+      maxLength: 100
+      type: number
+      example:
+    sourcetransactionid:
+      description: The source transaction ID, (either the CardPointe Gateway transaction GUID or the BluePay Gateway source transaction ID) for the transaction.
+      maxLength: 100
+      type: number
+      example:
+    type:
+      description: Type of transaction processed.
+      type: string
+      example: SALE
+      maxLength: 25
+    status:
+      description: Status of transaction funding
+      maxLength: 100
+      type: string
+      example: Settled
+    userfieldn:
+      description: |
+        A value passed by the merchant with the original authorization to further identify the transaction (see "<a>userfields</a href="www.google.com"> within the Authorization Service).
+  
+        The response can include up to 10 custom userfields, labeled userfield0 through userfield9.
+        
+        
+        Currently, the userfieldn is not supported in UAT for testing.
+      type: array 
+      items: 
+        properties:
+          name:
+            type: string
+            description: The name of the created field.
+          value:
+            type: string
+            description: The value of the field.
+      example:
+        "userfields":
+          [
+            {"udf0": "value0"},
+            {"udf1": "value1"},
+            {"udf2": "value2"}, 
+            {"custommerchant": "ABC Company"},
+            {"customphone": "888-888-8888"}
+          ]
+    fundingtxnid:
+      description: The <code>fundingmasterid</code> associated with the transaction.
+      maxLength: 22
+      type: string
+      example: 15200231146336
+    interchangeunitfee:
+      description: Unit-based fee charged for acceptance of card transaction.
+      maxLength: 12
+      type: number
+      example: 0
+    interchangepercentfee:
+      description: Percentage-based fee charged for acceptance of card transaction.
+      maxLength: 12
+      type: number
+      example: 0
+    date:
+      description: Date the transaction occurred
+      maxLength: 8
+      type: number
+      example: 20190810
+    cardnumber: 
+      description: Masked card number used for transaction
+      type: string
+      maxLength: 25
+      example: 21XXXXXXXXXXXX9999
+    fundingmasterid:
+      description: Unique key for an aggregated merchant's daily funding.
+      maxLength: 22
+      type: string
+      example: 15200186146335
+    netsales: 
+      description: Total sales processed by merchant.
+      maxLength: 25
+      type: number
+      example: 10.03
+    thirdparty:
+      description: Transactions that are passed directly to a third party service provider for processing and/or funding.
+      maxLength: 12
+      type: string
+      example: -5.49
+    adjustment:
+      description: Amounts credited to or deducted from account to resolve processing or billing discrepancies.
+      maxLength: 12
+      type: number
+      example: 0
+    interchangefee:
+      description: Variable amounts established by the card associations for processing transactions.
+      maxLength: 12
+      type: number
+      example: 0
+    servicecharge:
+      description: Amounts charged to authorize, process, and settle card transactions.
+      maxLength: 12
+      type: number 
+      example: 0
+    fee:
+      description: A range of transaction-based and/or fixed amounts for specific card processing services.
+      maxLength: 12
+      type: number
+      example: 0
+    reversal: 
+      description: Transactions that are challenged or disputed by a cardholder or card-issuing bank.
+      maxLength: 12
+      type: number
+      example: -31.72
+    otheradjustment:
+      description: General adjustment classification given when no adjustment type is provided by the host.
+      maxLength: 12
+      type: number
+      example: 0
+    totalfunding: 
+      description: Total amount of merchant debit or credit event.
+      maxLength: 12
+      type: number
+      example: -21.07
+    fundingdate:
+      description: The date of the bank funding event.
+      maxLength: 8 
+      type: number
+      example: 20190815
+    ddanumber:
+      description: Maked demand deposit account number
+      type: string
+      maxLength: 20
+      example: 3XXXXX0540
+    abanumber: 
+      description: American Bankers Association (ABA) number that identifies the bank.
+      type: string
+      maxLength: 20
+      example: 121140399
+    fundingid:
+      description: Unique key identifier for merchants with daily funding activity.
+      maxLength: 22
+      type: number
+      example: 15200208146336
+    datechanged:
+      description: The date when the record was last updated.
+      maxLength: 8
+      type: string
+      example: 2019-08-10
+    dateadded:
+      description: The date when the transaction was created.
+      maxLength: 8
+      type: string
+      example: 2019-08-09
+    deposittrancode:
+      description: The Deposit Transaction Code
+      maxLength: 10
+      type: number
+      example: 22
+    depositachtracenumber:
+      description: The Deposit ACH Trace Number
+      maxLength: 20
+      type: number
+      example: 12000240002309
     declineCategory:
       type: integer
       maxLength: 1
