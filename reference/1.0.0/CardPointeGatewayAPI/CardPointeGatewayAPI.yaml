@@ -571,7 +571,7 @@ paths:
       x-group-name: CardPointe Gateway API
       x-proxy-name: funding
       x-default-example: PaymentCard
-      summary: The settlement status service returns the status of transactions which have been submitted to the processor for settlement. The transaction’s setlstatus is updated appropriately when the CardPointe Gateway receives a response from the processor. You can either specify a batchid to return a specific batch of transactions, or use a date to return all transactions settled for that date. 
+      summary: The funding endpoint provides merchant funding information and supplemental transaction and funding adjustment details. This information is provided by the host payment processing platform (for example, First Data Omaha). 
       description: | 
         The funding endpoint provides merchant funding information and supplemental transaction and funding adjustment details. This information is provided by the host payment processing platform (for example, First Data Omaha). 
          
@@ -614,6 +614,42 @@ paths:
           content:
             application/json:
               schema: {$ref: '#/components/schemas/fundingResponse'} 
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /cardconnect/rest/sigcap:
+    post:
+      tags:
+        - sigcap Endpoint Definition
+      x-group-name: CardPointe Gateway API
+      x-proxy-name: sigcap
+      x-default-example: PaymentCard
+      summary: This signature capture service augments an existing authorization record with the provided signature data. The signature can then be retrieved by an inquire request.
+
+      description: | 
+        This signature capture service augments an existing authorization record with the provided signature data. The signature can then be retrieved by an inquire request. This endpoint can handle either PUT or POST methods.
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sigcapRequest'
+      parameters:
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/Authorization'}
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/sigcapResponse'} 
         400:
           description: Not Found
           content:
@@ -887,6 +923,18 @@ components:
       type: string
       description: Optional, specify N or omit to return an account token in the account field in the response. If tokenize is Y the masked card or ACH account number is returned in the response.
       example: Y
+    sigcapResponse:
+      x-model-version: 1.0
+      description: sigcap Response
+      properties:
+        resptext:
+          $ref: '#/components/schemas/resptext'
+        respcode:
+          $ref: '#/components/schemas/respcode'
+        retref:
+          $ref: '#/components/schemas/retref'
+        merchid:
+          $ref: '#/components/schemas/merchid'
     termid:
       maxLength: 8
       type: string
@@ -1010,6 +1058,16 @@ components:
         
         Defaults to N if not provided.
       example: Y
+    sigcapRequest:
+      x-model-version: 1.0
+      description: sigcap Request
+      properties:
+        merchid:
+          $ref: '#/components/schemas/merchid'
+        retref:
+          $ref: '#/components/schemas/retref'
+        signature:
+          $ref: '#/components/schemas/signature'
     authResponse: 
       x-model-version: 1.0
       description: auth Response
