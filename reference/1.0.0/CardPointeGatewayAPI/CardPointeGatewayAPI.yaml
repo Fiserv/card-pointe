@@ -132,7 +132,7 @@ paths:
       tags:
         - auth POST endpoint Definition
       x-group-name: CardPointe Gateway API
-      x-proxy-name: auth
+      x-proxy-name: auth POST
       x-default-example: PaymentCard
       summary: |
         Authorization is the initial step in accepting payment from a cardholder. This action "authorizes" or requests permission from the bank to transfer money from the cardholder to the merchant.
@@ -171,9 +171,9 @@ paths:
       tags:
         - auth PUT Endpoint Definition
       x-group-name: CardPointe Gateway API
-      x-proxy-name: auth
+      x-proxy-name: auth PUT
       x-default-example: PaymentCard
-      summary: A GET request to the inquireMerchant endpoint returns information on the merchant account configuration.
+      summary: Authorization is the initial step in accepting payment from a cardholder. This action "authorizes" or requests permission from the bank to transfer money from the cardholder to the merchant
       description: |
         Authorization is the initial step in accepting payment from a cardholder. This action "authorizes" or requests permission from the bank to transfer money from the cardholder to the merchant.
 
