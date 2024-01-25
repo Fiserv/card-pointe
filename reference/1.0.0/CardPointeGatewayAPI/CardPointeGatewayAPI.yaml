@@ -173,7 +173,7 @@ paths:
       x-group-name: CardPointe Gateway API
       x-proxy-name: auth PUT
       x-default-example: PaymentCard
-      summary: Authorization is the initial step in accepting payment from a cardholder. This action "authorizes" or requests permission from the bank to transfer money from the cardholder to the merchant
+      summary: A GET request to the inquireMerchant endpoint returns information on the merchant account configuration.
       description: |
         Authorization is the initial step in accepting payment from a cardholder. This action "authorizes" or requests permission from the bank to transfer money from the cardholder to the merchant.
 
@@ -663,9 +663,9 @@ paths:
   /cardconnect/rest/bin/{merchid}/{token}:
     get:
       tags:
-        - sigcap Endpoint Definition
+        - bin Endpoint Definition
       x-group-name: CardPointe Gateway API
-      x-proxy-name: sigcap
+      x-proxy-name: bin
       x-default-example: PaymentCard
       summary: The BIN service allows you to use a CardSecure token to determine what type of payment card is being used. The first six (6) digits of a credit card are known as the Bank Identifier Number (BIN), also known as an Issuer Identification Number (IIN). 
 
@@ -699,6 +699,252 @@ paths:
           content:
             application/json:
               schema: {$ref: '#/components/schemas/binResponse'}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /cardconnect/rest/profile/:
+    put:
+      tags:
+        - profile PUT Endpoint Definition
+      x-group-name: CardPointe Gateway API
+      x-proxy-name: profile PUT
+      summary: A profile can consist of multiple sets of profile account data. Each set is assigned an account ID, which can be used in conjunction with the profile ID to access a specific account. The format is <profile ID>/<account ID> for use in each request’s profile field. One account in each profile will be marked as the default account and will be referenced when no account ID is supplied.
+      description: |
+        A profile can consist of multiple sets of profile account data. Each set is assigned an account ID, which can be used in conjunction with the profile ID to access a specific account. The format is <profile ID>/<account ID> for use in each request’s profile field. One account in each profile will be marked as the default account and will be referenced when no account ID is supplied.
+        
+        **merchid**, **account**, and **expiry** are required fields.
+
+        In addition to the profile create and use features of the authorization service, the Profile services provides an independent method to create, update/replace, retrieve and delete a profile.
+        
+        A create or update request is made including the fields below (the same fields marked with asterisk in the authorization request). The service tokenizes the account property and creates the profile with a token and profile ID and optional account ID. One account ID in each profile can be marked as the default account. The default account will be used for all authorization requests when only the profile ID is supplied. If an account ID is present the service retrieves the existing profile and updates it, or returns profile not found.
+      
+        A PUT or POST call to the profile endpoint creates a new profile or adds a new account to an existing profile. 
+
+        The service tokenizes the account property and creates the profile with a token and profile ID and optional account ID. If the profile includes multiple accounts, one account ID in the profile can be marked as the default account by setting the defaultacct parameter to "Y." The default account will be used for all authorization requests when only the profile ID is supplied. 
+        
+        In addition to creating a new profile, you can use this service to do the following:
+        
+        To update a profile, include an existing profile ID in the request. The service retrieves the existing profile and updates it with the values in the request. 
+        To update an account, include an existing profile ID and account ID pair in the request. The service retrieves the existing account data and updates it with the values in the request.
+        To add an account to an existing profile, include an existing profile ID and the new payment account data in the request. The service retrieves the existing profile and adds a new acctid containing the values in the request.
+        
+        If you attempt to create a new profile that exactly matches an existing profile, the new profile will not be created; instead the response includes the profileid and acctid for the existing profile.
+
+        The following fields are checked for matches, and if all of the following fields match an existing profile, the new profile is not created:
+        
+        * merchid
+        * token
+        * accttype
+        * expiry
+        * name
+        * address
+        * city
+        * state
+        * country
+        * postal
+        * phone
+        * email
+        * auoptout
+        If the request includes "defaultacct":"Y", the CardPointe Gateway will update the existing profile to set it as the default, and will return the existing profileid and acctid info in the response.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/putpostprofileRequest'
+      parameters:
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/Authorization'}
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/putpostprofileResponse'}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+    post:
+      tags:
+        - profile POST Endpoint Definition
+      x-group-name: CardPointe Gateway API
+      x-proxy-name: profile POST
+      summary: A profile can consist of multiple sets of profile account data. Each set is assigned an account ID, which can be used in conjunction with the profile ID to access a specific account. The format is <profile ID>/<account ID> for use in each request’s profile field. One account in each profile will be marked as the default account and will be referenced when no account ID is supplied.
+      description: |
+        A profile can consist of multiple sets of profile account data. Each set is assigned an account ID, which can be used in conjunction with the profile ID to access a specific account. The format is <profile ID>/<account ID> for use in each request’s profile field. One account in each profile will be marked as the default account and will be referenced when no account ID is supplied.
+        
+        **merchid**, **account**, and **expiry** are required fields.
+
+        In addition to the profile create and use features of the authorization service, the Profile services provides an independent method to create, update/replace, retrieve and delete a profile.
+        
+        A create or update request is made including the fields below (the same fields marked with asterisk in the authorization request). The service tokenizes the account property and creates the profile with a token and profile ID and optional account ID. One account ID in each profile can be marked as the default account. The default account will be used for all authorization requests when only the profile ID is supplied. If an account ID is present the service retrieves the existing profile and updates it, or returns profile not found.
+      
+        A PUT or POST call to the profile endpoint creates a new profile or adds a new account to an existing profile. 
+
+        The service tokenizes the account property and creates the profile with a token and profile ID and optional account ID. If the profile includes multiple accounts, one account ID in the profile can be marked as the default account by setting the defaultacct parameter to "Y." The default account will be used for all authorization requests when only the profile ID is supplied. 
+        
+        In addition to creating a new profile, you can use this service to do the following:
+        
+        To update a profile, include an existing profile ID in the request. The service retrieves the existing profile and updates it with the values in the request. 
+        To update an account, include an existing profile ID and account ID pair in the request. The service retrieves the existing account data and updates it with the values in the request.
+        To add an account to an existing profile, include an existing profile ID and the new payment account data in the request. The service retrieves the existing profile and adds a new acctid containing the values in the request.
+        
+        If you attempt to create a new profile that exactly matches an existing profile, the new profile will not be created; instead the response includes the profileid and acctid for the existing profile.
+
+        The following fields are checked for matches, and if all of the following fields match an existing profile, the new profile is not created:
+        
+        * merchid
+        * token
+        * accttype
+        * expiry
+        * name
+        * address
+        * city
+        * state
+        * country
+        * postal
+        * phone
+        * email
+        * auoptout
+        If the request includes "defaultacct":"Y", the CardPointe Gateway will update the existing profile to set it as the default, and will return the existing profileid and acctid info in the response.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/putpostprofileRequest'
+      parameters:
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/Authorization'}
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/putpostprofileResponse'}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /cardconnect/rest/profile/{profileid}/{merchid}:
+    delete:
+      tags:
+        - profile DELETE Endpoint Definition
+      x-group-name: CardPointe Gateway API
+      x-proxy-name: profile DELETE 
+      x-default-example: PaymentCard
+      summary: A DELETE request to the profile endpoint deletes the stored data for the specified profile ID. 
+      description: | 
+        A DELETE request to the profile endpoint deletes the stored data for the specified profile ID. 
+
+        If the profile includes more than one account, you can specify an account ID to delete data for a specific account. If you do not include an account ID, then data for all accounts in the profile is deleted.
+        
+        If a profile or an account within a profile is associated with a CardPointe Billing Plan, then deleting the account or profile also cancels and deletes the billing plan.
+      parameters:
+      - name: merchid
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/merchid'
+          description: The MID from the original authorization.
+      - name: profileid
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/profileid'
+          description: Primary identifier to access profiles
+      - name: accountid
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/accountid'
+          description: The token associated with the transaction.
+      - in: header
+        $ref: '#/components/parameters/ContentTypeHeader'
+      - in: header
+        $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/deleteprofileResponse'}
+              example:
+                resptext: Profile Deleted
+                respcode: 08
+                respproc: PPS
+                respstat: A
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+    get:
+      tags:
+        - profile GET Endpoint Definition
+      x-group-name: CardPointe Gateway API
+      x-proxy-name: profile GET 
+      x-default-example: PaymentCard
+      summary: The BIN service allows you to use a CardSecure token to determine what type of payment card is being used. The first six (6) digits of a credit card are known as the Bank Identifier Number (BIN), also known as an Issuer Identification Number (IIN). 
+
+      description: | 
+        The BIN service allows you to use a CardSecure token to determine what type of payment card is being used. The first six (6) digits of a credit card are known as the Bank Identifier Number (BIN), also known as an Issuer Identification Number (IIN). 
+
+        The BIN service supports the Visa, Mastercard, Amex, Discover, Diners, and JCB card brands.  
+        
+        Visa and Mastercard return all parameters described in the BIN response. For other card brands, only the country, product, and bin parameters are relevant.
+      parameters:
+      - name: merchid
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/merchid'
+          description: The MID from the original authorization.
+      - name: profileid
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/profileid'
+          description: Primary identifier to access profiles
+      - name: accountid
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/accountid'
+          description: The token associated with the transaction.
+      - in: header
+        $ref: '#/components/parameters/ContentTypeHeader'
+      - in: header
+        $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/getprofileResponse'}
         400:
           description: Not Found
           content:
@@ -873,6 +1119,159 @@ components:
           Alpha-numeric AVS (zip code) verification response code.
 
           Note: <code>avsresp</code> is typically only returned for approved authorizations, however this field can be returned in the response for a declined authorization if this setting is enabled for the merchant account.
+    deleteprofileResponse:
+      x-model-version: 1.0
+      description: profile DELETE Response
+      properties:
+        resptext:
+          $ref: '#/components/schemas/resptext'
+        respcode:
+          $ref: '#/components/schemas/respcode'
+        respproc:
+          $ref: '#/components/schemas/respproc'
+        respstat:
+          $ref: '#/components/schemas/respstat'
+    getprofileResponse:
+      x-model-version: 1.0
+      description: profile GET Response
+      properties:
+        profileid:
+          $ref: '#/components/schemas/profileid'
+        acctid:
+          $ref: '#/components/schemas/acctid'
+        accttype:
+          $ref: '#/components/schemas/accttype'
+        token:
+          $ref: '#/components/schemas/token'
+        expiry:
+          $ref: '#/components/schemas/expiry'
+        name:
+          $ref: '#/components/schemas/name'
+        address:
+          $ref: '#/components/schemas/address'
+        city:
+          $ref: '#/components/schemas/city'
+        region:
+          $ref: '#/components/schemas/region'
+        country:
+          $ref: '#/components/schemas/country'
+        postal:
+          $ref: '#/components/schemas/postal'
+        company:
+          $ref: '#/components/schemas/company'
+        defaultacct:
+          $ref: '#/components/schemas/defaultacct'
+        auoptout:
+          $ref: '#/components/schemas/auoptout'
+        cofpermission:
+          $ref: '#/components/schemas/cofpermission'
+        gsacard:
+          $ref: '#/components/schemas/gsacard'
+    putpostprofileRequest:
+      x-model-version: 1.0
+      description: profile PUT and POST Request
+      properties:
+        profile:
+          $ref: '#/components/schemas/profile'
+        deafultacct:
+          $ref: '#/components/schemas/defaultacct'
+        profileupdate:
+          $ref: '#/components/schemas/profileupdate'
+        cofpermission:
+          $ref: '#/components/schemas/cofpermission'
+        auoptout:
+          $ref: '#/components/schemas/auoptout'
+        accttype:
+          $ref: '#/components/schemas/accttype'
+        merchid:
+          $ref: '#/components/schemas/merchid'
+        account:
+          $ref: '#/components/schemas/account'
+        bankaba:
+          $ref: '#/components/schemas/bankaba'
+        expiry:
+          $ref: '#/components/schemas/expiry'
+        name:
+          $ref: '#/components/schemas/name'
+        address:
+          $ref: '#/components/schemas/address'
+        city:
+          $ref: '#/components/schemas/city'
+        region:
+          $ref: '#/components/schemas/region'
+        country:
+          $ref: '#/components/schemas/country'
+        phone:
+          $ref: '#/components/schemas/phone'
+        postal:
+          $ref: '#/components/schemas/postal'
+        company:
+          $ref: '#/components/schemas/company'
+        email:
+          $ref: '#/components/schemas/email'
+    putpostprofileResponse:
+      x-model-version: 1.0
+      description: profile PUT and POST Response
+      properties:
+        profileid:
+          $ref: '#/components/schemas/profileid'
+        acctid:
+          $ref: '#/components/schemas/acctid'
+        respstat:
+          $ref: '#/components/schemas/respstat'
+        token:
+          $ref: '#/components/schemas/token'
+        respcode:
+          $ref: '#/components/schemas/respcode'
+        resptext:
+          $ref: '#/components/schemas/resptext'
+        respproc:
+          $ref: '#/components/schemas/respproc'
+        accttype:
+          $ref: '#/components/schemas/accttype'
+        expiry:
+          $ref: '#/components/schemas/expiry'
+        name:
+          $ref: '#/components/schemas/name'
+        address:
+          $ref: '#/components/schemas/address'
+        city:
+          $ref: '#/components/schemas/city'
+        region:
+          $ref: '#/components/schemas/region'
+        country:
+          $ref: '#/components/schemas/country'
+        phone:
+          $ref: '#/components/schemas/phone'
+        postal:
+          $ref: '#/components/schemas/postal'
+        email:
+          $ref: '#/components/schemas/email'
+        company:
+          $ref: '#/components/schemas/company'
+        defaultacct:
+          $ref: '#/components/schemas/defaultacct'
+        gsacard:
+          $ref: '#/components/schemas/gsacard'
+        auoptout:
+          $ref: '#/components/schemas/auoptout'
+        cofpermission:
+          $ref: '#/components/schemas/cofpermission'
+    gsacard:
+      maxLength: 1
+      type: string
+      description: Identifies if the card is a government issued card.
+      example: N
+    defaultacct:
+      maxLength: 1
+      type: string
+      description: <code>Y</code> to assign as default account.
+      example: Y
+    profileupdate:
+      maxLength: 1
+      type: string
+      description: 	<code>Y</code> to update profile data with non-empty request data only as opposed to full profile replacement including empty values
+      example: N
     authcode:
       maxLength: 16
       type: string
@@ -985,6 +1384,11 @@ components:
       type: string
       description: Reason for error
       example: No bin information found.
+    accountid:
+      maxLength: 3
+      type: integer
+      example: 1
+      description: Account identifier within a profile.
     binResponse:
       x-model-version: 1.0
       description: bin Response
