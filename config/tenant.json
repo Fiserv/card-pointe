@@ -14,7 +14,8 @@
         "apiSpecFileNames": [
           "CardSecureAPI/CardSecureAPI",
           "CardPointeIntegratedTerminalAPI/CardPointeIntegratedTerminalAPI",
-          "CardPointeGatewayAPI/CardPointeGatewayAPI"
+          "CardPointeGatewayAPI/CardPointeGatewayAPI",
+          "CoPilotAPI/CoPilotAPI"
         ]
       }
   ],
