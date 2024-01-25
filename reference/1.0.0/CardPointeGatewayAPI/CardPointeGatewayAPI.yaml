@@ -130,9 +130,9 @@ paths:
   /cardconnect/rest/auth:
    post:
       tags:
-        - auth POST endpoint Definition
+        - auth endpoint Definition
       x-group-name: CardPointe Gateway API
-      x-proxy-name: auth POST
+      x-proxy-name: auth
       x-default-example: PaymentCard
       summary: |
         Authorization is the initial step in accepting payment from a cardholder. This action "authorizes" or requests permission from the bank to transfer money from the cardholder to the merchant.
