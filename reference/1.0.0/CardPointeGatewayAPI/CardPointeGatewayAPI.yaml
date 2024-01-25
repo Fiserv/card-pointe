@@ -167,48 +167,48 @@ paths:
           content:  
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
-   put:
-      tags:
-        - auth PUT Endpoint Definition
-      x-group-name: CardPointe Gateway API
-      x-proxy-name: auth PUT
-      x-default-example: PaymentCard
-      summary: A GET request to the inquireMerchant endpoint returns information on the merchant account configuration.
-      description: |
-        Authorization is the initial step in accepting payment from a cardholder. This action "authorizes" or requests permission from the bank to transfer money from the cardholder to the merchant.
+##   put:
+##      tags:
+  ##      - auth PUT Endpoint Definition
+   ##   x-group-name: CardPointe Gateway API
+    ##  x-proxy-name: auth PUT
+  ##    x-default-example: PaymentCard
+   ##   summary: A GET request to the inquireMerchant endpoint returns information on the merchant account configuration.
+    ##  description: |
+     ##   Authorization is the initial step in accepting payment from a cardholder. This action "authorizes" or requests permission from the bank to transfer money from the cardholder to the merchant.
 
-        The authorization service supports a PUT or POST request that includes a JSON encoded list of fields defined for the service. The service responds with either an HTTP Exception, if there are errors, or a JSON-encoded response, if the request was successful.
+   ##     The authorization service supports a PUT or POST request that includes a JSON encoded list of fields defined for the service. The service responds with either an HTTP Exception, if there are errors, or a JSON-encoded response, if the request was successful.
 
-        Within the response, the status of the transaction is described in the respstat value:
+     ##   Within the response, the status of the transaction is described in the respstat value:
 
-        * A - Approved
-        * B - Retry
-        * C - Declined
-      parameters:
-      - in: query
-        name: merchid
-        required: true
-        schema:
-          $ref: '#/components/schemas/merchid'
-          description: The MID to validate against the site specified in the request URL.
-      - in: header
-        $ref: '#/components/parameters/ContentTypeHeader'
-      responses:
-        200: 
-          description: Success
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/inquireMerchantSuccess'}
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-           application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
+##        * A - Approved
+##        * B - Retry
+##        * C - Declined
+##      parameters:
+##      - in: query
+##        name: merchid
+##        required: true
+####        schema:
+ ##         $ref: '#/components/schemas/merchid'
+ ##         description: The MID to validate against the site specified in the request URL.
+ ##     - in: header
+ ##       $ref: '#/components/parameters/ContentTypeHeader'
+  ##    responses:
+##        200: 
+##          description: Success
+##          content:
+ ##           application/json:
+ ##             schema: {$ref: '#/components/schemas/inquireMerchantSuccess'}
+ ##       400:
+ ##         description: Not Found
+ ##         content:
+  ##          application/json:
+  ##            schema: {$ref: '#/components/schemas/NotFoundError'}
+   ##     404:
+ ## ##        description: Bad Request
+ ##         content:  
+##           application/json:
+##              schema: {$ref: '#/components/schemas/BadRequestError'}
   /cardconnect/rest/capture:
     post:
       tags:
@@ -712,9 +712,9 @@ paths:
   /cardconnect/rest/profile/:
     put:
       tags:
-        - profile PUT Endpoint Definition
+        - profile (UPDATE) Endpoint Definition
       x-group-name: CardPointe Gateway API
-      x-proxy-name: profile PUT
+      x-proxy-name: profile (UPDATE)
       summary: A profile can consist of multiple sets of profile account data. Each set is assigned an account ID, which can be used in conjunction with the profile ID to access a specific account. The format is <profile ID>/<account ID> for use in each request’s profile field. One account in each profile will be marked as the default account and will be referenced when no account ID is supplied.
       description: |
         A profile can consist of multiple sets of profile account data. Each set is assigned an account ID, which can be used in conjunction with the profile ID to access a specific account. The format is <profile ID>/<account ID> for use in each request’s profile field. One account in each profile will be marked as the default account and will be referenced when no account ID is supplied.
@@ -779,9 +779,9 @@ paths:
               schema: {$ref: '#/components/schemas/BadRequestError'}
     post:
       tags:
-        - profile POST Endpoint Definition
+        - profile (CREATE) Endpoint Definition
       x-group-name: CardPointe Gateway API
-      x-proxy-name: profile POST
+      x-proxy-name: profile (CREATE)
       summary: A profile can consist of multiple sets of profile account data. Each set is assigned an account ID, which can be used in conjunction with the profile ID to access a specific account. The format is <profile ID>/<account ID> for use in each request’s profile field. One account in each profile will be marked as the default account and will be referenced when no account ID is supplied.
       description: |
         A profile can consist of multiple sets of profile account data. Each set is assigned an account ID, which can be used in conjunction with the profile ID to access a specific account. The format is <profile ID>/<account ID> for use in each request’s profile field. One account in each profile will be marked as the default account and will be referenced when no account ID is supplied.
@@ -847,9 +847,9 @@ paths:
   /cardconnect/rest/profile/{profileid}/{merchid}:
     delete:
       tags:
-        - profile DELETE Endpoint Definition
+        - profile (DELETE) Endpoint Definition
       x-group-name: CardPointe Gateway API
-      x-proxy-name: profile DELETE 
+      x-proxy-name: profile (DELETE)
       x-default-example: PaymentCard
       summary: A DELETE request to the profile endpoint deletes the stored data for the specified profile ID. 
       description: | 
@@ -906,7 +906,7 @@ paths:
       tags:
         - profile GET Endpoint Definition
       x-group-name: CardPointe Gateway API
-      x-proxy-name: profile GET 
+      x-proxy-name: profile (GET) 
       x-default-example: PaymentCard
       summary: The BIN service allows you to use a CardSecure token to determine what type of payment card is being used. The first six (6) digits of a credit card are known as the Bank Identifier Number (BIN), also known as an Issuer Identification Number (IIN). 
 
