@@ -31,7 +31,7 @@
 openapi: 3.0.2
 info:
   title: CoPilot API Service Endpoints
-  description: This API documentation provides technical guidance when utilizing CardSecure.
+  description: This API documentation provides technical guidance when utilizing CoPilot API.
   version: 1.0.0
 servers:
  - {url: 'DNE', description: Production}
