@@ -41,7 +41,7 @@ paths:
     post: 
       tags:
         - token Endpoint Definition
-      x-group-name: CardSecure
+      x-group-name: CoPilot
       x-proxy-name: token
       x-default-example: PaymentCard
       summary: To authenticate any request to the CoPilot API, you must first request an access token using the Token endpoint. The Token endpoint requires CoPilot user account credentials, and returns the access token you will use to make API requests during a session.
