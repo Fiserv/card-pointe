@@ -8,7 +8,7 @@ The Card Account Updater service provides merchants the ability to keep their cu
 
 **GET Request Support for Profiles**
 
-The GET request now includes an optional query parameter, `profiles=true`, to include corresponding CardPointe Gateway profile details (`profileid`/`acctid` pair) for updates linked to profiles in the GET response.
+The [GET request](#updater-service-get-request) now includes an optional query parameter, `profiles=true`, to include corresponding CardPointe Gateway profile details (`profileid`/`acctid` pair) for updates linked to profiles in the GET response.
 
 ### Date Updated: 7/20/2021 
 
@@ -20,7 +20,7 @@ The GET request now includes an optional query parameter, `profiles=true`, to in
 
     Card Account Updater reporting is now available in the CardPointe web application. The Card Updates page, available from the Reporting tab, includes an Update History report that displays all Card Account Updater events that occurred within the past year, as well as a Decline Report that displays all declined transactions and the most recent update for each card.
 
-    See the Card Account Updater Reporting topic in the CardPointe Web App User's Guide for detailed information.
+    See the [Card Account Updater Reporting](https://support.cardpointe.com/cardpointe/cardpointe-desktop-app#card-account-updater-reporting) topic in the [CardPointe Web App User's Guide](https://support.cardpointe.com/cardpointe/cardpointe-desktop-app) for detailed information.
 
 ## Requirements
 
@@ -30,11 +30,11 @@ To take advantage of the Card Account Updater service, you must meet the followi
 
 - Your merchant account must be acquired by CardConnect.
 
-- You must use the CardPointe Gateway's Profile service to store customer payment account information, **or** manually enroll specific accounts by making a PUT request to the updater resource of the CardPointe Gateway API.
+- You must use the [CardPointe Gateway's Profile service](.../api/?type=post&path=/cardconnect/rest/profile) to store customer payment account information, **or** manually enroll specific accounts by making a PUT request to the updater resource of the CardPointe Gateway API.
 
 - If you are using the CardPointe Gateway profile service, profiles must include `"auoptout":"N"` (the default value if not specified). Setting `"auoptout":"y"` opts a profile out of the Card Account Updater service, and the profile will not be checked for updates.
 
-- Whether you are using the CardPointe Gateway's profile service or you are managing your own cardholder profiles using tokens, you must comply with the Visa and Mastercard Stored Credential Transaction Framework Mandate. This card brand mandate includes requirements for obtaining cardholder consent, as well as API and application changes required to appropriately identify transactions using stored customer data. See our support article for detailed information on these requirements.
+- Whether you are using the CardPointe Gateway's profile service or you are managing your own cardholder profiles using tokens, you must comply with the [Visa and Mastercard Stored Credential Transaction Framework Mandate](https://support.cardpointe.com/compliance/visa-stored-credential-transaction-framework-mandate). This card brand mandate includes requirements for obtaining cardholder consent, as well as API and application changes required to appropriately identify transactions using stored customer data. See our [support article](https://support.cardpointe.com/compliance/visa-stored-credential-transaction-framework-mandate) for detailed information on these requirements.
 
 <!-- theme: warning -->
 > Use the inquireMerchant endpoint of the CardPointe Gateway API to determine whether the merchant account is enrolled in the Card Account Updater service.
@@ -44,18 +44,19 @@ To take advantage of the Card Account Updater service, you must meet the followi
 Consider the following limitations:
 
 - Card Account Updater is only available for merchants on the **First Data North** and **Rapid Connect** back-end processors.
-This service only provides updates for **Visa**, **Mastercard**, and **Discover** accounts.
-- Additionally, the Card Account Updater API is intended as **alternative solution** to enrolling accounts in the Card Account Updater Service via stored profiles. Using both solutions may cause data integrity issues.
+- This service only provides updates for **Visa**, **Mastercard**, and **Discover** accounts.
+
+Additionally, the Card Account Updater API is intended as **alternative solution** to enrolling accounts in the Card Account Updater Service via stored profiles. Using both solutions may cause data integrity issues.
 
 If you currently use the CardPointe Gateway's Profile service to store and manage cardholder profiles, contact isvsupport@fiserv.com before enrolling any accounts using the Card Account Update API.
 
 # Getting Started
 
-To use the Card Account Updater service, you must be enrolled in the service. Contact Support to add the Card Account Updater service to your merchant account.
+To use the Card Account Updater service, you must be enrolled in the service. [Contact Support](https://support.cardpointe.com/contact-support) to add the Card Account Updater service to your merchant account.
 
 ## How it Works
 
-The Updater service requests daily updates from Visa, Mastercard, and Discover for accounts that are enrolled in this service via CardPointe Gateway profiles, and accounts that have been enrolled using this API. The card brands respond within 3-5 days with any changes to the account, such as:
+The Updater service requests daily updates from Visa, Mastercard, and Discover for accounts that are enrolled in this service via [CardPointe Gateway profiles](.../api/?type=post&path=/cardconnect/rest/profile), and accounts that have been enrolled using this API. The card brands respond within 3-5 days with any changes to the account, such as:
 
 - new account number
 - new expiration date
@@ -78,7 +79,7 @@ The following diagram illustrates the Card Account Updater service workflow:
 
 Accounts can be enrolled by setting `"auoptout":"N"` for a CardPointe Gateway's profile, or by using a PUT request to the updater endpoint of the CardPointe Gateway API to manually enroll individual accounts.
 
-See the CardPointe Gateway Profile service description for more information on stored profiles.
+See the [CardPointe Gateway Profile service description](.../api/?type=post&path=/cardconnect/rest/profile) for more information on stored profiles.
 
 ## Postman Collection
 
@@ -95,13 +96,13 @@ Included with the collection is a Postman Environment containing variables for y
 
 The Card Account Updater API includes support for tokenization of clear text primary account numbers (PANs) in PUT requests, pagination of GET requests, and the ability to submit DELETE requests.
 
-Use the PUT method to manually submit tokens or clear text PANs to the Card Account Updater service.
+Use the [PUT method](#updater-service-put-request) to manually submit tokens or clear text PANs to the Card Account Updater service.
 
-Use the GET method to retrieve data about recent updates.
+Use the [GET method](#updater-service-get-request) to retrieve data about recent updates.
 
-Use the DELETE method to manually remove tokens from the Card Account Updater service.
+Use the [DELETE method](#updater-service-delete-request) to manually remove tokens from the Card Account Updater service.
 
-> The DELETE method does not unenroll accounts that are associated with a stored profile. Use the CardPointe Gateway profile endpoint to set `"auoptout":"Y"` for accounts associated with a stored profile.
+> The DELETE method does not unenroll accounts that are associated with a stored profile. Use the CardPointe Gateway [profile](.../api/?type=post&path=/cardconnect/rest/profile) endpoint to set `"auoptout":"Y"` for accounts associated with a stored profile.
 
 ## Updater Service URL
 
@@ -240,7 +241,7 @@ For each failure, an object is returned within the errors array, containing the 
 The GET request retrieves all available account changes that have occurred within the 30 day period preceding the current date, or within the previous number of days specified using the `daysBack` parameter.
 
 <!-- theme: warning -->
-> Additionally, you can view update history details for the past year in the CardPointe Web App, on the **Card Updates** page. See the Card Account Updater Reporting topic in the CardPointe Web App Users' Guide for more information.
+> Additionally, you can view update history details for the past year in the CardPointe Web App, on the **Card Updates** page. See the [Card Account Updater Reporting](https://support.cardpointe.com/cardpointe/cardpointe-desktop-app#card-account-updater-reporting) topic in the [CardPointe Web App Users' Guide](https://support.cardpointe.com/cardpointe/cardpointe-desktop-app) for more information.
 
 ### GET Request Headers
 
@@ -296,7 +297,7 @@ The updates array consists of objects for each update, containing information ab
 | oldtoken | String	| The existing token associated with the stored profile or account
 | newexpiry	| String | The updated expiration date for the card associated with the account, in YYYYMMDD format
 | status | String | The change in status since the last update. Status can be one of the following values: <br> <br> **CLOSED** - The account has been closed <br> **CONTAC** - Contact the card issuer for information on the status of this account <br> **EXPIRY** - The account has a new expiration date <br> **NOGOOD** - The account has been reported as invalid by the card brand <br> **UPDATE** - The account details have been updated 
-| binInfo | Object | The BIN information for the account. Reference the CardPointe Gateway API documentation for more information about the fields returned with the binInfo object. <br> <br> **Note**: _Only returned when_ `binInfo=true` _in the GET request and_ `"status" : "UPDATE"`.
+| binInfo | Object | The BIN information for the account. Reference the [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md) documentation for more information about the fields returned with the binInfo object. <br> <br> **Note**: _Only returned when_ `binInfo=true` _in the GET request and_ `"status" : "UPDATE"`.
 | profiles | Array | The profiles array includes one or more objects containing the profileid and acctid for each CardPointe Gateway profile associated with the updated account. <br> <br> **Note**: _Only returned when_ `profiles=true` _in the GET request and the updated account is linked to a profile._ |
 
 #### Example: GET Response Body (including binInfo and profiles)
@@ -362,10 +363,10 @@ The updates array consists of objects for each update, containing information ab
 
 ## Updater Service DELETE Request
 
-The DELETE request unenrolls accounts that have been manually added using the PUT method. You can specify the accounts to unenroll in either a query string or JSON-encoded request.
+The DELETE request unenrolls accounts that have been manually added using the PUT method. You can specify the accounts to unenroll in either a [query string](#query-string-delete-requests) or [JSON-encoded request](json-delete-requests).
 
 <!-- theme: danger -->
-> It is not possible to use the DELETE method to unenroll an account associated with a stored profile. Use the CardPointe Gateway profile endpoint to set `"auoptout":"Y"` for accounts associated with a stored profile.
+> It is not possible to use the DELETE method to unenroll an account associated with a stored profile. Use the CardPointe Gateway [profile](.../api/?type=post&path=/cardconnect/rest/profile) endpoint to set `"auoptout":"Y"` for accounts associated with a stored profile.
 
 ### Query String Delete Requests
 
