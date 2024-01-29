@@ -17,7 +17,7 @@ titles: CardSecure, CardPointe Gateway, CardPointe Integrated Terminal API, CoPi
 
 [CardSecure](https://cardconnect.com/cardsecure) is our patented payment card tokenization and encryption service. CardSecure is integrated with the CardPointe Integrated Terminal and CardPointe Gateway payment solutions; however you can also use the CardSecure API or Hosted iFrame Tokenizer to integrate CardSecure directly with your application.
 
-See the CardSecure Support Page for more information on CardSecure.
+See the [CardSecure Support Page](https://support.cardconnect.com/cardsecure) for more information on CardSecure.
 
 See the [CardSecure API documentation](?path=docs/APIs/CardSecureAPI.md) for detailed information on integrating CardSecure using the API.
 
@@ -27,7 +27,7 @@ type: tab
 
 The CardPointe Gateway is the core of the [CardPointe](https://cardconnect.com/cardpointe) business platform. The CardPointe Gateway API allows you to integrate our complete payment acceptance and transaction management solution with the tools that you use to run your business.
 
-See the CardPointe Gateway API Support Page for more information on the CardPointe Gateway.
+See the [CardPointe Gateway API Support Page](https://support.cardconnect.com/apis-gateway) for more information on the CardPointe Gateway.
 
 See the [CardPointe Gateway API documentation](?path=docs/APIs/CardPointeGatewayAPI.md) for detailed information on integrating the CardPointe Gateway using the API.
 
@@ -37,7 +37,7 @@ type: tab
 
 The [CardPointe Integrated Terminal](https://cardconnect.com/cardpointe-integrated-payments) solution is the CardPointe platform's secure card-present payments integration for point-of-sale applications.  
 
-See the Support Page for general information and terminal user guides.
+See the [Support Page](https://support.cardpointe.com/bolt/terminal) for general information and terminal user guides.
 
 See the [CardPointe Integrated Terminal API documentation](?path=docs/APIs/CardPointeIntegratedTerminalAPI.md) for detailed information on integrating the Terminal API.
 
@@ -115,6 +115,6 @@ The following table describes the authorization methods used by each service:
 
 | Service | Authorization Method | Description |
 | ------- | -------------------- | ----------- |
-| **CardPointe Gateway API** | Basic Authorization with username and password	| Your client application is authorized using a username and password. The CardPointe Gateway uses a username and password pair for each merchant ID or for all merchant accounts on a given site, depending on the needs of the integration. <br /> <br /> Base64 encode the "username:password" value and pass it in the Authorization header of all CardPointe Gateway API requests. <br /> <br /> See the Connecting to the Server topic in the CardPointe Gateway API documentation for more information. | 
-| **CardPointe Terminal API** | Basic Authorization with secret API key	| Your client application is authorized using a unique API key. This value is valid for use with all CardPointe Integrated Terminal devices associated with a merchant ID. <br /> <br /> Include the API key in the Authorization header of all Terminal API requests. <br /> <br /> See the Connecting a Terminal topic in the CardPointe Integrated Terminal API Developer Guide for more information. |
-| **CoPilot API** | Bearer Token Authentication	| Your client application is authorized using a JSON Web Token, which is retrieved in an authentication request to the CoPilot service. A unique client secret value is used to generate the bearer token. <br /> <br /> Include the token in the Authorization field in the header of all CoPilot API requests. <br /> <br /> See the Authentication topic in the CoPilot API documentation for more information. |
+| **CardPointe Gateway API** | Basic Authorization with username and password	| Your client application is authorized using a username and password. The CardPointe Gateway uses a username and password pair for each merchant ID or for all merchant accounts on a given site, depending on the needs of the integration. <br /> <br /> Base64 encode the "username:password" value and pass it in the Authorization header of all CardPointe Gateway API requests. <br /> <br /> See the [Connecting to the Server](?path=docs/APIs/CardPointeGatewayAPI.md#connecting-to-the-server) topic in the CardPointe Gateway API documentation for more information. | 
+| **CardPointe Terminal API** | Basic Authorization with secret API key	| Your client application is authorized using a unique API key. This value is valid for use with all CardPointe Integrated Terminal devices associated with a merchant ID. <br /> <br /> Include the API key in the Authorization header of all Terminal API requests. <br /> <br /> See the [Connecting a Terminal](?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md) topic in the CardPointe Integrated Terminal API Developer Guide for more information. |
+| **CoPilot API** | Bearer Token Authentication	| Your client application is authorized using a JSON Web Token, which is retrieved in an authentication request to the CoPilot service. A unique client secret value is used to generate the bearer token. <br /> <br /> Include the token in the Authorization field in the header of all CoPilot API requests. <br /> <br /> See the [Authentication](?path=docs/APIs/CoPilotAPI.md#getting-started) topic in the CoPilot API documentation for more information. |
