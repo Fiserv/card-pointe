@@ -35,11 +35,9 @@ The following documents have been updated. See the Revision History in each guid
 
 # Request a Sandbox Account
 
-After you fill out the form below, the BluePay Gateway team will send an email with your login credentials within 24 business hours.
+Email bluepay-integration@fiserv.com to request a sandbox account. The BluePay Gateway team will send an email with your login credentials within 24 business hours.
 
 When you're ready to get paid, we'll help you flip the switch. This last step assumes that you've got code in place and have finished testing. You'll also need an active merchant account.
-
-Complete the form [here](https://share.hsforms.com/1SMkfo8JBRXueLU7v7rqI2A1yip0).
 
 # Payment Modules
 
@@ -107,43 +105,6 @@ _See instructional videos available in the left navigation._
 > [BluePay QuickBooks Desktop Plugin](https://developer.cardpointe.com/assets/developer/assets/BluePay-QuickBooks-Desktop-Plugin.pdf)
 
 > [BluePay QuickBooks Setup](https://developer.cardpointe.com/assets/developer/assets/BluePay_QuickBooks_Setup.zip)
-
-### QuickBooks Online
-
-#### QuickBooks Online Plugin Features
-
-The QuickBooks Online plugin works right out of the box, but it also comes with a range of advanced features, including the ability to:
-
-- Run credit, debit, and ACH transactions as Payments, Sales Receipts, and Credit Memos
-- Store payment methods for repeat customers via tokenization
-- Set up, modify, and delete rebillings
-- Import transactions processed outside of QuickBooks Online
-- Email invoices directly to customers that can be paid via a secure hosted payment form
-- Reduce card processing fees and optimize reporting using Level 2/Level 3 processing
-
-#### Setting Up the QuickBooks Online Plugin
-
-To use this dedicated plugin, you'll need both an active BluePay account and QuickBooks Online. Contact us at bluepay-gateway@fiserv.com to receive the plugin.
-
-During the setup process, you’ll need to provide your Account ID (which is different from your BluePay username) and Secret Key (which is different from your BluePay password).
-
-If you’re not sure where to find your Account ID or Secret Key:
-
-- Log directly into your BluePay account and click on Administration > Accounts > List
-- Next, click on the View icon, which will reveal your Account ID and Secret Key
-- You’ll need to copy these credentials and paste them into the relevant fields within the setup wizard
-
-_See instructional videos available in the left navigation._
-
-> [BluePay QuickBooks Online Plugin](https://developer.cardpointe.com/assets/developer/assets/BluePay-QuickBooks-Online-Plugin.pdf)
-
-### SalesForce
-
-BluePay SalesForce Plugin gives you the ability to process credit card and ACH payments directly inside of your SalesForce environment against Accounts, Contacts and Opportunities. The plugin also supports recurring billing and secure storage of payment accounts using tokenization.
-
-See instructional videos available in the left navigation.
-
-**Please contact** bluepay-integration@fiserv.com **for more information.** 
 
 ### WordPress
 
