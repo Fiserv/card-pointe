@@ -10,9 +10,9 @@ The CardPointe Desktop SDK integration consists of the following components:
 
 - The CardPointe Desktop EMV/MSR card reader (ID TECH Augusta)
 - Your point-of-sale application, which integrates one or more of the following services to tokenize payment cards and authorize payments:
-    - CardSecure API
+    - [CardSecure API](?path=docs/APIs/CardSecureAPI.md)
     - [Hosted iFrame Tokenizer](?path=docs/documentation/HostediFrameTokenizer.md)
-    - CardPointe Gateway API
+    - [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md)
       
 See the [CardPointe Desktop Integration Guide](#cardPointe-desktop-integration-guide), below, for more information.
 
@@ -21,7 +21,7 @@ See the [CardPointe Desktop Integration Guide](#cardPointe-desktop-integration-g
 The CardPointe Desktop card reader device (ID TECH Augusta) is an EMV (chip) and MSR (magnetic stripe) card reader device that offers a simple upgrade path to EMV from traditional countertop magnetic stripe readers. The device encrypts card data at the point of interaction, ensuring that sensitive cardholder data is never exposed to your environment. Additionally, the device supports EMV Quick Chip, allowing you to accept EMV payments much more quickly than standard EMV.
 
 <!-- theme: warning -->
-> See the CardPointe Desktop Device User's Guide for information on using and troubleshooting the device.
+> See the [CardPointe Desktop Device User's Guide](https://support.cardpointe.com/integrated/desktop/cardpointe-sdk-desktop-device) for information on using and troubleshooting the device.
 
 The device uses keyboard emulation to output the encrypted card data string from the device into a field, as though you manually typed the string into the field using your keyboard.
 
@@ -38,9 +38,9 @@ The CardPointe Desktop card reader is preconfigured with the following required 
 
 The CardPointe Desktop solution supports the following integration methods, providing flexible tokenization and payment functions to your application.
 
-- **CardSecure API** - Integrate the CardPointe Desktop device and CardSecure API with your application to capture and tokenize encrypted MSR track or EMV tag data.
+- **CardSecure API** - Integrate the CardPointe Desktop device and [CardSecure API](?path=docs/APIs/CardSecureAPI.md) with your application to capture and tokenize encrypted MSR track or EMV tag data.
 - **Hosted iFrame Tokenizer** - Integrate the [Hosted iFrame Tokenizer](?path=docs/documentation/HostediFrameTokenizer.md) and CardPointe Desktop device with your web application, to easily capture and tokenize card data using the secure iFrame.
-- **CardPointe Gateway API** - Use the CardPointe Gateway API to authorize payments using the tokens you generate from the CardSecure API or Hosted iFrame Tokenizer. Alternatively, streamline your integration by using the CardPointe Desktop device to capture track data to pass in an authorization request. The response returns a token to your application, as well as the transaction details.
+- **CardPointe Gateway API** - Use the [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md) to authorize payments using the tokens you generate from the CardSecure API or Hosted iFrame Tokenizer. Alternatively, streamline your integration by using the CardPointe Desktop device to capture track data to pass in an authorization request. The response returns a token to your application, as well as the transaction details.
 
 ## Requirements
 
@@ -64,7 +64,7 @@ If you use the CardPointe Desktop solution to accept payments, you will need to 
 
 ## Sample Tokenization Requests
 
-You can use the CardSecure API to tokenize track data captured using the CardPointe Desktop device. The following examples illustrate sample tokenization requests using track data captured by the device.
+You can use the [CardSecure API](?path=docs/APIs/CardSecureAPI.md) to [tokenize](.../api/?type=post&path=/cardsecure/api/v1/ccn/tokenize) track data captured using the CardPointe Desktop device. The following examples illustrate sample tokenization requests using track data captured by the device.
 
 | Method | URL | Request Header | 
 | --- | --- | --- |
@@ -115,7 +115,7 @@ You can use the CardSecure API to tokenize track data captured using the CardPoi
 
 ## Sample Authorization Requests
 
-You can use the CardPointe Gateway API to authorize a payment either using a token returned by CardSecure or the Hosted iFrame Tokenizer, or by directly sending the track data captured by the device in the track field in the request.
+You can use the [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md) to authorize a payment either using a token returned by CardSecure or the Hosted iFrame Tokenizer, or by directly sending the track data captured by the device in the track field in the request.
 
 The following examples illustrate sample authorization requests using the tokenized and raw track data from the CardPointe Desktop device.
 
