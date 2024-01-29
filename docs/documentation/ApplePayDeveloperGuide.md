@@ -16,7 +16,7 @@ Before you begin, consider the following:
 > Note that this process can take up to 5 business days.
 
 - You must must create and configure an Apple Pay Merchant ID, and you must create a provision an Apple Pay Merchant ID (with appropriate Identifier and Profile) and Payment Processing Certificate prior to submitting tokenization requests.
-- Using either the CardPointe Mobile SDK or a combination of the CardSecure API and CardPointe Gateway API, your solution must integrate CardSecure to tokenize Apple Pay data and the CardPointe Gateway to use the tokens in authorization requests.
+- Using either the CardPointe Mobile SDK or a combination of the [CardSecure API](?path=docs/APIs/CardSecureAPI.md) and [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md), your solution must integrate CardSecure to tokenize Apple Pay data and the CardPointe Gateway to use the tokens in authorization requests.
 
 ## Limitations
 
@@ -129,7 +129,7 @@ Some related log messages include:
 
 # Integrating Apple Pay using the CardSecure API
 
-This topic provides information for adding Apple Pay to your website or application using the CardSecure API. Apple Pay tokenization makes use of CardSecure's RSA encryption capabilities. A similar decryption process handles the encrypted data returned from Apple.
+This topic provides information for adding Apple Pay to your website or application using the CardSecure API. Apple Pay tokenization makes use of [CardSecure's RSA encryption](?path=docs/APIs/CardSecureAPI.md#tokenizing-and-encrypting-pan-data) capabilities. A similar decryption process handles the encrypted data returned from Apple.
 
 Before you begin, review the Apple Pay [Payment Token Format Reference](https://developer.apple.com/documentation/passkit/apple_pay/payment_token_format_reference).
 
@@ -216,4 +216,4 @@ Content-Type: application/json
 
 ## Making a CardPointe Gateway Authorization Request
 
-Once you obtain a token, you can pass that token in an authorization request to the CardPointe Gateway. See the CardPointe Gateway API for more information.
+Once you obtain a token, you can pass that token in an authorization request to the CardPointe Gateway. See the [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md) for more information.
