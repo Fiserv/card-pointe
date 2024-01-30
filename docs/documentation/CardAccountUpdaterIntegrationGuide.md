@@ -30,7 +30,7 @@ To take advantage of the Card Account Updater service, you must meet the followi
 
 - Your merchant account must be acquired by CardConnect.
 
-- You must use the [CardPointe Gateway's Profile service](.../api/?type=post&path=/cardconnect/rest/profile) to store customer payment account information, **or** manually enroll specific accounts by making a PUT request to the updater resource of the CardPointe Gateway API.
+- You must use the [CardPointe Gateway's Profile service](../api/?type=post&path=/cardconnect/rest/profile) to store customer payment account information, **or** manually enroll specific accounts by making a PUT request to the updater resource of the CardPointe Gateway API.
 
 - If you are using the CardPointe Gateway profile service, profiles must include `"auoptout":"N"` (the default value if not specified). Setting `"auoptout":"y"` opts a profile out of the Card Account Updater service, and the profile will not be checked for updates.
 
@@ -56,7 +56,7 @@ To use the Card Account Updater service, you must be enrolled in the service. [C
 
 ## How it Works
 
-The Updater service requests daily updates from Visa, Mastercard, and Discover for accounts that are enrolled in this service via [CardPointe Gateway profiles](.../api/?type=post&path=/cardconnect/rest/profile), and accounts that have been enrolled using this API. The card brands respond within 3-5 days with any changes to the account, such as:
+The Updater service requests daily updates from Visa, Mastercard, and Discover for accounts that are enrolled in this service via [CardPointe Gateway profiles](../api/?type=post&path=/cardconnect/rest/profile), and accounts that have been enrolled using this API. The card brands respond within 3-5 days with any changes to the account, such as:
 
 - new account number
 - new expiration date
@@ -79,7 +79,7 @@ The following diagram illustrates the Card Account Updater service workflow:
 
 Accounts can be enrolled by setting `"auoptout":"N"` for a CardPointe Gateway's profile, or by using a PUT request to the updater endpoint of the CardPointe Gateway API to manually enroll individual accounts.
 
-See the [CardPointe Gateway Profile service description](.../api/?type=post&path=/cardconnect/rest/profile) for more information on stored profiles.
+See the [CardPointe Gateway Profile service description](../api/?type=post&path=/cardconnect/rest/profile) for more information on stored profiles.
 
 ## Postman Collection
 
@@ -102,7 +102,7 @@ Use the [GET method](#updater-service-get-request) to retrieve data about recent
 
 Use the [DELETE method](#updater-service-delete-request) to manually remove tokens from the Card Account Updater service.
 
-> The DELETE method does not unenroll accounts that are associated with a stored profile. Use the CardPointe Gateway [profile](.../api/?type=post&path=/cardconnect/rest/profile) endpoint to set `"auoptout":"Y"` for accounts associated with a stored profile.
+> The DELETE method does not unenroll accounts that are associated with a stored profile. Use the CardPointe Gateway [profile](../api/?type=post&path=/cardconnect/rest/profile) endpoint to set `"auoptout":"Y"` for accounts associated with a stored profile.
 
 ## Updater Service URL
 
@@ -363,10 +363,10 @@ The updates array consists of objects for each update, containing information ab
 
 ## Updater Service DELETE Request
 
-The DELETE request unenrolls accounts that have been manually added using the PUT method. You can specify the accounts to unenroll in either a [query string](#query-string-delete-requests) or [JSON-encoded request](json-delete-requests).
+The DELETE request unenrolls accounts that have been manually added using the PUT method. You can specify the accounts to unenroll in either a [query string](#query-string-delete-requests) or [JSON-encoded request](#json-delete-requests).
 
 <!-- theme: danger -->
-> It is not possible to use the DELETE method to unenroll an account associated with a stored profile. Use the CardPointe Gateway [profile](.../api/?type=post&path=/cardconnect/rest/profile) endpoint to set `"auoptout":"Y"` for accounts associated with a stored profile.
+> It is not possible to use the DELETE method to unenroll an account associated with a stored profile. Use the CardPointe Gateway [profile](../api/?type=post&path=/cardconnect/rest/profile) endpoint to set `"auoptout":"Y"` for accounts associated with a stored profile.
 
 ### Query String Delete Requests
 
