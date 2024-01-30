@@ -64,7 +64,7 @@ If you use the CardPointe Desktop solution to accept payments, you will need to 
 
 ## Sample Tokenization Requests
 
-You can use the [CardSecure API](?path=docs/APIs/CardSecureAPI.md) to [tokenize](.../api/?type=post&path=/cardsecure/api/v1/ccn/tokenize) track data captured using the CardPointe Desktop device. The following examples illustrate sample tokenization requests using track data captured by the device.
+You can use the [CardSecure API](?path=docs/APIs/CardSecureAPI.md) to [tokenize](../api/?type=post&path=/cardsecure/api/v1/ccn/tokenize) track data captured using the CardPointe Desktop device. The following examples illustrate sample tokenization requests using track data captured by the device.
 
 | Method | URL | Request Header | 
 | --- | --- | --- |
