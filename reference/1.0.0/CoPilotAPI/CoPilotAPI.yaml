@@ -83,8 +83,300 @@ paths:
           content:  
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
+
+  /auth/realms/cardconnect/protocol/openid-connect/merchant:
+    post: 
+      tags:
+        - merchant Endpoint Definition
+      x-group-name: CoPilot
+      x-proxy-name: merchant (CREATE)
+      x-default-example: PaymentCard
+      summary: The Merchant endpoint is used primarily to create a new merchant account in CoPilot, using a pre-existing application template that has been created in the CoPilot web interface.
+      description: |+
+        The Merchant endpoint is used primarily to create a new merchant account in CoPilot, using a pre-existing application template that has been created in the CoPilot web interface.
+        Once the merchant account has been created, additional boarding operations can be performed, such as:
+
+        Ordering equipment for the account
+        Uploading attachments that the merchant has completed and signed
+        Requesting a digital signature from the merchant, allowing them to review and sign the application using their web browser
+        Use the POST method to create a new merchant account using a pre-existing application template that has been created in the CoPilot web interface. A successful request returns the merchantId property, which is used to identify the account within CoPilot and is used in subsequent API calls for additional boarding operations.
+        The code example to the right is not representative of a legitimate request as it includes all possible fields, including those that would generate a conflict when creating a merchant.
+
+        See the CoPilot Developer Guides to learn about the minimum data requirements and process of creating a new merchant.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tokenRequest'
+      parameters:
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/tokenResponse'}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+
 components:
   schemas:
+    merchantRequest:
+      x-model-version: 1.0
+      description: merchant Request
+      properties:
+        templateId:
+          $ref: '#/components/schemas/templateId'
+        merchant:
+          $ref: '#/components/schemas/merchant'
+        OwnerSiteUser:
+          $ref: '#/components/schemas/OwnerSiteUser'
+    templateId:
+      description: The ID of the application template created within the CoPilot web interface.
+      type: integer
+      maxLength: 19
+      example: 999
+    merchant:
+      type: array
+      items:
+        properties:
+          salesCodes:
+            $ref: '#/components/schemas/salesCode'
+          akaBusinessName:
+            $ref: '#/components/schemas/akaBusinessName'
+          dbaName:
+            $ref: '#/components/schemas/dbaName'
+          legalBusinessName:
+            $ref: '#/components/schemas/legalBusinessName'
+          taxFilingName:
+            $ref: '#/components/schemas/taxFilingName'
+          taxFilingMethod:
+            $ref: '#/components/schemas/taxFilingMethod'
+          businessStartDate:
+            $ref: '#/components/schemas/businessStartDate'
+          businessIdTypeCd:
+            $ref: '#/components/schemas/businessIdTypeCd'
+          custPrimaryAcctFlg:
+            $ref: '#/components/schemas/custPrimaryAcctFlg'
+          webLeadFlg:
+            $ref: '#/components/schemas/webLeadFlg'
+          hierarchy:
+            $ref: '#/components/schemas/hierarchy'
+          demographic:
+            $ref: '#/components/schemas/demographic'
+          ownership:
+            $ref: '#/components/schemas/ownership'
+          bankDetail:
+            $ref: '#/components/schemas/bankDetail'
+          merchantContactInfo:
+            $ref: '#/components/schemas/merchantContactInfo'
+          processing:
+            $ref: '#/components/schemas/processing'
+          pricing:
+            $ref: '#/components/schemas/pricing'
+          fees:
+            $ref: '#/components/schemas/fees'
+          cloverSecurityAndTrasarmor:
+            $ref: '#/components/schemas/cloverSecurityandTransarmor'
+          customFields:
+            $ref: '#/components/schemas/customFields'
+    ownership:
+      type: array 
+      items:
+        properties:
+          owner:
+            $ref: '#/components/schemas/owner'
+          additionalOwners:
+            $ref: '#/components/schemas/additionalOwners'
+          ownershipTypeCd:
+            $ref: '#/components/schemas/ownershipTypeCd'
+          publiclyTradedFlag:
+            $ref: '#/components/schemas/publiclyTradedFlag'
+          stockSymbol:
+            $ref: '#/components/schemas/stockSymbol'
+          driversLicenseNumber:
+            $ref: '#/components/schemas/driversLicenseNumber'
+          ownerOwnershipPct:
+            $ref: '#/components/schemas/ownerOwnerrshipPct'
+    salesCode:
+      type: string
+      maxLength: 25
+      description: The Sales Code created within the CoPilot web interface that is applicable for this merchant account.
+      example: API1
+    akaBusinessName:
+      type: string
+      example: The Card Shoppe
+      description: The 'Also Known As' business name, such as an informal or shorthand moniker of the legal or DBA name.
+      maxLength: 200
+    dbaName: 
+      type: string
+      maxLength: 100
+      example: The Card Shoppe
+      description: The 'Doing Business As' name, sometimes referred to as the 'Fictitious Business Name' or 'Assumed Business Name' that is legally registered.
+    legalBusinessName:
+      type: string
+      maxLength: 500
+      description: The full legal name of the registered business.
+      example: The Card Shoppe LLC
+    taxFilingName:
+      type: string
+      maxLength: 500
+      example: The Card Shoppe LLC
+      description: "The business name used in tax filing. Include only the following special characters: &, -"
+    taxFilingMethod: 
+      description: The method used to identify the business for tax filing. Can be either EIN or SSN. Only the SSN method is possible when merchant.ownership.ownershipType is INDIVSOLE.
+      maxLength: 3
+      type: string
+      example: EIN
+    businessStartDate:
+      type: string
+      maxLength: 10
+      description: The business inception date, formatted as MM/DD/YYYY.
+      example: 09/17/1949
+    businessIdTypeCd:
+      type: string
+      maxLength: 7
+      description: The business identification type code, used to verify the business. Can be either ARTICLE or GOVT.
+      example: ARTICLE
+    custPrimaryAcctFlg:
+      type: boolean
+      description: True when the account is considered the primary account among linked MIDs.
+      example: false
+    webLeadFlg:
+      type: boolean
+      description: True when this merchant account is created as the result of an unsolicited merchant inquiry using a hosted web form or a similar lead generation strategy.
+      example: true
+    hierarchy:
+      type: array
+      description: The hierarchy object, containing custom hierarchy information for this merchant.
+      items:
+        properties:
+          corpLevel:
+            $ref: '#/components/schemas/corpLevel'
+          chainLevel:
+            $ref: '#/components/schemas/chainLevel'
+          sponsorBankCd:
+            $ref: '#/components/schemas/sponsorBankCd'
+    corpLevel:
+      maxLength: 12
+      type: string
+      description: The Corporate Chain used to associate merchant accounts.
+      example: 000000000001
+    chainLevel:
+      maxLength: 12
+      type: string
+      description: The Chain Level used to link merchant accounts for reporting, statement, or financial rollup.
+      example: 000000000002
+    sponsorBankCd:
+      maxLength: 5
+      type: string
+      description: The Sponsor Bank code for merchant accounts using the FD North backend. Enter WELLS for Wells Fargo or BBVA for BBVA.
+      example: WELLS
+    demographic: 
+      type: array
+      description: The demographic object, containing business information.
+      items:
+        properties:
+          businessIncorporatedStateCd:
+            $ref: '#/components/schemas/businessIncorporatedStateCd'
+          merchantTimeZone:
+            $ref: '#/components/schemas/merchantTimeZone'
+          websiteAddress:
+            $ref: '#/components/schemas/websiteAddress'
+          businessPhone:
+            $ref: '#/components/schemas/businessPhone'
+          businessFax:
+            $ref: '#/components/schemas/businessFax'
+          businessAddress:
+            $ref: '#/components/schemas/businessAddress'
+          mailingAddress:
+            $ref: '#/components/schemas/mailingAddress'
+    businessIncorporatedStateCd:
+      maxLength: 2
+      type: string
+      description: The state code where the business is incorporated.
+      example: CO
+    merchantTimeZone:
+      maxLength: 3
+      type: string
+      description: The 2 or 3 character time zone such as ET, CT, MT, PT, or HST.
+      example: MT
+    websiteAddress:
+      maxLength: 200
+      description: Business website is required if merchant.processing.modeOfTransaction.eCommercePct is greater than 0.
+      type: string
+      example: www.example.com
+    businessPhone:
+      maxLength: 12
+      type: string
+      description: The business phone number formatted as "###-###-####".
+      example: 123-456-7890
+    businessFax:
+      maxLength: 12
+      type: string
+      description: The business fax number formatted as "###-###-####".
+      example: 098-765-4321
+    businessAddress:
+      description: The address object containing the business address
+      $ref: '#/components/schemas/address'
+    mailingAddress:
+      description: The address object containing the business mailing address
+      $ref: '#/components/schemas/address'
+    address:
+      type: array
+      items:
+        properties:
+          address1:
+            $ref: '#/components/schemas/address1'
+          address2:
+            $ref: '#/components/schemas/address2'
+          city: 
+            $ref: '#/components/schemas/city'
+          stateCd:
+            $ref: '#/components/schemas/stateCd'
+          zip:
+            $ref: '#/components/schemas/zip'
+          countryCd:
+            $ref: '#/components/schemas/countryCd'
+    address1:
+      type: string
+      maxLength: 200
+      example: 123 Fake St
+      description: The number and street of the address.
+    address2: 
+      type: string
+      maxLength: 200
+      example: Suite 300
+      description: Any additional address information such as apartment number or suite number of the address.
+    city: 
+      type: string
+      maxLength: 300
+      description: The city associated with the address
+      example: Keystone
+    stateCd:
+      type: string
+      maxLength: 2
+      description: The state code that represents the US state where the address is located.
+      example: CO
+    zip:
+      description: The ZIP code of the address.
+      maxLength: 15
+      type: string
+      example: 90435
+    countryCd:
+      description: The country code that represents the country associated with the address.
+      example: US
+      type: string
+      maxLength: 2
     tokenResponse:
       x-model-version: 1.0
       description: token Response
