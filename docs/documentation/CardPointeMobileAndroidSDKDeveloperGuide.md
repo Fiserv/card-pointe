@@ -46,7 +46,7 @@ If you are developing an application to accept card present payments, you must i
 
 The VP3300 is a Bluetooth-enabled mobile payment reader device that supports MSR (swipe) and EMV (chip) transactions. The VP3300 connects to your phone or tablet using Bluetooth 4.0, which supports Bluetooth Low Energy and automatic pairing. 
 
-See the CardPointe Mobile Device User's Guide for more information on the ID TECH VP3300.
+See the [CardPointe Mobile Device User's Guide](https://support.cardpointe.com/integrated/mobile/cardpointe-mobile-sdk-device) for more information on the ID TECH VP3300.
 
 <!-- theme: danger -->
 > The ID TECH VP3300 is only available for merchants processing on the First Data Rapid Connect platform.
@@ -102,7 +102,7 @@ The following table provides an overview of the features that you might want to 
 
 | Functionality | User Type | Component | Description |
 | --- | --- | --- | --- |
-| Stored Customer Profiles | Customer | [Integrated Customer Profile UI](#integrating-the-customer-profile-ui-optional) | Integrates the CardPointe Gateway Profile service, allowing customers to securely store and manage their payment accounts. <br> <br> See the CardPointe Gateway Profile service documentation for more information on the profile service. <br> <br> See [Integrating the Customer Profile UI](#integrating-the-customer-profile-ui-optional) for information on adding this feature to your application. |
+| Stored Customer Profiles | Customer | [Integrated Customer Profile UI](#integrating-the-customer-profile-ui-optional) | Integrates the CardPointe Gateway Profile service, allowing customers to securely store and manage their payment accounts. <br> <br> See the [CardPointe Gateway Profile service documentation](/api/?type=post&path=/cardconnect/rest/profile/) for more information on the profile service. <br> <br> See [Integrating the Customer Profile UI](#integrating-the-customer-profile-ui-optional) for information on adding this feature to your application. |
 | Mobile Payment Reader Devices	| Merchant | Android Swiper Implementation | An integrated mobile payment reader (swiper) device used to securely capture and encrypt card data prior to tokenization. <br> <br> See [Supported Devices](#supported-devices) for information on the devices that are currently supported. <br> <br> See the [Android SDK Integration Guide](#android-sdk-integration-guide) for instructions for integrating mobile payment reader devices. |
 
 Additionally, you can integrate the Google Pay Android API to add Google Paytm support to your app. See the [Google Pay Developer Guide](?path=docs/documentation/GooglePayDeveloperGuide.md) for more information.
