@@ -53,7 +53,7 @@ If you are developing an application to accept card present payments, you must i
 
 The VP3300 is a Bluetooth-enabled mobile payment reader device that supports MSR (swipe) and EMV (chip) transactions. The VP3300 connects to your phone or tablet using Bluetooth 4.0, which supports Bluetooth Low Energy and automatic pairing.
 
-For more information on using the VP3300, see the CardPointe Mobile Device User's Guide.
+For more information on using the VP3300, see the [CardPointe Mobile Device User's Guide](https://support.cardpointe.com/integrated/mobile/cardpointe-mobile-sdk-device).
 
 <!-- theme: danger -->
 > The ID TECH VP3300 is only available for merchants processing on the First Data Rapid Connect platform.
@@ -110,7 +110,7 @@ The following table provides an overview of the features that you might want to 
 
 | Functionality | User Type | Component | Description |
 | --- | --- | --- | --- |
-| Stored Customer Profiles | Customer | [Integrated Customer Profile UI](#integrating-the-customer-profile-ui) | Integrates the CardPointe Gateway Profile service, allowing customers to securely store and manage their payment accounts. <br> <br> See the CardPointe Gateway Profile service documentation for more information on the profile service. <br> <br> See [Integrating the Customer Profile UI](#integrating-the-customer-profile-ui) for information on adding this feature to your application. |
+| Stored Customer Profiles | Customer | [Integrated Customer Profile UI](#integrating-the-customer-profile-ui) | Integrates the [CardPointe Gateway Profile service](../api/?type=post&path=/cardconnect/rest/profile/), allowing customers to securely store and manage their payment accounts. <br> <br> See the [CardPointe Gateway Profile service documentation](../api/?type=post&path=/cardconnect/rest/profile/) for more information on the profile service. <br> <br> See [Integrating the Customer Profile UI](#integrating-the-customer-profile-ui) for information on adding this feature to your application. |
 | Apple Pay Wallet Support | Customer | [Apple Pay Integration](?path=docs/documentation/ApplePayDeveloperGuide.md) | Adds the option to use Apple Pay wallet credentials and stored payment methods. <br> <br> See the [Apple Pay Developer Guide](?path=docs/documentation/ApplePayDeveloperGuide.md) for more information. |
 | Mobile Payment Reader Devices	| Merchant | [iOS Swiper Implementation](#adding-support-for-mobile-payment-readers) | An integrated mobile payment reader (swiper) device used to securely capture and encrypt card data prior to tokenization. <br> <br> See [Supported Devices](#supported-devices) for information on the devices that are currently supported. <br> <br> See the [iOS SDK Integration Guide](#ios-sdk-integration-guide) for instructions for integrating mobile payment reader devices. |
 
@@ -460,4 +460,4 @@ You use the `BMSCardInfo` and `BMSAPI` classes to send a payment card data to Ca
 
 - A token is generated for the account and returned to your application.
 
-**3.** Optionally, you can use `BMSAccount` to save an account for a profile on the CardPointe Gateway using the [iOS SDK Integrated Customer Profile UI](#Integrating-The-Customer-Profile-UI) or CardPointe Gateway API.
+**3.** Optionally, you can use `BMSAccount` to save an account for a profile on the CardPointe Gateway using the [iOS SDK Integrated Customer Profile UI](#Integrating-The-Customer-Profile-UI) or [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md).
