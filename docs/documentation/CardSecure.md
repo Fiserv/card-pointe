@@ -8,13 +8,13 @@ description: The following guides provide information on CardSecure, tokens, and
 
 # CardSecure Overview
 
-CardSecure® is the CardPointe platform's P2PE-validated encryption and tokenization solution, and is at the center of all integrated payment solutions. Whether you use a [CardPointe Integrated Payments solution](https://cardconnect.com/cardpointe) to securely accept card-present transactions with your integrated point-of-sale, or the [Hosted iFrame Tokenizer](?path=docs/documentation/HostediFrameTokenizer.md) or CardSecure API to extend secure eCommerce payments to online customers, CardSecure allows you to accept sensitive payment data securely, with reduced PCI scope.
+CardSecure® is the CardPointe platform's P2PE-validated encryption and tokenization solution, and is at the center of all integrated payment solutions. Whether you use a [CardPointe Integrated Payments solution](https://cardconnect.com/cardpointe) to securely accept card-present transactions with your integrated point-of-sale, or the [Hosted iFrame Tokenizer](?path=docs/documentation/HostediFrameTokenizer.md) or [CardSecure API](?path=docs/APIs/CardSecureAPI.md) to extend secure eCommerce payments to online customers, CardSecure allows you to accept sensitive payment data securely, with reduced PCI scope.
 
 # Understanding CardSecure Tokens
 
-CardSecure's patented P2PE-validated tokenization solution offers numerous secure and convenient methods for tokenizing sensitive data. A token is a hashed alphanumeric representation of sensitive data such as a credit card account number. These tokens can only be used with the CardPointe Gateway API for transaction processing.
+CardSecure's patented P2PE-validated tokenization solution offers numerous secure and convenient methods for tokenizing sensitive data. A token is a hashed alphanumeric representation of sensitive data such as a credit card account number. These tokens can only be used with the [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md) for transaction processing.
 
-When you submit a tokenization request, CardSecure encrypts and stores the sensitive data in a secure vault, and generates a unique token that corresponds to and represents the stored data. For example, if you capture and tokenize payment card data, the payment card number and associated track and EMV data (for card-present transactions) is stored in the database. You then use the token to represent this payment card in a transaction.
+When you submit a [tokenization request](../api/?type=post&path=/cardsecure/api/v1/ccn/tokenize), CardSecure encrypts and stores the sensitive data in a secure vault, and generates a unique token that corresponds to and represents the stored data. For example, if you capture and tokenize payment card data, the payment card number and associated track and EMV data (for card-present transactions) is stored in the database. You then use the token to represent this payment card in a transaction.
 
 > CardSecure stores and purges sensitive data in accordance with Payment Card Industry (PCI) compliance standards. However, even after a token's sensitive data has been purged, CardSecure retains a hash of the clear card number, allowing the same token to be generated any time a given card is tokenized.
 
@@ -116,15 +116,15 @@ When a customer purchases a gift card, the merchant initiates an authorization r
 
 When a customer presents a gift card for payment, the payment request process is similar to accepting a credit or debit card payment. 
 
-Depending on your business needs, you can use a CardPointe Integrated Terminal to accept card-present gift card payments in person, or you can integrate CardSecure to allow customers to use gift cards to make payments on your website or mobile application.
+Depending on your business needs, you can use a [CardPointe Integrated Terminal](?path=docs/APIs/CardPointeIntegratedTerminalAPI.md) to accept card-present gift card payments in person, or you can integrate CardSecure to allow customers to use gift cards to make payments on your website or mobile application.
 
 ### Using a CardPointe Integrated Terminal
 
-If you are using a CardPointe Integrated Terminal to process payments, you can use a readCard or readManual request to initiate a gift card transaction. When the gift card is swiped or manually entered at a terminal, the terminal matches the BIN with the range of BINs for your gift cards and returns an unencrypted clear text card number, which your point-of-sale software uses to complete the transaction.
+If you are using a [CardPointe Integrated Terminal](?path=docs/APIs/CardPointeIntegratedTerminalAPI.md) to process payments, you can use a [readCard](../api/?type=post&path=/api/v2/readCard) or [readManual](../api/?type=post&path=/api/v2/readManual) request to initiate a gift card transaction. When the gift card is swiped or manually entered at a terminal, the terminal matches the BIN with the range of BINs for your gift cards and returns an unencrypted clear text card number, which your point-of-sale software uses to complete the transaction.
 
 ### Using CardSecure
 
-If your software directly integrates CardSecure, using the CardSecure API, [Hosted iFrame Tokenizer](?path=docs/documentation/HostediFrameTokenizer.md), or [CardPointe Mobile SDKs](?path=docs/documentation/CardPointeMobileSDKs.md), your software passes the gift card number to CardSecure, which matches the BIN with the whitelisted BIN range and returns the unencrypted card number, which your software uses to complete the transaction.
+If your software directly integrates CardSecure, using the [CardSecure API](?path=docs/APIs/CardSecureAPI.md), [Hosted iFrame Tokenizer](?path=docs/documentation/HostediFrameTokenizer.md), or [CardPointe Mobile SDKs](?path=docs/documentation/CardPointeMobileSDKs.md), your software passes the gift card number to CardSecure, which matches the BIN with the whitelisted BIN range and returns the unencrypted card number, which your software uses to complete the transaction.
 
 > Notes:
 > - Unlike a credit or debit card transaction, CardSecure does not encrypt or tokenize the gift card account number.
@@ -132,7 +132,7 @@ If your software directly integrates CardSecure, using the CardSecure API, [Host
 
 ## Managing Gift Card Transactions
 
-Because these gift card transactions take place within a closed loop, no settlement or funding data is passed to an issuing bank. Instead, it is the merchant or partner's responsibility to manage gift card transaction and funding data. By integrating the CardPointe Gateway API and CardPointe Integrated Terminal API, your software can retrieve the data necessary for you to manage your general ledger, and to ensure that funds are transferred from the gift card to the merchant.
+Because these gift card transactions take place within a closed loop, no settlement or funding data is passed to an issuing bank. Instead, it is the merchant or partner's responsibility to manage gift card transaction and funding data. By integrating the [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md) and [CardPointe Integrated Terminal API](?path=docs/APIs/CardPointeIntegratedTerminalAPI.md), your software can retrieve the data necessary for you to manage your general ledger, and to ensure that funds are transferred from the gift card to the merchant.
 
 # Tokenizing Interactive Voice Response Input
 
@@ -140,7 +140,7 @@ This guide provides information for tokenizing data gathered using an interactiv
 
 ## Overview
 
-Interactive voice response (IVR) systems are used to capture payment and personal information from customers using a telephone keypad or voice recognition. If your business uses an IVR system to capture sensitive data, you can integrate the CardSecure API with your solution to securely encrypt and tokenize the data and the CardPointe Gateway API to use the token to process a payment.
+Interactive voice response (IVR) systems are used to capture payment and personal information from customers using a telephone keypad or voice recognition. If your business uses an IVR system to capture sensitive data, you can integrate the [CardSecure API](?path=docs/APIs/CardSecureAPI.md) with your solution to securely encrypt and tokenize the data and the [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md) to use the token to process a payment.
 
 ## Requirements
 
@@ -148,7 +148,7 @@ To tokenize data captured from an IVR system, your integration must meet the fol
 
 - You must obtain an RSA public key from CardPointe support.
   
-  CardPointe support generates a unique RSA key pair, provides the public key (in X.509 format) to you and retains the private key. You use the public key to encrypt the IVR input   data, and CardSecure uses the private key to decrypt the data prior to tokenization. For more information, see Encrypting and Tokenizing Payment Account Data.
+  CardPointe support generates a unique RSA key pair, provides the public key (in X.509 format) to you and retains the private key. You use the public key to encrypt the IVR input   data, and CardSecure uses the private key to decrypt the data prior to tokenization. For more information, see [Encrypting and Tokenizing Payment Account Data](?path=docs/APIs/CardSecureAPI.md#encrypting-and-tokenizing-payment-account-data).
 - Your authorization requests to the CardPointe Gateway must include the key value pair "ecomind" : "T" to specify that the payment source is "telephone."
 
 ## How it Works
@@ -163,10 +163,10 @@ The following workflow describes a typical process for capturing cardholder data
    
 **4.** Your application uses an RSA encryption key to encrypt the data.
    
-**5.** Your application makes a tokenization request, using the CardSecure API.
+**5.** Your application makes a tokenization request, using the [CardSecure API](?path=docs/APIs/CardSecureAPI.md).
    
 **6.** CardSecure generates a token that represents the customer's payment card data, and returns the encrypted token to your application.
    
-**7.** Your application makes an authorization request, using the CardPointe Gateway API and the token.
+**7.** Your application makes an authorization request, using the [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md) and the token.
    
 **8.** The CardPointe Gateway authorizes the payment and returns the authorization response to your application.
