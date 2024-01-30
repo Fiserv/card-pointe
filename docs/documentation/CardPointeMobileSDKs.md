@@ -23,13 +23,13 @@ See [Understanding CardSecure Tokens](?path=docs/documentation/CardSecure.md#und
 
 ## Authorization (Server-side)
 
-The CardPointe Gateway REST clients install on your application server to integrate your solution to the CardPointe Gateway.
+The CardPointe Gateway REST clients install on your application server to integrate your solution to the [CardPointe Gateway](?path=docs/APIs/CardPointeGatewayAPI.md).
 
 Using a REST client, your sever authenticates with the CardPointe Gateway, makes authorization requests using tokens retrieved from the mobile app, and handles responses from the Gateway.
 
 See [Server-side Host Scripts](#server-side-host-scripts) for information on using the CardPointe Gateway REST clients.
 
-See the CardPointe Gateway API documentation for more information on the features and capabilities of the CardPointe Gateway.
+See the [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md) documentation for more information on the features and capabilities of the CardPointe Gateway.
 
 ## Tokenization and Authorization Flow
 
@@ -62,7 +62,7 @@ If you are developing an application to accept card-present payments, you must i
 
 The VP3300 is a Bluetooth-enabled mobile payment reader device that supports MSR (swipe) and EMV (chip) transactions. The VP3300 connects to your phone or tablet using Bluetooth 4.0, which supports Bluetooth Low Energy (BLE) and automatic pairing.
 
-For more information on using the VP3300, see the CardPointe Mobile Device User's Guide.
+For more information on using the VP3300, see the [CardPointe Mobile Device User's Guide](https://support.cardpointe.com/integrated/mobile/cardpointe-mobile-sdk-device).
 
 <!-- theme: danger -->
 > The ID TECH VP3300 is only available for merchants processing on the First Data Rapid Connect platform.
@@ -89,7 +89,7 @@ link: ?path=docs/documentation/CardPointeMobileAndroidSDKDeveloperGuide.md
 
 # Server-Side Host Scripts
 
-As described in the [CardPointe Mobile SDK Overview](#overview), your server-side application must retrieve the token from your mobile application to then use in an authorization request to the CardPointe Gateway to complete a payment. The following topics provide sample server-side scripts that you can use to integrate the necessary CardPointe Gateway API requests with your application.
+As described in the [CardPointe Mobile SDK Overview](#overview), your server-side application must retrieve the token from your mobile application to then use in an authorization request to the CardPointe Gateway to complete a payment. The following topics provide sample server-side scripts that you can use to integrate the necessary [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md) requests with your application.
 
 Sample scripts are currently available in the following languages:
 
@@ -108,7 +108,7 @@ These sample scripts provide the following CardPointe Gateway API request method
 
 <!-- theme: warning -->
 > These sample scripts are intended to serve as example implementations, and do not represent the current and full capabilities of the CardPointe Gateway API. 
-> See the CardPointe Gateway API for detailed, up-to-date information on using these request methods and handling response data.
+> See the [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md) for detailed, up-to-date information on using these request methods and handling response data.
 
 ## Python Toolkit
 
@@ -125,13 +125,13 @@ The CardConnectSDK root directory includes the following files:
 
 The /cardconnect subdirectory includes the following files:
 
-- api_requestor.py – Provides classes for making requests using the CardPointe Gateway API.
+- api_requestor.py – Provides classes for making requests using the [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md).
 - error.py – Provides classes for handling error responses from the SDK:
   - ApiAuthenticationError
   - ApiConnectionError
   - ApiError
   - ApiRequestError
-- http_client.py – Provides classes for HTTP communication required by the CardPointe Gateway API. 
+- http_client.py – Provides classes for HTTP communication required by the [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md). 
 - init.py – Imports all components of the SDK.
 - service.py – Provides classes for Auth, Capture, Void, Refund, Funding, Profile, and SigCap requests, the core object types in the SDK.
 - util.py – Provides utility classes for logging, imports, and formatting.
@@ -164,7 +164,7 @@ The CardConnectSDK root directory includes the following files:
 The /cardconnect subdirectory includes the following files:
 
 - cardconnect.js – Provides definitions for Auth, Capture, Void, Refund, Funding, Profile, and SigCap requests, the core object types in the SDK.
-- api_requestor.js – Provides an abstract class used by the SDK to send HTTP requests using the CardPointe Gateway API.
+- api_requestor.js – Provides an abstract class used by the SDK to send HTTP requests using the [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md).
 
 ### Files in the /cardconnect/test Subdirectory
 
