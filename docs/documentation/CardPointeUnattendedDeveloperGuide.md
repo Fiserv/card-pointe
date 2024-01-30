@@ -16,17 +16,17 @@ The CardPointe Unattended solution includes the following components:
 - **Payment Application Engine** - The Payment Application Engine (PAE) provides the interface between your client application and the unattended device. Your application sends commands to the device to initiate the card reader, and securely capture the card data.
 - **Web Payment Application** - The web payment application retrieves the encrypted card data from the device and initiates an authorization request to the CardPointe Gateway, via HTTP/Ethernet.
 - **App Loader** - The app loader runs on the unattended device to check for and automatically download and install updates to the firmware, PAE, and SDK installed on the device.
-- **CardPointe Gateway API** - The CardPointe Gateway API provides methods for managing and reporting on your transactions. Your application uses the CardPointe Gateway API to void, refund, or check the status of a transaction.
+- **CardPointe Gateway API** - The CardPointe Gateway API provides methods for managing and reporting on your transactions. Your application uses the [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md) to [void](../api/?type=post&path=/cardconnect/rest/void), [refund](../api/?type=post&path=/cardconnect/rest/refund), or [check the status](../api/?type=get&path=/cardconnect/rest/inquire) of a transaction.
 
-> Similarly to the CardPointe Integrated Terminal solution, your application **must** integrate the CardPointe Gateway API to manage transactions and perform other business functions. See the CardPointe Gateway API documentation for detailed information on integrating the CardPointe Gateway API.
+> Similarly to the CardPointe Integrated Terminal solution, your application **must** integrate the CardPointe Gateway API to manage transactions and perform other business functions. See the [CardPointe Gateway API documentation](?path=docs/APIs/CardPointeGatewayAPI.md) for detailed information on integrating the CardPointe Gateway API.
 
 ## Features
 
 The CardPointe Unattended solution offers a simple integration for retrieving encrypted payment card data from an unattended kiosk, tokenizing that data, and using the token to process a payment or refund on the CardPointe Gateway.
 
-If you are currently integrating the CardPointe Integrated Terminal API for an attended payment solution, the CardPointe Unattended payment process is similar to a simplified authCard process.
+If you are currently integrating the [CardPointe Integrated Terminal API](?path=docs/APIs/CardPointeIntegratedTerminalAPI.md) for an attended payment solution, the CardPointe Unattended payment process is similar to a simplified [authCard](../api/?type=post&path=/api/v3/authCard) process.
 
-For additional transaction management and reporting features, your application **must** use the CardPointe Gateway API to communicate directly with the CardPointe Gateway. See the CardPointe Gateway API for detailed information.
+For additional transaction management and reporting features, your application **must** use the [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md) to communicate directly with the CardPointe Gateway. See the CardPointe Gateway API for detailed information.
 
 See [Understanding Payment Flows](#understanding-payment-flows), later in this guide for more information on making payment requests.
 
@@ -80,7 +80,7 @@ Additionally, configure the port configuration settings as follows:
 
 ## Sample Checksum Calculator
 
-As described in the CardPointe Unattended API, every command and response must include a checksum value. The checksum is derived from the CRC-16 decimal calculation of the ASCII command string up to and including the delimiter preceding the checksum field.
+As described in the [CardPointe Unattended API](#cardpointe-unattended-api), every command and response must include a checksum value. The checksum is derived from the CRC-16 decimal calculation of the ASCII command string up to and including the delimiter preceding the checksum field.
 
 For testing, you can find a simple checksum calculator at crccalc.com.
 
@@ -110,7 +110,7 @@ return crc; }
 
 To initiate a payment or to tokenize a card, your application sends a Do Payment Transaction (DPT) command to the unattended device. The device then captures and encrypts the customer's payment card data and sends an authorization request to the CardPointe Gateway. 
 
-To refund, void, or inquire on an existing payment, your application must use the CardPointe Gateway API to interact directly with the CardPointe Gateway.
+To refund, void, or inquire on an existing payment, your application must use the [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md) to interact directly with the CardPointe Gateway.
 
 The following topics describe each of these payment flows in detail.
 
@@ -124,7 +124,7 @@ For example, to capture a payment for $1, your application sends the following c
 
 `*PAE|DPT|CMD|1|{"OrderID":"A1B2C3", "paymentAmount":100, "paymentType":1, "paymentUser":"John"}|03878|*!PAE!*`
 
-See the [DPT Request Syntax](?path=docs/documentation/CardPointeUnattendedDeveloperGuide.md#DPT-Request-Syntax) for detailed information on the PAE command format and supported commands.
+See the [DPT Request Syntax](#dpt-request-syntax) for detailed information on the PAE command format and supported commands.
 
 **2.** The PAE requests the payment card data from the unattended device.
 
@@ -142,7 +142,7 @@ To authorize a payment, but delay the capture, your application interacts with t
 
 **1.** Your application sends a DPT Authorization-only (`"paymentType":6`) request. For example: `*PAE|DPT|CMD|1|{"OrderID":"A1B2C3", "paymentAmount":100, "paymentType":6, "paymentUser":"John"}|50955|*!PAE!*`
 
-See the [DPT Request Syntax](?path=docs/documentation/CardPointeUnattendedDeveloperGuide.md#DPT-Request-Syntax) for detailed information on the PAE command format and supported commands.
+See the [DPT Request Syntax](#dpt-request-syntax) for detailed information on the PAE command format and supported commands.
 
 **2.** The PAE requests the payment card data from the unattended device.
 
@@ -150,7 +150,7 @@ See the [DPT Request Syntax](?path=docs/documentation/CardPointeUnattendedDevelo
 
 **4.** The PAE transmits the auth request and returns the response data from the CardPointe Gateway to your application. See the [DPT Response Syntax](#dpt-response-syntax) for detailed information on the response data.
 
-**5.** Your application can use the `cardToken` and `processorCode` (authcode) from the response to make a delayed capture request using the CardPointe Gateway API.
+**5.** Your application can use the `cardToken` and `processorCode` (authcode) from the response to make a delayed capture request using the [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md).
 
 #### Refund a Payment without Reference (Forced Credit)
 
@@ -165,7 +165,7 @@ For example, to refund a $1 payment, your application sends the command `*PAE|DP
 
 **Note**: _The_ `PaymentAmount` _value must be positive._
 
-See the [DPT Request Syntax](?path=docs/documentation/CardPointeUnattendedDeveloperGuide.md#dpt-request-syntax) for detailed information on the PAE request format and supported payment types.
+See the [DPT Request Syntax](#dpt-request-syntax) for detailed information on the PAE request format and supported payment types.
 
 **2.** The PAE requests the payment card data from the unattended device.
 
@@ -181,7 +181,7 @@ To refund or void a transaction, you use the `processorReference` value returned
 
 Your application makes a CardPointe Gateway API refund or void request, using the `processorReference` value in the `retref` field in the request.
 
-See the refund and void endpoint descriptions for detailed information.
+See the [refund](../api/?type=post&path=/cardconnect/rest/refund) and [void](../api/?type=post&path=/cardconnect/rest/void) endpoint descriptions for detailed information.
 
 #### Validate and Tokenize a Payment Card
 
@@ -199,7 +199,7 @@ See the [DPT Request Syntax](#dpt-request-syntax) for detailed information on th
 
 **4.** The PAE returns the response data , including the token, from CardSecure to your application. See the [DPT Response Syntax](#dpt-response-syntax) for detailed information on the response data.
 
-**5.** Your application can use the token to make a payment request or create a customer profile using the CardPointe Gateway API.
+**5.** Your application can use the token to make a payment request or create a customer profile using the [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md).
 
 ## Handling Offline Payments
 
@@ -243,7 +243,7 @@ To reconcile offline transactions, you can use either of the following CardPoint
 
 #### Using inquireByOrderid to Retrieve A Single Offline Transaction
 
-To reconcile individual offline transactions, you can use the CardPointe Gateway APIs `inquireByOrderid` endpoint to retrieve transaction status and retrieval reference number (retref). See the Inquire By Order ID description in the CardPointe Gateway API for additional information on the inquireByOrderid request and response.
+To reconcile individual offline transactions, you can use the CardPointe Gateway APIs `inquireByOrderid` endpoint to retrieve transaction status and retrieval reference number (retref). See the [Inquire By Order ID](../api/?type=get&path=/cardconnect/rest/inquireByOrderdid) description in the CardPointe Gateway API for additional information on the inquireByOrderid request and response.
 
 <!-- theme: warning -->
 > In order to use the `inquireByOrderid` request, you must specify a unique `orderId` value in each [DPT](#dpt-do-payment-transaction) payment request. 
@@ -288,7 +288,7 @@ All commands and responses share a common format, and every field in the message
 
 ## CPT (Cancel Payment Transaction)
 
-The CPT request cancels an in-flight DPT command, if the customer has not yet inserted their card. If the customer has already inserted their card and the read was successful, then you must void the transaction.
+The CPT request cancels an in-flight DPT command, if the customer has not yet inserted their card. If the customer has already inserted their card and the read was successful, then you must [void](../api/?type=post&path=/cardconnect/rest/void) the transaction.
 
 ### CPT Request Syntax
 
@@ -351,9 +351,9 @@ where `{payment details}` is a JSON object that includes the following parameter
 
 | Parameter | Type | Description |
 | --- | --- | --- |
-| orderId | string | A unique order ID used to identify the transaction. This value is an alphanumeric string with a maximum of 19-characters. <br> <br> You can use the order ID to get information on a transaction using the CardPointe Gateway API inquireByOrderid endpoint. <br> <br> **Note**: _If you include an order ID it must meet the following requirements:_ <br> <br> - _The order ID must be a unique value. Using duplicate order IDs can lead to the wrong transaction being voided in the event of a timeout._ <br> - _The order ID must not include any portion of a payment account number (PAN), and no portion of the order ID should be mistaken for a PAN. If the order ID passes the Luhn check performed by the CardPointe Gateway, the value will be masked in the database, and attempts to use the order ID in an inquire, void, or refund request will fail._
+| orderId | string | A unique order ID used to identify the transaction. This value is an alphanumeric string with a maximum of 19-characters. <br> <br> You can use the order ID to get information on a transaction using the CardPointe Gateway API [inquireByOrderid](../api/?type=get&path=/cardconnect/rest/inquireByOrderdid) endpoint. <br> <br> **Note**: _If you include an order ID it must meet the following requirements:_ <br> <br> - _The order ID must be a unique value. Using duplicate order IDs can lead to the wrong transaction being voided in the event of a timeout._ <br> - _The order ID must not include any portion of a payment account number (PAN), and no portion of the order ID should be mistaken for a PAN. If the order ID passes the Luhn check performed by the CardPointe Gateway, the value will be masked in the database, and attempts to use the order ID in an inquire, void, or refund request will fail._
 | **paymentAmount** | numeral | The amount of the transaction, in cents (the decimal is implied). <br> <br> **Note**: `paymentAmount` _must be a positive number._ |
-| **paymentType** | numeral | The type of transaction. Must be one of the following values: <br> <br> **1** - Sale <br> Authorizes and captures the amount specified in the request. <br> <br> **3** - Refund (Forced Credit) <br> Authorizes and processes a refund in the amount specified in the request. <br> **Note**: _The merchant account must be configured to process forced credits._ <br> <br> **5** - Tokenization Only <br> Validates the card and returns a CardSecure token, which can be used to process a payment or create a customer profile, using the CardPointe Gateway API. <br> <br> **6** - Authorization Only <br> Authorizes the amount specified in the request and returns a CardSecure token, but does not capture the transaction. You can use the token to capture the authorized amount using the CardPointe Gateway API. |
+| **paymentType** | numeral | The type of transaction. Must be one of the following values: <br> <br> **1** - Sale <br> Authorizes and captures the amount specified in the request. <br> <br> **3** - Refund (Forced Credit) <br> Authorizes and processes a refund in the amount specified in the request. <br> **Note**: _The merchant account must be configured to process forced credits._ <br> <br> **5** - Tokenization Only <br> Validates the card and returns a CardSecure token, which can be used to process a payment or create a customer profile, using the [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md). <br> <br> **6** - Authorization Only <br> Authorizes the amount specified in the request and returns a CardSecure token, but does not capture the transaction. You can use the token to capture the authorized amount using the [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md). |
 | **paymentUser** | string | A unique identifier for the user or attendant initiating the transaction. This can be useful to identify transactions processed during different shifts. <br> <br> **Note**: `PaymentUser` _is required; however you can specify a static value in all DPT requests if this data is not applicable to your environment._ |
 
 For example, to send a payment request for $1.00, send the following command:
@@ -445,7 +445,7 @@ Upon successful completion of a transaction, the response includes the authoriza
 ```
 
 <!-- theme: warning -->
-> See the CardPointe Gateway API for additional information on the authorization response fields returned by the CardPointe Gateway.
+> See the CardPointe Gateway API for additional information on the [authorization response](../api/?type=post&path=/cardconnect/rest/auth) fields returned by the CardPointe Gateway.
 
 > The fields returned in the JSON response object vary depending on the `paymentType` in the request. `paymentType` 5 (tokenization) only returns the `cardToken` and `processorMsg` fields.
 
@@ -453,7 +453,7 @@ Upon successful completion of a transaction, the response includes the authoriza
 | --- | --- | --- |
 | amountAuth | 1, 3, 6 | The `amount` authorized. |
 | authorization	| 1, 3, 6 | The `authcode` returned to the CardPointe Gateway by the card issuer. |
-| bininfo | 1, 3, 6	| The card's BIN (bank identification number) information returned by the CardPointe Gateway. See the BIN response description in the CardPointe Gateway API for detailed information. |
+| bininfo | 1, 3, 6	| The card's BIN (bank identification number) information returned by the CardPointe Gateway. See the [BIN response description](../api/?type=get&path=/cardconnect/rest/bin/{merchid}/{token}) in the CardPointe Gateway API for detailed information. |
 | cardToken	| 1, 3, 5, 6 | The CardSecure `token`, returned by the CardPointe Gateway. |
 | emvTags | 1, 3, 6	| The `emvTagData` array of receipt and EMV tag data (when applicable) returned from the processor. <br> <br> This data returned should be presented on a receipt if applicable, and recorded with the transaction details for future reference. <br> <br> See [Printing Receipts Using Authorization Data](?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md#printing-receipts-using-authorization-data) in the [CardPointe Integrated Terminal Developer Guides](?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md) for detailed information. |
 | expiry | 1, 3, 6 | The card's expiration date in the format `MMYY`. |
