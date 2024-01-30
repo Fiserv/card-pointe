@@ -2,7 +2,7 @@
 
 This guide provides information for using the [CardPointe Gateway's](?path=docs/documentation/CardPointeGatewayDeveloperGuides.md) Batch Authorization Service (BAS) to submit batch files for authorization processing. 
 
-The request file submitted to BAS will contain all required data elements within an [Authorization Request](.../api/?type=post&path=/cardconnect/rest/auth) to the CardPointe Gateway. BAS collects the supplied data and submits all requests on behalf of the client. A response file is returned, containing data from the associated [Authorization Response](.../api/?type=post&path=/cardconnect/rest/auth).
+The request file submitted to BAS will contain all required data elements within an [Authorization Request](../api/?type=post&path=/cardconnect/rest/auth) to the CardPointe Gateway. BAS collects the supplied data and submits all requests on behalf of the client. A response file is returned, containing data from the associated [Authorization Response](../api/?type=post&path=/cardconnect/rest/auth).
 
 > Using BAS to transmit batch files is **not** a drag-and-drop solution. Integrating BAS requires development work and testing.
 
@@ -18,7 +18,7 @@ The request file submitted to BAS will contain all required data elements within
 
 ## Supported Authorization Types
 
-The Batch Authorization Service supports all data elements that the CardPointe Gateway [Authorization Service](.../api/?type=post&path=/cardconnect/rest/auth) supports.
+The Batch Authorization Service supports all data elements that the CardPointe Gateway [Authorization Service](../api/?type=post&path=/cardconnect/rest/auth) supports.
 
 | Authorization Type | Details |
 | --- | --- |
@@ -47,7 +47,7 @@ For example:
 
 ## BAS Request File Specifications
 
-The Batch Authorization Service supports all fields and data elements that the CardPointe Gateway [Authorization Service](.../api/?type=post&path=/cardconnect/rest/auth) supports.
+The Batch Authorization Service supports all fields and data elements that the CardPointe Gateway [Authorization Service](../api/?type=post&path=/cardconnect/rest/auth) supports.
 
 <!-- theme: warning -->
 > Note the following important considerations:
@@ -100,18 +100,18 @@ merchid,orderid,accttype,account,expiry,amount,capture,currency,email,name,addre
 
 Fields in **bold** are required.
 
-Fields with a # indicate these fields can be used as part of a profile. See the CardPointe Gateway API [profile](.../api/?type=post&path=/cardconnect/rest/profile) description for more information.
+Fields with a # indicate these fields can be used as part of a profile. See the CardPointe Gateway API [profile](../api/?type=post&path=/cardconnect/rest/profile) description for more information.
 
 | Fields | Size | Type | Comments |
 | --- | --- | --- | --- |
 | **orderid** | 50 | AN | Source system order number. <br> <br> Populate this field with a unique value that can identify the sales order. <br> <br> This value will be associated with the response record. |
 | **merchid** | 12 | N | CardPointe merchant ID (MID), required for all requests |
-| **amount** | 12 | N | Amount with decimal or without decimal in currency minor units (for example, USD Pennies or EUR Cents), <br> <br> This value identifies the authorization type: <br> <br> **Positive** - Authorization request <br> **Zero** - Account Verification request, if AVS and CVV verification is enabled for your merchant account. Account Verification is not supported for eCheck (ACH) authorizations. <br> **Negative** - Refund without reference (Forced Credit). Merchants must be enabled for forced credit. When referencing an existing authorization, use [refund](.../api/?type=post&path=/cardconnect/rest/refund). |
+| **amount** | 12 | N | Amount with decimal or without decimal in currency minor units (for example, USD Pennies or EUR Cents), <br> <br> This value identifies the authorization type: <br> <br> **Positive** - Authorization request <br> **Zero** - Account Verification request, if AVS and CVV verification is enabled for your merchant account. Account Verification is not supported for eCheck (ACH) authorizations. <br> **Negative** - Refund without reference (Forced Credit). Merchants must be enabled for forced credit. When referencing an existing authorization, use [refund](../api/?type=post&path=/cardconnect/rest/refund). |
 | currency | 3 | AN | Currency of merchant settlement <br> (USD for US dollars, CAD for Canadian Dollars, etc.) |
 | **expiry#** | 3 | N | Card Expiration in either MMYY or YYYYMMDD format, not required for ECHK. |
-| **account#** | 19 | N | **CardSecure Token** - Retrieved from the CardPointe Integrated Terminal API, CardSecure API, or the Hosted iFrame Tokenizer. <br> <br> The token can be generated from from either credit card or ACH (banking/routing number) data. If ACH, the `merchid` must be a specific Profit Stars Merchant ID. <br> <br> **Note**: To use a CardPointe profile, omit the `account` field and supply the `profileid`. See the CardPointe Gateway API [profile](.../api/?type=post&path=/cardconnect/rest/profile) description for more information. |
-| profile | 1 or 16 | AN | Optional, **Y** to create an account profile upon initial authorization. <br> <br> Creating a profile generates a 20-digit numeric `profileid` / `acctid` (optional) value to use in authorizations when the `account` field is omitted. See the CardPointe Gateway API [profile](.../api/?type=post&path=/cardconnect/rest/profile) description for more information. |
-| acctid | 3 | N | Account identifier within a [profile](.../api/?type=post&path=/cardconnect/rest/profile), specifies unique token |
+| **account#** | 19 | N | **CardSecure Token** - Retrieved from the CardPointe Integrated Terminal API, CardSecure API, or the Hosted iFrame Tokenizer. <br> <br> The token can be generated from from either credit card or ACH (banking/routing number) data. If ACH, the `merchid` must be a specific Profit Stars Merchant ID. <br> <br> **Note**: To use a CardPointe profile, omit the `account` field and supply the `profileid`. See the CardPointe Gateway API [profile](../api/?type=post&path=/cardconnect/rest/profile) description for more information. |
+| profile | 1 or 16 | AN | Optional, **Y** to create an account profile upon initial authorization. <br> <br> Creating a profile generates a 20-digit numeric `profileid` / `acctid` (optional) value to use in authorizations when the `account` field is omitted. See the CardPointe Gateway API [profile](../api/?type=post&path=/cardconnect/rest/profile) description for more information. |
+| acctid | 3 | N | Account identifier within a [profile](../api/?type=post&path=/cardconnect/rest/profile), specifies unique token |
 | capture | 1 | A | Optional, **Y** to capture the transaction for settlement if approved. |
 | signature | 6144 | AN | JSON-escaped, Base64-encoded, Gzipped, BMP of signature data. <br> <br> If the authorization is using a token with associated signature data, then the signature from the token is used. |
 | cvv2 | 4 | N | CVV2/CVC/CID value |
@@ -130,7 +130,7 @@ Fields with a # indicate these fields can be used as part of a profile. See the 
 | accttype# | 6 | A | One of PPAL, PAID, GIFT, PDEBIT, otherwise not required. |
 | ecomind | 1 | A | Identifies the payment origin. Options are: <br> <br> **T** - telephone or mail <br> **R** - recurring <br> **E** - ecommerce/Internet |
 | invoiceid | 12 | AN | Invoice ID, optional. <br> <br> Defaults to `orderid` from authorization request |
-| userfields | 4000 Bytes | AN | The userfields object, or array, is a series of name-value pairs that are meaningful to the merchant. <br> <br> See the [userfields](.../api/?type=post&path=/cardconnect/rest/profile) description for more information. <br> <br> Example of userfields value: <br> <br> `"{""UDF1"": ""SomeText"", ""UDF2"": ""SomeMoreText""}"` |
+| userfields | 4000 Bytes | AN | The userfields object, or array, is a series of name-value pairs that are meaningful to the merchant. <br> <br> See the [userfields](../api/?type=post&path=/cardconnect/rest/profile) description for more information. <br> <br> Example of userfields value: <br> <br> `"{""UDF1"": ""SomeText"", ""UDF2"": ""SomeMoreText""}"` |
 
 #### Capture Level 2 Data
 
