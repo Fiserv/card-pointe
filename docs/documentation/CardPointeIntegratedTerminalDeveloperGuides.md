@@ -34,7 +34,7 @@ Once a terminal is provisioned and delivered to a client, it must be connected t
 > - 198.62.138.0/24
 > - 206.201.63.0/24
 > 
-> See Allowing CardPointe Integrated Terminal Network Connections for more detailed information.
+> See [Allowing CardPointe Integrated Terminal Network Connections](https://support.cardpointe.com/integrated/terminal/network-connections) for more detailed information.
 
 The terminal displays either **Connected** or **Disconnected** depending on whether it has established an internet connection and made contact with the terminal service.
 
@@ -87,10 +87,10 @@ The Terminal API provides the following methods for either tokenizing payment ca
 
 > Regardless of which method you implement, tokenization is handled by CardSecure, and the payment authorization is handled by the CardPointe Gateway.
 
-- If you use the Terminal API [readCard](../api/?type=post&path=/api/v2/readCard) or [readManual](../api/?type=post&path=/api/v2/readManual) endpoint to get a token, you must then pass that token in an authorization request from your client application, using the CardPointe Gateway API.
+- If you use the Terminal API [readCard](../api/?type=post&path=/api/v2/readCard) or [readManual](../api/?type=post&path=/api/v2/readManual) endpoint to get a token, you must then pass that token in an authorization request from your client application, using the [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md).
 - If you use the Terminal API [authCard](../api/?type=post&path=/api/v3/authCard) or [authManual](../api/?type=post&path=/api/v3/authManual) endpoint to get a token, the terminal passes the token in an authorization request to the CardPointe Gateway.
 
-In addition to handling payment requests, the CardPointe Gateway also provides methods for voiding and refunding transactions, and for gathering reporting data. Integrate your application using the CardPointe Gateway API to take full advantage of these and other features offered by the CardPointe Gateway. For more information, see the [CardPointe Gateway API documentation](?path=docs/APIs/CardPointeGatewayAPI.md).
+In addition to handling payment requests, the CardPointe Gateway also provides methods for voiding and refunding transactions, and for gathering reporting data. Integrate your application using the [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md) to take full advantage of these and other features offered by the CardPointe Gateway. For more information, see the [CardPointe Gateway API documentation](?path=docs/APIs/CardPointeGatewayAPI.md).
 
 # Running the API in Postman
 
@@ -164,8 +164,8 @@ You use the following endpoints to tokenize payment card data and run authorizat
 
 | Endpoint | Environment | Description |
 | --- | --- | --- |
-| `readCard` | Card Present | This endpoint is used to get a token. <br> <br> The `readCard` endpoint requests card input (MSR, EMV, or NFC) and retrieves the encrypted data from the terminal. Encrypted data is sent to CardSecure for tokenization, and the token is returned to the client application to be passed in a subsequent authorization request to the CardPointe Gateway API. |
-| `authCard` | Card Present | This endpoint is used to get a token and run a payment. <br> <br> The `authCard` endpoint requests card input (MSR, EMV, or NFC), and retrieves the encrypted data from the terminal. Encrypted data is sent to CardSecure for tokenization, and the token is returned to the terminal service, which initiates an authorization request to the CardPointe Gateway. |
+| `readCard` | Card Present | This endpoint is used to get a token. <br> <br> The `readCard` endpoint requests card input (MSR, EMV, or NFC) and retrieves the encrypted data from the terminal. Encrypted data is sent to CardSecure for tokenization, and the token is returned to the client application to be passed in a subsequent [authorization request](../api/?type=post&path=/cardconnect/rest/auth) to the CardPointe Gateway API. |
+| `authCard` | Card Present | This endpoint is used to get a token and run a payment. <br> <br> The `authCard` endpoint requests card input (MSR, EMV, or NFC), and retrieves the encrypted data from the terminal. Encrypted data is sent to CardSecure for tokenization, and the token is returned to the terminal service, which initiates an [authorization request](../api/?type=post&path=/cardconnect/rest/auth) to the CardPointe Gateway. |
 | `readManual` | Card Not Present | This endpoint is used to get a token. <br> <br> The `readManual` endpoint requests manually-entered card input and retrieves the encrypted data from the terminal. Encrypted data is sent to CardSecure for tokenization, and the token is returned to the client application to be passed in a subsequent authorization request to the CardPointe Gateway API. |
 | `authManual` | Card Not Present | This endpoint is used to get a token and run a payment. <br> <br> The `authManual` endpoint requests manually-entered card input, and retrieves the encrypted data from the terminal. Encrypted data is sent to CardSecure for tokenization, and the token is returned to the terminal service, which initiates an authorization request to the CardPointe Gateway. |
 | `tip` | Card Present | This endpoint is used to prompt the user to select a tip amount prior to the authorization. <br> <br> The `tip` endpoint requests a tip amount, and retrieves the user's selection from the terminal. The `tip` request parameters allow you to configure up to three preset percentages and one custom amount, which allows the user to specify a dollar amount. <br> <br> Generally your software should call the `tip` endpoint to retrieve the tip amount to add to the transaction amount before submitting the authorization or tokenization request for the total amount. |
@@ -188,7 +188,7 @@ Generally, an `authCard` or `authManual` request initiates the following sequenc
 - The terminal prompts the user to swipe/insert/tap or manually enter the card data.
 - The terminal prompts the user for a signature.
 
-**4.** The captured data is passed in an authorization request to the CardPointe Gateway, which returns the authorization response details.
+**4.** The captured data is passed in an [authorization request](../api/?type=post&path=/cardconnect/rest/auth) to the CardPointe Gateway, which returns the authorization response details.
    
 **5.** The authorization response text (resptext) displays on the terminal (for example, "Approved").
 
@@ -212,7 +212,7 @@ Generally, a `readCard` or `readManual` request initiates the following sequence
 
 **4.** The terminal service returns the tokenized card number, signature, and any additional data to the client application.
    
-**5.** The client application can then pass the token and cardholder data in an authorization request to the CardPointe Gateway to capture the funds for the transaction.
+**5.** The client application can then pass the token and cardholder data in an [authorization request](../api/?type=post&path=/cardconnect/rest/auth) to the CardPointe Gateway to capture the funds for the transaction.
 
 ## Using the Terminal API Operational Endpoints
 
@@ -288,7 +288,7 @@ Ensure that your image meets the following requirements:
 
 To experiment with the volume, pitch, and duration of the beep heard when using the device, you can temporarily adjust these settings from the Beep menu. The terminal beeps when prompting the user to tap/insert/swipe a card, and when prompting to remove. 
 
-> This feature is for testing purposes only. To permanently change your device's beep settings, note your desired settings and contact CardPointe Support.
+> This feature is for testing purposes only. To permanently change your device's beep settings, note your desired settings and [contact CardPointe Support](https://support.cardpointe.com/contact-support).
 
 **1.** Access the Admin Menu:
    
@@ -322,7 +322,7 @@ CardPointe Integrated Terminal devices are identified by a unique hardware seria
 
 All Terminal API requests require a MID. Typically, the integrated POS software uses the MID assigned to the terminal to tokenize credit card numbers and send authorization requests.
 
-Tokens are site-specific; however, a token can be used by any MID on the same site. Therefore, you can use the MID assigned to the terminal to tokenize a credit card using a [readCard](../api/?type=post&path=/api/v2/readCard) or [readManual](../api/?type=post&path=/api/v2/readManual) request, and then use another MID on your site to use that token to make an authorization request to the CardPointe Gateway.
+Tokens are site-specific; however, a token can be used by any MID on the same site. Therefore, you can use the MID assigned to the terminal to tokenize a credit card using a [readCard](../api/?type=post&path=/api/v2/readCard) or [readManual](../api/?type=post&path=/api/v2/readManual) request, and then use another MID on your site to use that token to make an [authorization request to the CardPointe Gateway](../api/?type=post&path=/cardconnect/rest/auth).
 
 The following topics describe this workflow in greater detail, including required parameters and best practices.
 
@@ -410,11 +410,11 @@ Content-Type: application/json
 }
 ```
 
-> This token is **not** directly associated with the MID used in the readCard request; therefore another MID on the same site can use this token in an authorization request to the CardPointe Gateway.
+> This token is **not** directly associated with the MID used in the readCard request; therefore another MID on the same site can use this token in an [authorization request to the CardPointe Gateway](../api/?type=post&path=/cardconnect/rest/auth).
 
 ## Authorizing the Payment Using a Different MID
 
-Once your POS system has retrieved the token, you can use the token in a request to the CardPointe Gateway API's auth endpoint.
+Once your POS system has retrieved the token, you can use the token in a request to the CardPointe Gateway API's [auth endpoint](../api/?type=post&path=/cardconnect/rest/auth).
 
 The authorization request requires a MID; however, this MID can be any MID that shares a site with the MID that obtained the token. In this case an integrated POS system associated with another MID on the same site creates an authorization request.
 
@@ -597,7 +597,7 @@ If your application uses [authCard](../api/?type=post&path=/api/v3/authCard) or 
 
 ### Gateway Timed Out Response Returned
 
-In this case, a response, including a retrieval reference number (`retref`) for the transaction, is returned. You can use the `retref` to make an inquire request to the CardPointe Gateway to retrieve details about the authorization attempt.
+In this case, a response, including a retrieval reference number (`retref`) for the transaction, is returned. You can use the `retref` to make an [inquire](/api/?type=get&path=/cardconnect/rest/inquire) request to the CardPointe Gateway to retrieve details about the authorization attempt.
 
 #### Gateway "Timed Out" Response Example
 
@@ -635,9 +635,9 @@ When the terminal service does not receive a response from the CardPointe Gatewa
 <!-- theme: danger -->
 > If you include an order ID in your authCard or authManual requests you must ensure that you provide a unique value. Using duplicate order IDs can lead to the wrong transaction being voided in the event of a timeout.
 
-The terminal service makes an inquireByOrderid request to the CardPointe Gateway to check the status of the transaction. If the CardPointe Gateway returns a response, the terminal service forwards the response to your application.
+The terminal service makes an [inquireByOrderid](../api/?type=get&path=/cardconnect/rest/inquireByOrderdid) request to the CardPointe Gateway to check the status of the transaction. If the CardPointe Gateway returns a response, the terminal service forwards the response to your application.
 
-If the terminal service does not receive a response to the inquireByOrderid request, it makes three voidByOrderId requests to void the transaction and ensure that funds were not captured. If at least half of the CardPointe Gateway timeout threshold remains, the terminal service retries the authCard or authManual request. Otherwise, your application must resend the request. 
+If the terminal service does not receive a response to the inquireByOrderid request, it makes three [voidByOrderId](../api/?type=get&path=/cardconnect/rest/voidByOrderdid) requests to void the transaction and ensure that funds were not captured. If at least half of the CardPointe Gateway timeout threshold remains, the terminal service retries the authCard or authManual request. Otherwise, your application must resend the request. 
 
 # Capturing and Handling Cardholder Signatures
 
@@ -671,7 +671,7 @@ If you only want to capture signatures for MSR transactions, see [Detecting MSR 
 
 ## Capturing Cardholder Signatures
 
-Capturing signatures requires a direct integration to the CardPointe Gateway API. While you can prompt for and capture a signature during the transaction, using the Terminal API, you must call the CardPointe Gateway API's signatureCapture endpoint to attach the signature to the authorization record.
+Capturing signatures requires a direct integration to the CardPointe Gateway API. While you can prompt for and capture a signature during the transaction, using the Terminal API, you must call the CardPointe Gateway API's [signatureCapture](../api/?type=post&path=/cardconnect/rest/sigcap) endpoint to attach the signature to the authorization record.
 
 ### Capturing a Signature During a Transaction
 
@@ -681,7 +681,7 @@ To run an authorization and capture a signature at the same time, do the followi
 
 The signature prompt and capture are integrated into the command sequence that the Terminal API sends to the terminal, and the authorization response and signature data are returned to your software.
    
-**2.** Call the CardPointe Gateway API's signatureCapture endpoint, including the `retref` and signature returned in the authorization response, to add the signature to the transaction record.
+**2.** Call the CardPointe Gateway API's [signatureCapture](../api/?type=post&path=/cardconnect/rest/sigcap) endpoint, including the `retref` and signature returned in the authorization response, to add the signature to the transaction record.
 
 ### Capturing a Signature After a Transaction
 
@@ -695,7 +695,7 @@ The authorization response is returned to your software.
 
 The signature data is returned to your software.
    
-**3.** Call the CardPointe Gateway API signatureCapture endpoint, including the `retref` and signature returned in the authorization response, to add the signature to the transaction record.
+**3.** Call the CardPointe Gateway API [signatureCapture](../api/?type=post&path=/cardconnect/rest/sigcap) endpoint, including the `retref` and signature returned in the authorization response, to add the signature to the transaction record.
 
 ## Detecting MSR Transactions
 
@@ -713,7 +713,7 @@ The authorization response is returned to your software. If the authorization re
 
    The signature data is returned to your software.
   
-- Call the CardPointe Gateway API signatureCapture endpoint, including the retref returned in the authCard response and the signature returned in the readSignature response to add the signature to the transaction record.
+- Call the CardPointe Gateway API [signatureCapture](../api/?type=post&path=/cardconnect/rest/sigcap) endpoint, including the retref returned in the authCard response and the signature returned in the readSignature response to add the signature to the transaction record.
   
 # Printing Receipts Using Authorization Data
 
@@ -793,7 +793,7 @@ If the card used in the authorization request was an EMV (chip or contactless) c
 
 The receipt object, included in the authorization response, provides merchant account information. The merchant account information is populated using the merchant properties configured for the MID.
 
-Additionally, this object includes additional transaction details from the authorization response. You can optionally include a custom order note (orderNote) and item details (items), by including a userFields object in the authorization request.
+Additionally, this object includes additional transaction details from the authorization response. You can optionally include a custom order note (orderNote) and item details (items), by including a [userFields](../api/?type=post&path=/cardconnect/rest/auth) object in the authorization request.
 
 You can specify the following fields in a userFields object to include an order note or item details, or to override the merchant properties:
 
@@ -808,7 +808,7 @@ You can specify the following fields in a userFields object to include an order 
 | receiptAddress1 |	Use this field to override the address (line 1) configured for your MID. |
 | receiptAddress2	| Use this field to override the address (line 1) configured for your MID. |
 
-Each value can be any string and the total length of user defined fields (URL/JSON-encoded) is limited to 4000 bytes. See the userFields description in the CardPointe Gateway API documentation for more information.
+Each value can be any string and the total length of user defined fields (URL/JSON-encoded) is limited to 4000 bytes. See the [userFields](../api/?type=post&path=/cardconnect/rest/auth) description in the CardPointe Gateway API documentation for more information.
 
 A successful authorization response includes a receipt object with the following fields:
 
@@ -833,3 +833,12 @@ The following example illustrates a receipt template (left) and a receipt popula
 
 <!-- align: center -->
 ![Clover Mini Receipt Sample](../../assets/images/Clover_Mini_Receipt_Sample.png)
+
+# Accepting a Credit Card Surcharge
+
+Surcharging allows merchants to add a "% checkout fee" to a credit card transaction, paid by the cardholder, to help cover the merchant’s credit card processing fees.
+
+The [Merchant Surcharge Program](https://support.cardpointe.com/compliance/surcharging) allows eligible merchants to add a surcharge on applicable credit card transactions. This guide provides an overview of the integration requirements for surcharging card-present credit card transactions using a CardPointe Integrated Terminal.
+
+<!-- theme: warning -->
+> See the Merchant Surcharge Program overview for information on enrolling in the Merchant Surcharge Program

@@ -4,10 +4,10 @@ The CardPointe Integrated Terminal solution includes support for Clover Mini and
 
 This solution consists of the following components:
 
-- The Terminal API, which provides your software with access to the terminal service and functions.
+- The _Terminal API_, which provides your software with access to the terminal service and functions.
 - Clover devices, which are EMV pre-certified and enables you to quickly achieve EMV acceptance and PCI scope reduction.
-- The CardPointe Gateway, which provides a complete solution for transaction processing and reporting.
-- CardSecure, which tokenizes payment card information.
+- The _CardPointe Gateway_, which provides a complete solution for transaction processing and reporting.
+- _CardSecure_, which tokenizes payment card information.
 - Clover terminal devices, pre-provisioned and provided for use with your merchant account.
 - Your POS software, integrated with the Terminal API.
 
@@ -70,10 +70,10 @@ See [Configuring Your Postman Environment](?path=docs/documentation/CardPointeIn
 
 This guide provides useful information specific to integrating Clover terminals. The following API references and terminal user guides provide additional helpful information: 
 
-- See the Terminal API documentation for detailed information for integrating the Terminal API with your software.
+- See the [Terminal API documentation](?path=docs/APIs/CardPointeIntegratedTerminalAPI.md) for detailed information for integrating the Terminal API with your software.
 - See the [CardPointe Integrated Terminal Developer Guides](?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md) for additional helpful information for developing various Terminal API workflows.
-- See the CardPointe Gateway API documentation for detailed information for integrating the full capabilities of the CardPointe Gateway.
-- See the Terminal User Guides for detailed information on setting up and using your Clover device.
+- See the [CardPointe Gateway API documentation](?path=docs/APIs/CardPointeGatewayAPI.md) for detailed information for integrating the full capabilities of the CardPointe Gateway.
+- See the [Terminal User Guides](https://support.cardpointe.com/integrated/terminal#clover-terminal-user-guides) for detailed information on setting up and using your Clover device.
 
 # Integrating a Clover Terminal
 
@@ -85,7 +85,7 @@ Clover terminals offer a few additional features when compared to the Ingenico t
 
 ### Terminal Activation Codes
 
-When your merchants unbox a new Clover terminal device, they must enter an activation code during the initial setup process. This activation code is provided in a welcome email; however you may want to retrieve and display the activation code within your application, to improve the setup process for your merchants.
+When your merchants unbox a new Clover terminal device, they must enter an activation code during the [initial setup process](https://support.cardpointe.com/integrated/terminal/mini#setting-up-your-device). This activation code is provided in a welcome email; however you may want to retrieve and display the activation code within your application, to improve the setup process for your merchants.
 
 The Terminal API includes a `terminalActivationCode` endpoint, which you can use to supply the merchant ID and hardware serial number (HSN) associated with a specific terminal to retrieve the activation code for that terminal. 
 
@@ -166,7 +166,7 @@ LTE connection quality and speed can vary, and may be slower than the device's p
 
 The following topics describe some specific details for integrating Clover terminals and key differences from the Terminal API integration for Ingenico terminals.
 
-> See the Terminal API Documentation for detailed information on integrating the Terminal API with your software.
+> See the [Terminal API Documentation](?path=docs/APIs/CardPointeIntegratedTerminalAPI.md) for detailed information on integrating the Terminal API with your software.
 
 ### Supported Endpoints
 
@@ -285,6 +285,8 @@ In general, a receipt must include:
 - merchant account information and additional transaction details returned in the [receipt object](#receipt-data)
 - EMV tag data returned in the [EMV tag object](#emv-tag-data), if the card used was an EMV (chip or contactless) card.
 
+If you are using the Terminal API's [authCard](../api/?type=post&path=/api/v3/authCard) or [authManual](../api/?type=post&path=/api/v3/authManual) endpoint to make authorization requests, the following data is returned in the authCard or authManual response.
+
 ### Authorization Response Data
 
 A successful authorization response includes the following fields. If you are integrating the Clover terminal's built-in printer, the highlighted fields are included in on the receipt. Otherwise, it is recommended that you include these fields on a receipt generated from your custom integration.
@@ -346,7 +348,7 @@ You can specify the following fields in a `userFields` object to to override the
 | receiptAddress1 |	Use this field to override the address (line 1) configured for your MID. |
 | receiptAddress2	| Use this field to override the address (line 1) configured for your MID. |
 
-Each value can be any string and the total length of user defined fields (URL/JSON-encoded) is limited to 4000 bytes. See the userFields description in the CardPointe Gateway API documentation for more information.
+Each value can be any string and the total length of user defined fields (URL/JSON-encoded) is limited to 4000 bytes. See the [userFields](../api/?type=post&path=/cardconnect/rest/auth) description in the CardPointe Gateway API documentation for more information.
 
 A successful authorization response includes a receipt object with the following fields:
 
@@ -378,13 +380,13 @@ You can print a receipt in one of two ways:
 
 ### Printing a Receipt Using the authCard or authManual Request 
 
-To print a receipt at the time of the transaction, include the `"printReceipt" : "true"` parameter in your authCard or authManual request. 
+To print a receipt at the time of the transaction, include the `"printReceipt" : "true"` parameter in your [authCard](../api/?type=post&path=/api/v3/authCard) or [authManual](../api/?type=post&path=/api/v3/authManual) request. 
 
 To print a second copy of the receipt at the time of the transaction, include `"printExtraReceipt":"true"` and specify a `printDelay` value between `0` and `60000` milliseconds (for example `"printDelay":"1000"`)
 
 ### Reprinting a Receipt Using the printReceipt Request 
 
-To reprint a receipt for a past transaction, make a request to the printReceipt endpoint, including the `orderId` associated with the existing transaction. Note that if more than one transaction is associated with the order ID, the most recent transaction is selected.
+To reprint a receipt for a past transaction, make a request to the [printReceipt](../api/?type=post&path=/api/v3/printReceipt) endpoint, including the `orderId` associated with the existing transaction. Note that if more than one transaction is associated with the order ID, the most recent transaction is selected.
 
 ### Printing a Receipt from a Standalone Printer 
 
