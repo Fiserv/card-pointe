@@ -5,7 +5,7 @@ CardSecure is our sensitive data encryption and tokenization service. CardSecure
 This guide provides supplemental information for integrators who need to incorporate detokenization requests into their workflows.
 
 <!-- theme: warning -->
-> See the [CardSecure API documentation] for detailed information for integrating the CardSecure API with your application. See the [CardSecure Developer Guides](?path=docs/documentation/CardSecure.md) for additional helpful information.
+> See the [CardSecure API documentation](?path=docs/APIs/CardSecureAPI.md) for detailed information for integrating the CardSecure API with your application. See the [CardSecure Developer Guides](?path=docs/documentation/CardSecure.md) for additional helpful information.
 
 ## Requirements
 
@@ -26,16 +26,16 @@ Before you begin, you should understand the following restrictions and limitatio
 
 # Authentication
 
-Unlike tokenize requests, which do not require authentication, the `detokenize` request requires your client application to authenticate using the following methods:
+Unlike [tokenize](../api/?type=post&path=/cardsecure/api/v1/ccn/tokenize) requests, which do not require authentication, the `detokenize` request requires your client application to authenticate using the following methods:
 
 - API credentials, included in the Authorization header in each request. You receive a unique username and password, which you must encode and include in the Authorization header of each request.
 - A whitelisted IP address or range, used by your application to make requests to CardSecure. You must provide this address or range for us to configure your account. Requests from any IP addresses that are not whitelisted will be denied.
 
 # Service Endpoint
 
-The CardSecure API includes the detokenize endpoint to retrieve the unencrypted account data associated with a single token.
+The CardSecure API includes the [detokenize](#detokenize) endpoint to retrieve the unencrypted account data associated with a single token.
 
-> The detokenize request only returns the cleartext account number associated with a token. The response does **not** include any additional data stored with the token (for example `cvv` or `expiry` values).
+> The [detokenize](#detokenize) request only returns the cleartext account number associated with a token. The response does **not** include any additional data stored with the token (for example `cvv` or `expiry` values).
 
 ## detokenize
 
@@ -91,8 +91,8 @@ A successful response includes the following data:
 
 | Field	| Description
 | --- | --- |
-| message	| The status of the request. <br> <br> Returns "No Error" if the request was successful. <br> <br> Returns a descriptive error message if the request failed. <br> <br> See Error Codes and Messages for a complete list of possible error codes and messages.
-| errorcode	| An error code, if the request encountered an error. <br> <br> Returns "0" if the request was successful. <br> <br> See Error Codes and Messages for a complete list of possible error codes and messages.
+| message	| The status of the request. <br> <br> Returns "No Error" if the request was successful. <br> <br> Returns a descriptive error message if the request failed. <br> <br> See [Error Codes and Messages](?path=docs/APIs/CardSecureAPI.md#error-codes-and-messages) for a complete list of possible error codes and messages.
+| errorcode	| An error code, if the request encountered an error. <br> <br> Returns "0" if the request was successful. <br> <br> See [Error Codes and Messages](?path=docs/APIs/CardSecureAPI.md#error-codes-and-messages) for a complete list of possible error codes and messages.
 | account	| The unencrypted string associated with the token provided in the request.
 
 #### Example Successful Detokenize Response
