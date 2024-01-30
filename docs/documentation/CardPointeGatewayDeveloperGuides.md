@@ -312,6 +312,8 @@ All response codes returned in the production environment are received directly 
 
 To return a specific response code, you make an authorization request with an amount in the $1000-$1999 range. You specify the desired response code using the last three digits (with a leading 0 for 2-digit response codes) of the whole-dollar amount (the amount excluding cents). For example, if you want to return RPCT respcode 332, "Account locked," make an authorization request for $1332.
 
+> When initiating an authorization request using the First Data Rapid Connect (RPCT) emulator, the amount range will be $1001-$1999.
+
 The following example illustrates an authorization request for $1116.95. The amount value specified is 111695 (with the decimal implied), therefore, the whole-dollar amount is $1116.
 
 #### Sample Request
@@ -515,24 +517,24 @@ Status: 200 OK
 
 # Processing ACH Payments
 
-This guide provides guidance for accepting Automated Clearing House (ACH) payments using the CardPointe Gateway API. ACH payments, also called e-check payments, are a common payment method for recurring payments as well as telephone and mail orders.
+This guide provides guidance for accepting Automated Clearing House (ACH) payments using the [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md). ACH payments, also called e-check payments, are a common payment method for recurring payments as well as telephone and mail orders.
 
 Unlike credit card payments, when a customer authorizes an ACH payment, the funds are withdrawn directly from his or her bank account. This process can take several days, so you should include a monitoring process in your integration to [verify the status of the transaction](#verifying-ach-transactions).
 
-To accept ACH payments, you must capture and handle the customer's bank account and routing number. While you can capture this information and pass it directly to the CardPointe Gateway in an authorization request, it is a best practice to instead capture this information and tokenize it using a CardSecure-integrated web form.
+To accept ACH payments, you must capture and handle the customer's bank account and routing number. While you can capture this information and pass it directly to the CardPointe Gateway in an [authorization request](../api/?type=post&path=/cardconnect/rest/auth), it is a best practice to instead capture this information and tokenize it using a [CardSecure](?path=docs/APIs/CardSecureAPI.md)-integrated web form.
 
 ## Using a Web Form to Gather and Tokenize ACH Payment Data 
 
 To ensure the security of your customers' data, as well as your PCI compliance, it is recommended that you use a customer-facing web form, integrated with CardSecure, to capture and tokenize bank account and routing information.
 
-When using a web form to capture and tokenize customer bank account information, include separate fields for the routing number and account number. Send these fields in a CardSecure tokenization request in the format
+When using a web form to capture and tokenize customer bank account information, include separate fields for the routing number and account number. Send these fields in a [CardSecure tokenization request](../api/?type=post&path=/cardsecure/api/v1/ccn/tokenize) in the format
 `"account" : "<routing number>/<account number>"`
 
 For example:
 
 `"account" : "123456789/1234123412341234"`
 
-CardSecure returns a token representing the ACH account information, which you can then use to make an authorization request to the CardPointe Gateway.
+CardSecure returns a token representing the ACH account information, which you can then use to make an [authorization request](../api/?type=post&path=/cardconnect/rest/auth) to the CardPointe Gateway.
 
 ## Making an ACH Authorization Request
 
@@ -587,23 +589,23 @@ Content-Type: application/json
 
 ACH transactions typically take several business days to process and settle, therefore, it is a best practice to periodically check the status of the transaction to ensure that it is successfully processed and that you are credited for the authorized amount.
 
-You can use the CardSecure Gateway API to programmatically verify the transaction status using the inquire and funding service endpoints.
+You can use the CardSecure Gateway API to programmatically verify the transaction status using the [inquire](../api/?type=get&path=/cardconnect/rest/inquire) and [funding](../api/?type=get&path=/cardconnect/rest/funding) service endpoints.
 
 ### Using the Inquire Endpoint
 
-The inquire endpoint provides information on completed authorizations.
+The [inquire](../api/?type=get&path=/cardconnect/rest/inquire) endpoint provides information on completed authorizations.
 
-You can use the inquire endpoint if you have the retrieval reference number (`retref`) from the authorization response. If you don't have the `retref`, but you included a unique order ID in the authorization request, then you can use the inquireByOrderId endpoint instead.
+You can use the [inquire](../api/?type=get&path=/cardconnect/rest/inquire) endpoint if you have the retrieval reference number (`retref`) from the authorization response. If you don't have the `retref`, but you included a unique order ID in the authorization request, then you can use the [inquireByOrderId](../api/?type=get&path=/cardconnect/rest/inquireByOrderdid) endpoint instead.
 
 The inquire response includes a settlement status (`setlstat`) field that displays the settlement status of the transaction. Note that the settlement status initially displays "Queued for Capture" for ACH transactions, and the value is updated once the batch is transmitted. If `"setlstat" : "rejected"` you can use the funding endpoint to gather more detailed information.
 
 ### Using the Funding Endpoint
 
-The funding endpoint provides additional useful information for ACH transactions. Specifically, you can use the funding endpoint to retrieve an ACH return code (`achreturncode`), which provides additional information for rejected ACH transactions.
+The [funding](../api/?type=get&path=/cardconnect/rest/funding) endpoint provides additional useful information for ACH transactions. Specifically, you can use the funding endpoint to retrieve an ACH return code (`achreturncode`), which provides additional information for rejected ACH transactions.
 
-To use the funding endpoint, you make a request using the merchant ID and the date of the funding event that included the transaction. The funding endpoint returns an array of transaction details for that date.
+To use the [funding](../api/?type=get&path=/cardconnect/rest/funding) endpoint, you make a request using the merchant ID and the date of the funding event that included the transaction. The funding endpoint returns an array of transaction details for that date.
 
-Use the `retref` for the ACH transaction to locate it in the txns node of the response data. For ACH transactions, the response includes an `achreturncode` field that includes a specific code that explains the reason for the rejection.
+Use the `retref` for the ACH transaction to locate it in the [txns node](../api/?type=get&path=/cardconnect/rest/funding) of the response data. For ACH transactions, the response includes an `achreturncode` field that includes a specific code that explains the reason for the rejection.
 
 The following table describes the possible ACH return code values.
 
@@ -697,22 +699,22 @@ This configuration allows you to dedicate separate merchant accounts to processi
 
 # Scheduling Recurring Payments
 
-This guide provides information for extending your existing CardPointe Gateway API integration to add recurring billing to your payment methods.
+This guide provides information for extending your existing [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md) integration to add recurring billing to your payment methods.
 
-To do this, you can use an application scheduler, like Cron, to create a schedule to run recurring transactions. The scheduled job can initiate an authorization request to the CardPointe Gateway using tokenized payment data or a stored profile.
+To do this, you can use an application scheduler, like Cron, to create a schedule to run recurring transactions. The scheduled job can initiate an authorization request to the CardPointe Gateway using tokenized payment data or a stored [profile](../api/?type=post&path=/cardconnect/rest/profile).
 
 This method gives you complete control over your recurring payment schedule with a simple API integration.
 
 <!--theme: danger -->
 > - It is a violation of PCI DSS standards to store Card Verification Value (CVV) data. Neither The CardPointe Gateway nor the merchant can store this data for the purpose of recurring billing.
 >
-> - When establishing recurring billing payments or storing and using cardholder payment information for future payments, you must ensure that you obtain the cardholder's consent, and that you comply with the requirements documented in the Visa and Mastercard Stored Credential Transaction Framework guide. Note that this feature is currently only available for merchants processing on the First Data Rapid Connect platform. See the Visa and Mastercard Stored Credential Transaction Framework guide for updates on support for additional processors, and detailed information for integrating and testing these changes.
+> - When establishing recurring billing payments or storing and using cardholder payment information for future payments, you must ensure that you obtain the cardholder's consent, and that you comply with the requirements documented in the [Visa and Mastercard Stored Credential Transaction Framework](https://support.cardpointe.com/compliance/visa-stored-credential-transaction-framework-mandate) guide. Note that this feature is currently only available for merchants processing on the First Data Rapid Connect platform. See the [Visa and Mastercard Stored Credential Transaction Framework](https://support.cardconnect.com/compliance/visa-stored-credential-transaction-framework-mandate) guide for updates on support for additional processors, and detailed information for integrating and testing these changes.
 
 ## How it Works
 
 The following process provides a general overview of the steps required to set up a recurring payment schedule using the CardPointe Gateway. depending on your integration and business needs, your procedure may vary.
 
-Ensure that you review and comply with the card brand requirements for obtaining consent to store and reuse cardholder data. See the Visa and Mastercard Stored Credential Framework Mandate guide for detailed information.
+Ensure that you review and comply with the card brand requirements for obtaining consent to store and reuse cardholder data. See the [Visa and Mastercard Stored Credential Framework Mandate](https://support.cardconnect.com/compliance/visa-stored-credential-transaction-framework-mandate) guide for detailed information.
 
 **1.** Tokenize the customer's payment data.
 
@@ -720,7 +722,7 @@ Depending on your existing integration, there are several ways to tokenize payme
 
 For example, you can:
 
-- Use the customer’s clear PAN or ACH payment data to make a CardPointe Gateway API authorization request. The response returns a token for the account.
+- Use the customer’s clear PAN or ACH payment data to make a [CardPointe Gateway API authorization request](../api/?type=post&path=/cardconnect/rest/auth). The response returns a token for the account.
 
   **Note**: _You should only programmatically handle and tokenize clear payment account numbers (PANs) if your business is a registered PCI Level 1 or Level 2 certified merchant. If you are not already certified for compliance with the Payment Card Industry's standards and guidelines for handling sensitive account data, see https://www.pcisecuritystandards.org/ for more information._
 
@@ -728,11 +730,11 @@ For example, you can:
 - Include ”capture” : “y” to accept an initial payment.
 	- include ”profile” : “y” to store the customer’s data in a profile to use in future requests.
 - Gather and tokenize the payment card data using the [Hosted iFrame Tokenizer](?path=docs/documentation/HostediFrameTokenizer.md).
-- Use a CardPointe Integrated Terminal and the Terminal API readCard or readManual service endpoint.
+- Use a CardPointe Integrated Terminal and the Terminal API [readCard](../api/?type=post&path=/api/v2/readCard) or [readManual](../api/?type=post&path=/api/v2/readManual) service endpoint.
 
 **2.** Store the token for reuse.
 
-- You can either store tokens and customer data in your own database, or you can use the CardPointe Gateway API’s profile service endpoint to create and store customer profiles in the CardPointe Gateway's secure vault. You can skip this step if you created a profile in step 1.
+- You can either store tokens and customer data in your own database, or you can use the CardPointe Gateway API’s [profile service endpoint](../api/?type=post&path=/cardconnect/rest/profile) to create and store customer profiles in the CardPointe Gateway's secure vault. You can skip this step if you created a profile in step 1.
    
 **3.** Gather your billing requirements.
 
@@ -845,7 +847,7 @@ The `receipt` object is an optional set of fields that provides additional merch
 
 The merchant account information is populated using the merchant properties configured for the MID.
 
-Additionally, this object includes additional transaction details from the authorization response. You can optionally include a custom order note (orderNote) and item details (items), by including a userFields object in the authorization request.
+Additionally, this object includes additional transaction details from the authorization response. You can optionally include a custom order note (orderNote) and item details (items), by including a [userFields](../api/?type=post&path=/cardconnect/rest/auth) object in the authorization request.
 
 You can specify the following fields in a userFields object to include an order note or item details, or to override the merchant properties:
 
@@ -860,7 +862,7 @@ You can specify the following fields in a userFields object to include an order 
 | receiptAddress1 |	Use this field to override the address (line 1) configured for your MID. |
 | receiptAddress2	| Use this field to override the address (line 1) configured for your MID. |
 
-Each value can be any string and the total length of user defined fields (URL/JSON-encoded) is limited to 4000 bytes. See the description of userFields in the CardPointe Gateway API documentation for more information.
+Each value can be any string and the total length of user defined fields (URL/JSON-encoded) is limited to 4000 bytes. See the description of [userFields](../api/?type=post&path=/cardconnect/rest/auth) in the CardPointe Gateway API documentation for more information.
 
 > Contact isvhelpdesk@cardconnect.com for assistance configuring the receipt printing properties for your merchant account.
 
@@ -896,11 +898,11 @@ If you are a developer integrating your point-of-sale software with the CardPoin
 
 ## CardPointe Gateway Authorization Timeout (32 Seconds)
 
-When you use the CardPointe Gateway API's auth endpoint, to make an authorization request, the Gateway sends the request to the payment processing network and allows 31 seconds for a response. If the Gateway does not receive a response, then the request times out at the 32 second mark and returns a "Timed Out" response.
+When you use the [CardPointe Gateway API's auth endpoint](../api/?type=post&path=/cardconnect/rest/auth), to make an authorization request, the Gateway sends the request to the payment processing network and allows 31 seconds for a response. If the Gateway does not receive a response, then the request times out at the 32 second mark and returns a "Timed Out" response.
 
 ## Handling CardePointe Gateway Timeouts
 
-Whether your application is using the Terminal API authCard request, or the CardPointe Gateway API auth request, it should be designed to handle the following scenarios:
+Whether your application is using the [Terminal API authCard request](../api/?type=post&path=/api/v3/authCard), or the [CardPointe Gateway API auth request](../api/?type=post&path=/cardconnect/rest/auth), it should be designed to handle the following scenarios:
 
 **1.** A "Timed out" response returned successfully (HTTP 200) from the CardPointe Gateway auth endpoint or the Terminal API authCard endpoint.
 
@@ -929,7 +931,7 @@ Status: 200 OK
 
 In this case, a response, including a `retref` for the transaction, is returned. The response includes `"respstat": "B"` which always means "Retry." The transaction attempt should be tried again.
 
-If you need to reference the details of any particular transaction attempt, supply valid `retref` and `merchid` values in an inquire request.
+If you need to reference the details of any particular transaction attempt, supply valid `retref` and `merchid` values in an [inquire](../api/?type=get&path=/cardconnect/rest/inquire) request.
 
 In some cases, retry attempts will also fail. In the event of multiple retry failures, check status.cardconnect.com for reports of system-wide issues.
 
@@ -945,25 +947,25 @@ If you included an order ID in the original authorization request, then you can 
 
 - **inquireByOrderid**
   
-	The inquireByOrderid endpoint is used to look up a transaction record using the order ID supplied in the original authorization request. If the supplied order ID is found, then the same payload returned in the inquire response is provided.
+	The [inquireByOrderid](../api/?type=get&path=/cardconnect/rest/inquireByOrderdid) endpoint is used to look up a transaction record using the order ID supplied in the original authorization request. If the supplied order ID is found, then the same payload returned in the inquire response is provided.
 
-	If the original authorization request was successful, the response includes the transaction details, including the `retref`. You can then use the `retref` to make a subsequent void or capture call.
+	If the original authorization request was successful, the response includes the transaction details, including the `retref`. You can then use the `retref` to make a subsequent [void](../api/?type=post&path=/cardconnect/rest/void) or [capture](../api/?type=post&path=/cardconnect/rest/capture) call.
 
 	If the original authorization request was unsuccessful, the response includes PPS respcode 29, `Txn not found`. This response indicates that the authorization request timed out before being processed by the CardPointe Gateway, and you should retry the authorization request.
 
 - **voidByOrderId**
 
-	The voidByOrderId endpoint is used to look up **and** void a transaction record using the order ID supplied in the original authorization request. If the supplied order ID matches a transaction record, the authorization is voided and a void response is returned. See the voidByOrderId description for more information.
+	The [voidByOrderId](../api/?type=get&path=/cardconnect/rest/voidByOrderdid) endpoint is used to look up **and** void a transaction record using the order ID supplied in the original authorization request. If the supplied order ID matches a transaction record, the authorization is voided and a void response is returned. See the [voidByOrderId](../api/?type=get&path=/cardconnect/rest/voidByOrderdid) description for more information.
 
 	voidByOrderId should be used in the event that no response is returned by an inquireByOrderId request, or if no look up is required at all.
 
 	**Note**: _You should attempt the voidByOrderid request three times (3x) to ensure that the transaction is voided, despite not receiving a response to indicate that the request was successful._
   
-See the CardPointe Gateway API for information on the inquireByOrderid, voidByOrderId, and capture service endpoints.
+See the [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md) for information on the [inquireByOrderid](../api/?type=get&path=/cardconnect/rest/inquireByOrderdid), [voidByOrderId](../api/?type=get&path=/cardconnect/rest/voidByOrderdid), and [capture](../api/?type=post&path=/cardconnect/rest/capture) service endpoints.
 
 # Manually Managing Gateway Batches
 
-This guide provides information for using the CardPointe Gateway API's openbatch and closebatch service endpoints to manually open and close Gateway batches, and the settlestatByBatchSource endpoint to retrieve settlement details for a batch. 
+This guide provides information for using the CardPointe Gateway API's [openbatch](#using-the-openbatch-endpoint) and [closebatch](#using-the-closebatch-endpoint) service endpoints to manually open and close Gateway batches, and the [settlestatByBatchSource](#using-the-settlestatbybatchsource-endpoint) endpoint to retrieve settlement details for a batch. 
 
 > The CardPointe Gateway automatically manages transaction batches.
 
@@ -1086,7 +1088,7 @@ Fields in **bold** are required.
 | refundcnt| N | The number of "refund" or negative amount transactions in the batch. |
 | hoststat | AN | The batch settlement status. One of the following values: <br> <br> **Blank** – Queued for the processor <br> **BB** – The batch transmitted successfully; however all orders were rejected by the processor. <br> **EB** - The batch was empty (contained no valid transactions). <br> **GB** – The batch was accepted by the processor. <br> **MB** – Some transactions were accepted and some were rejected. <br> **RB** - The batch was rejected by the processor. <br> **SB** - The batch was sent to the processor, but not yet confirmed. <br> **ND** - The batch was sent to the processor, but no confirmation was received within the expected timeout window. This status can indicate a bad batch or a communication error or other delay in the processor sending the confirmation. |
 | merchid | AN | The CardPointe merchant ID associated with the batch. |
-| txns | - | An array of JSON objects for each transaction in the batch. Each object includes the following fields: <br> <br> **Note**:_ See the Settlement Status response description in the CardPointe Gateway API for detailed descriptions of each field._ <br> **setlamount** - The transaction amount settled for the authorization. <br> **setlstat** - The current settlement status. The settlement status changes throughout the transaction lifecycle, from authorization to settlement. <br> **salesdoc** - The order ID associated with the authorization, if present. <br> **retref** - The unique retrieval reference number, used to identify and manage the transaction. |
+| txns | - | An array of JSON objects for each transaction in the batch. Each object includes the following fields: <br> <br> **Note**:_ See the [Settlement Status response description](../api/?type=get&path=/cardconnect/rest/settlestat) in the CardPointe Gateway API for detailed descriptions of each field._ <br> **setlamount** - The transaction amount settled for the authorization. <br> **setlstat** - The current settlement status. The settlement status changes throughout the transaction lifecycle, from authorization to settlement. <br> **salesdoc** - The order ID associated with the authorization, if present. <br> **retref** - The unique retrieval reference number, used to identify and manage the transaction. |
 
 #### Example settlestatByBatchSource Response
 
