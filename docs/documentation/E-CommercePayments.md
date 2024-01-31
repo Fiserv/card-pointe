@@ -26,11 +26,11 @@ Consider the following industry standards and requirements for accepting e-comme
 
 - **Visa and Mastercard Stored Credential Transaction Framework Mandate**
 
-  This mandate also referred to as credentials on file, card on file, or COF, requires merchants storing cardholder data to gain consent and to properly identify all transactions using stored data. See the Visa and Mastercard Stored Credential Transaction Framework Mandate guide for detailed information and requirements.
+  This mandate also referred to as credentials on file, card on file, or COF, requires merchants storing cardholder data to gain consent and to properly identify all transactions using stored data. See the [Visa and Mastercard Stored Credential Transaction Framework Mandate guide](https://support.cardpointe.com/compliance/visa-stored-credential-transaction-framework-mandate) for detailed information and requirements.
 
 - **3-D Secure**
 
-  3-D Secure is a required protocol to accept e-commerce payments for merchants in the European Union, India, and Australia, among other countries and supranational institutions. 3DS was developed by the card brands and EMVCo to provide additional cardholder security for e-commerce credit and debit card transactions. It is EMVCo's standard for securing e-commerce payments to comply with the Strong Customer Authentication (SCA) mandate in the European Union. If you are located outside of the USA, it is recommended you check your national requirements for accepting e-commerce payments. To enable merchants to comply with this mandate, the CardPointe Gateway supports 3-D Secure 2.0. See the 3-D Secure 2.0 guide for detailed information and technical requirements.
+  3-D Secure is a required protocol to accept e-commerce payments for merchants in the European Union, India, and Australia, among other countries and supranational institutions. 3DS was developed by the card brands and EMVCo to provide additional cardholder security for e-commerce credit and debit card transactions. It is EMVCo's standard for securing e-commerce payments to comply with the Strong Customer Authentication (SCA) mandate in the European Union. If you are located outside of the USA, it is recommended you check your national requirements for accepting e-commerce payments. To enable merchants to comply with this mandate, the CardPointe Gateway supports 3-D Secure 2.0. See the [3-D Secure 2.0 guide](https://support.cardpointe.com/compliance/3-d-secure-2-0) for detailed information and technical requirements.
 
 # E-Commerce Recommendations
 
@@ -54,22 +54,22 @@ Consider the following features and recommendations for accepting e-commerce pay
     - **R** - recurring billing
     - **E** - e-commerce web or mobile application
     
-    Additionally, you can request AVS and CVV validation for your merchant account, which requires this data to pass a verification check before attempting to authorize a transaction. See [Using Test Payment Accounts](?path=docs/documentation/CardPointeGatewayDeveloperGuides.md#using-test-payment-accounts) for information on testing AVS and CVV verification responses. See the Security Settings section of the CardPointe Support Site for more information on the security features offered in the CardPointe Web Application. 
+    Additionally, you can request AVS and CVV validation for your merchant account, which requires this data to pass a verification check before attempting to authorize a transaction. See [Using Test Payment Accounts](?path=docs/documentation/CardPointeGatewayDeveloperGuides.md#using-test-payment-accounts) for information on testing AVS and CVV verification responses. See the [Security Settings](https://support.cardpointe.com/cardpointe/cardpointe-desktop-app#security-settings) section of the CardPointe Support Site for more information on the security features offered in the CardPointe Web Application. 
 
 - **Use customer profiles for frictionless repeat payments and customer loyalty**
 
-  The CardPointe Gateway's profile service enables you to securely store tokenized customer payment data and associated billing information, allowing your customers to quickly and easily pay for follow-up purchases or to enroll in recurring billing plans. Additionally, CardSecure tokens support omnichannel payments, so whether you use the built-in profile service, or you develop your own solution for storing tokens and profiles, your customers can seamlessly make payments in both your card-present and card-not-present environments. For more information, refer to our documentation on the Gateway Profile API endpoint.
+  The CardPointe Gateway's profile service enables you to securely store tokenized customer payment data and associated billing information, allowing your customers to quickly and easily pay for follow-up purchases or to enroll in recurring billing plans. Additionally, CardSecure tokens support omnichannel payments, so whether you use the built-in profile service, or you develop your own solution for storing tokens and profiles, your customers can seamlessly make payments in both your card-present and card-not-present environments. For more information, refer to our documentation on the [Gateway Profile API endpoint](../api/?type=post&path=/cardconnect/rest/profile/).
 
 <!-- theme: warning -->
-> Review our Stored Credentials Mandate documentation for detailed information on compliance requirements for storing customer information.
+> Review our [Stored Credentials Mandate](https://support.cardpointe.com/compliance/visa-stored-credential-transaction-framework-mandate) documentation for detailed information on compliance requirements for storing customer information.
 
 - **Keep customer profiles up to date**
 
-  The CardPointe Gateway's Card Account Updater value-added service enables you to keep your customer's CardPointe Gateway profiles up to date with the latest changes to their payment account information. If a customer's card expires or is replaced with a new card, the Card Account Updater service retrieves the updated information from the card brands and automatically updates the CardPointe Gateway profile, including a new token if applicable. If you manage your own customer profiles and tokens, the Card Account Updater API allows you to manually enroll and manage tokens in the service, and to retrieve update reports.
+  The CardPointe Gateway's Card Account Updater value-added service enables you to keep your customer's CardPointe Gateway profiles up to date with the latest changes to their payment account information. If a customer's card expires or is replaced with a new card, the Card Account Updater service retrieves the updated information from the card brands and automatically updates the CardPointe Gateway profile, including a new token if applicable. If you manage your own customer profiles and tokens, the [Card Account Updater API](?path=docs/documentation/CardAccountUpdaterIntegrationGuide.md) allows you to manually enroll and manage tokens in the service, and to retrieve update reports.
 
 - **Accept all types of payments**
 
-  The CardPointe Gateway supports a wide range of payment methods, allowing you to accept payments from credit card, electronic checking (ACH), and digital wallet (Apple Pay or Google Paytm) accounts to offer flexibility to your customers. CardSecure can securely tokenize any of these account types, allowing you to send a CardPointe Gateway API authorization request with little to no regard for the type of account.
+  The CardPointe Gateway supports a wide range of payment methods, allowing you to accept payments from credit card, electronic checking (ACH), and digital wallet (Apple Pay or Google Paytm) accounts to offer flexibility to your customers. CardSecure can securely tokenize any of these account types, allowing you to send a CardPointe Gateway API [authorization request](../api/?type=post&path=/cardconnect/rest/auth) with little to no regard for the type of account.
 
 <!-- theme: warning -->
 > See the following guides for additional information on ACH and Digital Wallet payments:
@@ -108,7 +108,7 @@ See the [Hosted Payment Page Developer Guide](?path=docs/documentation/HostedPay
 
 ### CardPointe Virtual Terminal
 
-The CardPointe Virtual Terminal allows you to accept payment cards and eChecks using your computer's web browser and an internet connection. Using the Virtual Terminal, you can initiate card-not-present and card-present authorizations, captures, settlements, voids, and refunds. In addition, you can easily and securely save customer payment information, and configure Billing Plans for recurring payments. For more information, refer to the CardPointe Virtual Terminal section on our Support Site.
+The CardPointe Virtual Terminal allows you to accept payment cards and eChecks using your computer's web browser and an internet connection. Using the Virtual Terminal, you can initiate card-not-present and card-present authorizations, captures, settlements, voids, and refunds. In addition, you can easily and securely save customer payment information, and configure Billing Plans for recurring payments. For more information, refer to the [CardPointe Virtual Terminal](https://support.cardpointe.com/cardpointe/cardpointe-desktop-app#virtual-terminal) section on our Support Site.
 
 ## Custom Integrations
 
@@ -123,23 +123,23 @@ The Hosted iFrame Tokenizer supports a wide range of optional features, includin
 See the [Hosted iFrame Tokenizer Developer Guide](?path=docs/documentation/HostediFrameTokenizer.md) for detailed information and interactive examples.
 
 <!-- theme: warning -->
-> The Hosted iFrame Tokenizer does not provide a complete payment solution on its own; you must also integrate the CardPointe Gateway API to make authorization requests using the payment tokens generated by the tokenizer, as well as to manage transactions and customer profiles. See the CardPointe Gateway API for more information on the API and its features.
+> The Hosted iFrame Tokenizer does not provide a complete payment solution on its own; you must also integrate the [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md) to make authorization requests using the payment tokens generated by the tokenizer, as well as to manage transactions and customer profiles. See the CardPointe Gateway API for more information on the API and its features.
 
 ### CardSecure API + CardPointe Gateway API 
 
 CardSecure is the CardPointe Gateway's P2PE tokenization solution and patented tokenization engine. While the Hosted iFrame Tokenizer provides an out-of-box tokenization interface, the CardSecure API allows you to build a custom tokenizer that meets your specific needs. 
 
-See the CardSecure API for the complete API spec, and see the [CardSecure Developer Guide](?path=docs/documentation/CardSecure.md) for detailed information on CardSecure tokens and developing your integration.
+See the [CardSecure API](?path=docs/APIs/CardSecureAPI.md) for the complete API spec, and see the [CardSecure Developer Guide](?path=docs/documentation/CardSecure.md) for detailed information on CardSecure tokens and developing your integration.
 
 <!-- theme: danger -->
 > Because developing a custom tokenizer will require you to handle sensitive card data within your application, you will be subject to an increased scope of PCI compliance requirements. We strongly recommend using the [Hosted iFrame Tokenizer](?path=docs/documentation/HostediFrameTokenizer.md) to minimize your scope of compliance by preventing card data from ever being exposed to your application.
 
 Once you have a tokenizer, you can use the CardPointe Gateway API to:
 
-- Authorize, capture, void, and refund payments
-- Create and manage customer profiles
-- Retrieve detailed transaction, settlement, funding, and card data for reporting
-See the CardPointe Gateway API for the complete API specification, and the [CardPointe Gateway Developer Guide](?path=docs/documentation/CardPointeGatewayDeveloperGuides.md) for helpful information for developing your integration.
+- [Authorize](../api/?type=post&path=/cardconnect/rest/auth), [capture](../api/?type=post&path=/cardconnect/rest/capture), [void](../api/?type=post&path=/cardconnect/rest/void), and [refund](../api/?type=post&path=/cardconnect/rest/refund) payments
+- Create and manage customer [profiles](../api/?type=post&path=/cardconnect/rest/profile/)
+- Retrieve detailed [transaction](../api/?type=get&path=/cardconnect/rest/inquire), [settlement](../api/?type=get&path=/cardconnect/rest/settlestat), [funding](../api/?type=get&path=/cardconnect/rest/funding), and [card data for reporting](../api/?type=get&path=/cardconnect/rest/bin/{merchid}/{token})
+See the [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md) for the complete API specification, and the [CardPointe Gateway Developer Guide](?path=docs/documentation/CardPointeGatewayDeveloperGuides.md) for helpful information for developing your integration.
 
 <!-- theme: warning -->
 > Before you begin your integration, review the [e-commerce requirements](#e-commerce-requirements) and [best practices](#e-commerce-requirements) described earlier in this guide.
