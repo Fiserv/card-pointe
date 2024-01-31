@@ -72,7 +72,7 @@ If the account is successfully validated, the transaction is approved and settle
 - `"Declined: bank account previously failed validation"`
 
 <!-- theme: warning -->
-> See the Fiserv ACH Account Validation support article for detailed information on the account validation service and requirements.
+> See the [Fiserv ACH Account Validation](https://support.cardpointe.com/compliance/fiserv-ach-account-validation) support article for detailed information on the account validation service and requirements.
 
 ## ACH Reversals
 
@@ -92,7 +92,7 @@ https://www.nacha.org/rules/reversals-and-enforcement
 
 To ensure the security of your customers' data, it is recommended that you use a customer-facing web form, integrated with CardSecure, to capture and tokenize bank account and routing information.
 
-When using a web form to capture and tokenize customer bank account information, include separate fields for the routing number and account number. Send these fields in a CardSecure tokenization request in the format
+When using a web form to capture and tokenize customer bank account information, include separate fields for the routing number and account number. Send these fields in a [CardSecure tokenization](../api/?type=post&path=/cardsecure/api/v1/ccn/tokenize) request in the format
 
 `"account" : "<routing number>/<account number>"`
 
@@ -107,25 +107,25 @@ CardSecure returns a token representing the ACH account information, which you c
 The following table describes the authorization request fields that you must include when processing an ACH payment:
 
 > - Fields in **bold** are required.
-> - Underlined fields can be saved to a profile, if `"profile" : "y"` in the request. See the Profile endpoint description for more information.
+> - Underlined fields can be saved to a profile, if `"profile" : "y"` in the request. See the [Profile](../api/?type=post&path=/cardconnect/rest/profile/) endpoint description for more information.
 >   
 >     **Note**: _If the authorization request fails or is declined, the profile is not created._
 >
-> - Most fields in the authorization request correspond to columns on the CardPointe application's Transactions table. See the CardPointe Web App User's Guide for more information.
+> - Most fields in the authorization request correspond to columns on the CardPointe application's Transactions table. See the [CardPointe Web App User's Guide](https://support.cardconnect.com/cardpointe/cardpointe-desktop-app#transactions-reporting) for more information.
 
 | Field | Max Length | Type | Comments |
 | --- | --- | --- | --- |
 | **merchid**	| 16 | N | CardPointe merchant ID, required for all requests.
 | <ins> **amount** </ins> | 14 | N | Amount with decimal or without decimal in currency minor units. <br> <br> **Notes**: <br> <br> Only USD is currently supported. <br> Negative amounts (forced credits) are currently not supported. |
 | **accttype** | 4 | A | The ACH account type. One of the following values: <br> <br> `ECHK` - checking account <br> `ESAV` - savings account |
-| **account** | 19 | N | Can be: <br> **CardSecure Token** - A token, including the bank account and checking numbers, retrieved from the Bolt API, CardSecure API, or the [Hosted iFrame Tokenizer](?path=docs/documentation/HostediFrameTokenizer.md) <br> **Bank Account Number** - The clear checking or savings account number. When using this field, the `bankaba` field is also required to include the routing number. <br> <br> **Note**: _To use a stored profile, omit the_ `account` _property and supply the profile ID in the_ `profile` _field instead. See the Profile description for more information._ |
+| **account** | 19 | N | Can be: <br> **CardSecure Token** - A token, including the bank account and checking numbers, retrieved from the Bolt API, CardSecure API, or the [Hosted iFrame Tokenizer](?path=docs/documentation/HostediFrameTokenizer.md) <br> **Bank Account Number** - The clear checking or savings account number. When using this field, the `bankaba` field is also required to include the routing number. <br> <br> **Note**: _To use a stored profile, omit the_ `account` _property and supply the profile ID in the_ `profile` _field instead. See the [Profile description](../api/?type=post&path=/cardconnect/rest/profile/) for more information._ |
 | achDescription | 10	| AN | An optional description for the transaction, truncated to a maximum of 10 characters. <br> <br> For ACH reversals, you **must** specify this field as `Reversal`, as required by NACHA guidelines. See [ACH Reversals](#ach-reversals) for more information. |
 | achEntryCode | 3 | AN	| Determines the type of ACH transaction. If omitted, this value is determined by the CardPointe Gateway. <br> <br> One of the following values: <br> <br> `CCD` - B2B payment with a signed company agreement on file. <br> `PPD` - Recurring payment, with a signed customer agreement on file. <br> `TEL` - Phone payment (call center), with the customer's recorded verbal consent on file. <br> `WEB` - Web or mobile payment, with a customer's web authorization or agreement on file. <br> <br> **Note**: _For refunds, this field is converted to either_ `CCD` _or_ `PPD` _depending on the merchant account configuration._ |
 | **bankaba**	| 9	| N	| Bank routing (ABA) number. Required for ACH authorizations when a bank account number is provided in the `account` field. `bankaba` is **not** required if a CardSecure token (generated from the account/bankaba pair) is provided in the `account` field. |
 | <ins> **name** </ins> | 30 | AN | Account holder's name. |
 | currency | 3 | AN	| Currency of the authorization (for example, USD for US dollars or CAD for Canadian Dollars). <br> <br> **Note**: _If specified in the auth request, the currency value must match the currency that the MID is configured for. Specifying the incorrect currency will result in a_ `"Wrong currency for merch"` _response_. |
-| receipt	| 1	| A	| Optional, to return receipt data fields in the authorization response. <br> <br> Specify **Y** to return additional merchant and authorization data to print on a receipt. <br> <br> Defaults to **N** if not provided. |
-| profile	| 24 | AN	| Optional, to create an account profile or to use an existing profile. <br> <br> To create a profile using the account holder data provided in the request, specify **Y**. <br> <br> To use an existing profile for this authorization, omit the account parameter and instead use the profile parameter to supply the 20-digit profile id and 1-3-digit account id string in the format <profile>/<account>.  <br> <br> See Profiles for more information. |
+| receipt	| 1	| A	| Optional, to return receipt data fields in the [authorization response](../api/?type=post&path=/cardconnect/rest/profile/). <br> <br> Specify **Y** to return additional merchant and authorization data to print on a receipt. <br> <br> Defaults to **N** if not provided. |
+| profile	| 24 | AN	| Optional, to create an account profile or to use an existing profile. <br> <br> To create a profile using the account holder data provided in the request, specify **Y**. <br> <br> To use an existing profile for this authorization, omit the account parameter and instead use the profile parameter to supply the 20-digit profile id and 1-3-digit account id string in the format <profile>/<account>.  <br> <br> See [Profiles](../api/?type=post&path=/cardconnect/rest/profile/) for more information. |
 | tokenize | 1 | A | Optional, specify **N** or omit to return an account token in the account field in the response. <br> <br> If tokenize is **Y**, the masked account number is returned in the response. |
 | signature	| 6144 | AN	| JSON-escaped, Base64-encoded, Gzipped, BMP of signature data. If the authorization is using a token with associated signature data, then the signature from the token is used. |
 | <ins> address </ins>	| 30 | AN	| Account holder's street address, required for AVS verification. |
@@ -142,7 +142,7 @@ The following table describes the authorization request fields that you must inc
 | taxamnt	| 12 | N | Tax amount for the order, either decimal or in currency minor units (for example, USD Pennies or MXN Centavos). <br> If `taxexempt` is `"Y"` `taxamnt` must be zero or omitted. If `taxexempt` is `"N"`, `taxamnt` must be a positive, non-zero value. |
 | ecomind	| 1	| A	| An e-commerce transaction origin indicator, for card-not-present transactions only. <br> <br> One of the following values: <br> <br> `T` - telephone or mail payment <br> `R` - recurring billing <br> `E` - e-commerce web or mobile application <br> <br> **Note**: _While not required, it is recommended that you include the appropriate_ `ecomind` _value for all card-not-present transactions, to ensure that the transaction processes at the appropriate interchange level. _
 
-> This table does not include the complete list of authorization request parameters. See the CardPointe Gateway API's authorization service description for more detailed information on the authorization request and response parameters.
+> This table does not include the complete list of authorization request parameters. See the CardPointe Gateway API's [authorization service description](../api/?type=post&path=/cardconnect/rest/auth) for more detailed information on the authorization request and response parameters.
 
 #### Sample ACH Authorization Request
 
@@ -184,16 +184,16 @@ The following table describes the authorization request fields that you must inc
 
 ACH transactions typically take several business days to process and settle, therefore, it is a best practice to periodically check the status of the transaction to ensure that it is successfully processed and that you are credited for the authorized amount.
 
-You can use the CardSecure Gateway API to programmatically verify the transaction status using the funding and inquire service endpoints.
+You can use the CardSecure Gateway API to programmatically verify the transaction status using the [funding](#using-the-funding-endpoint) and [inquire](#using-the-inquire-endpoint) service endpoints.
 
 ### Using the Funding Endpoint
 
 > To use the funding endpoint to retrieve your ACH funding data, you must use your Fiserv ACH MID and API credentials associated with this MID.
 The funding endpoint provides additional useful information for ACH transactions. Specifically, you can use the funding endpoint to retrieve an ACH return code (`achreturncode`), which provides additional information for rejected ACH transactions.
 
-To use the funding endpoint, you make a request using the merchant ID and the date of the funding event that included the transaction. The funding endpoint returns an array of transaction details for that date.
+To use the [funding](../api/?type=get&path=/cardconnect/rest/funding) endpoint, you make a request using the merchant ID and the date of the funding event that included the transaction. The funding endpoint returns an array of transaction details for that date.
 
-Use the `retref` for the ACH transaction to locate it in the txns node of the response data. For ACH transactions, the response includes an `achreturncode` field that includes a specific code that explains the reason for the rejection.
+Use the `retref` for the ACH transaction to locate it in the [txns node](../api/?type=get&path=/cardconnect/rest/funding) of the response data. For ACH transactions, the response includes an `achreturncode` field that includes a specific code that explains the reason for the rejection.
 
 The following table describes the possible ACH return code values.
 
@@ -271,8 +271,8 @@ The following codes are returned when an ACH transaction is rejected.
 
 ### Using the Inquire Endpoint
 
-The inquire endpoint provides information on completed authorizations.
+The [inquire](../api/?type=get&path=/cardconnect/rest/inquire) endpoint provides information on completed authorizations.
 
-You can use the inquire endpoint if you have the retrieval reference number (`retref`) from the authorization response. If you don't have the `retref`, but you included a unique order ID in the authorization request, then you can use the inquireByOrderId endpoint instead.
+You can use the [inquire](../api/?type=get&path=/cardconnect/rest/inquire) endpoint if you have the retrieval reference number (`retref`) from the authorization response. If you don't have the `retref`, but you included a unique order ID in the authorization request, then you can use the [inquireByOrderId](../api/?type=get&path=/cardconnect/rest/inquireByOrderdid) endpoint instead.
 
 The inquire response includes a settlement status (`setlstat`) field that displays the settlement status of the transaction. Note that the settlement status initially displays "Queued for Capture" for ACH transactions, and the value is updated once the batch is transmitted. If `"setlstat" : "rejected"` you can use the funding endpoint to gather more detailed information.
