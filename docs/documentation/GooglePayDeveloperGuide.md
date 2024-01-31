@@ -6,7 +6,7 @@ This guide provides information to help you quickly integrate Google Pay<sup>tm<
 
 By integrating Google Pay acceptance and CardSecure tokenization into your app, you enable your customers to pay quickly and securely using the payment data stored in a Google Pay wallet. CardSecure handles the decryption and tokenization of the customer's payment data (the Google Pay response object). Integrating Google Pay enables you to provide a quick, seamless checkout experience to millions of Google Pay users.
 
-All transactions are available in CardPointe for reporting. Additionally, integrating the CardPointe Gateway API allows you to take advantage of the complete set of transaction and reporting features of the CardPointe Gateway.
+All transactions are available in CardPointe for reporting. Additionally, integrating the [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md) allows you to take advantage of the complete set of transaction and reporting features of the CardPointe Gateway.
 
 ## Developing your App
 
@@ -18,7 +18,7 @@ First, you build or upgrade an application, using the Google Pay API to integrat
   
 **2.** Your app then passes that encrypted data to CardSecure, which decrypts and tokenizes the data.
   
-**3.** Your app receives the tokenized data, and then passes it to the CardPointe Gateway in an authorization request.
+**3.** Your app receives the tokenized data, and then passes it to the CardPointe Gateway in an [authorization request](../api/?type=post&path=/cardconnect/rest/auth).
   
 **4.** Your app then receives a response from the CardPointe Gateway, completing the transaction.
 
@@ -32,8 +32,8 @@ To integrate Google Pay acceptance, you need:
 
 - An Android or web application that integrates the following APIs:
   - [Google Pay API](https://developers.google.com/pay/api/android/overview) - to request and retrieve customer payment information.
-  - CardSecure API - to decrypt and tokenize Google Pay data.
-  - CardPointe Gateway API - to process payments using tokens.
+  - [CardSecure API](?path=docs/APIs/CardSecureAPI.md) - to decrypt and tokenize Google Pay data.
+  - [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md) - to process payments using tokens.
 - For an Android application, an Android device with Google Play services version 16.0.0 or greater installed.
 - A CardPointe merchant account configured to accept Google Pay payments.
 
@@ -92,7 +92,7 @@ const cardPaymentMethod = Object.assign(
 );
 ```
 
-**4.** Configure your app to [handle the paymentData response object](https://developers.google.com/pay/api/web/guides/tutorial#event-handler). See Tokenizing Google Pay Data for more information.
+**4.** Configure your app to [handle the paymentData response object](https://developers.google.com/pay/api/web/guides/tutorial#event-handler). See [Tokenizing Google Pay Data](#tokenizing-google-pay-data) for more information.
 
 ### Sample Google Pay Tokenization Response
 ```json
@@ -119,9 +119,9 @@ See the following resources for detailed Google Pay API integration details:
 
 Once you receive a token from CardSecure, you can pass the token to the CardPointe Gateway in an authorization request.
 
-You use the CardPointe Gateway API to make a request to the `auth` endpoint. To simplify your integration, you can download and test our sample mobile applications and server side host scripts. See the [CardPointe Mobile Mobile SDKs Developer Guide](?path=docs/documentation/CardPointeMobileSDKs.md) for more information and examples.
+You use the [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md) to make a request to the `auth` endpoint. To simplify your integration, you can download and test our sample mobile applications and server side host scripts. See the [CardPointe Mobile Mobile SDKs Developer Guide](?path=docs/documentation/CardPointeMobileSDKs.md) for more information and examples.
 
-See the CardPointe Gateway API Developer documentation for detailed information on the authorization request and response data.
+See the [CardPointe Gateway API Developer documentation](?path=docs/APIs/CardPointeGatewayAPI.md) for detailed information on the authorization request and response data.
 
 # Support
 
@@ -148,7 +148,7 @@ When your application receives the encrypted Google Pay payload, you pass the da
 <!-- theme: danger -->
 > You must retrieve a new Google Pay payload for each tokenization attempt. Tokens generated for Google Pay payloads are valid for a single authorization.
 
-Your application passes the Google Pay wallet data to CardSecure in a request to the tokenize endpoint.
+Your application passes the Google Pay wallet data to CardSecure in a request to the [tokenize](../api/?type=post&path=/cardsecure/api/v1/ccn/tokenize) endpoint.
 
 ## CardSecure Request URL
 
