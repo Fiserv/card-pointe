@@ -9,6 +9,12 @@ This guide provides information for developers looking to integrate CardSecure's
 <!-- theme: warning -->
 > Visit [Statuspage](https://status.cardconnect.com/) and click **subscribe to updates** to receive important release and status notifications.
 
+## Date Updated: 9/23/2023 
+
+An update to CardSecure was released to the UAT environment on 9/19/2023, and is planned for release to the Production environment on 9/23/2023.
+
+This update includes backend improvements and enhancements. 
+
 ## Date Updated: 7/24/2021
 
 An update to CardSecure was deployed to the UAT environment on 7/19/2021 and to the production environment on 7/24/2021.
@@ -20,47 +26,6 @@ This release includes internal fixes and updates to CardSecure, including the fo
 When tokenizing an Apple Pay payload, CardSecure no longer requires a specific order for the Apple Pay parameters in the `devicedata` string, with the exception of the `data` value, which must be the first parameter in the string. Previously, CardSecure required a specific sequence for all Apple Pay parameters in the `devicedata` string  to correctly parse the string.
 
 See the [Apple Pay Developer Guide](?path=docs/documentation/ApplePayDeveloperGuide.md) for detailed information on integrating Apple Pay support.
-
-## Date Updated: 2/6/2020 
-
-This release includes the following updates:
-
-### Apple Pay Support
-
-The CardSecure API now supports tokenizing Apple Pay payment tokens. Previously, this was only supported using the legacy API HTTP methods. 
-
-To tokenize Apple Pay payment tokens, make a request to the `tokenize` endpoint using the Apple Pay payment token parameters in the `devicedata` field, and specify `EC_APPLE_PAY` in the `encryptionhandler` field, as follows:
-
-```
-POST /cardsecure/api/v1/ccn/tokenize HTTP/1.1
-Content-Type: application/json
-
-{
-  "devicedata" : "<Apple Pay payload>",
-  "encryptionhandler" : "EC_APPLE_PAY"
-}
-```
-
-See the [tokenize](../api/?type=post&path=/cardsecure/api/v1/ccn/tokenize) description for a complete example, and see the [Apple Pay Developer Guide](?path=docs/documentation/ApplePayDeveloperGuide.md) for detailed information on integrating support for Apple Pay, and formatting the payment token string for CardSecure. 
-
-### Update a Token with CVV and Expiry
-
-The CardSecure API now supports the ability to update a payment card token to include the CVV and expiration date associated with the card. 
-
-_**Note**: If you use a card reader or terminal to capture track data, you should **not** use this method. Updating the token may delete the track data, making the token unusable._
-
-To update a token, make a subsequent request to the `tokenize` endpoint using the token in the `account` parameter, and include the `cvv` and `expiry` parameters, as follows:
-
-```
-POST /cardsecure/api/v1/ccn/tokenize HTTP/1.1
-Content-Type: application/json
-
-{
-  "account" : "9417119164771111",
-  "expiry" : "1122",
-  "cvv" : "123"
-}
-```
 
 <!-- type: row -->
 
@@ -101,7 +66,7 @@ When a credit card is swiped or inserted at a supported terminal, the extracted 
 
 CardSecure decrypts the encrypted swipe data and generates a token for the card number. CardSecure also stores the card’s encrypted track data for a short period of time, after which it is discarded.
 
-If the token is used in an authorization request to the CardPointe Gateway during this retention period, the stored track data associated with the token is sent to the processor; this potentially allows the transaction to run as a "card present" transaction. The track data is discarded after the authorization request, and can only be used in a single request.
+If the token is used in an [authorization request](../api/?type=post&path=/cardconnect/rest/auth) to the CardPointe Gateway during this retention period, the stored track data associated with the token is sent to the processor; this potentially allows the transaction to run as a "card present" transaction. The track data is discarded after the authorization request, and can only be used in a single request.
 
 ## Encrypting and Tokenizing Payment Account Data 
 
@@ -109,7 +74,7 @@ CardSecure allows clients to encrypt the account data (PAN or ACH) sent in a [to
 
 Data must be encrypted using RSA encryption in ECB mode with PKCS1 padding. The encrypted data must be Base64-encoded when sent to CardSecure in a [tokenization request](../api/?type=post&path=/cardsecure/api/v1/ccn/tokenize).
 
-CardSecure uses the corresponding private key to decrypt the data. The decrypted data is temporarily stored in CardSecure's vault, and the token (generated from the encrypted data) is returned to your application for use in an authorization request to the CardPointe Gateway. Note that the token itself is not encrypted.
+CardSecure uses the corresponding private key to decrypt the data. The decrypted data is temporarily stored in CardSecure's vault, and the token (generated from the encrypted data) is returned to your application for use in an [authorization request](../api/?type=post&path=/cardconnect/rest/auth) to the CardPointe Gateway. Note that the token itself is not encrypted.
 
 > Note the following restrictions:
 > 
