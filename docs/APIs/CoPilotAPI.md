@@ -100,6 +100,19 @@ Click the Run in Postman button to download the CoPilot API collection.
 
 See [Running the API in Postman](?path=docs/documentation/CoPilotDeveloperGuides.md#running-the-api-in-postman) in the [CoPilot Developer Guides](?path=docs/documentation/CoPilotDeveloperGuides.md) for more information on using the Postman Collection.
 
+# Valid Owner Titles
+
+| Ownership Type | Valid Owner Titles | 
+| --- | --- |
+| PRTNRSHP (Partnership) | PARTNER | 
+| GOVT (Government) | OWNER <br> PARTNER <br> PRESIDENT <br> VICE_PRESIDENT <br> MEMBER_LLC <br> SECRETARY <br> TREASURER <br> CEO <br> CFO <br> COO | 
+| PUBCORP (Public Corporation) | PRESIDENT <br> VICE_PRESIDENT <br> SECRETARY <br> TREASURER <br> CEO <br> CFO <br> COO | 
+| LLC (LLC) | PRESIDENT <br> VICE_PRESIDENT <br> SECRETARY <br> TREASURER <br> CEO <br> CFO <br> COO <br> MEMBER_LLC | 
+| PRIVCORP (Private Corporation) | PRESIDENT <br> VICE_PRESIDENT <br> SECRETARY <br> TREASURER <br> CEO <br> CFO <br> COO |
+| TAXEXMPT (Tax Exempt)	| OWNER <br> PARTNER <br> PRESIDENT <br> VICE_PRESIDENT <br> MEMBER_LLC <br> SECRETARY <br> TREASURER <br> CEO <br> CFO <br> COO | 
+| NONPRFT (Non-Profit Org) | OWNER <br> PARTNER <br> PRESIDENT <br> VICE_PRESIDENT <br> MEMBER_LLC <br> SECRETARY <br> TREASURER <br> CEO <br> CFO <br> COO | 
+| INDIVSOLE (Individual / Sole Proprietor) | OWNER | 
+
 # Errors
 
 When there is an error in the request, there will be a non-null `errors` array in the response body. If there are multiple field validation errors, there will be multiple error objects in the errors array. See the example below.
