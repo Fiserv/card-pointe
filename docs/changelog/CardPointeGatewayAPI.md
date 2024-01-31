@@ -4,6 +4,65 @@ The following entries describe changes to the [CardPointe Gateway API](?path=doc
 
 Visit status.cardconnect.com and click subscribe to updates to receive important release and status notifications.
 
+## Date Updated: 11/9/2023
+
+An update to the CardPointe Gateway was released to the UAT environment on 10/23/2023 and has been deployment to the production environment on 11/9/2023.
+
+This release includes the following updates in addition to internal fixes and enhancements:
+
+### Original MID Requirement for Refund Requests 
+
+Refund requests must include the Merchant ID (MID) used in the original authorization request. If the refund includes a different MID, or a null value, then the request returns an error as seen in the example below. See the [Refund Requirement Update](https://support.cardpointe.com/refund-requirements-update#whats-changing) for more information. 
+
+```
+{ 
+    "respproc": "PPS", 
+    "resptext": "Txn not found", 
+    "retref": "198096236590", 
+    "respcode": "29", 
+    "respstat": "C" 
+}
+```
+
+### Surcharge Endpoint 
+
+The [surcharge endpoint](../api/?type=get&path=/cardconnect/rest/surcharge) has been added to determine whether or not a surcharge fee will be applied to a transaction, based on the cardholder's postal code and payment method. This allows your application to notify the cardholder of the potential credit card surcharge prior to completing a transaction.
+
+This request does **not** effect whether or not a surcharge is applied to a transaction; the CardPointe Gateway automatically applies a surcharge depending on the merchant configuration and the eligibility of the payment account. This request is used only for informational purposes.
+
+For more information on credit card surcharging, see the [Merchant Surcharge Program overview](https://support.cardpointe.com/compliance/surcharging). 
+
+```
+{
+    "token": "CREDIT",
+    "postal": "NOT_RESTRICTED",
+    "messages": []
+}
+```
+
+### Authorization Code in Refund Endpoint 
+
+The `authcode` field is now included in the API response for the [/refund](../api/?type=post&path=/cardconnect/rest/refund) endpoint for both online and offline refunds. For online refunds the `authcode` returned by the processor will be included in the response. For auto-approved (offline) refunds, the `"authcode":"REFUND"` is returned in the response. The following example displays an online refund authorization response:
+
+```
+{
+    "authcode": "PPS655",
+    "respproc": "AMEX",
+    "amount": "3.00",
+    "resptext": "Approval",
+    "retref": "270110240566",
+    "respstat": "A",
+    "respcode": "000",
+    "merchid": "831831831901"
+}
+```
+
+See the [Refund Authorization overview](https://support.cardpointe.com/compliance/refund-authorizations) for more information on online refunds.
+
+### Profile Field Validation 
+
+When making an authorization request with a stored profile, the profile field will no longer accept a token; instead, you must include the profile ID and account ID pair to authorize a transaction. 
+
 ## Date Updated: 8/26/2023 
 
 An update to the CardPointe Gateway is tentatively scheduled for release to the UAT environment on 8/18/2023 and to the Production environment on 8/26/2023.
