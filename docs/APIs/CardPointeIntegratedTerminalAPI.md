@@ -22,16 +22,11 @@ The CardPointe Integrated Terminal solution consists of the following components
 <!-- theme: warning -->
 > Visit [Statuspage](http://status.cardconnect.com/) and click **subscribe to updates** to receive important release and status notifications.
 
-## Date Updated: 8/16/2022 
+## Date Updated: 10/24/2023 
 
-Our Bolt family of integrated solutions is becoming **CardPointe Integrated Payments**.
+An update to the CardPointe Integrated Terminal service is planned for deployment to the UAT environment on 10/24/2023, and is tentatively planned for deployment to the Production environment on 10/28/023.
 
-Over the coming weeks, your terminals will receive an update with minor changes, including an updated default theme and branding for terminals that are not configured with custom branding.
-
-Terminals will update automatically during the nightly reboot window; therefore, we ask that you leave your terminals powered on and connected to your network overnight. Once your terminal is updated, you may notice the following changes:
-
-- If you are using the default device wallpaper and theme, the Bolt wallpaper and logo will change to **CardPointe Integrated Terminal**.
-- The **Bolted** and **Unbolted** statuses will change to **Connected** and **Disconnected**, respectively.
+This update includes backend improvements and enhancements; no merchant impact is expected.
 
 <!-- type: row -->
 
@@ -231,13 +226,13 @@ The following table describes the various error codes that can be returned in an
 | 6	| Terminal not connected to the terminal service (no request queue registered) | Client/Server
 | 7	| Terminal in use	| Client/Server
 | 8	| The in-flight request (for example an authCard command sequence) was canceled. The error includes one of the following messages, which describe the specific cancellation scenario. <br> <br> `Command Cancelled` - The client application sent a cancel request. <br> <br> `Operation Cancelled` - The cardholder or merchant canceled a readCard sequence at the terminal. <br> <br> `Authorization Cancelled` - The client application, merchant, or cardholder attempted to cancel an authCard or authManual request; however, the terminal service already submitted the authorization request to the CardPointe Gateway. In this case, the authorization was processed, and the error includes an `authResponse` object that contains the authorization response from the CardPointe Gateway. | Client/Server
-| 100	| Internal Server Error if no terminals found for merchant | listTerminals response
-| 400	| PIN Debit not supported for merchantID <MID> | authCard response
-| 500	| Generic	| authManual response
+| 100	| Internal Server Error if no terminals found for merchant | [listTerminals](../api/?type=post&path=/api/v2/listTerminals) response
+| 400	| PIN Debit not supported for merchantID <MID> | [authCard](../api/?type=post&path=/api/v3/authCard) response
+| 500	| Generic	| [authManual](../api/?type=post&path=/api/v3/authManual) response
 | 624	| Decryption failure | CardSecure
 | 643	| Server failed	| CardSecure
-| 700	| Signature capture not supported by device	| readSignature or authCard, authManual, readCard, or readManual request including a signature
-| 800	| Printing not supported | authCard or authManual request including  `"printReceipt:"true"`, or printReceipt request, when the Clover Mini is running in low-power mode (not connected to AC power). <br> <br> _**Note**: This error response also includes the receiptData array for the associated transaction._
+| 700	| Signature capture not supported by device	| [readSignature](../api/?type=post&path=/api/v2/readSignature) or [authCard](../api/?type=post&path=/api/v3/authCard), [authManual](../api/?type=post&path=/api/v3/authManual), [readCard](../api/?type=post&path=/api/v2/readCard), or [readManual](../api/?type=post&path=/api/v2/readManual) request including a signature
+| 800	| Printing not supported | [authCard](../api/?type=post&path=/api/v3/authCard) or [authManual](../api/?type=post&path=/api/v3/authManual) request including  `"printReceipt:"true"`, or [printReceipt](../api/?type=post&path=/api/v3/printReceipt) request, when the Clover Mini is running in low-power mode (not connected to AC power). <br> <br> _**Note**: This error response also includes the receiptData array for the associated transaction._
 
 <!-- type: row -->
 
