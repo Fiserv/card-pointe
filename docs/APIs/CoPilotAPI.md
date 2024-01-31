@@ -9,25 +9,40 @@ The API complements the CoPilot web application, offering a programmatic interfa
 <!-- theme: warning -->
 > Visit [Statuspage](http://status.cardconnect.com/) and click **subscribe to updates** to receive important release and status notifications.
 
-## Date Updated: 1/19/2022 
+## Date Updated: 11/8/2023 
 
-This release contains the following updates:
+An update to the CoPilot API has been released to the Production environment on 11/8/2023. This release includes the following updates in addition to internal fixes and enhancements:
 
-### Third Party Provider Details 
+### Enhanced Field Validation 
 
-The Merchant Definition now includes an additional `thirdPartyProviderDetails` object, to specify third party provider (TPP) details in a merchant create or update request. This object is also returned in a GET merchant details response. 
+Additional validations have been incorporated for the `legalBusinessName`, `akaBusinessName`, `taxFilingName`, and `dbaName` fields to check for string sizes that exceed the expected maximum length. The following example illustrates two possible errors:
 
-This change aligns with a previous update to the MPA and CoPilot to ask if the merchant uses any third party provider (TPP) to store, process, or transmit cardholder data, and if so, to provide the TPP Name and contact phone and email.
+```
+{
+    "errors": [
+        {
+            "code": "1105",
+            "message": "Legal Business Name has invalid length.",
+            "errorfield": "merchant.legalBusinessName",
+            "status": "BAD_REQUEST"
+        },
+        {
+            "code": "1178",
+            "message": "AKA Business Name has invalid length.",
+            "errorfield": "merchant.akaBusinessName",
+            "status": "BAD_REQUEST"
+        }
+    ]
+}
+```
 
-The thirdPartyProviderDetails object is optional, but requires the following fields when provided:
+### Shipping Bill To Field 
 
-| Field	| Type | Description
-| --- | --- | --- 
-| thirdPartyProviderFlg	| Boolean | A true/false indicator the determines whether or not the merchant uses a third party provider to store, process, or transmit cardholder data. <br> <br> If **true**, `thirdPartyProviderCd`, `thirdPartyProviderEmail`, and `thirdPartyProviderPhone` are required. <br> <br> If **false**, all other fields can be `null`.
-| thirdPartyProviderCd | String | A 2-character code representing the TPP. <br> <br> If `thirdPartyProviderFlg` is **true**, this field is required and must be one of the following values: <br> <br> 01 - Yahoo <br> 02 - Authorize.net <br> 03 - Cybersource <br> 04 - VeriFone <br> 05 - Merchant Link <br> 06 - Shift 4 <br> 07 - Apriva <br> 08 - FIS <br> 09 - Six Payment Services Corp <br> 10 - Verisign <br> 99 - Other <br> <br> If **99**, the `thirdPartyProviderOtherName` field is **required**.
-| thirdPartyProviderOtherName	| String | The TPP name if `thirdPartyProviderCd` is **99**. <br> <br> Must be null or omitted if `thirdPartyProviderCd` is any other value. <br> <br> This field must not contain the a name from the `thirdPartyProviderCd` list (for example, "Yahoo").
-| thirdPartyProviderEmail	| String | The contact email address for the TPP. <br> <br> Must be a less than or equal to 32 characters.
-| thirdPartyProviderPhone |	String | The contact phone number for the TPP. <br> <br> Must be 7-12 characters.
+Previously, the Shipping Bill To field was not pulled from the template. However, it is now automatically provided from the active template. There is no need to utilize the `shippingBillToCd` field in the API, and if it is used, it will be disregarded.
+
+### Non-Swiped Auth Fee 
+
+`cloverNonSwipedAuthFee` has been added to the fee class. This fee is only applicable for North Retail ISO merchants. 
 
 <!-- type: row -->
 
@@ -84,6 +99,40 @@ Click the Run in Postman button to download the CoPilot API collection.
 > [Run in Postman](https://app.getpostman.com/run-collection/123cd242a1b83c941022?action=collection%2Fimport#?env%5BCoPilot%20API%20(UAT)%5D=W3sia2V5IjoidG9rZW4tdXJsIiwidmFsdWUiOiJodHRwczovL2FjY291bnRzdWF0LmNhcmRjb25uZWN0LmNvbS9hdXRoL3JlYWxtcy9jYXJkY29ubmVjdC9wcm90b2NvbC9vcGVuaWQtY29ubmVjdC90b2tlbiIsImVuYWJsZWQiOnRydWV9LHsia2V5IjoidXNlcm5hbWUiLCJ2YWx1ZSI6IklOU0VSVF9VU0VSTkFNRSIsImVuYWJsZWQiOnRydWV9LHsia2V5IjoicGFzc3dvcmQiLCJ2YWx1ZSI6IklOU0VSVF9QQVNTV09SRCIsImVuYWJsZWQiOnRydWV9LHsia2V5IjoiY2xpZW50LWlkIiwidmFsdWUiOiJJTlNFUlRfQ0xJRU5UX0lEIiwiZW5hYmxlZCI6dHJ1ZX0seyJrZXkiOiJjbGllbnQtc2VjcmV0IiwidmFsdWUiOiJJTlNFUlRfQ0xJRU5UX1NFQ1JFVCIsImVuYWJsZWQiOnRydWV9LHsia2V5IjoiYWNjZXNzLXRva2VuIiwidmFsdWUiOiJTRVRfQllfVEVTVFNfVEFCX09GX1RPS0VOX1JFUVVFU1QiLCJlbmFibGVkIjp0cnVlfSx7ImtleSI6ImFwaS11cmwiLCJ2YWx1ZSI6Imh0dHBzOi8vYXBpLXVhdC5jYXJkY29ubmVjdC5jb20iLCJlbmFibGVkIjp0cnVlfSx7ImtleSI6ImFwaS12ZXJzaW9uIiwidmFsdWUiOiIxLjAiLCJlbmFibGVkIjp0cnVlfSx7ImtleSI6Im1lcmNoYW50LWlkIiwidmFsdWUiOiJJTlNFUlRfQ09QSUxPVF9NRVJDSEFOVF9JRCIsImVuYWJsZWQiOnRydWV9LHsia2V5Ijoic2FsZXMtY29kZSIsInZhbHVlIjoiSU5TRVJUX1NBTEVTX0NPREUiLCJlbmFibGVkIjp0cnVlfSx7ImtleSI6Im9yZGVyLWlkIiwidmFsdWUiOiJJTlNFUlRfT1JERVJfSUQiLCJlbmFibGVkIjp0cnVlfSx7ImtleSI6Im1pZCIsInZhbHVlIjoiSU5TRVJUX0ZST05URU5EX01JRCIsImVuYWJsZWQiOnRydWV9LHsia2V5IjoiYmlsbGluZy1wbGFuLWlkIiwidmFsdWUiOiJJTlNFUlRfQklMTElOR19QTEFOX0lEIiwiZW5hYmxlZCI6dHJ1ZX0seyJrZXkiOiJhcHBsaWNhdGlvbi10ZW1wbGF0ZS1pZCIsInZhbHVlIjoiSU5TRVJUX1RFTVBMQVRFX0lEIiwiZW5hYmxlZCI6dHJ1ZX1d)
 
 See [Running the API in Postman](?path=docs/documentation/CoPilotDeveloperGuides.md#running-the-api-in-postman) in the [CoPilot Developer Guides](?path=docs/documentation/CoPilotDeveloperGuides.md) for more information on using the Postman Collection.
+
+# Errors
+
+When there is an error in the request, there will be a non-null `errors` array in the response body. If there are multiple field validation errors, there will be multiple error objects in the errors array. See the example below.
+
+## Errors Definition 
+
+| Field	| Type | Comments
+| --- | --- | --- |
+| code	| String	| The error code
+| message	| String	| The error message
+| errorField	| String	| The field that caused the error
+| status	| String	| The HTTP Status Code
+
+#### Example Error Array
+
+```json
+{
+    "errors": [
+        {
+            "code": "1113",
+            "message": "Owner date of birth is invalid.  Please use MM/DD/YYYY format.",
+            "errorField": "merchant.ownership.owner.ownerDob",
+            "status": "BAD_REQUEST"
+        },
+        {
+            "code": "1115",
+            "message": "Phone is invalid.  Please use XXX-XXX-XXXX format.",
+            "errorField": "merchant.demographic.businessPhone",
+            "status": "BAD_REQUEST"
+        }
+    ]
+}
+```
 
 <!-- type: row -->
 
