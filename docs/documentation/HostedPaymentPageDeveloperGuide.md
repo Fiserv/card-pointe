@@ -25,7 +25,7 @@ By integrating the HPP with your web application, you can:
 
 Setting up the HPP is quick and easy. Contact integrationdelivery@cardconnect.com to set up your account. 
 
-Once you have Super Admin access to your account, you can configure and customize your HPP to meet your needs. See the CardPointe HPP User Guide for detailed information on setting up your HPP.
+Once you have Super Admin access to your account, you can configure and customize your HPP to meet your needs. See the [CardPointe HPP User Guide](https://support.cardpointe.com/cardpointe/hpp#setting-up-your-hpp) for detailed information on setting up your HPP.
 
 ## Testing your HPP
 
@@ -99,7 +99,7 @@ If you use a standalone reporting or accounting application, you can use the HPP
 
 When a payment is successfully processed, the HPP sends the authorization response returned by the CardPointe Gateway to the URL specified in the webhook configuration in an HTTP POST request. The transaction details are sent as a URL-encoded JSON string, which your application can parse to obtain the required data.
 
-The data includes the `retref` for each transaction, which your application can use to void or refund transactions using the CardPointe Gateway API.
+The data includes the `retref` for each transaction, which your application can use to void or refund transactions using the [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md).
 
 To configure a webhook, do the following:
 
@@ -193,16 +193,16 @@ Additionally, you can click **Example** to view an example HPP Webhook Response:
 
 ## Managing Transactions from the HPP or CardPointe Web App 
 
-The HPP includes basic reporting and management features that allow you to view the status of your HPP transactions, as well as to void or refund a payment, or to manage your customer subscriptions. On the HPP, click the **Payments** tab to access the reporting page. See the CardPointe HPP User's Guide for more information.
+The HPP includes basic reporting and management features that allow you to view the status of your HPP transactions, as well as to void or refund a payment, or to manage your customer subscriptions. On the HPP, click the **Payments** tab to access the reporting page. See the [CardPointe HPP User's Guide](https://support.cardconnect.com/cardpointe/hpp#viewing-and-managing-transactions) for more information.
 
-Additionally, if you use the CardPointe Web application, you can view and manage your HPP payments on the Reporting page along with all other transactions for your merchant account. To view only your HPP payments, click the **Front End** filter and select **Hosted Payment Page**. The Reporting table will refresh and display only the transactions processed by your HPP. See the CardPointe User's Guide for more information.
+Additionally, if you use the CardPointe Web application, you can view and manage your HPP payments on the Reporting page along with all other transactions for your merchant account. To view only your HPP payments, click the **Front End** filter and select **Hosted Payment Page**. The Reporting table will refresh and display only the transactions processed by your HPP. See the [CardPointe User's Guide](https://support.cardconnect.com/cardpointe/cardpointe-desktop-app#reporting) for more information.
 
 ## Using the CardPointe Gateway API to Manage Transactions 
 
-The CardPointe Gateway API offers the most flexible methods for reconciling and managing transactions. 
+The [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md) offers the most flexible methods for reconciling and managing transactions. 
 
-If you are [using webhooks](#using-hpp-webhooks-to-retrieve-transactions) to gather transaction details, you can use the `retref` for a transaction to make inquire, refund, or void requests.
+If you are [using webhooks](#using-hpp-webhooks-to-retrieve-transactions) to gather transaction details, you can use the `retref` for a transaction to make [inquire](../api/?type=get&path=/cardconnect/rest/inquire), [refund](../api/?type=post&path=/cardconnect/rest/refund), or [void](/api/?type=post&path=/cardconnect/rest/void) requests.
 
-If you are not using webhooks, you can include an Invoice Number in each transaction. The Invoice Number value is sent to the CardPointe Gateway as the `orderid`, which you can use to make an inquireByOrderid request to retrieve the `retref` and other transaction details to allow you to manage your payments.
+If you are not using webhooks, you can include an Invoice Number in each transaction. The Invoice Number value is sent to the CardPointe Gateway as the `orderid`, which you can use to make an [inquireByOrderid](../api/?type=get&path=/cardconnect/rest/inquireByOrderdid) request to retrieve the `retref` and other transaction details to allow you to manage your payments.
 
-See the CardPointe Gateway API for detailed information.
+See the [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md) for detailed information.
