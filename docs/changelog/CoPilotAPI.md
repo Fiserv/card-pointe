@@ -2,6 +2,42 @@
 
 The following entries describe changes to the [CoPilot API](?path=docs/APIs/CoPilotAPI.md) and documentation.
 
+## Date Updated: 11/8/2023 
+
+An update to the CoPilot API has been released to the Production environment on 11/8/2023. This release includes the following updates in addition to internal fixes and enhancements:
+
+### Enhanced Field Validation 
+
+Additional validations have been incorporated for the `legalBusinessName`, `akaBusinessName`, `taxFilingName`, and `dbaName` fields to check for string sizes that exceed the expected maximum length. The following example illustrates two possible errors:
+
+```
+{
+    "errors": [
+        {
+            "code": "1105",
+            "message": "Legal Business Name has invalid length.",
+            "errorfield": "merchant.legalBusinessName",
+            "status": "BAD_REQUEST"
+        },
+        {
+            "code": "1178",
+            "message": "AKA Business Name has invalid length.",
+            "errorfield": "merchant.akaBusinessName",
+            "status": "BAD_REQUEST"
+        }
+    ]
+}
+```
+
+### Shipping Bill To Field 
+
+Previously, the Shipping Bill To field was not pulled from the template. However, it is now automatically provided from the active template. There is no need to utilize the `shippingBillToCd` field in the API, and if it is used, it will be disregarded.
+
+### Non-Swiped Auth Fee 
+
+`cloverNonSwipedAuthFee` has been added to the fee class. This fee is only applicable for North Retail ISO merchants. 
+
+
 ## Date Updated: 1/19/2022 
 
 This release contains the following updates:
