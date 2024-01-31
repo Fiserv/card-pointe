@@ -2,7 +2,7 @@
 
 The following entries describe changes to the [CardSecure API](?path=docs/APIs/CardSecureAPI.md) and documentation.
 
-## Date Updated: 9/21/2023 
+## Date Updated: 9/23/2023 
 
 An update to CardSecure was released to the UAT environment on 9/19/2023, and is planned for release to the Production environment on 9/23/2023.
 
