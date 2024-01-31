@@ -4,6 +4,12 @@ The following entries describe changes to the [CardPointe Integrated Terminal AP
 
 Visit status.cardconnect.com and click **subscribe to updates** to receive important release and status notifications.
 
+## Date Updated: 10/24/2023 
+
+An update to the CardPointe Integrated Terminal service is planned for deployment to the UAT environment on 10/24/2023, and is tentatively planned for deployment to the Production environment on 10/28/023.
+
+This update includes backend improvements and enhancements; no merchant impact is expected.
+
 ## Date Updated: 8/16/2022 
 
 Our Bolt family of integrated solutions is becoming **CardPointe Integrated Payments**.
