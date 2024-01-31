@@ -9,11 +9,11 @@ The CoPilot API Billing Plan endpoints allow you to create and manage recurring 
 
 The following process provides a general overview of the steps required to set up a recurring payment schedule using the CoPilot API.
 
-**1.** Tokenize the customer's payment data and create a profile. Depending on your existing integration, there are several ways to tokenize payment data and create a payment profile:
+**1.** Tokenize the customer's payment data and create a [profile](../api/?type=post&path=/cardconnect/rest/profile/). Depending on your existing integration, there are several ways to tokenize payment data and create a payment profile:
 
-- Use the customer’s payment card or ACH payment data to make a CardPointe Gateway API authorization request including `"profile" : "y"` to create a stored profile (optionally, include `"capture":"y"` to also capture a payment). The authorization response includes the `profileid` and `acctid` for the new profile.
-- Use the [Hosted iFrame Tokenizer](?path=docs/documentation/HostediFrameTokenizer.md) to gather and tokenize the payment data, then use the CardPointe Gateway API to create a profile.
-- Use a CardPointe Integrated Terminal and the Terminal API authCard or authManual request, including `"createProfile":"true"`, to accept a payment and create a profile.
+- Use the customer’s payment card or ACH payment data to make a [CardPointe Gateway API authorization](../api/?type=post&path=/cardconnect/rest/auth) request including `"profile" : "y"` to create a stored profile (optionally, include `"capture":"y"` to also capture a payment). The authorization response includes the `profileid` and `acctid` for the new profile.
+- Use the [Hosted iFrame Tokenizer](?path=docs/documentation/HostediFrameTokenizer.md) to gather and tokenize the payment data, then use the CardPointe Gateway API to [create a profile](/api/?type=post&path=/cardconnect/rest/profile/).
+- Use a CardPointe Integrated Terminal and the Terminal API [authCard](../api/?type=post&path=/api/v3/authCard) or [authManual](../api/?type=post&path=/api/v3/authManual) request, including `"createProfile":"true"`, to accept a payment and create a profile.
 
 **2.** Take note of the `profileid` and `acctid` generated during profile creation, as these fields are required to create the billing plan.
 
@@ -38,11 +38,11 @@ The Billing Plan API supports the following features:
 
 The following topics describe the Billing Plan API.
 
-> See the CoPilot API documentation for general information on using the CoPilot API.
+> See the [CoPilot API documentation](?path=docs/APIs/CoPilotAPI.md) for general information on using the CoPilot API.
 
 ## Create Billing Plan
 
-Use the Create Billing Plan endpoint to set up recurring payments using a payment profile created via the CardPointe Gateway API, or using a stored customer profile saved via the Customers page of the CardPointe web interface.
+Use the Create Billing Plan endpoint to set up recurring payments using a payment profile created via the [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md), or using a stored customer profile saved via the [Customers](https://support.cardpointe.com/cardpointe/cardpointe-desktop-app#customers) page of the CardPointe web interface.
 
 |  |  |
 | --- | --- |
@@ -120,7 +120,7 @@ GET https://api-uat.cardconnect.com/billingplan/111111111/123456
 
 ## Update Account
 
-Stored customer profiles or payment profiles created via the CardPointe Gateway API can contain more than one payment method, referred to as a payment account. Use the Update Account endpoint to modify the payment account used for a billing plan.
+[Stored customer profiles](https://support.cardpointe.com/cardpointe/cardpointe-desktop-app#customers) or payment [profiles](../api/?type=post&path=/cardconnect/rest/profile/) created via the CardPointe Gateway API can contain more than one payment method, referred to as a payment account. Use the Update Account endpoint to modify the payment account used for a billing plan.
 
 |  |  |
 | --- | ---
