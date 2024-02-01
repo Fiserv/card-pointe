@@ -16,6 +16,12 @@ This solution consists of the following components:
 <!-- theme: warning -->
 > Visit [Statuspage](http://status.cardconnect.com/) and click **subscribe to updates** to receive important release and status notifications.
 
+## Date Updated: 10/17/2023 
+
+An update to the CardPointe Integrated Terminal application for Clover terminals will be deployed to **Clover Mini 2** and **Clover Flex 2** devices on a rolling basis from October 18th 2023 through November 1st 2023. Terminals will download and install this update automatically during the nightly reboot; no action is required.
+
+This update includes a refreshed payment user interface to match the cardholder experience on the Clover Flex 3 and Mini 3 CardPointe Integrated Terminal devices.
+
 ## Date Updated: 10/13/2022
 
 Our Bolt family of integrated solutions is now **CardPointe Integrated Payments**.
@@ -29,12 +35,6 @@ On Thursday, October 13th, 2022, we released an update to the CardPointe Integra
 Terminals will automatically download and install this update during the nightly reboot window. No merchant action is required. 
 
 For more information on using custom branding for your Clover terminals, see [Customizing the Clover Terminal](#customizing-the-clover-terminal).
-
-## Date Updated: 4/12/2022 
-
-An update to the CardPointe Integrated Terminal application for Clover terminals was released on April 14th, 2022.
-
-This release includes internal enhancements and bug fixes.
 
 <!-- type: row -->
 
