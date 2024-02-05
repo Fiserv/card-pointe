@@ -4,6 +4,12 @@ The following entries describe changes to the [CardPointe Gateway API](?path=doc
 
 Visit status.cardconnect.com and click subscribe to updates to receive important release and status notifications.
 
+## Date Updated: 2/2/2024
+
+An update to the CardPointe Gateway was released to the UAT environment on 2/2/2024 and to the Production environment on 2/10/2024.
+
+This update includes backend enhancements. 
+
 ## Date Updated: 11/9/2023
 
 An update to the CardPointe Gateway was released to the UAT environment on 10/23/2023 and has been deployment to the production environment on 11/9/2023.
