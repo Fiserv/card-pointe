@@ -9,6 +9,12 @@ The CardPointe Gateway API allows you to securely accept a wide-range of credit,
 <!-- theme: warning -->
 > Visit [Statuspage](http://status.cardconnect.com/) and click **subscribe to updates** to receive important release and status notifications.
 
+## Date Updated: 2/2/2024
+
+An update to the CardPointe Gateway was released to the UAT environment on 2/2/2024 and to the Production environment on 2/10/2024.
+
+This update includes backend enhancements. 
+
 ## Date Updated: 11/9/2023
 
 An update to the CardPointe Gateway was released to the UAT environment on 10/23/2023 and has been deployment to the production environment on 11/9/2023.
@@ -67,39 +73,6 @@ See the [Refund Authorization overview](https://support.cardpointe.com/complianc
 ### Profile Field Validation 
 
 When making an authorization request with a stored profile, the profile field will no longer accept a token; instead, you must include the profile ID and account ID pair to authorize a transaction. 
-
-## Date Updated: 8/26/2023
-
-An update to the CardPointe Gateway is tentatively scheduled for release to the UAT environment on 8/18/2023 and to the Production environment on 8/26/2023.
-
-This release includes the following updates in addition to internal fixes and enhancements: 
-
-### Original MID Requirement for Refund Requests 
-
-Refund requests must include the Merchant ID (MID) used in the original authorization request. If the refund does not include the same MID, or a null value, then the request returns an error; for example:
-
-```
-{ 
-    "respproc": "PPS", 
-    "resptext": "Txn not found", 
-    "retref": "198096236590", 
-    "respcode": "29", 
-    "respstat": "C" 
-}
-```
-
-### Updated Incorrect URL Endpoint API Response 
-
-When an incorrect endpoint URL is called a new error response is returned that displays the incorrect URL passed in the request. For example, the path below has a spelling error: 
-
-```
-{ 
-    "timestamp": "2023-06-20T15:04:43.980+00:00", 
-    "status": 404, 
-    "error": "Not Found", 
-    "path": "/cardconnect/rest/inquireByOderid" 
-}
-```
 
 <!-- type: row -->
 
