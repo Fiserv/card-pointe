@@ -152,7 +152,7 @@ When there is an error in the request, there will be a non-null `errors` array i
 <!-- type: card
 title: <center> API Explorer </center>
 description: <center> Click Learn More to see each API service endpoint included in the CoPilot API explorer. </center>
-link: 
+link: ../api/?type=post&path=/auth/realms/cardconnect/protocol/openid-connect/token
 -->
 
 <!-- type: row-end -->
