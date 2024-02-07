@@ -83,8 +83,1296 @@ paths:
           content:  
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
+
+  /auth/realms/cardconnect/protocol/openid-connect/merchant:
+    post: 
+      tags:
+        - merchant Endpoint Definition
+      x-group-name: CoPilot
+      x-proxy-name: merchant (CREATE)
+      x-default-example: PaymentCard
+      summary: The Merchant endpoint is used primarily to create a new merchant account in CoPilot, using a pre-existing application template that has been created in the CoPilot web interface.
+      description: |+
+        The Merchant endpoint is used primarily to create a new merchant account in CoPilot, using a pre-existing application template that has been created in the CoPilot web interface.
+        Once the merchant account has been created, additional boarding operations can be performed, such as:
+
+        Ordering equipment for the account
+        Uploading attachments that the merchant has completed and signed
+        Requesting a digital signature from the merchant, allowing them to review and sign the application using their web browser
+        Use the POST method to create a new merchant account using a pre-existing application template that has been created in the CoPilot web interface. A successful request returns the merchantId property, which is used to identify the account within CoPilot and is used in subsequent API calls for additional boarding operations.
+        The code example to the right is not representative of a legitimate request as it includes all possible fields, including those that would generate a conflict when creating a merchant.
+
+        See the CoPilot Developer Guides to learn about the minimum data requirements and process of creating a new merchant.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/merchantRequest'
+      parameters:
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/tokenResponse'}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+
 components:
   schemas:
+    merchantRequest:
+      x-model-version: 1.0
+      description: merchant Request
+      properties:
+        templateId:
+          $ref: '#/components/schemas/templateId'
+        merchant:
+          $ref: '#/components/schemas/merchant'
+        OwnerSiteUser:
+          $ref: '#/components/schemas/OwnerSiteUser'
+    OwnerSiteUser:
+      type: array
+      items:
+        properties:
+          firstName:
+            $ref: '#/components/schemas/firstName'
+          lastName:
+            $ref: '#/components/schemas/lastName'
+          email:
+            $ref: '#/components/schemas/email'  
+    firstName:
+      type: string
+      maxLength: 300
+      description: The first name of the CardPointe userr.
+      example: Forename
+    lastName:
+      type: string
+      maxLength: 300
+      description: The last name of the CardPointe user.
+      example: Surname
+    email:
+      type: string
+      example: name@email.com
+      description: The email address used to create the CardPointe User.
+      maxLength: 300
+    templateId:
+      description: The ID of the application template created within the CoPilot web interface.
+      type: integer
+      maxLength: 19
+      example: 999
+    merchant:
+      type: array
+      items:
+        properties:
+          salesCodes:
+            $ref: '#/components/schemas/salesCode'
+          akaBusinessName:
+            $ref: '#/components/schemas/akaBusinessName'
+          dbaName:
+            $ref: '#/components/schemas/dbaName'
+          legalBusinessName:
+            $ref: '#/components/schemas/legalBusinessName'
+          taxFilingName:
+            $ref: '#/components/schemas/taxFilingName'
+          taxFilingMethod:
+            $ref: '#/components/schemas/taxFilingMethod'
+          businessStartDate:
+            $ref: '#/components/schemas/businessStartDate'
+          businessIdTypeCd:
+            $ref: '#/components/schemas/businessIdTypeCd'
+          custPrimaryAcctFlg:
+            $ref: '#/components/schemas/custPrimaryAcctFlg'
+          webLeadFlg:
+            $ref: '#/components/schemas/webLeadFlg'
+          hierarchy:
+            $ref: '#/components/schemas/hierarchy'
+          demographic:
+            $ref: '#/components/schemas/demographic'
+          ownership:
+            $ref: '#/components/schemas/ownership'
+          bankDetail:
+            $ref: '#/components/schemas/bankDetail'
+          merchantContactInfo:
+            $ref: '#/components/schemas/merchantContactInfo'
+          processing:
+            $ref: '#/components/schemas/processing'
+          pricing:
+            $ref: '#/components/schemas/pricing'
+          fees:
+            $ref: '#/components/schemas/fees'
+          cloverSecurityAndTransarmor:
+            $ref: '#/components/schemas/cloverSecurityAndTransarmor'
+          customFields:
+            $ref: '#/components/schemas/customFields'
+    cloverSecurityAndTransarmor:
+      type: array
+      items:
+        properties:
+          transarmorDataProtectionFlg:
+            $ref: '#/components/schemas/transarmorDataProtectionFlg'
+          transarmorTokenTypeCd:
+            $ref: '#/components/schemas/transarmorTokenTypeCd'
+          transarmorMultiPayToken:
+            $ref: '#/components/schemas/transarmorMultiPayToken'
+          transarmorMonthlyFee:
+            $ref: '#/components/schemas/transarmorMonthlyFee'
+          cloverSecurityBundleCd:
+            $ref: '#/components/schemas/cloverSecurityBundleCd'
+          cloverSecurityFee:
+            $ref: '#/components/schemas/cloverSecurityFee'
+          cloverSecurityPlusFee:
+            $ref: '#/components/schemas/cloverSecurityPlusFee'
+          pciComplianceServiceFee:
+            $ref: '#/components/schemas/pciComplianceServiceFee'
+          pciComplianceServiceFeeFrequency:
+            $ref: '#/components/schemas/pciComplianceServiceFeeFrequency'
+          pciComplianceServiceFeeMonthToBill:
+            $ref: '#/components/schemas/pciComplianceServiceFeeMonthToBill'
+    transarmorDataProtectionFlg:
+      type: boolean
+      description: True if TransArmor Data protection is active. Requires FALSE when cloverSecurityBundleCd = PCI.
+      example: true
+    transarmorTokenTypeCd:
+      type: string
+      description: The TransArmor token type code that represents the token type. Required when transarmorDataProtectionFlg = TRUE.
+      example: MULTI
+    transarmorMultiPayToken:
+      type: string
+      description: The TransArmor multi-pay token. Required when transarmorTokenTypeCd = MULTI.
+      maxLength: 4
+      example: A1B2
+    transarmorMonthlyFee:
+      type: number 
+      description: The Monthly TransArmor Fee amount. Required when transarmorDataProtectionFlg = TRUE.
+      example: 4.99
+      maxLength: 9
+    cloverSecurityBundleCd:
+      type: string
+      example: 
+      description: |
+        Note: Only applicable for merchants with a Clover Security Bundle. The Clover security bundle code that represents the applicable bundle.
+    cloverSecurityFee:  
+      type: number
+      example: 
+      description: |
+        Note: Only applicable for merchants with a Clover Security Bundle. The Monthly Clover Security Fee amount. Required when cloverSecurityBundleCd = TDPPCI.
+    cloverSecurityPlusFee:
+      type: number
+      example: 
+      description: |
+        Note: Only applicable for merchants with a Clover Security Bundle. The Monthly Clover Security Plus Fee amount. Required when cloverSecurityBundleCd = CSPFB.
+    pciComplianceServiceFee:
+      type: number
+      description: |
+        Note: Only applicable for merchants with a Clover Security Bundle. The PCI Compliance Service Fee. Required when cloverSecurityBundleCd = PCI.
+      example:
+    pciComplianceServiceFeeFrequency:
+      type: number
+      description: |
+        Note: Only applicable for merchants with a Clover Security Bundle.
+
+        The frequency to bill the PCI Compliance Service Fee. Can be either MONTHLY or ANNUAL.
+        
+        Required when cloverSecurityBundleCd = PCI.
+      example:
+    pciComplianceServiceFeeMonthToBill:
+      example:
+      type: string
+      description: |
+        Note: Only applicable for merchants with a Clover Security Bundle.
+        
+        The month to bill the PCI Compliance Service Fee, starting with a capital letter.
+        
+        Required when pciComplianceServiceFeeFrequency = ANNUAL.
+    fees:
+      type: array
+      items: 
+        properties:
+          achBatchFee:
+            $ref: '#/components/schemas/achBatchFee'
+          addressVerifFee:
+            $ref: '#/components/schemas/addressVerifFee'
+          annualMembershipFee:
+            $ref: '#/components/schemas/annualMembershipFee'
+          appFee:
+            $ref: '#/components/schemas/appFee'
+          authFee:
+            $ref: '#/components/schemas/authFee'
+          chargebackFee:
+            $ref: '#/components/schemas/chargebackFee'
+          ddaRejectFee:
+            $ref: '#/components/schemas/ddaRejectFee'
+          earlyCancelFee:
+            $ref: '#/components/schemas/earlyCancelFee'
+          minProcessFee:
+            $ref: '#/components/schemas/minProcessFee'
+          monthlyEquipmentRentalFee:
+            $ref: '#/components/schemas/monthlyEquipmentRentalFee'
+          pciAnnualFee:
+            $ref: '#/components/schemas/pciAnnualFee'
+          pciConciergeMonthlyFee:
+            $ref: '#/components/schemas/pciConciergeMonthlyFee'
+          pciNonComplianceFee: 
+            $ref: '#/components/schemas/pciNonComplianceFee'
+          pciProgramCd:
+            $ref: '#/components/schemas/pciProgramCd'
+          regProdMonthylfee:
+            $ref: '#/components/schemas/regProdMonthlyFee'
+          retrievalFee:
+            $ref: '#/components/schemas/retrievalFee'
+          statementFee:
+            $ref: '#/components/schemas/statementFee'
+          transactionFee:
+            $ref: '#/components/schemas/transactionFee'
+          voiceAuthFee:
+            $ref: '#/components/schemas/voiceAuthFee'
+          wirelessActivationFee:
+            $ref: '#/components/schemas/wirelessActivationFee'
+          wirelessFee:
+            $ref: '#/components/schemas/wirelessFee'
+          duesAndAssessmentsFlg:
+            $ref: '#/components/schemas/duesAndAssessmentsFlg'
+          passthruInterchgCostsFlg:
+            $ref: '#/components/schemas/passthruInterchgCostsFlg'
+    achBatchFee:
+      maxLength: 10
+      type: number
+      description: The ACH Batch Fee
+      example: 1.11
+    addressVerifFee:
+      maxLength: 10
+      type: number
+      description: The Address Verification Fee (AVS)
+      example: 2.22
+    annualMembershipFee:
+      type: number
+      maxLength: 10
+      description: The Annual Membership Fee
+      example: 3.33
+    appFee:
+      type: number
+      maxLength: 10
+      description: The Application Fee (One Time)
+      example: 4.44
+    authFee:
+      type: number
+      maxLength: 10
+      description: The Authorization Fee (All Card Types)
+      example: 5.55
+    chargebackFee:
+      type: number
+      maxLength: 10
+      description: The Chargeback Fee (Per Item)
+      example: 6.66
+    ddaRejectFee:
+      type: number
+      maxLength: 10
+      description: The DDA Rejects (Per Item)
+      example: 9.99
+    earlyCancelFee:
+      type: number
+      maxLength: 10
+      description: The Early Termination Fee
+      example: 99.99
+    minProcessFee:
+      type: number
+      maxLength: 10
+      description: The Minimum Processing Fee (Monthly).
+      example: 20.00
+    monthlyEquipmentRentalFee:
+      description: The Equipment Rental Fee (Monthly).
+      example: 10.00
+      maxLength: 10
+      type: number
+    pciProgramCd:
+      example: ANNUAL
+      maxLength: 10
+      type: number
+      description: The PCI Annual Fee, applicable when <code>pciProgramCd</code> is <code>ANNUAL</code>.
+    pciConciergeMonthlyFee:
+      maxLength: 10
+      type: number
+      description: The PCI Concierge Monthly Fee. Required to submit merchants when <code>pciProgramCd</code> is <code>CONCIERGE</code>.
+      example: 00.00
+    pciNonComplianceFee:
+      type: number
+      maxLength: 10
+      description: The PCI Non-Compliance Fee (Monthly), applicable when <code>pciProgramCd</code> is <code>ANNUAL</code>.
+      example: 2.22
+    pciAnnualFee:
+      maxLength: 10
+      description: The PCI Annual Fee, applicable when <code>pciProgramCd</code> is <code>ANNUAL</code>.
+      example: 2.22
+      type: string
+    regProdMonthlyFee:
+      type: number
+      description: The Regulatory Product Fee (Monthly).
+      example: 200.00
+      maxLength: 10
+    retrievalFee:
+      type: number
+      description: The Retrieval Fee (Per Item).
+      example: 10.00
+      maxLength: 10
+    statementFee:
+      type: number
+      description: The Statement Fee (Monthly).
+      example: 8.88
+      maxLength: 10
+    transactionFee:
+      type: number
+      description: The Transaction Fees (All Card Types).
+      example: 4.44
+      maxLength: 10
+    voiceAuthFee:
+      type: number
+      description: The Voice Authorization Fee.
+      example: 3.33
+      maxLength: 10
+    wirelessActivationFee:
+      type: number
+      description: The Wireless Activation Fee (One Time).
+      example: 5.55
+      maxLength: 10
+    wirelessFee:
+      type: number
+      description: The Wireless Fee (One Time).
+      example: 8.888
+      maxLength: 10
+    duesAndAssessmentsFlg:
+      type: boolean
+      description: True if Dues & Assessments is enabled.
+      example: true
+    passthruInterchgCostsFlg:
+      type: boolean
+      description: Returned only for accounts created prior to the introduction of the <code>interchangeTypeCode</code> field in the 5/5/20 update. True when the account using the IC Plus Pricing model.
+      example: true
+    pricing:
+      type: array
+      items:
+        properties:
+          flatPricing:
+            $ref: '#/components/schemas/flatPricing'
+          icPlusPricing:
+            $ref: '#/components/schemas/icPlusPricing'
+    icPlusPricing:
+      type: array
+      items:
+        properties:
+          interchangeTypeCode:
+            $ref: '#/components/schemas/interchangeTypeCode'
+          amex:
+            type: array
+            items:
+              properties:
+                optBlueQualDiscountPct:
+                  $ref: '#/components/schemas/optBlueQualDiscountPct'
+          discover:
+            type: array
+            items:
+              properties:
+                qualCreditDiscountPct:
+                  type: number
+                  maxLength: 10
+                  description: The percentage used to calculate the Discover Qualified Credit Discount Fees. Required when Discover entitlement is enabled.
+                  example: 1.00
+          mastercard:
+            type: array
+            items:
+              properties:
+                qualCreditDiscountPct:
+                  type: number
+                  maxLength: 10
+                  description:   The percentage used to calculate the Mastercard Qualified Credit Discount Fees.
+          visa:
+            type: array
+            items:
+              properties:
+                qualCreditDiscountPct:
+                  type: number
+                  maxLength: 10
+                  description:   The percentage used to calculate the Visa Qualified Credit Discount Fees.
+                  example: 1.00
+    interchangeTypeCode:
+      description: The interchange type code that represents the Passthrough Interchange Costs calculation used.
+      example: GROSS
+      type: string
+      maxLength: 5
+    flatPricing:
+      type: array
+      items:
+        properties:
+          amex:
+            type: array
+            items:
+              properties:
+                esaQualDiscountPct:
+                  $ref: '#/components/schemas/esaQualDiscountPct'
+                optBlueQualDiscountPct:
+                  $ref: '#/components/schemas/optBlueQualDiscountPct'
+          discover:
+            type: array
+            items:
+              properties:
+                qualCreditDiscountPct:
+                  type: number
+                  maxLength: 10
+                  description: The percentage used to calculate the Discover Qualified Credit Discount Fees. Required when Discover entitlement is enabled.
+                  example: 1.00
+          mastercard:
+            type: array
+            items:
+              properties:
+                qualCreditDiscountPct:
+                  type: number
+                  maxLength: 10
+                  description:   The percentage used to calculate the Mastercard Qualified Credit Discount Fees.
+          visa:
+            type: array
+            items:
+              properties:
+                qualCreditDiscountPct:
+                  type: number
+                  maxLength: 10
+                  description:   The percentage used to calculate the Visa Qualified Credit Discount Fees.
+                  example: 1.00
+    esaQualDiscountPct:
+      type: number
+      maxLength: 10
+      description: The percentage used to calculate the Amex ESA Qualified Credit Discount Fees. Required when amexProgramAssetCd = ESA.
+      example: 22.00
+    optBlueQualDiscountPct:
+      type: number
+      maxLength: 10
+      description: The percentage used to calculate the Amex OptBlue Qualified Credit Discount Fees. Required when amexProgramAssetCd = OPTBLUE.
+      example: 11.00
+    customFields:
+      type: array
+      items: 
+        properties:
+          userFieldNumber:
+            $ref: '#/components/schemas/userFieldNumber'
+          customFieldValue:
+            $ref: '#/components/schemas/customFieldValue'
+      example: 
+        "customFields": [
+        {
+            "userFieldNumber": 1,
+            "customFieldValue": "example custom field value 1"
+        },
+        {
+            "userFieldNumber": 2,
+            "customFieldValue": "example custom field value 2"
+        }
+        ]
+    userFieldNumber:
+      type: number
+      description: The index number of the custom field. Must be a number between 1-10.
+    customFieldValue:
+      type: string
+      description:   Required when the userFieldNumber is marked as required in the CoPilot web interface.
+    processing:
+      type: array
+      items:
+        properties:
+          platformDetails:
+            $ref: '#/components/schemas/platformDetails'
+          businessDetails:
+            $ref: '#/components/schemas/businessDetails'
+          volumeDetails:
+            $ref: '#/components/schemas/volumeDetails'
+          deliveryPercentages:
+            $ref: '#/components/schemas/deliveryPercentages'
+          modeOfTransaction:
+            $ref: '#/components/schemas/modeOfTransaction'
+          blueChexVolume:
+            $ref: '#/components/schemas/blueChexVolume'
+          blueChexSecOptions:
+            $ref: '#/components/schemas/blueChexSecOptions'
+    blueChexSecOptions: 
+      type: array
+      items:
+        properties:
+          telSecOptionFlg:
+            $ref: '#/components/schemas/telSecOptionFlg'
+          ccdSecOptionFlg:
+            $ref: '#/components/schemas/ccdSecOptionFlg'
+          webSecOptionFlg:
+            $ref: '#/components/schemas/webSecOptionFlg'
+          ppdSecOptionFlg:
+            $ref: '#/components/schemas/ppdSecOptionFlg'
+    telSecOptionFlg:
+      type: boolean
+      example: false
+      description: |+
+        Telephone-Initiated Entry: A single entry debit application initiated by an originator pursuant to an oral authorization obtained over the telephone to effect a transfer of funds from an account of the receiver.
+
+        Note: At least one SEC Option required for applications that include the ACH from Fiserv add-on for manual signature.
+    ccdSecOptionFlg:
+      type: boolean
+      example: false
+      description: |+
+        Cash Concentration and Disbursement: A credit or debit application where funds are transferred between unrelated corporate entities or transmitted as intra-company concentrations and disbursement transactions. Serves as stand-alone funds transfer, or it can support a limited amount of payment-related data with the fund's transfer.
+
+        Note: At least one SEC Option required for applications that include the ACH from Fiserv add-on for manual signature.
+    webSecOptionFlg:
+      type: boolean
+      example: false
+      description: |+ 
+        Internet-Initiated Entry: Debit applications initiated by an originator pursuant to an authorization from the receiver via the internet to effect a transfer of funds from an account of the receiver.
+        
+        Note: At least one SEC Option required for applications that include the ACH from Fiserv add-on for manual signature.
+    ppdSecOptionFlg:
+      type: boolean
+      example: true
+      description: |+
+        Prearranged Payment and Deposit: Both direct payments and direct deposits.
+
+        Note: At least one SEC Option required for applications that include the ACH from Fiserv add-on for manual signature.
+    blueChexVolume:
+      type: array
+      items:
+        properties:
+          averagePerTransactionSalesAmount:
+            $ref: '#/components/schemas/averagePerTransactionSalesAmount'
+          maxPerTransactionSalesAmount:
+            $ref: '#/components/schemas/maxPerTransactionSalesAmount'
+          averagePerTransactionCreditAmount:
+            $ref: '#/components/schemas/averagePerTransactionCreditAmount'
+          maxPerTransactionCreditAmount:
+            $ref: '#/components/schemas/maxPerTransactionCreditAmount'
+          averagePerMonthSalesAmount:
+            $ref: '#/components/schemas/averagePerMonthSalesAmount'
+          maxPerMonthSalesAmount:
+            $ref: '#/components/schemas/maxPerMonthSalesAmount'
+          averagePerMonthCreditAmount:
+            $ref: '#/components/schemas/averagePerMonthCreditAmount'
+          maxPerMonthCreditAmount:
+            $ref: '#/components/schemas/maxPerMonthCreditAmount'
+    averagePerTransactionSalesAmount:
+      maxLength: 20
+      type: number
+      description: The average sales amount per ACH transaction.
+      example: 250.00
+    maxPerTransactionSalesAmount:
+      maxLength: 20
+      type: number
+      description: The maximum sales amount per ACH transaction.
+      example: 9999.00
+    averagePerTransactionCreditAmount:
+      maxLength: 20
+      type: number
+      description: The average credit (refund) amount per ACH transaction.
+      example: 200.00
+    maxPerTransactionCreditAmount:
+      maxLength: 20
+      type: number
+      description: The maximum credit (refund) amount per ACH transaction.
+      example: 9999.00
+    averagePerMonthSalesAmount:
+      maxLength: 20
+      type: number
+      description: The average monthly sales amount per ACH transaction.
+      example: 250000.00
+    maxPerMonthSalesAmount:
+      maxLength: 20
+      type: number
+      description: The maximimum monthly sales amount per ACH transaction.
+      example: 50000.00
+    averagePerMonthCreditAmount:
+      maxLength: 20
+      type: number
+      description: The average monthly credit (refund) amount for all ACH transactions.
+      example: 500.00
+    maxPerMonthCreditAmount:
+      maxLength: 20
+      type: number
+      description: The maximum monthly credit (refund) amount for all ACH transactions.
+      example: 1000.00
+    modeOfTransaction:
+      type: array
+      items:
+        properties:
+          eCommercePct:
+            $ref: '#/components/schemas/eCommercePct'
+          keyedPct:
+            $ref: '#/components/schemas/keyedPct'
+          mailOrderPct:
+            $ref: '#/components/schemas/mailOrderPct'
+          swipedPct:
+            $ref: '#/components/schemas/swipedPct'
+    eCommercePct:
+      type: number
+      maxLength: 3
+      description: The percentage of card-not-present transactions accepted via eCommerce solutions, represented as a whole number.
+      example: 0
+    keyedPct:
+      type: number
+      maxLength: 3
+      example: 20
+      description: The percentage of card-not-present transactions entered manually using a hardware terminal keypad or the Virtual Terminal, represented as a whole number.
+    mailOrderPct:
+      type: number
+      maxLength: 3
+      example: 30
+      description: The percentage of card-not-present transactions accepted via a call center, represented as a whole number.
+    swipedPct:
+      type: number
+      maxLength: 3
+      example: 50
+      description: The percentage of card-present transactions accepted via hardware terminals, represented as a whole number.
+    deliveryPercentages:
+      type: array
+      items:
+        properties:
+          dlvry0To7DaysPct:
+            $ref: '#/components/schemas/dlvry0To7DaysPct'
+          dlvry8To14DaysPct:
+            $ref: '#/components/schemas/dlvry8To14DaysPct'
+          dlvry15To30DaysPct:
+            $ref: '#/components/schemas/dlvry15To30DaysPct'
+          dlvryOver30DaysPct:
+            $ref: '#/components/schemas/dlvryOver30DaysPct'
+    dlvry0To7DaysPct:
+      maxLength: 3
+      type: number
+      description: The percentage of products or services delivered within 7 days of purchase, represented as a whole number.
+      example: 97
+    dlvry8To14DaysPct:
+      maxLength: 3
+      type: number
+      description: The percentage of products or services delivered within 8-14 days of purchase, represented as a whole number.
+      example: 1
+    dlvry15To30DaysPct:
+      maxLength: 3
+      type: number
+      description: The percentage of products or services delivered within 15-30 days of purchase, represented as a whole number.
+      example: 1
+    dlvryOver30DaysPct:
+      maxLength: 3
+      type: number
+      description: The percentage of products or services delivered more than 30 days after purchase, represented as a whole number.
+      example: 1
+    volumeDetails:
+      type: array
+      items:
+        properties:
+          averageMonthlyVolume:
+            $ref: '#/components/schemas/averageMonthlyVolume'
+          highTicketAmount:
+            $ref: '#/components/schemas/highTicketAmount'
+          averageTicketAmount:
+            $ref: '#/components/schemas/averageTicketAmount'
+    averageMonthlyVolume:
+      maxLength: 20
+      type: number
+      description: The average monthly volume of transactions for this merchant.
+      example: 9999.09
+    highTicketAmount:
+      type: number
+      maxLength: 20
+      description: The most expensive transaction total expected for this merchant.
+      example: 99.99
+    averageTicketAmount:
+      type: number
+      maxLength: 20
+      example: 9.99
+      description: The average transaction total per sale for this merchant.
+    businessDetails:
+      type: array
+      items:
+        properties:
+          customerBillPriorToShipFlg:
+            $ref: '#/components/schemas/customerBillPriorToShipFlg'
+          depositreqForFulfillFlg:
+            $ref: '#/components/schemas/depositreqForFulfillFlg'
+          whenCustomerChargedCd:
+            $ref: '#/components/schemas/whenCustomerChargedCd'
+          refundPolicyCd:
+            $ref: '#/components/schemas/refundPolicyCd'
+          serviceProvidedInCd:
+            $ref: '#/components/schemas/serviceProvidedInCd'
+    customerBillPriorToShipFlg:
+      example: false
+      type: boolean 
+      description: True if the customer is billed prior to shipment.
+    depositreqForFulfillFlg:
+      example: true
+      type: boolean
+      description: True if deposit is required for order fulfillment.
+    whenCustomerChargedCd:
+      example: INADVANCE
+      type: string
+      maxLength: 10
+      description: The when customer charged code that represents when the customer is charged.
+    refundPolicyCd:
+      type: string
+      maxLength: 10
+      description: The refund policy code that represents the customer's refund policy.
+      example: EXCHONLY
+    serviceProvidedInCd:
+      type: string
+      maxLength: 10
+      description: The service provided in code that represents the typical timeframe between purchase and delivery.
+      example: 30LESS
+    platformDetails:
+      type: array
+      items:
+        properties:
+          backEndMid:
+            $ref: '#/components/schemas/backEndMid'
+          frontEndMid:
+            $ref: '#/components/schemas/frontEndMid'
+          processorReportingMid:
+            $ref: '#/components/schemas/processorReportingMid'
+          backEndPlatformCd:
+            $ref: '#/components/schemas/backEndPlatformCd'
+          frontEndPlatformCd:
+            $ref: '#/components/schemas/frontEndPlatformCd'
+          amexProgramAssetCd:
+            $ref: '#/components/schemas/amexProgramAssetCd'
+          amexProgramMid:
+            $ref: '#/components/schemas/amexProgramMid'
+          discoverMid:
+            $ref: '#/components/schemas/discoverMid'
+          discoverProgramCd:
+            $ref: '#/components/schemas/discoverProgramCd'
+          incrementalAuthorizationFlg:
+            $ref: '#/components/schemas/incrementalAuthorizationFlg'
+          debtRepaymentProgramFlg:
+            $ref: '#/components/schemas/debtRepaymentProgramFlg'
+          acquiringFlg:
+            $ref: '#/components/schemas/acquiringFlg'
+          taxId:
+            $ref: '#/components/schemas/taxId'
+          tid:
+            $ref: '#/components/schemas/tid'
+          busnsId:
+            $ref: '#/components/schemas/busnsId'
+          busnsIdPlaceOfIssue:
+            $ref: '#/components/schemas/busnsIdPlaceOfIssue'
+          currencyCode:
+            $ref: '#/components/schemas/currencyCode'
+          mccId:
+            $ref: '#/components/schemas/mccId'
+          businessDescription:
+            $ref: '#/components/schemas/businessDescription'
+          iataCode:
+            $ref: '#/components/schemas/iataCode'
+          quasiCashFlg:
+            $ref: '#/components/schemas/quasiCashFlg'
+    backEndMid:
+      type: string
+      maxLength: 25
+      description: The settlement processor merchant ID. Required for CardPointe-only accounts.
+      example: 418493849598
+    frontEndMid:
+      type: string
+      maxLength: 25
+      example: 418493849598
+      description: The authorization processor merchant ID. Required for CardPointe-only accounts.
+    processorReportingMid:
+      type: string
+      maxLength: 25
+      example: 418493849598
+      description: The processor merchant ID used for reporting. Required for CardPointe-only accounts.
+    backEndPlatformCd:
+      type: string
+      maxLength: 20
+      description: The back end platform code that represents the settlement processor. Required for CardPointe-only accounts.
+      example: FDNOB
+    frontEndPlatformCd:
+      type: string
+      maxLength: 20
+      description: The front end platform code that represents the authorization processor. Required for CardPointe-only accounts.
+      example: FDNOF
+    amexProgramAssetCd:
+      example: OPTBLUE
+      type: string
+      maxLength: 7
+      description: The Amex program asset code that represents the American Express program used. Required when Amex entitlement is enabled.
+    amexProgramMid: 
+      example: 2341251235434
+      type: string
+      maxLength: 25
+      description: The Amex merchant ID used to process American Express transactions. Required when amexProgramAssetCd = ESA.
+    discoverMid: 
+      example: 601153746288719
+      type: string
+      maxLength: 25
+      description: The Discover merchant ID used to process Discover transactions. Required when discoverProgramCd = EASI.
+    discoverProgramCd:
+      example: MAP
+      maxLength: 10
+      type: string
+      description:   The Discover program code that represents the Discover program used. Required when Discover entitlement is enabled.
+    incrementalAuthorizationFlg:
+      example: false
+      type: boolean
+      description: |+
+        True when the account operates within the travel and entertainment industries and requires multiple incremental authorizations.
+
+        Note: Requires Discover entitlement and compatible MCC.
+    debtRepaymentProgramFlg:
+      example: false
+      type: boolean
+      description: |+ 
+        True when the account accepts payments to satisfy a loan, mortgage, or other debt.
+        
+        Note: Requires Discover MAP entitlement and compatible MCC.
+    acquiringFlg:
+      type: boolean
+      example: false
+      description: True when the account is a Merchant Services account. False when the account is a CardPointe-only account.
+    taxId:
+      type: string
+      maxLength: 9
+      description: The merchant's Social Security Number or Employer Identification Number.
+      example: 485968574
+    tid: 
+      maxLength: 30
+      type: string
+      example: 96859685
+    busnsId:
+      maxLength: 18
+      type: string
+      example: 234444234234
+      description: The merchant's government-issued business license number.
+    busnsIdPlaceOfIssue:
+      maxLength: 2
+      example: CO
+      type: string
+      description: The state code that represents the state who issued the business license.
+    currencyCode:
+      maxLength: 5
+      example: USD
+      type: string
+      description: The currency code that represents the local currency where the business is located.
+    mccId:
+      example: 3076
+      maxLength: 5
+      type: string
+      description:   The Merchant Category Code (MCC) that represents the business industry.
+    businessDescription: 
+      maxLength: 4000
+      example: Business Description
+      type: string
+      description: The description of the business.
+    iataCode:
+      maxLength: 8
+      example: 12345678
+      type: string
+      description: The International Air Transportation Association (IATA) code for the business.
+    quasiCashFlg:
+      type: boolean
+      description: True for accounts that accept Quasi Cash transactions.
+      example: false
+    merchantContactInfo:
+      type: array
+      items:
+        properties:
+          contactName:
+            $ref: '#/components/schemas/contactName'
+          contactEmail:
+            $ref: '#/components/schemas/contactEmail'
+          contactPhone:
+            $ref: '#/components/schemas/contactPhone'
+    contactName:
+      type: string
+      maxLength: 300
+      description: The full name of the contact.
+      example: John Smith
+    contactEmail:
+      description: The email address of the contact.
+      example: name@email.com
+      maxLength: 300
+      type: string
+    contactPhone:
+      description: The phone number of the contact, formatted as "###-###-####".
+      maxLength: 12
+      type: string
+      example: 123-456-7890
+    bankDetail:
+      type: array
+      items:
+        properties:
+          depositBank:
+            $ref: '#/components/schemas/depositBank'
+          withdrawalBank:
+            type: array
+            items:
+              properties:
+                bankAcctNum:
+                  description: The bank account number.
+                  type: string
+                  maxLength: 25
+                  example: 987654321
+                bankRoutingNum:
+                  description: The bank account's routing number.
+                  type: string
+                  maxLength: 25
+                  example: 213456789
+                bankAcctTypeCd:
+                  description: The bank account type code that represents the type of bank account.
+                  type: string
+                  maxLength: 10
+                  example: BIZ
+                bankName:
+                  maxLength: 200
+                  type: string
+                  example: Bank of Withdrawals
+                  description: The name of the bank that holds the account.
+    depositBank:
+      type: array
+      items:
+        properties:
+          bankAcctNum:
+            $ref: '#/components/schemas/bankAcctNum'
+          bankRoutingNum:
+            $ref: '#/components/schemas/bankRoutingNum'
+          bankAcctTypeCd:
+            $ref: '#/components/schemas/bankAcctTypeCd'
+          bankName:
+            $ref: '#/components/schemas/bankName'
+    bankAcctNum:
+      description: The bank account number.
+      type: string
+      maxLength: 25
+      example: 123456789
+    bankRoutingNum:
+      description: The bank account's routing number.
+      type: string
+      maxLength: 25
+      example: 987654321
+    bankAcctTypeCd:
+      description: The bank account type code that represents the type of bank account.
+      type: string
+      maxLength: 10
+      example: BIZ
+    bankName:
+      maxLength: 200
+      type: string
+      example: Bank of Deposits
+      description: The name of the bank that holds the account.
+    ownership:
+      type: array 
+      items:
+        properties:
+          owner:
+            $ref: '#/components/schemas/owner'
+          additionalOwners:
+            $ref: '#/components/schemas/additionalOwners'
+          ownershipTypeCd:
+            $ref: '#/components/schemas/ownershipTypeCd'
+          publiclyTradedFlag:
+            $ref: '#/components/schemas/publiclyTradedFlag'
+          stockSymbol:
+            $ref: '#/components/schemas/stockSymbol'
+          driversLicenseNumber:
+            $ref: '#/components/schemas/driversLicenseNumber'
+          ownerOwnershipPct:
+            $ref: '#/components/schemas/ownerOwnershipPct'
+    ownershipTypeCd:
+      description: The ownership type code that represents the business entity.
+      type: string
+      maxLength: 10
+      example: PUBCORP
+    publiclyTradedFlag:
+      description: True when the business offers public stock on the NYSE or NASDAQ stock exchanges.
+      type: boolean
+      example: true
+    stockSymbol:
+      type: string
+      maxLength: 10
+      description: The NYSE or NASDAQ stock symbol of the business.
+      example: FISERV
+    driversLicenseNumber:
+      type: string
+      maxLength: 100
+      description: The primary owner's state issued driver's license number.
+      example: 123456789
+    driversLicenseStateCd:
+      type: string
+      maxLength: 2
+      description:   The state code that represents the state who issued the driver's license.
+      example: CO
+    ownerOwnershipPct:
+      description: The percentage owned by the owner. 
+      type: number
+      maxLength: 3
+      example: 100
+    additionalOwners:
+      description:   An array of additional owner objects containing one object for each additional owner.
+      type: array
+      items:
+        properties:
+          ownerFirstName:
+            $ref: '#/components/schemas/ownerFirstName'
+          ownerLastName:
+            $ref: '#/components/schemas/ownerLastName'
+          ownerPhone:
+            $ref: '#/components/schemas/ownerPhone'
+          ownerAddress:
+            $ref: '#/components/schemas/ownerAddress'
+          ownerSSN:
+            $ref: '#/components/schemas/ownerSSN'
+          ownershipPct:
+            $ref: '#/components/schemas/ownershipPct'
+    ownerFirstName:
+      description: The owner's first name.
+      type: string
+      maxLength: 100
+      example: John
+    ownerLastName:
+      description: The owner's last name.
+      type: string
+      maxLength: 100
+      example: Smith
+    ownershipPct:
+      description: The percentage owned by the owner. 
+      type: number
+      maxLength: 3
+      example: 25
+    owner:
+      type: array
+      items:
+        properties:
+          ownerAddress:
+            $ref: '#/components/schemas/ownerAddress'
+          ownerEmail:
+            $ref: '#/components/schemas/ownerEmail'
+          ownerName:
+            $ref: '#/components/schemas/ownerName'
+          ownerDob:
+            $ref: '#/components/schemas/ownerDob'
+          ownerPhone:
+            $ref: '#/components/schemas/ownerPhone'
+          ownerMobilePhone:
+            $ref: '#/components/schemas/ownerMobilePhone'
+          ownerSSN:
+            $ref: '#/components/schemas/ownerSSN'
+          ownerTitle:
+            $ref: '#/components/schemas/ownerTitle'
+    ownerAddress:
+      $ref: '#/components/schemas/address'
+    ownerEmail:
+      type: string
+      maxLength: 300
+      description: The email address of the owner.
+      example: example@email.com
+    ownerName:
+      type: string
+      maxLength: 300
+      example: John Smith
+      description: |+
+        The first and last name of the owner.
+        Note: Do no include title, middle name, or suffix. First name must contain only characters. Last name must not contain more than 1 hyphen or 1 apostrophe.
+    ownerDob:
+      type: string
+      maxLength: 10
+      description: The date of birth of the owner, formatted as MM/DD/YYYY.
+      example: 01/01/1999
+    ownerPhone:
+      type: string
+      maxLength: 12
+      description: The phone number of the owner, formatted as "###-###-####".
+      example: 111-111-1111
+    ownerMobilePhone:
+      type: string
+      maxLength: 12
+      description: The phone number of the owner, formatted as "###-###-####".
+      example: 123-456-7890
+    ownerSSN:
+      type: string
+      maxLength: 11
+      description: The social security number of the owner, formatted as "###-###-####".
+      example: 123-45-6789
+    ownerTitle:
+      description: |+
+        One of the Valid Owner Titles listed <a href="https://developer.cardpointe.com/copilotapi?token=Z8tCpDdfJ99uBuomvOdEKyaeuV4hea91#owner-definition">here</a>.
+      type: string
+      maxLength: 200
+      example: PRESIDENT
+    salesCode:
+      type: string
+      maxLength: 25
+      description: The Sales Code created within the CoPilot web interface that is applicable for this merchant account.
+      example: API1
+    akaBusinessName:
+      type: string
+      example: The Card Shoppe
+      description: The 'Also Known As' business name, such as an informal or shorthand moniker of the legal or DBA name.
+      maxLength: 200
+    dbaName: 
+      type: string
+      maxLength: 100
+      example: The Card Shoppe
+      description: The 'Doing Business As' name, sometimes referred to as the 'Fictitious Business Name' or 'Assumed Business Name' that is legally registered.
+    legalBusinessName:
+      type: string
+      maxLength: 500
+      description: The full legal name of the registered business.
+      example: The Card Shoppe LLC
+    taxFilingName:
+      type: string
+      maxLength: 500
+      example: The Card Shoppe LLC
+      description: "The business name used in tax filing. Include only the following special characters: &, -"
+    taxFilingMethod: 
+      description: The method used to identify the business for tax filing. Can be either EIN or SSN. Only the SSN method is possible when merchant.ownership.ownershipType is INDIVSOLE.
+      maxLength: 3
+      type: string
+      example: EIN
+    businessStartDate:
+      type: string
+      maxLength: 10
+      description: The business inception date, formatted as MM/DD/YYYY.
+      example: 09/17/1949
+    businessIdTypeCd:
+      type: string
+      maxLength: 7
+      description: The business identification type code, used to verify the business. Can be either ARTICLE or GOVT.
+      example: ARTICLE
+    custPrimaryAcctFlg:
+      type: boolean
+      description: True when the account is considered the primary account among linked MIDs.
+      example: false
+    webLeadFlg:
+      type: boolean
+      description: True when this merchant account is created as the result of an unsolicited merchant inquiry using a hosted web form or a similar lead generation strategy.
+      example: true
+    hierarchy:
+      type: array
+      description: The hierarchy object, containing custom hierarchy information for this merchant.
+      items:
+        properties:
+          corpLevel:
+            $ref: '#/components/schemas/corpLevel'
+          chainLevel:
+            $ref: '#/components/schemas/chainLevel'
+          sponsorBankCd:
+            $ref: '#/components/schemas/sponsorBankCd'
+    corpLevel:
+      maxLength: 12
+      type: string
+      description: The Corporate Chain used to associate merchant accounts.
+      example: 000000000001
+    chainLevel:
+      maxLength: 12
+      type: string
+      description: The Chain Level used to link merchant accounts for reporting, statement, or financial rollup.
+      example: 000000000002
+    sponsorBankCd:
+      maxLength: 5
+      type: string
+      description: The Sponsor Bank code for merchant accounts using the FD North backend. Enter WELLS for Wells Fargo or BBVA for BBVA.
+      example: WELLS
+    demographic: 
+      type: array
+      description: The demographic object, containing business information.
+      items:
+        properties:
+          businessIncorporatedStateCd:
+            $ref: '#/components/schemas/businessIncorporatedStateCd'
+          merchantTimeZone:
+            $ref: '#/components/schemas/merchantTimeZone'
+          websiteAddress:
+            $ref: '#/components/schemas/websiteAddress'
+          businessPhone:
+            $ref: '#/components/schemas/businessPhone'
+          businessFax:
+            $ref: '#/components/schemas/businessFax'
+          businessAddress:
+            $ref: '#/components/schemas/businessAddress'
+          mailingAddress:
+            $ref: '#/components/schemas/mailingAddress'
+    businessIncorporatedStateCd:
+      maxLength: 2
+      type: string
+      description: The state code where the business is incorporated.
+      example: CO
+    merchantTimeZone:
+      maxLength: 3
+      type: string
+      description: The 2 or 3 character time zone such as ET, CT, MT, PT, or HST.
+      example: MT
+    websiteAddress:
+      maxLength: 200
+      description: Business website is required if merchant.processing.modeOfTransaction.eCommercePct is greater than 0.
+      type: string
+      example: www.example.com
+    businessPhone:
+      maxLength: 12
+      type: string
+      description: The business phone number formatted as "###-###-####".
+      example: 123-456-7890
+    businessFax:
+      maxLength: 12
+      type: string
+      description: The business fax number formatted as "###-###-####".
+      example: 098-765-4321
+    businessAddress:
+      description: The address object containing the business address
+      $ref: '#/components/schemas/address'
+    mailingAddress:
+      description: The address object containing the business mailing address
+      $ref: '#/components/schemas/address'
+    address:
+      type: array
+      items:
+        properties:
+          address1:
+            $ref: '#/components/schemas/address1'
+          address2:
+            $ref: '#/components/schemas/address2'
+          city: 
+            $ref: '#/components/schemas/city'
+          stateCd:
+            $ref: '#/components/schemas/stateCd'
+          zip:
+            $ref: '#/components/schemas/zip'
+          countryCd:
+            $ref: '#/components/schemas/countryCd'
+    address1:
+      type: string
+      maxLength: 200
+      example: 123 Fake St
+      description: The number and street of the address.
+    address2: 
+      type: string
+      maxLength: 200
+      example: Suite 300
+      description: Any additional address information such as apartment number or suite number of the address.
+    city: 
+      type: string
+      maxLength: 300
+      description: The city associated with the address
+      example: Keystone
+    stateCd:
+      type: string
+      maxLength: 2
+      description: The state code that represents the US state where the address is located.
+      example: CO
+    zip:
+      description: The ZIP code of the address.
+      maxLength: 15
+      type: string
+      example: 90435
+    countryCd:
+      description: The country code that represents the country associated with the address.
+      example: US
+      type: string
+      maxLength: 2
     tokenResponse:
       x-model-version: 1.0
       description: token Response
