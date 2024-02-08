@@ -565,7 +565,6 @@ components:
           customFieldValue:
             $ref: '#/components/schemas/customFieldValue'
       example: 
-        "customFields": [
         {
             "userFieldNumber": 1,
             "customFieldValue": "example custom field value 1"
@@ -574,7 +573,6 @@ components:
             "userFieldNumber": 2,
             "customFieldValue": "example custom field value 2"
         }
-        ]
     userFieldNumber:
       type: number
       description: The index number of the custom field. Must be a number between 1-10.
