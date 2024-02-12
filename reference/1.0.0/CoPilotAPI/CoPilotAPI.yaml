@@ -108,7 +108,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/merchantRequest'
+              $ref: '#/components/schemas/merchantCreateRequest'
       parameters:
         - {$ref: '#/components/parameters/ContentTypeHeader'}
       responses:
@@ -116,7 +116,10 @@ paths:
           description: Success
           content:
             application/json:
-              schema: {$ref: '#/components/schemas/tokenResponse'}
+              schema: 
+                oneOf:
+                  - $ref: '#/components/schemas/merchantCreateSuccessfulResponse'
+                  - $ref: '#/components/schemas/merchantCreateUnsuccessfulResponse'
         400:
           description: Not Found
           content:
@@ -130,7 +133,77 @@ paths:
 
 components:
   schemas:
-    merchantRequest:
+    merchantCreateUnsuccessfulResponse:
+      x-model-version: 1.0
+      description: merchant Create Response
+      properties:
+        merchantId:
+          $ref: '#/components/schemas/merchantId'
+        errors:
+          $ref: '#/components/schemas/errors'
+    merchantCreateSuccessfulResponse:
+      x-model-version: 1.0
+      description: merchant Create Response
+      properties:
+        merchantId:
+          $ref: '#/components/schemas/merchantId'
+        errors:
+          $ref: '#/components/schemas/errors'
+      example: 
+        {
+        "merchantId": 12345678,
+        "errors": null
+        }
+    merchantId:
+      type: string
+      maxLength: 19
+      example: 213456789
+      description: The merchant ID used to identify the account within CoPilot.
+    errors:
+      description: The errors array containing one or more errors if there was a problem creating the merchant.
+      type: array
+      items:
+        properties: 
+          code:
+            $ref: '#/components/schemas/code'
+          message:
+            $ref: '#/components/schemas/message'
+          errorField:
+            $ref: '#/components/schemas/errorField'
+          status:
+            $ref: '#/components/schemas/status'
+      example: 
+              [
+                {
+              "code": "1113",
+              "message": "Owner date of birth is invalid.  Please use MM/DD/YYYY format.",
+              "errorField": "merchant.ownership.owner.ownerDob",
+              "status": "BAD_REQUEST"
+              },
+              {
+              "code": "1115",
+              "message": "Phone is invalid.  Please use XXX-XXX-XXXX format.",
+              "errorField": "merchant.demographic.businessPhone",
+              "status": "BAD_REQUEST"
+              }
+              ]
+    code:
+      type: string
+      description: The error code
+      example: 1113
+    message: 
+      description: The error message
+      type: string
+      example: Owner date of birth is invalid. Please use MM/DD/YYYY format.
+    errorField:
+      description: The field that caused the error.
+      type: string
+      example: merchant.ownership.ownerDob
+    status:
+      type: string
+      description: The HTTP Status Code
+      example: BAD_REQUEST
+    merchantCreateRequest:
       x-model-version: 1.0
       description: merchant Request
       properties:
