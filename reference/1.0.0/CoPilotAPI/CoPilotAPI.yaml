@@ -565,7 +565,7 @@ components:
           customFieldValue:
             $ref: '#/components/schemas/customFieldValue'
       example: 
-        "customFields": [
+        [
         {
             "userFieldNumber": 1,
             "customFieldValue": "example custom field value 1"
