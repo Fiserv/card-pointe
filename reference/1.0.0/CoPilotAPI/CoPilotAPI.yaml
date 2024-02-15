@@ -87,7 +87,7 @@ paths:
   /auth/realms/cardconnect/protocol/openid-connect/merchant:
     post: 
       tags:
-        - merchant Endpoint Definition
+        - merchant CREATE Endpoint Definition
       x-group-name: CoPilot
       x-proxy-name: merchant (CREATE)
       x-default-example: PaymentCard
@@ -117,9 +117,54 @@ paths:
           content:
             application/json:
               schema: 
-                oneOf:
-                  - $ref: '#/components/schemas/merchantCreateSuccessfulResponse'
-                  - $ref: '#/components/schemas/merchantCreateUnsuccessfulResponse'
+                $ref: '#/components/schemas/merchantCreateSuccessfulResponse'
+              examples:
+                Successful Response:
+                  $ref: '#/components/schemas/merchantCreateSuccessfulResponse'
+                Unsuccessful Response:
+                  $ref: '#/components/examples/UnsuccesfulMerchantCreateResponse'
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+
+  /auth/realms/cardconnect/protocol/openid-connect/merchant/:
+    get: 
+      tags:
+        - merchant GET Data Endpoint Definition
+      x-group-name: CoPilot
+      x-proxy-name: merchant (GET Data)
+      x-default-example: PaymentCard
+      summary: The Merchant endpoint is used primarily to create a new merchant account in CoPilot, using a pre-existing application template that has been created in the CoPilot web interface. Use this GET method to retrieve all merchant account data, such as contact and owner information, business details, processing information, pricing, and fees.
+      description: |+
+        The Merchant endpoint is used primarily to create a new merchant account in CoPilot, using a pre-existing application template that has been created in the CoPilot web interface.
+        Once the merchant account has been created, additional boarding operations can be performed, such as:
+
+        Ordering equipment for the account
+        Uploading attachments that the merchant has completed and signed
+        Requesting a digital signature from the merchant, allowing them to review and sign the application using their web browser
+        Use this GET method to retrieve all merchant account data, such as contact and owner information, business details, processing information, pricing, and fees.
+      parameters:
+        - in: query
+          name: merchantId
+          required: true
+          schema:
+            $ref: '#/components/schemas/merchantId'
+        - in: header
+          $ref: '#/components/parameters/ContentTypeHeader'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/merchantGetResponse'
         400:
           description: Not Found
           content:
@@ -133,6 +178,170 @@ paths:
 
 components:
   schemas:
+    merchantGetResponse:
+      x-model-version: 1.0
+      description: merchant Get Response
+      properties:
+        errors:
+          $ref: '#/components/schemas/errors'
+        merchant:
+          $ref: '#/components/schemas/GetResponsemerchant'
+        OwnerSiteUser:
+          $ref: '#/components/schemas/OwnerSiteUser'
+    merchantStatus:
+      type: array
+      items:
+        properties:
+          approvedDatetime:
+            $ref: '#/components/schemas/approvedDatetime'
+          boardedDatetime:
+            $ref: '#/components/schemas/approvedDatetime'
+          cancelledDatetime:
+            $ref: '#/components/schemas/cancelledDatetime'
+          declinedDatetime:
+            $ref: '#/components/schemas/declinedDatetime'
+          liveDatetime:
+            $ref: '#/components/schemas/liveDatetime'
+          boardingProcessPendingFlg:
+            $ref: '#/components/schemas/boardingProcessPendingFlg'
+          boardingProcessStatusCd:
+            $ref: '#/components/schemas/boardingProcessStatusCd'
+          gatewayBoardingStatusCd:
+            $ref: '#/components/schemas/gatewayBoardingStatusCd'
+    approvedDatetime:
+      type: string
+      description: The date and time the account transitioned to the APPROVED status. The date and time is reported in local time, based on the timezone selected in the CoPilot web interface.
+      example: 10/21/2013 08:18:18 AM
+    boardedDatetime:
+      type: string
+      description: The date and time the account transitioned to the BOARDED status. The date and time is reported in local time, based on the timezone selected in the CoPilot web interface.
+      example: 10/21/2013 11:41:00 AM
+    cancelledDatetime:
+      example: null
+      type: string
+      description: The date and time the account transitioned to the CANCELLED status. The date and time is reported in local time, based on the timezone selected in the CoPilot web interface.
+    declinedDatetime:
+      example: null
+      type: string
+      description: The date and time the account transitioned to the DECLINED status. The date and time is reported in local time, based on the timezone selected in the CoPilot web interface.
+    liveDatetime: 
+      example: 10/22/2013 07:09:09 AM
+      type: string
+      description: The date and time the account transitioned to the LIVE status. The date and time is reported in local time, based on the timezone selected in the CoPilot web interface.
+    boardingProcessPendingFlg:
+      type: boolean
+      example: false
+    boardingProcessStatusCd:
+      description: Review our <a href="www.google.com">page</a> detailing these status codes.
+      type: string
+      example: LIVE
+    gatewayBoardingStatusCd:
+      description: Review our <a href="www.google.com">page</a> detailing these status codes.
+      type: string
+      example: BOARDED
+    signatureStatus:
+      type: array
+      items: 
+        properties:
+          signedSiteUserId:
+            $ref: '#/components/schemas/signedSiteUserId'
+          signedDateTime: 
+            $ref: '#/components/schemas/signedDateTime'
+          signer: 
+            $ref: '#/components/schemas/signer'
+          signatureUrl:
+            $ref: '#/components/schemas/signatureUrl'
+          signatureStatusCd:
+            $ref: '#/components/schemas/signatureStatusCd'
+    signedSiteUserId:
+      type: number
+      description: The ID of the owner site user who signed the application.
+      example: 237332
+    signedDateTime:
+      type: string
+      example: 07/19/2017 04:44:28 PM
+    signatureUrl:
+      type: string
+      description: The URL for the digital application that the signer accessed to complete the digital application.
+      example: https://cardpointe-uat.cardconnect.com/account/login#/password/02d34909-93b3-4b50-adf4-1ff91e92b33c/c08709da-8af1-4f35-8e0f-f52eca60ef81?newuser
+    signatureStatusCd:
+      type: string
+      example: SIGNED
+      description: |
+        Can be one of the following:
+          * NOT_SENT - No URL for the digital application exists.
+          * PENDING - The URL for the digital application exists and is pending completion by the merchant.
+          * SIGNED - The digital application has been completed and signed.
+    signer:
+      type: array
+      items: 
+        properties:
+          email:
+            $ref: '#/components/schemas/emailSigner'
+          firstName:
+            $ref: '#/components/schemas/firstNameSigner'
+          lastName:
+            $ref: '#/components/schemas/lastNameSigner'
+          ipAddress:
+            $ref: '#/components/schemas/ipAddress'
+          personalGuaranteeFlg:
+            $ref: '#/components/schemas/personalGuaranteeFlg'
+    ipAddress:
+      type: string
+      description: The signer's IP address at the time of signing
+      example: 192.168.125.126
+    personalGuaranteeFlg:
+      type: boolean
+      description: True when the owner selected the Personal Guarantee option.
+      example: true
+    GetResponsemerchant:
+      type: array
+      items:
+        properties:
+          merchantStatus:
+            $ref: '#/components/schemas/merchantStatus'
+          signatureStatus:
+            $ref: '#/components/schemas/signatureStatus'
+          salesCodes:
+            $ref: '#/components/schemas/salesCode'
+          akaBusinessName:
+            $ref: '#/components/schemas/akaBusinessName'
+          dbaName:
+            $ref: '#/components/schemas/dbaName'
+          legalBusinessName:
+            $ref: '#/components/schemas/legalBusinessName'
+          taxFilingName:
+            $ref: '#/components/schemas/taxFilingName'
+          taxFilingMethod:
+            $ref: '#/components/schemas/taxFilingMethod'
+          businessStartDate:
+            $ref: '#/components/schemas/businessStartDate'
+          businessIdTypeCd:
+            $ref: '#/components/schemas/businessIdTypeCd'
+          custPrimaryAcctFlg:
+            $ref: '#/components/schemas/custPrimaryAcctFlg'
+          webLeadFlg:
+            $ref: '#/components/schemas/webLeadFlg'
+          hierarchy:
+            $ref: '#/components/schemas/hierarchy'
+          demographic:
+            $ref: '#/components/schemas/demographic'
+          ownership:
+            $ref: '#/components/schemas/ownership'
+          bankDetail:
+            $ref: '#/components/schemas/bankDetail'
+          merchantContactInfo:
+            $ref: '#/components/schemas/merchantContactInfo'
+          processing:
+            $ref: '#/components/schemas/processing'
+          pricing:
+            $ref: '#/components/schemas/pricing'
+          fees:
+            $ref: '#/components/schemas/fees'
+          cloverSecurityAndTransarmor:
+            $ref: '#/components/schemas/cloverSecurityAndTransarmor'
+          customFields:
+            $ref: '#/components/schemas/customFields'
     merchantCreateUnsuccessfulResponse:
       x-model-version: 1.0
       description: merchant Create Response
@@ -149,11 +358,6 @@ components:
           $ref: '#/components/schemas/merchantId'
         errors:
           $ref: '#/components/schemas/errors'
-      example: 
-        {
-        "merchantId": 12345678,
-        "errors": null
-        }
     merchantId:
       type: string
       maxLength: 19
@@ -172,21 +376,7 @@ components:
             $ref: '#/components/schemas/errorField'
           status:
             $ref: '#/components/schemas/status'
-      example: 
-              [
-                {
-              "code": "1113",
-              "message": "Owner date of birth is invalid.  Please use MM/DD/YYYY format.",
-              "errorField": "merchant.ownership.owner.ownerDob",
-              "status": "BAD_REQUEST"
-              },
-              {
-              "code": "1115",
-              "message": "Phone is invalid.  Please use XXX-XXX-XXXX format.",
-              "errorField": "merchant.demographic.businessPhone",
-              "status": "BAD_REQUEST"
-              }
-              ]
+      example: null
     code:
       type: string
       description: The error code
@@ -223,10 +413,25 @@ components:
             $ref: '#/components/schemas/lastName'
           email:
             $ref: '#/components/schemas/email'  
+    firstNameSigner:
+      type: string
+      maxLength: 300
+      description: The first name of the signer.
+      example: Forename
+    lastNameSigner:
+      type: string
+      maxLength: 300
+      description: The last name of the signer.
+      example: Surname
+    emailSigner:
+      type: string
+      example: name@email.com
+      description: The email address used to create the signer.
+      maxLength: 300
     firstName:
       type: string
       maxLength: 300
-      description: The first name of the CardPointe userr.
+      description: The first name of the CardPointe user.
       example: Forename
     lastName:
       type: string
@@ -236,7 +441,7 @@ components:
     email:
       type: string
       example: name@email.com
-      description: The email address used to create the CardPointe User.
+      description: The email address used to create the CardPointe user.
       maxLength: 300
     templateId:
       description: The ID of the application template created within the CoPilot web interface.
@@ -1913,6 +2118,23 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   examples:
+    UnsuccesfulMerchantCreateResponse:
+      value:
+        errors:
+                [
+                {
+              "code": "1113",
+              "message": "Owner date of birth is invalid.  Please use MM/DD/YYYY format.",
+              "errorField": "merchant.ownership.owner.ownerDob",
+              "status": "BAD_REQUEST"
+              },
+              {
+              "code": "1115",
+              "message": "Phone is invalid.  Please use XXX-XXX-XXXX format.",
+              "errorField": "merchant.demographic.businessPhone",
+              "status": "BAD_REQUEST"
+              }
+              ]
     Successful:
       value:
         errorcode: 0,
