@@ -263,11 +263,11 @@ components:
     signatureUrl:
       type: string
       description: The URL for the digital application that the signer accessed to complete the digital application.
-      example: "https://cardpointe-uat.cardconnect.com/account/login#/password/02d34909-93b3-4b50-adf4-1ff91e92b33c/c08709da-8af1-4f35-8e0f-f52eca60ef81?newuser
+      example: https://cardpointe-uat.cardconnect.com/account/login#/password/02d34909-93b3-4b50-adf4-1ff91e92b33c/c08709da-8af1-4f35-8e0f-f52eca60ef81?newuser
     signatureStatusCd:
       type: string
       example: SIGNED
-      description: |+
+      description: |
         Can be one of the following:
           * NOT_SENT - No URL for the digital application exists.
           * PENDING - The URL for the digital application exists and is pending completion by the merchant.
@@ -277,11 +277,11 @@ components:
       items: 
         properties:
           email:
-            $ref: '#/components/schemas/email'
+            $ref: '#/components/schemas/emailSigner'
           firstName:
-            $ref: '#/components/schemas/firstName'
+            $ref: '#/components/schemas/firstNameSigner'
           lastName:
-            $ref: '#/components/schemas/lastName'
+            $ref: '#/components/schemas/lastNameSigner'
           ipAddress:
             $ref: '#/components/schemas/ipAddress'
           personalGuaranteeFlg:
@@ -358,11 +358,6 @@ components:
           $ref: '#/components/schemas/merchantId'
         errors:
           $ref: '#/components/schemas/errors'
-      example: 
-        {
-        "merchantId": 12345678,
-        "errors": null
-        }
     merchantId:
       type: string
       maxLength: 19
@@ -418,10 +413,25 @@ components:
             $ref: '#/components/schemas/lastName'
           email:
             $ref: '#/components/schemas/email'  
+    firstNameSigner:
+      type: string
+      maxLength: 300
+      description: The first name of the signer.
+      example: Forename
+    lastNameSigner:
+      type: string
+      maxLength: 300
+      description: The last name of the signer.
+      example: Surname
+    emailSigner:
+      type: string
+      example: name@email.com
+      description: The email address used to create the signer.
+      maxLength: 300
     firstName:
       type: string
       maxLength: 300
-      description: The first name of the CardPointe userr.
+      description: The first name of the CardPointe user.
       example: Forename
     lastName:
       type: string
@@ -431,7 +441,7 @@ components:
     email:
       type: string
       example: name@email.com
-      description: The email address used to create the CardPointe User.
+      description: The email address used to create the CardPointe user.
       maxLength: 300
     templateId:
       description: The ID of the application template created within the CoPilot web interface.
