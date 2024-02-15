@@ -174,9 +174,109 @@ paths:
           content:  
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
+    put:
+      tags:
+        - merchant PUT Update Endpoint Definition
+      x-group-name: CoPilot
+      x-proxy-name: merchant (PUT)
+      x-default-example: PaymentCard
+      summary: The Merchant endpoint is used primarily to create a new merchant account in CoPilot, using a pre-existing application template that has been created in the CoPilot web interface. Once a merchant account has been created, use the PUT method to update any account data prior to submitting for digital signing by the merchant.
+        
+        Updating merchant data is only possible when the account has not yet been submitted for digital signature. Use the Get Merchant Status endpoint to verify that the boardingProcessStatusCd is INPROG. If the boardingProcessStatusCd is OFS, then the account has been submitted for digital signature but has not yet been signed. If that is the case, you must use the Retract Signature endpoint before modifying any account data.
+      description: |+
+        Once a merchant account has been created, use the PUT method to update any account data prior to submitting for digital signing by the merchant.
 
+        Updating merchant data is only possible when the account has not yet been submitted for digital signature. Use the Get Merchant Status endpoint to verify that the boardingProcessStatusCd is INPROG. If the boardingProcessStatusCd is OFS, then the account has been submitted for digital signature but has not yet been signed. If that is the case, you must use the Retract Signature endpoint before modifying any account data.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/merchantPutRequest'
+      parameters:
+        - name: merchantId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/merchantId'
+        - in: header
+          $ref: '#/components/parameters/ContentTypeHeader'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/merchantPutResponse'
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /merchant/{merchantId}/status:
+    get: 
+      tags:
+        - merchant GET Status Endpoint Definition
+      x-group-name: CoPilot
+      x-proxy-name: merchant (GET Status)
+      x-default-example: PaymentCard
+      summary: Use the Merchant Status endpoint to retrieve the account boarding and gateway boarding status, as well as the date and time that the account transitioned to a new status.
+      description: |+
+        Use the Merchant Status endpoint to retrieve the account boarding and gateway boarding status, as well as the date and time that the account transitioned to a new status.
+      parameters:
+        - name: merchantId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/merchantId'
+        - in: header
+          $ref: '#/components/parameters/ContentTypeHeader'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/merchantGetStatusResponse'
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
 components:
   schemas:
+    merchantGetStatusResponse:
+      x-model-version: 1.0
+      description: merchant Put Request
+      properties:
+        errors:
+          $ref: '#/components/schemas/errors'
+        merchantStatus:
+          $ref: '#/components/schemas/merchantStatus'
+    merchantPutResponse:
+      x-model-version: 1.0
+      description: merchant Put Request
+      properties:
+        errors:
+          $ref: '#/components/schemas/errors'
+    merchantPutRequest:
+      x-model-version: 1.0
+      description: merchant Put Request
+      properties:
+        merchant:
+          $ref: '#/components/schemas/merchant'
+        OwnerSiteUser:
+          $ref: '#/components/schemas/OwnerSiteUser'
     merchantGetResponse:
       x-model-version: 1.0
       description: merchant Get Response
