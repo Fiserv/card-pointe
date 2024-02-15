@@ -84,7 +84,7 @@ paths:
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
 
-  /auth/realms/cardconnect/protocol/openid-connect/merchant:
+  /merchant:
     post: 
       tags:
         - merchant CREATE Endpoint Definition
@@ -133,7 +133,7 @@ paths:
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
 
-  /merchant:
+  /merchant/{merchantId}:
     get: 
       tags:
         - merchant GET Data Endpoint Definition
@@ -150,8 +150,8 @@ paths:
         Requesting a digital signature from the merchant, allowing them to review and sign the application using their web browser
         Use this GET method to retrieve all merchant account data, such as contact and owner information, business details, processing information, pricing, and fees.
       parameters:
-        - in: query
-          name: merchantId
+        - name: merchantId
+          in: path
           required: true
           schema:
             $ref: '#/components/schemas/merchantId'
