@@ -116,11 +116,10 @@ paths:
           description: Success
           content:
             application/json:
-              schema: 
-                $ref: '#/components/schemas/merchantCreateSuccessfulResponse'
+              schema: {$ref: '#/components/schemas/merchantCreateSuccessfulResponse'}
               examples:
                 Successful Response:
-                  $ref: '#/components/schemas/merchantCreateSuccessfulResponse'
+                  $ref: '#/components/examples/SuccessfulMerchantCreateResponse'
                 Unsuccessful Response:
                   $ref: '#/components/examples/UnsuccesfulMerchantCreateResponse'
         400:
@@ -134,7 +133,7 @@ paths:
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
 
-  /auth/realms/cardconnect/protocol/openid-connect/merchant/:
+  /merchant:
     get: 
       tags:
         - merchant GET Data Endpoint Definition
@@ -2118,6 +2117,10 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   examples:
+    SuccessfulMerchantCreateResponse:
+      value:
+        merchantId: 213456789
+        errors: null
     UnsuccesfulMerchantCreateResponse:
       value:
         errors:
