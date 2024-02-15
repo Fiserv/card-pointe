@@ -113,6 +113,29 @@ See [Running the API in Postman](?path=docs/documentation/CoPilotDeveloperGuides
 | NONPRFT (Non-Profit Org) | OWNER <br> PARTNER <br> PRESIDENT <br> VICE_PRESIDENT <br> MEMBER_LLC <br> SECRETARY <br> TREASURER <br> CEO <br> CFO <br> COO | 
 | INDIVSOLE (Individual / Sole Proprietor) | OWNER | 
 
+# CoPilot Status Codes
+
+## Boarding Process Status Codes
+
+| Code	| Description |
+| --- | --- |
+| INPROG | The digital application has not yet been submitted to the merchant for signing. Displayed in the CoPilot web interface as "Not Submitted." <br> **Note**: Merchant details can only be added or modified in this state. |
+| OFS |	The digital application is awaiting merchant signature. Displayed in the CoPilot web interface as "Pending Signature."
+| QUALIFY | The digital application is signed and undergoing an inital review before being sent for underwriting. Displayed in the CoPilot web interface as "Qualifying."
+| UNDER	| The application is being reviewed by the Underwriting team. Displayed in the CoPilot web interface as "Underwriting."
+| DECLINED | The application has been rejected by the Underwriting team.
+| BOARDING | The merchant account is in the process of being boarded to the processing platform.
+| BOARDED | The merchant account is successfully boarded to the processing platform.
+| LIVE | The merchant account is boarded to the processing platform, the CardPointe Gateway, and is receiving deposits.
+| CANCELLED | The merchant account is cancelled.
+
+## Gateway Boarding Status Codes
+
+| Code | Description |
+| --- | --- |
+| NOT_BOARDED | The merchant ID is not yet boarded to the CardPointe Gateway.
+| BOARDED | The merchant account is boarded to the processing platform and the merchant ID is boarded to the CardPointe Gateway.
+
 # Errors
 
 When there is an error in the request, there will be a non-null `errors` array in the response body. If there are multiple field validation errors, there will be multiple error objects in the errors array. See the example below.
