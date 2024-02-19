@@ -372,8 +372,102 @@ paths:
           content:  
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
+  /merchant/{merchantId}/attachment:
+    put:
+      tags:
+        - atachment PUT Endpoint Definition
+      x-group-name: CoPilot
+      x-proxy-name: attachment 
+      x-default-example: PaymentCard
+      summary: The Attachment endpoint allows you to upload documents that may be required before the account can be boarded, such as hard copies of agreements that have been completed and signed by the merchant, or a copy of a voided check. Refer to the Attachment Type Codes to view the various agreements, forms, and documents that can be attached to a merchant account.
+      description: |+
+        The Attachment endpoint allows you to upload documents that may be required before the account can be boarded, such as hard copies of agreements that have been completed and signed by the merchant, or a copy of a voided check. Refer to the Attachment Type Codes to view the various agreements, forms, and documents that can be attached to a merchant account.
+      parameters:
+        - name: merchantId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/merchantId'
+        - in: header
+          $ref: '#/components/parameters/ContentTypeHeader'
+        - in: header
+          $ref: '#/components/parameters/X-CopilotAPI-Version'
+        - in: header
+          $ref: '#/components/parameters/Authorization'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/attachmentRequest'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/attachmentResponse'
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
 components:
   schemas:
+    attachmentResponse:
+      x-model-version: 1.0
+      description: Attachment Request
+      properties:
+        errors:
+          $ref: '#/components/schemas/errors'
+        attachmentId:
+          $ref: '#/components/schemas/attachmentId'
+    attachmentId:
+      type: number
+      example: 123456
+    attachmentRequest:
+      x-model-version: 1.0
+      description: Attachment Request
+      properties:
+        fileName:
+          $ref: '#/components/schemas/fileName'
+        mimeType:
+          $ref: '#/components/schemas/mimeType'
+        description:
+          $ref: '#/components/schemas/description'
+        attachmentTypeCd:
+          $ref: '#/components/schemas/attachmentTypeCd'
+        document:
+          $ref: '#/components/schemas/document'
+    document:
+      description: |+
+        The document to upload, provided as a Base 64 encoded file with a maximum size of 100MB.
+
+        **Note**: Attach only documents or image files. Audio and video files are not supported.
+      example: JVBERi0xLjEKJcKlwrHDqwoKMSAwIG9iagogIDw8IC9UeXBlIC9DYXRhbG9nCiAgICAgL1BhZ2VzIDIgMCBSCiAgPj4KZW5kb2JqCgoyIDAgb2JqCiAgPDwgL1R5cGUgL1BhZ2VzCiAgICAgL0tpZHMgWzMgMCBSXQogICAgIC9Db3VudCAxCiAgICAgL01lZGlhQm94IFswIDAgMzAwIDE0NF0KICA
+      type: string
+    fileName:
+      description: The file name of the attachment
+      maxLength: 60
+      type: string
+      example: VoidedCheck.pdf
+    mimeType:
+      description: The MIME type of the attachment file
+      example: application/pdf
+      maxLength: 30
+      type: string
+    description:
+      description: The description of the attachment file
+      example: This is a voided check
+      maxLength: 1000
+      type: string
+    attachmentTypeCd:
+      description: The <a href="www.google.com">attachment type code</a> that represents the type of attachment.
     signatureDeleteResponse:
       x-model-version: 1.0
       description: Signature Put Request
