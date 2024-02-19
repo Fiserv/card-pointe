@@ -253,8 +253,161 @@ paths:
           content:  
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
+  /merchant/{merchantId}/signature:
+    put: 
+      tags:
+        - signature PUT Endpoint Definition
+      x-group-name: CoPilot
+      x-proxy-name: signature (PUT)
+      x-default-example: PaymentCard
+      summary: Use the PUT request when you are ready to submit the application for the merchant to review and sign. If successful, the response returns a unique URL that can be provided to the owner to review and sign the application digitally.
+      description: |+
+        Use the PUT request when you are ready to submit the application for the merchant to review and sign. If successful, the response returns a unique URL that can be provided to the owner to review and sign the application digitally.
+      parameters:
+        - name: merchantId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/merchantId'
+        - in: header
+          $ref: '#/components/parameters/ContentTypeHeader'
+        - in: header
+          $ref: '#/components/parameters/X-CopilotAPI-Version'
+        - in: header
+          $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/signaturePutResponse'
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+    get: 
+      tags:
+        - signature GET Status Endpoint Definition
+      x-group-name: CoPilot
+      x-proxy-name: siganture (GET)
+      x-default-example: PaymentCard
+      summary: Use the Merchant Status endpoint to retrieve the account boarding and gateway boarding status, as well as the date and time that the account transitioned to a new status. Use the GET request to view the current status of an application that has been submitted to the merchant for signing.
+      description: |+
+        Use the Merchant Status endpoint to retrieve the account boarding and gateway boarding status, as well as the date and time that the account transitioned to a new status. Use the GET request to view the current status of an application that has been submitted to the merchant for signing.
+      parameters:
+        - name: merchantId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/merchantId'
+        - in: header
+          $ref: '#/components/parameters/ContentTypeHeader'
+        - in: header
+          $ref: '#/components/parameters/X-CopilotAPI-Version'
+        - in: header
+          $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/signatureGetResponse'
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+    delete: 
+      tags:
+        - signature DELETE Retract Endpoint Definition
+      x-group-name: CoPilot
+      x-proxy-name: siganture (DELETE)
+      x-default-example: PaymentCard
+      summary: Use the DELETE method to disable the URL that is used by the owner to review and sign the digital application. This reverts the merchant's status to the INPROG state, allowing you to make modifications to the account data.
+      description: |+
+        Use the DELETE method to disable the URL that is used by the owner to review and sign the digital application. This reverts the merchant's status to the INPROG state, allowing you to make modifications to the account data.
+
+        This method can only be used when the application is pending signature. Use Get Signature Status to verify that the current signature status is PENDING, which indicates that the application has been submitted to the owner for signing, but has not yet been signed.
+        
+        After updating the account data, use Request Signature to generate a new unique URL that the owner will use to review and sign the digital application.
+      parameters:
+        - name: merchantId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/merchantId'
+        - in: header
+          $ref: '#/components/parameters/ContentTypeHeader'
+        - in: header
+          $ref: '#/components/parameters/X-CopilotAPI-Version'
+        - in: header
+          $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/signatureDeleteResponse'
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
 components:
   schemas:
+    signatureDeleteResponse:
+      x-model-version: 1.0
+      description: Signature Put Request
+      properties:
+        errors:
+          $ref: '#/components/schemas/errors'
+    signaturePutResponse:
+      x-model-version: 1.0
+      description: Signature Put Request
+      properties:
+        errors:
+          $ref: '#/components/schemas/errors'
+        signatureUrl:
+          $ref: '#/components/schemas/signatureUrl'
+    signatureGetResponse:
+      x-model-version: 1.0
+      description: signature Get Request
+      properties:
+        errors:
+          $ref: '#/components/schemas/errors'
+        signedSiteUserId:
+          $ref: '#/components/schemas/signedSiteUserId'
+        signedDatetime:
+          $ref: '#/components/schemas/signedDatetime'
+        signer:
+          $ref: '#/components/schemas/signer'
+        signatureUrl:
+          $ref: '#/components/schemas/signatureUrl'
+        signatureStatusCd:
+          $ref: '#/components/schemas/signatureStatusCd'
+    signedDatetime:
+      type: string
+      description: The date and time the application was signed. The date and time is reported in local time, based on the timezone selected in the CoPilot web interface.
+      example: 07/19/2017 04:44:28 PM
     merchantGetStatusResponse:
       x-model-version: 1.0
       description: merchant Put Request
@@ -2300,6 +2453,23 @@ components:
       in: header
       required: true
       description: The content type. Valid value (application/json).
+    X-CopilotAPI-Version:
+      x-model-version: 1.0
+      name: X-CopilotAPI-Version
+      schema:
+        type: string
+        default: 1.0
+      in: header
+      required: true
+    Authorization:
+      x-model-version: 1.0
+      name: Authorization
+      schema:
+        type: string
+        example: Bearer accessTokenValue
+      in: header
+      required: false
+      description: This header should be omitted from requests to the Token endpoint, as authentication via the Token endpoint occurs independently of the CoPilot API.
     AccountParam:
       x-model-version: 1.0
       name: account
