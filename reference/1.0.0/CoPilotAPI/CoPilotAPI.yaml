@@ -417,8 +417,210 @@ paths:
           content:  
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
+  /equipmentCatalog/list:
+    get:
+      tags: 
+        - equipment Endpoint Definition
+      x-group-name: CoPilot
+      x-proxy-name: equipment 
+      x-default-example: PaymentCard
+      summary: The Equipment Catalog endpoint provides a list of terminals, gateways, and software available for ordering based on the Sales Code supplied in the query string. Use the endpoint to determine the equipment ID of a add-on to be used in a subsequent call to the Create Order endpoint.
+      description: |+
+        The Equipment Catalog endpoint provides a list of terminals, gateways, and software available for ordering based on the Sales Code supplied in the query string. Use the endpoint to determine the equipment ID of a add-on to be used in a subsequent call to the Create Order endpoint.
+      parameters:
+        - in: query
+          name: salesCode
+          required: true
+          schema:
+            $ref: '#/components/schemas/salesCode'
+          example: salescode1
+        - in: query
+          name: equipmentSupplierCd
+          required: false
+          schema:
+            $ref: '#/components/schemas/equipmentSupplierCd'
+        - in: query
+          name: equipmentTypeCd
+          required: false
+          schema:
+            $ref: '#/components/schemas/equipmentTypeCd'
+        - in: query 
+          name: pageNumber
+          required: false
+          schema:
+            $ref: '#/components/schemas/pageNumber'
+        - in: query
+          name: pageSize
+          required: false
+          schema:
+            $ref: '#/components/schemas/pageSize'
+        - in: header
+          $ref: '#/components/parameters/ContentTypeHeader'
+        - in: header
+          $ref: '#/components/parameters/X-CopilotAPI-Version'
+        - in: header
+          $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/equipmentResponse'
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+      
 components:
   schemas:
+    equipmentResponse:
+      x-model-version: 1
+      description: equipment Endpoint Response
+      properties:
+        rows:
+          $ref: '#/components/schemas/rows'
+        totalServerItemsCount:
+          $ref: '#/components/schemas/totalServerItemsCount'
+        totalDisplayItemsCount:
+          $ref: '#/components/schemas/totalDisplayItemsCount'
+        moreRoesAvailable:
+          $ref: '#/components/schemas/moreRowsAvailable'
+        columnSums:
+          $ref: '#/components/schemas/columnSums'
+        errors:
+          $ref: '#/components/schemas/errors'
+    totalServerItemsCount:
+      type: number
+      example: 1
+      description: Total number of rows
+    totalDisplayItemsCount:
+      type: number
+      example: 1
+      description: The total number of rows before including this page
+    moreRowsAvailable:
+      type: boolean
+      description: True if there are more rows available on the next page
+      example: false
+    columnSums:
+      example: 
+      description: For internal use only
+    rows:
+      type: array
+      items:
+        properties:
+          equipmentId:
+            $ref: '#/components/schemas/equipmentId'
+          equipmentName:
+            $ref: '#/components/schemas/equipmentName'
+          description:
+            $ref: '#/components/schemas/description'
+          make:
+            $ref: '#/components/schemas/make'
+          model:
+            $ref: '#/components/schemas/model'
+          imageUrl:
+            $ref: '#/components/schemas/imageUrl'
+          sku:
+            $ref: '#/components/schemas/sku'
+          platformCd:
+            $ref: '#/components/schemas/platformCd'
+          equipmentTypeCd:
+            $ref: '#/components/schemas/equipmentTypeCd'
+          equipmentSupplierCd:
+            $ref: '#/components/schemas/equipmentSupplierCd'
+          defaultPrice:
+            $ref: '#/components/schemas/defaultPrice'
+          defaultPlanPrice:
+            $ref: '#/components/schemas/defaultPlanPrice'
+          allowCustomBillingFlg:
+            $ref: '#/components/schemas/allowCustomBillingFlg'
+          standardShippingPrice:
+            $ref: '#/components/schemas/standardShippingPrice'
+          expeditedShippingPrice:
+            $ref: '#/components/schemas/expeditedShippingPrice'
+    equipmentName:
+      type: string
+      maxLength: 60
+      description: The name for this piece of equipment.
+      example: Generic Card Swiper
+    make:
+      type: string
+      maxLength: 60
+      description: The manufacturer for this piece of equipment.
+      example: Acme
+    model:
+      type: string
+      maxLength: 60
+      description: The model name for this piece of equipment.
+      example: 200X
+    imageUrl:
+      type: string
+      maxLength: 60
+      description: The URL for the image representing this piece of equipment.
+      example: https://copilot.cardconnect.com/copilot/logos/equipment/123456.png
+    sku:
+      type: string
+      maxLength: 60
+      description: The SKU for this piece of equipment.
+      example: 09103215704
+    platformCd:
+      type: string
+      maxLength: 60
+      description: The platform for this piece of equipment.
+      example: null
+    defaultPrice:
+      type: string
+      maxLength: 60
+      description: The default one-time price for this piece of equipment.
+      example: 199
+    defaultPlanPrice:
+      type: string
+      maxLength: 60
+      description: The default monthly price for this piece of equipment, if available. 
+      example: 25
+    allowCustomBillingFlg:
+      type: string
+      maxLength: 60
+      description: Determines if monthly billing is allowed.
+      example: 1
+    standardShippingPrice:
+      type: string
+      maxLength: 60
+      description: The standard shipping price for this piece of equipment.
+      example: 20
+    expeditedShippingPrice:
+      type: string
+      maxLength: 60
+      description: The expedited shipping price for this piece of equipment.
+      example: 25
+    equipmentId:
+      type: number
+      description: The unique identifier for this piece of equipment.
+      maxLength: 60
+      example: 123
+    pageNumber:
+      type: integer
+      example: 1
+      description: The number of the page being requested.
+    pageSize:
+      type: number
+      example: 2
+      description: The number of results to limit per page.
+    equipmentSupplierCd:
+      type: string
+      description: The equipment supplier code. Used to return only equipment of a specific supplier. 
+      example: CARDCONNECT
+    equipmentTypeCd:
+      type: string
+      description: The equipment type code. Used to return only equipment of a specific type.
+      example: Terminal
     attachmentResponse:
       x-model-version: 1.0
       description: Attachment Request
