@@ -422,7 +422,7 @@ paths:
       tags: 
         - equipment Endpoint Definition
       x-group-name: CoPilot
-      x-proxy-name: equipment 
+      x-proxy-name: equipmentCatalog
       x-default-example: PaymentCard
       summary: The Equipment Catalog endpoint provides a list of terminals, gateways, and software available for ordering based on the Sales Code supplied in the query string. Use the endpoint to determine the equipment ID of a add-on to be used in a subsequent call to the Create Order endpoint.
       description: |+
