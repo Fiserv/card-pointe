@@ -420,9 +420,9 @@ paths:
   /equipmentCatalog/list:
     get:
       tags: 
-        - equipment Endpoint Definition
+        - equipmentCatalog Endpoint Definition
       x-group-name: CoPilot
-      x-proxy-name: equipmentCatalog
+      x-proxy-name: equipmentCatalog 
       x-default-example: PaymentCard
       summary: The Equipment Catalog endpoint provides a list of terminals, gateways, and software available for ordering based on the Sales Code supplied in the query string. Use the endpoint to determine the equipment ID of a add-on to be used in a subsequent call to the Create Order endpoint.
       description: |+
@@ -477,11 +477,319 @@ paths:
           content:  
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
-      
+  /order:
+    post:
+      tags: 
+        - order POST Endpoint Definition
+      x-group-name: CoPilot
+      x-proxy-name: order 
+      x-default-example: PaymentCard
+      summary: The Equipment Catalog endpoint provides a list of terminals, gateways, and software available for ordering based on the Sales Code supplied in the query string. Use the endpoint to determine the equipment ID of a add-on to be used in a subsequent call to the Create Order endpoint.
+      description: |+
+        The Equipment Catalog endpoint provides a list of terminals, gateways, and software available for ordering based on the Sales Code supplied in the query string. Use the endpoint to determine the equipment ID of a add-on to be used in a subsequent call to the Create Order endpoint.
+      parameters:
+        - $ref: '#/components/parameters/ContentTypeHeader'
+        - $ref: '#/components/parameters/X-CopilotAPI-Version'
+        - $ref: '#/components/parameters/Authorization'
+      requestBody:
+        required: true
+        content:
+          application/json: 
+            schema:
+              $ref: '#/components/schemas/orderPOSTRequest'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/orderPOSTResponse'
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /order/{orderId}:
+    get:
+      tags: 
+        - order GET Endpoint Definition
+      x-group-name: CoPilot
+      x-proxy-name: order 
+      x-default-example: PaymentCard
+      summary: The Equipment Catalog endpoint provides a list of terminals, gateways, and software available for ordering based on the Sales Code supplied in the query string. Use the endpoint to determine the equipment ID of a add-on to be used in a subsequent call to the Create Order endpoint.
+      description: |+
+        The Equipment Catalog endpoint provides a list of terminals, gateways, and software available for ordering based on the Sales Code supplied in the query string. Use the endpoint to determine the equipment ID of a add-on to be used in a subsequent call to the Create Order endpoint.
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/orderId'
+        - in: header
+          $ref: '#/components/parameters/ContentTypeHeader'
+        - in: header
+          $ref: '#/components/parameters/X-CopilotAPI-Version'
+        - in: header
+          $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/orderGETResponse'
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
 components:
   schemas:
+    orderGETResponse:
+      x-model-version: 1.0
+      description: order GET Response
+      properties:
+        orderId:
+          $ref: '#/components/schemas/orderId'
+        merchantId:
+          $ref: '#/components/schemas/merchantId'
+        equipmentId:
+          $ref: '#/components/schemas/equipmentId'
+        orderNotes:
+          $ref: '#/components/schemas/orderNotes'
+        quantity:
+          $ref: '#/components/schemas/quantity'
+        unitPrice:
+          $ref: '#/components/schemas/unitPrice'
+        monthlyPrice:
+          $ref: '#/components/schemas/monthlyPrice'
+        billToCd:
+          $ref: '#/components/schemas/billToCd'
+        billingFrequencyCd:
+          $ref: '#/components/schemas/billingFrequencyCd'
+        profileId:
+          $ref: '#/components/schemas/profileId'
+        acctId:
+          $ref: '#/components/schemas/acctId'
+        shippingDetails:
+          $ref: '#/components/schemas/shippingDetails'
+        orderStatusCd:
+          $ref: '#/components/schemas/orderStatusCd'
+        placedDatetime:
+          $ref: '#/components/schemas/placedDatetime'
+        shippedDatetime:
+          $ref: '#/components/schemas/shippedDatetime'
+        canceledDatetime:
+          $ref: '#/components/schemas/canceledDatetime'
+        fulfillingDatetime:
+          $ref: '#/components/schemas/fulfillingDatetime'
+    orderStatusCd:
+      type: string
+      description: The order status code that represents the current status of the order.
+      example: PLACED
+    placedDatetime:
+      type: string
+      description: The date and time the order was placed. The date and time is reported in local time, based on the timezone selected in the CoPilot web interface.
+      example: 10/27/2020 12:22:42 PM
+    shippedDatetime:
+      type: string
+      description:   The date the order was shipped. The date and time is reported in local time, based on the timezone selected in the CoPilot web interface.
+      example:
+    canceledDatetime:
+      type: string
+      description: The date the order was canceled. The date and time is reported in local time, based on the timezone selected in the CoPilot web interface.
+      example:
+    fulfillingDatetime:
+      type: string
+      description:   The date the order was fulfilled. The date and time is reported in local time, based on the timezone selected in the CoPilot web interface.
+      example: 
+    orderPOSTResponse:
+      x-model-version: 1.0
+      description: order POST Response
+      properties:
+        orderId:
+          $ref: '#/components/schemas/orderId'
+        errors:
+          $ref: '#/components/schemas/errors'
+    orderId:
+      type: number
+      example: 111111
+      description: The ID of the order for reference
+    orderPOSTRequest: 
+      x-model-version: 1.0
+      description: order Endpoint Response
+      properties:
+        order:
+          $ref: '#/components/schemas/order'
+    order:
+      type: array
+      items:
+        properties:
+          merchantId:
+            $ref: '#/components/schemas/merchantId'
+          equipmentId:
+            $ref: '#/components/schemas/equipmentId'
+          orderNotes:
+            $ref: '#/components/schemas/orderNotes'
+          quantity:
+            $ref: '#/components/schemas/quantity'
+          unitPrice:
+            $ref: '#/components/schemas/unitPrice'
+          monthlyPrice:
+            $ref: '#/components/schemas/monthlyPrice'
+          billToCd:
+            $ref: '#/components/schemas/billToCd'
+          billingFrequencyCd:
+            $ref: '#/components/schemas/billingFrequencyCd'
+          profileId:
+            $ref: '#/components/schemas/profileId'
+          acctId:
+            $ref: '#/components/schemas/acctId'
+          shippingDetails:
+            $ref: '#/components/schemas/shippingDetails'
+    monthlyPrice:
+      description: The price per month. Required only when billToFrequencyCd is MONTHLY.
+      maxLength: 10
+      type: number
+      example: 10.00
+    billToCd:
+      description: The bill to code that represents who is billed for the order.
+      example: CUST
+      type: string
+      maxLength: 100
+    billingFrequencyCd:
+      description: The billing frequency code that represents the frequency of billing.
+      example: ONETIME
+      type: string
+      maxLength: 100
+    profileId:
+      type: string
+      description: The CardPointe Gateway profile ID to charge for this order. Required only when billToCd is PARTNERCC.
+      example: 123456789012136789
+    acctId:
+      maxLength: 10
+      type: number
+      description: The account ID of the card within the CardPointe Gateway profile to charge for this order. Required only when billToCd is PARTNERCC.
+      example: 1
+    shippingDetails:
+      type: array
+      items:
+        properties:
+          shippingAddress:  
+            $ref: '#/components/schemas/shippingAddress'
+          shipToAttn:
+            $ref: '#/components/schemas/shipToAttn'
+          shipToAttnEmail:
+            $ref: '#/components/schemas/shipToAttnEmail'
+          shippingMethodCd:
+            $ref: '#/components/schemas/shippingMethodCd'
+          shippingBillToCd:
+            $ref: '#/components/schemas/shippingBillToCd'
+          shippingCarrierCd:
+            $ref: '#/components/schemas/shippingCarrierCd'
+          trackingNumber:
+            $ref: '#/components/schemas/trackingNumber'
+          shippingCost:
+            $ref: '#/components/schemas/shippingCost'
+          merchantContactPhone:
+            $ref: '#/components/schemas/merchantContactPhone'
+          merchantContactPhoneExt:
+            $ref: '#/components/schemas/merchantContactPhoneExt'
+          poNumber:
+            $ref: '#/components/schemas/poNumber'
+    shippingAddress:
+      type: array
+      items:
+        properties:
+          address1:
+            $ref: '#/components/schemas/address1'
+          address2:
+            $ref: '#/components/schemas/address2'
+          city:
+            $ref: '#/components/schemas/city'
+          stateCd:
+            $ref: '#/components/schemas/stateCd'
+          zip:
+            $ref: '#/components/schemas/zip'
+          countryCd:
+            $ref: '#/components/schemas/countryCd'
+    shipToAttn:
+      type: string
+      maxLength: 100
+      example: Forename Surname
+      description: The name of the person receiving the order
+    shipToAttnEmail:
+      type: string
+      maxLength: 100
+      example: name@email.com
+      description: The email address of the person receiving the order
+    shippingMethodCd:
+      type: string
+      maxLength: 100
+      example: STANDARD
+      description: The shipping method code that represents the shipping method used.
+    shippingBillToCd:
+      type: string
+      maxLength: 100
+      example: PARTNER
+      description: The bill to code that represents who is billed for the shipping charges. Only required if shippingMethodCd = EXPEDITED.
+    shippingCarrierCd:
+      type: string
+      maxLength: 100
+      description: The shipping carrier code that represents the shipping provider used.
+      example: FEDEX
+    trackingNumber:
+      type: string
+      maxLength: 100
+      description: The tracking number of the shipment
+      example: 12345abc
+    shippingCost:
+      type: string
+      maxLength: 100
+      description: The shipping cost
+      example: 10.50
+    merchantContactPhone:
+      maxLength: 12
+      type: string
+      description: The merchant phone number, formatted as \###-###-####
+      example: 555-123-4567
+    merchantContactPhoneExt:
+      maxLength: 5
+      type: string
+      description: The merchant phone number extension
+      example: 555555
+    poNumber:
+      description: The purchase order number
+      maxLength: 30
+      type: string
+      example: 4455
+    orderNotes:
+      type: string
+      maxLength: 1000
+      example: Test order notes
+      description: Optional notes for the person fulfilling the order.
+    quantity:
+      type: number
+      maxLength: 4
+      description: The number of devices being ordered.
+      example: 1
+    unitPrice:
+      type: number
+      maxLength: 10
+      example: 170.00
+      description: The price per unit. Required only when billToFrequencyCd is MONTHLY. 
     equipmentResponse:
-      x-model-version: 1
+      x-model-version: 1.0
       description: equipment Endpoint Response
       properties:
         rows:
