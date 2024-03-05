@@ -482,7 +482,7 @@ paths:
       tags: 
         - order POST Endpoint Definition
       x-group-name: CoPilot
-      x-proxy-name: order 
+      x-proxy-name: order POST
       x-default-example: PaymentCard
       summary: The Equipment Catalog endpoint provides a list of terminals, gateways, and software available for ordering based on the Sales Code supplied in the query string. Use the endpoint to determine the equipment ID of a add-on to be used in a subsequent call to the Create Order endpoint.
       description: |+
@@ -519,7 +519,7 @@ paths:
       tags: 
         - order GET Endpoint Definition
       x-group-name: CoPilot
-      x-proxy-name: order 
+      x-proxy-name: order  GET
       x-default-example: PaymentCard
       summary: The Equipment Catalog endpoint provides a list of terminals, gateways, and software available for ordering based on the Sales Code supplied in the query string. Use the endpoint to determine the equipment ID of a add-on to be used in a subsequent call to the Create Order endpoint.
       description: |+
@@ -553,8 +553,422 @@ paths:
           content:  
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
+    put:
+      tags: 
+        - order PUT Endpoint Definition
+      x-group-name: CoPilot
+      x-proxy-name: order PUT
+      x-default-example: PaymentCard
+      summary: The Equipment Catalog endpoint provides a list of terminals, gateways, and software available for ordering based on the Sales Code supplied in the query string. Use the endpoint to determine the equipment ID of a add-on to be used in a subsequent call to the Create Order endpoint.
+      description: |+
+        The Equipment Catalog endpoint provides a list of terminals, gateways, and software available for ordering based on the Sales Code supplied in the query string. Use the endpoint to determine the equipment ID of a add-on to be used in a subsequent call to the Create Order endpoint.
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/orderId'
+        - in: header
+          $ref: '#/components/parameters/ContentTypeHeader'
+        - in: header
+          $ref: '#/components/parameters/X-CopilotAPI-Version'
+        - in: header
+          $ref: '#/components/parameters/Authorization'
+      requestBody:
+        required: true
+        content:
+          application/json: 
+            schema:
+              $ref: '#/components/schemas/orderPUTRequest'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/orderPUTResponse'
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /order/list:
+    get:
+      tags: 
+        - order List GET Endpoint Definition
+      x-group-name: CoPilot
+      x-proxy-name: order list GET
+      x-default-example: PaymentCard
+      summary: The Equipment Catalog endpoint provides a list of terminals, gateways, and software available for ordering based on the Sales Code supplied in the query string. Use the endpoint to determine the equipment ID of a add-on to be used in a subsequent call to the Create Order endpoint.
+      description: |+
+        The Equipment Catalog endpoint provides a list of terminals, gateways, and software available for ordering based on the Sales Code supplied in the query string. Use the endpoint to determine the equipment ID of a add-on to be used in a subsequent call to the Create Order endpoint.
+      parameters:
+        - name: merchantId
+          in: query
+          required: true
+          schema:
+            $ref: '#/components/schemas/merchantId'
+        - name: pageSize
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/pageSize'
+        - name: pageNumber
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/pageNumber'
+        - in: header
+          $ref: '#/components/parameters/ContentTypeHeader'
+        - in: header
+          $ref: '#/components/parameters/X-CopilotAPI-Version'
+        - in: header
+          $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/listorderResponse'
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /order/{orderId}/cancel:
+    post:
+      tags: 
+        - order CANCEL Endpoint Definition
+      x-group-name: CoPilot
+      x-proxy-name: order CANCEL
+      x-default-example: PaymentCard
+      summary: The Cancel Order endpoint can be used to cancel any order where the orderStatusCd is NEW. Use the Get Order endpoint to verify an order's current status.
+      description: |+
+        The Cancel Order endpoint can be used to cancel any order where the orderStatusCd is NEW. Use the Get Order endpoint to verify an order's current status.
+      parameters:
+        - name: orderId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/orderId'
+        - in: header
+          $ref: '#/components/parameters/ContentTypeHeader'
+        - in: header
+          $ref: '#/components/parameters/X-CopilotAPI-Version'
+        - in: header
+          $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/orderCANCELResponse'
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /merchant/{merchantId}/customfields:
+    put:
+      tags: 
+        - customFields Update Endpoint Definition
+      x-group-name: CoPilot
+      x-proxy-name: customFields Update
+      x-default-example: PaymentCard
+      summary: Use the PUT method to update the custom field values for a merchant, if custom fields are already configured for your merchant via the CoPiot web interface. If unsure, you can use the GET method to view the currently configured custom fields for your partner account. Custom fields that are enabled and required need to be provided before the account can be submitted for digital signature.
+      description: |+
+        Custom fields can be enabled for your partner account to include additional merchant data, such as associated account numbers, the account's regional area, or any other type of data that you wish to notate.
+
+        You can use the PUT or GET methods to update the custom field values for a merchant, or view the current custom fields configured and the current merchant values. If you need to enable a field, disable it, or change whether the field is required, access the CoPilot web interface to make these changes to your partner account.
+      
+        Use the PUT method to update the custom field values for a merchant, if custom fields are already configured for your merchant via the CoPiot web interface. If unsure, you can use the GET method to view the currently configured custom fields for your partner account. Custom fields that are enabled and required need to be provided before the account can be submitted for digital signature.
+      parameters:
+        - name: merchantId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/merchantId'
+        - in: header
+          $ref: '#/components/parameters/ContentTypeHeader'
+        - in: header
+          $ref: '#/components/parameters/X-CopilotAPI-Version'
+        - in: header
+          $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/orderCANCELResponse'
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+    get:
+      tags: 
+        - customFields GET Endpoint Definition
+      x-group-name: CoPilot
+      x-proxy-name: customFields GET
+      x-default-example: PaymentCard
+      summary: Use the GET method to retrieve the list of custom fields configured for your partner account, the custom fields you have set as required for new merchants, as well as the values currently set for the merchant.
+      description: |+
+        Custom fields can be enabled for your partner account to include additional merchant data, such as associated account numbers, the account's regional area, or any other type of data that you wish to notate.
+
+        You can use the PUT or GET methods to update the custom field values for a merchant, or view the current custom fields configured and the current merchant values. If you need to enable a field, disable it, or change whether the field is required, access the CoPilot web interface to make these changes to your partner account.
+      
+        Use the GET method to retrieve the list of custom fields configured for your partner account, the custom fields you have set as required for new merchants, as well as the values currently set for the merchant.
+      parameters:
+        - name: merchantId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/merchantId'
+        - in: header
+          $ref: '#/components/parameters/ContentTypeHeader'
+        - in: header
+          $ref: '#/components/parameters/X-CopilotAPI-Version'
+        - in: header
+          $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/customFieldsGETResponse'
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /merchant/{merchantId}/ownerSiteUser:
+    put:
+      tags: 
+        - ownerSiteUser PUT Endpoint Definition
+      x-group-name: CoPilot
+      x-proxy-name: ownerSiteUser PUT Update
+      x-default-example: PaymentCard
+      summary: If the owner has not already registered a CardPointe account with the email address currently specified in the ownerSiteUser object, use the PUT method to update these values. If the owner has already completed the CardPointe user registration process, they must log in to CardPointe in order to update this information.
+      description: |+
+        Owner Site User data is used to create a CardPointe account for the owner when the merchant account is submitted for digital signing. If no ownerSiteUser object was provided when creating a merchant account, the fields are populated using data from the merchant.ownership.owner object. You can use the PUT method to update this data or the GET method to view the current values.
+
+        Ensure this information is accurate as the owner uses this account to review and sign the digital application. This CardPointe user account also provides the owner access to the CardPointe Web App to view the status of their application, manage account settings, and later view CardPointe Gateway transactions and reports once boarded to the Gateway.
+        
+        If the owner has not already registered a CardPointe account with the email address currently specified in the ownerSiteUser object, use the PUT method to update these values. If the owner has already completed the CardPointe user registration process, they must log in to CardPointe in order to update this information.
+      parameters:
+        - name: merchantId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/merchantId'
+        - in: header
+          $ref: '#/components/parameters/ContentTypeHeader'
+        - in: header
+          $ref: '#/components/parameters/X-CopilotAPI-Version'
+        - in: header
+          $ref: '#/components/parameters/Authorization'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ownerSiteUserUpdateRequest'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/ownerSiteUserUpdateResponse'
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+    get:
+      tags: 
+        - ownerSiteUser GET Endpoint Definition
+      x-group-name: CoPilot
+      x-proxy-name: ownerSiteUser GET
+      x-default-example: PaymentCard
+      summary: Use the GET method to retrieve the current owner site user data for an account.
+      description: |+
+       Owner Site User data is used to create a CardPointe account for the owner when the merchant account is submitted for digital signing. If no ownerSiteUser object was provided when creating a merchant account, the fields are populated using data from the merchant.ownership.owner object. You can use the PUT method to update this data or the GET method to view the current values.
+
+        Ensure this information is accurate as the owner uses this account to review and sign the digital application. This CardPointe user account also provides the owner access to the CardPointe Web App to view the status of their application, manage account settings, and later view CardPointe Gateway transactions and reports once boarded to the Gateway.
+      
+        Use the GET method to retrieve the current owner site user data for an account.
+      parameters:
+        - name: merchantId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/merchantId'
+        - in: header
+          $ref: '#/components/parameters/ContentTypeHeader'
+        - in: header
+          $ref: '#/components/parameters/X-CopilotAPI-Version'
+        - in: header
+          $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/ownerSiteUserGETResponse'
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
 components:
   schemas:
+    ownerSiteUserGETResponse:
+      x-model-version: 1.0
+      description: ownerSiteUser GET Request
+      properties:
+        ownerSiteUser:
+          $ref: '#/components/schemas/ownerSiteUser'
+        errors:
+          $ref: '#/components/schemas/errors'
+    ownerSiteUserUpdateRequest:
+      x-model-version: 1.0
+      description: ownerSiteUser UPDATE Request
+      properties:
+        ownerSiteUser:
+          $ref: '#/components/schemas/ownerSiteUser'
+    ownerSiteUserUpdateResponse:
+      x-model-version: 1.0
+      description: ownerSiteUser UPDATE Request
+      properties:
+        errors:
+          $ref: '#/components/schemas/errors'
+    customFieldsGETResponse:
+      x-model-version: 1.0
+      description: customFields GET Response
+      properties:
+        customFieldLabel: 
+          $ref: '#/components/schemas/customFieldLabel'
+        isRequired: 
+          $ref: '#/components/schemas/isRequired'
+        isActive: 
+          $ref: '#/components/schemas/isActive'
+        userFieldNumber: 
+          $ref: '#/components/schemas/userFieldNumber'
+        customFieldValue: 
+          $ref: '#/components/schemas/customFieldValue'
+      example: 
+        "customFields": [
+        {
+            "customFieldLabel": "Custom Field 1",
+            "isRequired": 0,
+            "isActive": 1,
+            "userFieldNumber": 1,
+            "customFieldValue": "example value 1"
+        },
+        {
+            "customFieldLabel": "Custom Field 2",
+            "isRequired": 1,
+            "isActive": 1,
+            "userFieldNumber": 2,
+            "customFieldValue": "example value 2"
+        }
+    ]
+    customFieldLabel:
+      type: string
+      description: The label for this custom field, set via the CoPilot web interface.
+    isRequired:
+      type: number
+      description: |+
+        When 0, this custom field is configured in the CoPilot web interface as not required.
+
+        When 1, this custom field is configured in the CoPilot web interface as required.
+    isActive:
+      type: number
+      description: |+
+        When 0, this custom field is configured in the CoPilot web interface as not required.
+
+        When 1, this custom field is configured in the CoPilot web interface as required.
+    customFieldsUpdateRequest:
+      x-model-version: 1.0
+      description: order Cancel Response
+      properties:
+        customFields: 
+          $ref: '#/components/schemas/customFields'
+    orderCANCELResponse:
+      x-model-version: 1.0
+      description: order Cancel Response
+      properties:
+        errors:
+          $ref: '#/components/schemas/errors'
+    orderPUTRequest:
+      x-model-version: 1.0
+      description: order PUT Request
+      properties:
+        order:
+          $ref: '#/components/schemas/order'
+    orderPUTResponse:
+      x-model-version: 1.0
+      description: order PUT Response
+      properties: 
+        errors:
+          $ref: '#/components/schemas/errors'
+    listorderResponse:
+      x-model-version: 1.0
+      description: list order Response
+      properties:
+        errors:
+          $ref: '#/components/schemas/errors'
+        rows:
+          $ref: '#/components/schemas/rows'
+        totalServerItemsCount:
+          $ref: '#/components/schemas/totalServerItemsCount'
+        totalDisplayItemsCount:
+          $ref: '#/components/schemas/totalDisplayItemsCount'
+        moreRowsAvailable:
+          $ref: '#/components/schemas/moreRowsAvailable'
+        columnSums:
+          $ref: '#/components/schemas/columnSums'
     orderGETResponse:
       x-model-version: 1.0
       description: order GET Response
@@ -1032,8 +1446,8 @@ components:
       properties:
         merchant:
           $ref: '#/components/schemas/merchant'
-        OwnerSiteUser:
-          $ref: '#/components/schemas/OwnerSiteUser'
+        ownerSiteUser:
+          $ref: '#/components/schemas/ownerSiteUser'
     merchantGetResponse:
       x-model-version: 1.0
       description: merchant Get Response
@@ -1042,8 +1456,8 @@ components:
           $ref: '#/components/schemas/errors'
         merchant:
           $ref: '#/components/schemas/GetResponsemerchant'
-        OwnerSiteUser:
-          $ref: '#/components/schemas/OwnerSiteUser'
+        ownerSiteUser:
+          $ref: '#/components/schemas/ownerSiteUser'
     merchantStatus:
       type: array
       items:
@@ -1257,9 +1671,9 @@ components:
           $ref: '#/components/schemas/templateId'
         merchant:
           $ref: '#/components/schemas/merchant'
-        OwnerSiteUser:
-          $ref: '#/components/schemas/OwnerSiteUser'
-    OwnerSiteUser:
+        ownerSiteUser:
+          $ref: '#/components/schemas/ownerSiteUser'
+    ownerSiteUser:
       type: array
       items:
         properties:
@@ -1269,6 +1683,10 @@ components:
             $ref: '#/components/schemas/lastName'
           email:
             $ref: '#/components/schemas/email'  
+      example:
+          {"firstName": "Forename",
+          "lastName": "Surname",
+          "email": "name@email.com"}
     firstNameSigner:
       type: string
       maxLength: 300
