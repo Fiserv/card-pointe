@@ -21,19 +21,19 @@ The Copilot API is an interface into the CoPilot merchant management platform. Y
 
 The following process outlines the typical workflow for using the CoPilot API to create a merchant account and send the digital application to the owner for review and signing:
 
-**1.** Submit a request to the Token endpoint to obtain a bearer token needed for authentication.
+**1.** Submit a request to the [Token endpoint](../api/?type=post&path=/auth/realms/cardconnect/protocol/openid-connect/token) to obtain a bearer token needed for authentication.
    
-**2.** Submit a `POST` request to the Merchant endpoint to create a new merchant account.
+**2.** Submit a `POST` request to the [Merchant endpoint](../api/?type=post&path=/merchant) to create a new merchant account.
    
 **3.** Store the CoPilot Merchant ID returned in the response, as it is needed in subsequent calls.
    
-**4.** Submit a `PUT` request to the Signature endpoint to receive the link to the digital application.
+**4.** Submit a `PUT` request to the [Signature endpoint](../api/?type=put&path=/merchant/{merchantId}/signature) to receive the link to the digital application.
 
 Provide the digital application URL to the merchant so that they may review and sign the application digitally using their web browser. Once signed, the account then automatically progresses through the remaining underwriting and boarding procedures.
 
 ### Running the API in Postman 
 
-To help you get started with your integration, we have created a Postman Collection that includes templates for all of the requests documented in the CoPilot API. 
+To help you get started with your integration, we have created a Postman Collection that includes templates for all of the requests documented in the [CoPilot API](?path=docs/APIs/CoPilotAPI.md). 
 
 The Postman Collection also includes a sample Environment containing variables for fields that are required in many of the API requests. See [Configuring Your Postman Environment](#configuring-your-postman-environment) below for more information. 
 
@@ -45,7 +45,7 @@ Click the button below to download the CoPilot API Postman collection:
 
 Included with the collection is a Postman Environment containing variables where you can pre-fill fields that are required in many of the API requests. 
 
-As an initial step in configuring your environment variables, enter your authentication credentials in the existing environment variables and send a request to the Token endpoint. The Bearer token returned is automatically stored to the `access-token` environment variable and used to authenticate your subsequent API requests.
+As an initial step in configuring your environment variables, enter your authentication credentials in the existing environment variables and send a request to the [Token endpoint](../api/?type=post&path=/auth/realms/cardconnect/protocol/openid-connect/token). The Bearer token returned is automatically stored to the `access-token` environment variable and used to authenticate your subsequent API requests.
 
 <!-- align: center -->
 ![CoPilot API Environment Auth Fields](../../assets/images/CoPilot_API_Environment_Auth_Fields.png)
@@ -70,9 +70,9 @@ Depending on your needs, you can create applications with varying degrees of mer
 
 ### Creating an Application with Minimal Data 
 
-You might want to provide merchants with an application that requires nearly all fields to be completed by the business owner using the digital application. In this case, you must start by creating an account using the Merchant endpoint with the required business information and contact details.
+You might want to provide merchants with an application that requires nearly all fields to be completed by the business owner using the digital application. In this case, you must start by creating an account using the [Merchant endpoint](../api/?type=post&path=/merchant) with the required business information and contact details.
 
-You can then request the digital application link using the Signature endpoint and supply this URL to the owner to complete and sign the reminder of the digital application using their web browser. Using the digital application link, the owner can add additional owners, input their bank account details, processing volume, select the applicable Merchant Category Code (MCC), and other details needed to submit the application for underwriting and boarding.
+You can then request the digital application link using the [Signature endpoint](../api/?type=get&path=/merchant/{merchantId}/signature) and supply this URL to the owner to complete and sign the reminder of the digital application using their web browser. Using the digital application link, the owner can add additional owners, input their bank account details, processing volume, select the applicable Merchant Category Code (MCC), and other details needed to submit the application for underwriting and boarding.
 
 The example below illustrates the minimum amount of data needed to create an account and generate the link to the digital signature:
 
@@ -284,8 +284,8 @@ titles: Example: Merchant Create Request Using a Template and Merchant Business 
 
 You can set values for fields that are not pre-configured in the Application Template, or override any value set by the Application Template during merchant creation:
 
-- To set or override default values from the Application Template **during** merchant creation, include the values in your **POST** request to the Merchant endpoint.
-- To set or override default values from the Application Template **after** the merchant account is created, but prior to generating the digital application link, include the values in a **PUT** request to the Merchant endpoint. Remember to specify the applicable `merchantId` in the endpoint path as outlined in the API documentation.
+- To set or override default values from the Application Template **during** merchant creation, include the values in your **POST** request to the [Merchant endpoint](../api/?type=post&path=/merchant).
+- To set or override default values from the Application Template **after** the merchant account is created, but prior to generating the digital application link, include the values in a **PUT** request to the [Merchant endpoint](../api/?type=put&path=/merchant/{merchantId}). Remember to specify the applicable `merchantId` in the endpoint path as outlined in the API documentation.
 
 <!-- theme: danger -->
 > You must include all applicable and required fields of the parent object when supplementing or overriding data from the Application Template. For example, if adding or overriding the `earlyCancelFee` in your POST or PUT request, include values for all fields of the `fees` parent object. Any fields omitted under the `fees` parent object will be set to `null`, erasing any previous values set.
@@ -294,7 +294,7 @@ You can set values for fields that are not pre-configured in the Application Tem
 
 The digital application that the owner receives includes a section to enter and verify their banking information instantly. When a merchant uses the instant verification method to confirm their banking information, you are not required to provide a voided check from the merchant's deposit and withdrawal accounts.
 
-If the merchant bypasses the instant verification and manually enters their banking information, or if you have already obtained voided checks from the merchant, use the Attachment endpoint to upload a copy of the voided checks. Scan the document and convert the file to a Base64-encoded string required for the `document` field in the request.
+If the merchant bypasses the instant verification and manually enters their banking information, or if you have already obtained voided checks from the merchant, use the [Attachment endpoint](../api/?type=put&path=/merchant/{merchantId}/attachment) to upload a copy of the voided checks. Scan the document and convert the file to a Base64-encoded string required for the `document` field in the request.
 
 The following example illustrates a merchant attachment request used to attach a voided check to an application:
 
@@ -331,7 +331,7 @@ PDwgIC9Sb290IDEgMCBSCiAgICAgIC9TaXplIDUKICA+PgpzdGFydHhyZWYKNTY1CiUlRU9GCg=="
 
 ## Generating the Digital Application Link
 
-Once you have created the new account and supplied all the required fields, use the Signature endpoint to generate the URL that will be used by the owner to complete and sign the digital application. A successful request returns the digital application URL that can be provided to the account owner.
+Once you have created the new account and supplied all the required fields, use the [Signature endpoint](../api/?type=get&path=/merchant/{merchantId}/signature) to generate the URL that will be used by the owner to complete and sign the digital application. A successful request returns the digital application URL that can be provided to the account owner.
 
 If the request is unsuccessful, you should refer to the Errors array returned in the response for additional details.
 
@@ -340,7 +340,7 @@ If the request is unsuccessful, you should refer to the Errors array returned in
 
 ## Tracking an Application
 
-Submit a **GET** request to the Merchant endpoint to view all merchant data, including the `merchantStatus` object where you can find information on the current state of new accounts.
+Submit a **GET** request to the [Merchant endpoint](../api/?type=get&path=/merchant/{merchantId}) to view all merchant data, including the `merchantStatus` object where you can find information on the current state of new accounts.
 
 ### Determining the Account Boarding Status
 
