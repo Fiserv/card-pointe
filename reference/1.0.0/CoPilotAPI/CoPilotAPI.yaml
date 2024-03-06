@@ -36,6 +36,9 @@ info:
 servers:
  - {url: 'DNE', description: Production}
  - {url: 'DNE', description: Sandbox}
+tags:
+  - name: lookup
+    description: ''
 paths:
   /auth/realms/cardconnect/protocol/openid-connect/token:
     post: 
@@ -864,8 +867,9 @@ paths:
   /lookup/amexProgramAssetCodes:
     get:
       tags: 
-        - lookup Endpoint Definition
+        - lookup Amex Program Asset Codes Endpoint Definition
       x-group-name: CoPilot
+      x-product-child-name: lookup
       x-proxy-name: Amex Program Asset Codes
       summary: A GET endpoint call to retrieve all possible Amex access codes.
       description: |+
@@ -897,8 +901,9 @@ paths:
   /lookup/attachmentTypeCodes:
     get:
       tags: 
-        - lookup Endpoint Definition
+        - lookup Attachment Type Codes Endpoint Definition
       x-group-name: CoPilot
+      x-product-child-name: lookup
       x-proxy-name: Attachment Type Codes
       summary: A GET endpoint call to retrieve all possible Attachment Type Codes.
       description: |+
