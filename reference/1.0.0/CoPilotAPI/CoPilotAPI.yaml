@@ -975,6 +975,62 @@ components:
           $ref: '#/components/schemas/bepccode'
         bepcname:
           $ref: "#/components/schemas/bepcname"
+      example: {"backEndPlatformCodes": [
+        {"code": "AMEX","name": "American Express Pltfrm"},{ "code": "PSTR","name": "ProfitStars Pltfrm"
+        },{"code": "MNRS","name": "Moneris Pltfrm"},{"code": "PEXP","name": "Payment Express Pltfrm"},{
+            "code": "WLDP",
+            "name": "Worldpay Pltfrm"
+        },
+        {
+            "code": "PPAL",
+            "name": "PayPal Pltfrm"
+        },
+        {
+            "code": "TSYSB",
+            "name": "TSYS - BE Pltfrm"
+        },
+        {
+            "code": "SVS",
+            "name": "Stored Value Solutions Pltfrm"
+        },
+        {
+            "code": "CPSAB",
+            "name": "CP Salem - BE Pltfrm"
+        },
+        {
+            "code": "VNTV",
+            "name": "Vantiv Pltfrm"
+        },
+        {
+            "code": "FDSOB",
+            "name": "FD South - BE Pltfrm"
+        },
+        {
+            "code": "FDMEB",
+            "name": "FE Memphis - BE Pltfrm"
+        },
+        {
+            "code": "LITL",
+            "name": "Litle Pltfrm"
+        },
+        {
+            "code": "FDNOB",
+            "name": "FD North - BE Pltfrm"
+        },
+        {
+            "code": "FDOMB",
+            "name": "FD Omaha - BE Pltfrm"
+        },
+        {
+            "code": "CRDX",
+            "name": "Credorax Pltfrm"
+        },
+        {
+            "code": "CPTAB",
+            "name": "CP Tampa - BE Pltfrm"
+        },
+        {"code": "GBLP","name": "Global Payment Pltfrm"},  {"code": "ELVN",
+            "name": "Elavon Pltfrm"}]}
     bepccode:
       type: string
       description: Back End Platform Code
