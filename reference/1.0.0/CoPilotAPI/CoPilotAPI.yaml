@@ -861,8 +861,99 @@ paths:
           content:  
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
+  /lookup/amexProgramAssetCodes:
+    get:
+      tags: 
+        - lookup Endpoint Definition
+      x-group-name: CoPilot
+      x-proxy-name: Amex Program Asset Codes
+      summary: A GET endpoint call to retrieve all possible Amex access codes.
+      description: |+
+       A GET endpoint call to retrieve all possible Amex access codes.
+      parameters:
+        - in: header
+          $ref: '#/components/parameters/ContentTypeHeader'
+        - in: header
+          $ref: '#/components/parameters/X-CopilotAPI-Version'
+        - in: header
+          $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/amexAccessCodesResponse'
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /lookup/attachmentTypeCodes:
+    get:
+      tags: 
+        - lookup Endpoint Definition
+      x-group-name: CoPilot
+      x-proxy-name: Attachment Type Codes
+      summary: A GET endpoint call to retrieve all possible Attachment Type Codes.
+      description: |+
+       A GET endpoint call to retrieve all possible Attachment Type Codes.
+      parameters:
+        - in: header
+          $ref: '#/components/parameters/ContentTypeHeader'
+        - in: header
+          $ref: '#/components/parameters/X-CopilotAPI-Version'
+        - in: header
+          $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/amexAccessCodesResponse'
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
 components:
   schemas:
+    amexAccessCodesResponse:
+      x-model-version: 1.0
+      properties:
+        code:
+          $ref: '#/components/schemas/apacode'
+        name: 
+          $ref: '#/components/schemas/apaname'
+      example: {
+      "amexProgramAssetCodes": [
+        {
+            "code": "OPTBLUE",
+            "name": "American Express(AMEX) OptBlue"
+        },
+        {
+            "code": "ESA",
+            "name": "American Express(AMEX) ESA"
+              }
+          ]
+        }
+    apacode:
+      type: string
+      description: Amex Program Access Code
+    apaname:
+      type: string
+      description: Amex Program Access Code Name
     ownerSiteUserGETResponse:
       x-model-version: 1.0
       description: ownerSiteUser GET Request
