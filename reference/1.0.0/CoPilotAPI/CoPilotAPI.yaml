@@ -932,8 +932,55 @@ paths:
           content:  
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
+  /lookup/backEndPlatformCodes:
+    get:
+      tags: 
+        - lookup Back End Platform Codes Endpoint Definition
+      x-group-name: CoPilot
+      x-product-child-name: lookup
+      x-proxy-name: Back End Platform Codes
+      summary: A GET endpoint call to retrieve all possible Back End Platform Codes.
+      description: |+
+       A GET endpoint call to retrieve all possible Back End Platform Codes.
+      parameters:
+        - in: header
+          $ref: '#/components/parameters/ContentTypeHeader'
+        - in: header
+          $ref: '#/components/parameters/X-CopilotAPI-Version'
+        - in: header
+          $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/backEndPlatformCodesResponse'
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
 components:
   schemas:
+    backEndPlatformCodesResponse:
+      x-model-version: 1.0
+      properties:
+        bepccode:
+          $ref: '#/components/schemas/bepccode'
+        bepcname:
+          $ref: "#/components/schemas/bepcname"
+    bepccode:
+      type: string
+      description: Back End Platform Code
+    bepcname:
+      type: string
+      description: Back End Platform Code Name  
     amexAccessCodesResponse:
       x-model-version: 1.0
       properties:
