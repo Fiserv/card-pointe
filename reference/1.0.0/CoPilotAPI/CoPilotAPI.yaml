@@ -868,7 +868,7 @@ paths:
     get:
       tags: 
         - lookup Amex Program Asset Codes Endpoint Definition
-      x-group-name: CoPilot
+      x-group-name: lookup
       x-product-child-name: lookup
       x-proxy-name: Amex Program Asset Codes
       summary: A GET endpoint call to retrieve all possible Amex access codes.
@@ -902,7 +902,7 @@ paths:
     get:
       tags: 
         - lookup Attachment Type Codes Endpoint Definition
-      x-group-name: CoPilot
+      x-group-name: lookup
       x-product-child-name: lookup
       x-proxy-name: Attachment Type Codes
       summary: A GET endpoint call to retrieve all possible Attachment Type Codes.
@@ -936,7 +936,7 @@ paths:
     get:
       tags: 
         - lookup Back End Platform Codes Endpoint Definition
-      x-group-name: CoPilot
+      x-group-name: lookup
       x-product-child-name: lookup
       x-proxy-name: Back End Platform Codes
       summary: A GET endpoint call to retrieve all possible Back End Platform Codes.
