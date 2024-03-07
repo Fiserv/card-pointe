@@ -867,7 +867,7 @@ paths:
   /lookup/amexProgramAssetCodes:
     get:
       tags: 
-        - lookup Amex Program Asset Codes Endpoint Definition
+        - lookup
       x-group-name: lookup
       x-product-child-name: CoPilot
       x-proxy-name: Amex Program Asset Codes
@@ -901,7 +901,7 @@ paths:
   /lookup/attachmentTypeCodes:
     get:
       tags: 
-        - lookup Attachment Type Codes Endpoint Definition
+        - lookup
       x-group-name: lookup
       x-product-child-name: CoPilot
       x-proxy-name: Attachment Type Codes
@@ -935,7 +935,7 @@ paths:
   /lookup/backEndPlatformCodes:
     get:
       tags: 
-        - lookup Back End Platform Codes Endpoint Definition
+        - lookup
       x-group-name: lookup
       x-product-child-name: CoPilot
       x-proxy-name: Back End Platform Codes
