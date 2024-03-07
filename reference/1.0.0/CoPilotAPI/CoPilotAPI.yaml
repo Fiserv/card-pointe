@@ -867,7 +867,7 @@ paths:
   /lookup/amexProgramAssetCodes:
     get:
       tags: 
-        - lookup
+        - lookup Amex Program Asset Codes Endpoint Definition
       x-group-name: lookup
       x-product-child-name: CoPilot
       x-proxy-name: Amex Program Asset Codes
@@ -901,7 +901,7 @@ paths:
   /lookup/attachmentTypeCodes:
     get:
       tags: 
-        - lookup
+        - lookup Attachment Type Codes Endpoint Definition
       x-group-name: lookup
       x-product-child-name: CoPilot
       x-proxy-name: Attachment Type Codes
@@ -935,7 +935,7 @@ paths:
   /lookup/backEndPlatformCodes:
     get:
       tags: 
-        - lookup
+        - lookup Back End Platform Codes Endpoint Definition
       x-group-name: lookup
       x-product-child-name: CoPilot
       x-proxy-name: Back End Platform Codes
@@ -966,15 +966,107 @@ paths:
           content:  
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
+  /lookup/bankAcctTypes:
+    get:
+      tags: 
+        - lookup Bank Account Types Endpoint Definition
+      x-group-name: lookup
+      x-product-child-name: CoPilot
+      x-proxy-name: Bank Account Types
+      summary: A GET endpoint call to retrieve all possible Bank Account Types.
+      description: |+
+       A GET endpoint call to retrieve all possible Bank Account Types.
+      parameters:
+        - in: header
+          $ref: '#/components/parameters/ContentTypeHeader'
+        - in: header
+          $ref: '#/components/parameters/X-CopilotAPI-Version'
+        - in: header
+          $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/bankAcctTypesResponse'
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /lookup/billToCodes:
+    get:
+      tags: 
+        - lookup Bill To Codes Endpoint Definition
+      x-group-name: lookup
+      x-product-child-name: CoPilot
+      x-proxy-name: Bill To Codes
+      summary: A GET endpoint call to retrieve all possible Bill To Codes.
+      description: |+
+       A GET endpoint call to retrieve all possible Bill To Codes.
+      parameters:
+        - in: header
+          $ref: '#/components/parameters/ContentTypeHeader'
+        - in: header
+          $ref: '#/components/parameters/X-CopilotAPI-Version'
+        - in: header
+          $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/bankAcctTypesResponse'
+              example: {"billToCodes": [{ "code": "PARTNER",  "name": "Partner Residuals" },{       "code": "PARTNERCC","name": "Partner Credit Card"}, {"code": "CUST","name": "Customer"}]}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
 components:
   schemas:
+    bankAcctTypesResponse:
+      x-model-version: 1.0
+      properties:
+        code:
+          $ref: '#/components/schemas/lcode'
+        name: 
+          $ref: '#/components/schemas/lname'
+      example: {
+    "bankAcctTypes": [
+        {
+            "code": "BIZ",
+            "name": "Business Checking"
+        },
+        {
+            "code": "GL",
+            "name": "General Ledger"
+        },
+        {
+            "code": "SAVINGS",
+            "name": "Savings"
+        }
+    ]
+}
     backEndPlatformCodesResponse:
       x-model-version: 1.0
       properties:
-        bepccode:
-          $ref: '#/components/schemas/bepccode'
+        lcode:
+          $ref: '#/components/schemas/lcode'
         bepcname:
-          $ref: "#/components/schemas/bepcname"
+          $ref: "#/components/schemas/lname"
       example: {"backEndPlatformCodes": [
         {"code": "AMEX","name": "American Express Pltfrm"},{ "code": "PSTR","name": "ProfitStars Pltfrm"
         },{"code": "MNRS","name": "Moneris Pltfrm"},{"code": "PEXP","name": "Payment Express Pltfrm"},{
@@ -1031,19 +1123,13 @@ components:
         },
         {"code": "GBLP","name": "Global Payment Pltfrm"},  {"code": "ELVN",
             "name": "Elavon Pltfrm"}]}
-    bepccode:
-      type: string
-      description: Back End Platform Code
-    bepcname:
-      type: string
-      description: Back End Platform Code Name  
     amexAccessCodesResponse:
       x-model-version: 1.0
       properties:
         code:
-          $ref: '#/components/schemas/apacode'
+          $ref: '#/components/schemas/lcode'
         name: 
-          $ref: '#/components/schemas/apaname'
+          $ref: '#/components/schemas/lname'
       example: {
       "amexProgramAssetCodes": [
         {
@@ -1056,12 +1142,12 @@ components:
               }
           ]
         }
-    apacode:
+    lcode:
       type: string
-      description: Amex Program Access Code
-    apaname:
+      description: The associated code
+    lname:
       type: string
-      description: Amex Program Access Code Name
+      description: The code name
     ownerSiteUserGETResponse:
       x-model-version: 1.0
       description: ownerSiteUser GET Request
