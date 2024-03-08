@@ -299,7 +299,7 @@ paths:
       tags:
         - signature GET Status Endpoint Definition
       x-group-name: CoPilot
-      x-proxy-name: siganture (GET)
+      x-proxy-name: signature (GET)
       x-default-example: PaymentCard
       summary: Use the Merchant Status endpoint to retrieve the account boarding and gateway boarding status, as well as the date and time that the account transitioned to a new status. Use the GET request to view the current status of an application that has been submitted to the merchant for signing.
       description: |+
@@ -337,7 +337,7 @@ paths:
       tags:
         - signature DELETE Retract Endpoint Definition
       x-group-name: CoPilot
-      x-proxy-name: siganture (DELETE)
+      x-proxy-name: signature (DELETE)
       x-default-example: PaymentCard
       summary: Use the DELETE method to disable the URL that is used by the owner to review and sign the digital application. This reverts the merchant's status to the INPROG state, allowing you to make modifications to the account data.
       description: |+
