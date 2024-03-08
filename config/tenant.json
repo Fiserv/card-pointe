@@ -15,7 +15,8 @@
           "CardSecureAPI/CardSecureAPI",
           "CardPointeIntegratedTerminalAPI/CardPointeIntegratedTerminalAPI",
           "CardPointeGatewayAPI/CardPointeGatewayAPI",
-          "CoPilotAPI/CoPilotAPI"
+          "CoPilotAPI/CoPilotAPI",
+          "CoPilotAPI/CoPilotAPI/lookup"
         ]
       }
   ],
