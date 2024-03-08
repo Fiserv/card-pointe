@@ -869,7 +869,7 @@ paths:
       tags: 
         - lookup
       x-group-name: lookup
-      x-child-product-name: lookup
+      x-child-product-name: CoPilot
       operationId: amexProgramAssetCodes
       x-proxy-name: Amex Program Asset Codes
       summary: A GET endpoint call to retrieve all possible Amex access codes.
@@ -904,7 +904,7 @@ paths:
       tags: 
         - lookup
       x-group-name: lookup
-      x-child-product-name: lookup
+      x-child-product-name: CoPilot
       operationId: attachmentTypeCodes
       x-proxy-name: Attachment Type Codes
       summary: A GET endpoint call to retrieve all possible Attachment Type Codes.
@@ -939,7 +939,7 @@ paths:
       tags: 
         - lookup
       x-group-name: lookup
-      x-child-product-name: lookup
+      x-child-product-name: CoPilot
       operationId: backEndPlatformCodes
       x-proxy-name: Back End Platform Codes
       summary: A GET endpoint call to retrieve all possible Back End Platform Codes.
@@ -974,7 +974,7 @@ paths:
       tags: 
         - lookup
       x-group-name: lookup
-      x-child-product-name: lookup
+      x-child-product-name: CoPilot
       x-proxy-name: Bank Account Types
       operationId: bankAcctTypes
       summary: A GET endpoint call to retrieve all possible Bank Account Types.
@@ -1009,7 +1009,7 @@ paths:
       tags: 
         - lookup
       x-group-name: lookup
-      x-child-product-name: lookup
+      x-child-product-name: CoPilot
       x-proxy-name: Bill To Codes
       operationId: billToCodes
       summary: A GET endpoint call to retrieve all possible Bill To Codes.
@@ -1045,7 +1045,7 @@ paths:
       tags: 
         - lookup
       x-group-name: lookup
-      x-child-product-name: lookup
+      x-child-product-name: CoPilot
       x-proxy-name: Bill To Detail Codes
       operationId: billToDetailCodes
       summary: A GET endpoint call to retrieve all possible Bill To Detail Codes.
