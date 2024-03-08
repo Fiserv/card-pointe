@@ -1046,11 +1046,11 @@ paths:
         - lookup
       x-group-name: lookup
       x-child-product-name: lookup
-      x-proxy-name: Bill To Details
+      x-proxy-name: Bill To Detail Codes
       operationId: billToDetailCodes
-      summary: A GET endpoint call to retrieve all possible Bill To Details.
+      summary: A GET endpoint call to retrieve all possible Bill To Detail Codes.
       description: |+
-       A GET endpoint call to retrieve all possible Bill To Details.
+       A GET endpoint call to retrieve all possible Bill To Detail Codes.
       parameters:
         - in: header
           $ref: '#/components/parameters/ContentTypeHeader'
