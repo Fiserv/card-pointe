@@ -39,12 +39,15 @@ servers:
 tags:
   - name: lookup
     description: ''
+  - name: fields
+    description: ''
 paths:
   /auth/realms/cardconnect/protocol/openid-connect/token:
     post: 
-      tags:
-        - token Endpoint Definition
-      x-group-name: CoPilot
+      tags: 
+        - fields
+      x-group-name: fields
+      x-child-product-name: CoPilot
       x-proxy-name: token
       x-default-example: PaymentCard
       summary: To authenticate any request to the CoPilot API, you must first request an access token using the Token endpoint. The Token endpoint requires CoPilot user account credentials, and returns the access token you will use to make API requests during a session.
@@ -89,9 +92,10 @@ paths:
 
   /merchant:
     post: 
-      tags:
-        - merchant CREATE Endpoint Definition
-      x-group-name: CoPilot
+      tags: 
+        - fields
+      x-group-name: fields
+      x-child-product-name: CoPilot
       x-proxy-name: merchant (CREATE)
       x-default-example: PaymentCard
       summary: The Merchant endpoint is used primarily to create a new merchant account in CoPilot, using a pre-existing application template that has been created in the CoPilot web interface.
@@ -138,9 +142,10 @@ paths:
 
   /merchant/{merchantId}:
     get: 
-      tags:
-        - merchant GET Data Endpoint Definition
-      x-group-name: CoPilot
+      tags: 
+        - fields
+      x-group-name: fields
+      x-child-product-name: CoPilot
       x-proxy-name: merchant (GET Data)
       x-default-example: PaymentCard
       summary: The Merchant endpoint is used primarily to create a new merchant account in CoPilot, using a pre-existing application template that has been created in the CoPilot web interface. Use this GET method to retrieve all merchant account data, such as contact and owner information, business details, processing information, pricing, and fees.
@@ -178,9 +183,10 @@ paths:
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
     put:
-      tags:
-        - merchant PUT Update Endpoint Definition
-      x-group-name: CoPilot
+      tags: 
+        - fields
+      x-group-name: fields
+      x-child-product-name: CoPilot
       x-proxy-name: merchant (PUT)
       x-default-example: PaymentCard
       summary: The Merchant endpoint is used primarily to create a new merchant account in CoPilot, using a pre-existing application template that has been created in the CoPilot web interface. Once a merchant account has been created, use the PUT method to update any account data prior to submitting for digital signing by the merchant.
@@ -223,9 +229,10 @@ paths:
               schema: {$ref: '#/components/schemas/BadRequestError'}
   /merchant/{merchantId}/status:
     get: 
-      tags:
-        - merchant GET Status Endpoint Definition
-      x-group-name: CoPilot
+      tags: 
+        - fields
+      x-group-name: fields
+      x-child-product-name: CoPilot
       x-proxy-name: merchant (GET Status)
       x-default-example: PaymentCard
       summary: Use the Merchant Status endpoint to retrieve the account boarding and gateway boarding status, as well as the date and time that the account transitioned to a new status.
@@ -258,9 +265,10 @@ paths:
               schema: {$ref: '#/components/schemas/BadRequestError'}
   /merchant/{merchantId}/signature:
     put: 
-      tags:
-        - signature PUT Endpoint Definition
-      x-group-name: CoPilot
+      tags: 
+        - fields
+      x-group-name: fields
+      x-child-product-name: CoPilot
       x-proxy-name: signature (PUT)
       x-default-example: PaymentCard
       summary: Use the PUT request when you are ready to submit the application for the merchant to review and sign. If successful, the response returns a unique URL that can be provided to the owner to review and sign the application digitally.
@@ -296,9 +304,10 @@ paths:
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
     get: 
-      tags:
-        - signature GET Status Endpoint Definition
-      x-group-name: CoPilot
+      tags: 
+        - fields
+      x-group-name: fields
+      x-child-product-name: CoPilot
       x-proxy-name: signature (GET)
       x-default-example: PaymentCard
       summary: Use the Merchant Status endpoint to retrieve the account boarding and gateway boarding status, as well as the date and time that the account transitioned to a new status. Use the GET request to view the current status of an application that has been submitted to the merchant for signing.
@@ -334,9 +343,10 @@ paths:
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
     delete: 
-      tags:
-        - signature DELETE Retract Endpoint Definition
-      x-group-name: CoPilot
+      tags: 
+        - fields
+      x-group-name: fields
+      x-child-product-name: CoPilot
       x-proxy-name: signature (DELETE)
       x-default-example: PaymentCard
       summary: Use the DELETE method to disable the URL that is used by the owner to review and sign the digital application. This reverts the merchant's status to the INPROG state, allowing you to make modifications to the account data.
@@ -377,9 +387,10 @@ paths:
               schema: {$ref: '#/components/schemas/BadRequestError'}
   /merchant/{merchantId}/attachment:
     put:
-      tags:
-        - atachment PUT Endpoint Definition
-      x-group-name: CoPilot
+      tags: 
+        - fields
+      x-group-name: fields
+      x-child-product-name: CoPilot
       x-proxy-name: attachment 
       x-default-example: PaymentCard
       summary: The Attachment endpoint allows you to upload documents that may be required before the account can be boarded, such as hard copies of agreements that have been completed and signed by the merchant, or a copy of a voided check. Refer to the Attachment Type Codes to view the various agreements, forms, and documents that can be attached to a merchant account.
@@ -423,8 +434,9 @@ paths:
   /equipmentCatalog/list:
     get:
       tags: 
-        - equipmentCatalog Endpoint Definition
-      x-group-name: CoPilot
+        - fields
+      x-group-name: fields
+      x-child-product-name: CoPilot
       x-proxy-name: equipmentCatalog 
       x-default-example: PaymentCard
       summary: The Equipment Catalog endpoint provides a list of terminals, gateways, and software available for ordering based on the Sales Code supplied in the query string. Use the endpoint to determine the equipment ID of a add-on to be used in a subsequent call to the Create Order endpoint.
@@ -483,8 +495,9 @@ paths:
   /order:
     post:
       tags: 
-        - order POST Endpoint Definition
-      x-group-name: CoPilot
+        - fields
+      x-group-name: fields
+      x-child-product-name: CoPilot
       x-proxy-name: order POST
       x-default-example: PaymentCard
       summary: The Equipment Catalog endpoint provides a list of terminals, gateways, and software available for ordering based on the Sales Code supplied in the query string. Use the endpoint to determine the equipment ID of a add-on to be used in a subsequent call to the Create Order endpoint.
@@ -520,8 +533,9 @@ paths:
   /order/{orderId}:
     get:
       tags: 
-        - order GET Endpoint Definition
-      x-group-name: CoPilot
+        - fields
+      x-group-name: fields
+      x-child-product-name: CoPilot
       x-proxy-name: order  GET
       x-default-example: PaymentCard
       summary: The Equipment Catalog endpoint provides a list of terminals, gateways, and software available for ordering based on the Sales Code supplied in the query string. Use the endpoint to determine the equipment ID of a add-on to be used in a subsequent call to the Create Order endpoint.
@@ -558,8 +572,9 @@ paths:
               schema: {$ref: '#/components/schemas/BadRequestError'}
     put:
       tags: 
-        - order PUT Endpoint Definition
-      x-group-name: CoPilot
+        - fields
+      x-group-name: fields
+      x-child-product-name: CoPilot
       x-proxy-name: order PUT
       x-default-example: PaymentCard
       summary: The Equipment Catalog endpoint provides a list of terminals, gateways, and software available for ordering based on the Sales Code supplied in the query string. Use the endpoint to determine the equipment ID of a add-on to be used in a subsequent call to the Create Order endpoint.
@@ -603,9 +618,10 @@ paths:
   /order/list:
     get:
       tags: 
-        - order List GET Endpoint Definition
-      x-group-name: CoPilot
-      x-proxy-name: order list GET
+        - fields
+      x-group-name: fields
+      x-child-product-name: CoPilot
+      x-proxy-name: orderlist GET
       x-default-example: PaymentCard
       summary: The Equipment Catalog endpoint provides a list of terminals, gateways, and software available for ordering based on the Sales Code supplied in the query string. Use the endpoint to determine the equipment ID of a add-on to be used in a subsequent call to the Create Order endpoint.
       description: |+
@@ -652,8 +668,9 @@ paths:
   /order/{orderId}/cancel:
     post:
       tags: 
-        - order CANCEL Endpoint Definition
-      x-group-name: CoPilot
+        - fields
+      x-group-name: fields
+      x-child-product-name: CoPilot
       x-proxy-name: order CANCEL
       x-default-example: PaymentCard
       summary: The Cancel Order endpoint can be used to cancel any order where the orderStatusCd is NEW. Use the Get Order endpoint to verify an order's current status.
@@ -691,8 +708,9 @@ paths:
   /merchant/{merchantId}/customfields:
     put:
       tags: 
-        - customFields Update Endpoint Definition
-      x-group-name: CoPilot
+        - fields
+      x-group-name: fields
+      x-child-product-name: CoPilot
       x-proxy-name: customFields Update
       x-default-example: PaymentCard
       summary: Use the PUT method to update the custom field values for a merchant, if custom fields are already configured for your merchant via the CoPiot web interface. If unsure, you can use the GET method to view the currently configured custom fields for your partner account. Custom fields that are enabled and required need to be provided before the account can be submitted for digital signature.
@@ -733,8 +751,9 @@ paths:
               schema: {$ref: '#/components/schemas/BadRequestError'}
     get:
       tags: 
-        - customFields GET Endpoint Definition
-      x-group-name: CoPilot
+        - fields
+      x-group-name: fields
+      x-child-product-name: CoPilot
       x-proxy-name: customFields GET
       x-default-example: PaymentCard
       summary: Use the GET method to retrieve the list of custom fields configured for your partner account, the custom fields you have set as required for new merchants, as well as the values currently set for the merchant.
@@ -776,8 +795,9 @@ paths:
   /merchant/{merchantId}/ownerSiteUser:
     put:
       tags: 
-        - ownerSiteUser PUT Endpoint Definition
-      x-group-name: CoPilot
+        - fields
+      x-group-name: fields
+      x-child-product-name: CoPilot
       x-proxy-name: ownerSiteUser PUT Update
       x-default-example: PaymentCard
       summary: If the owner has not already registered a CardPointe account with the email address currently specified in the ownerSiteUser object, use the PUT method to update these values. If the owner has already completed the CardPointe user registration process, they must log in to CardPointe in order to update this information.
@@ -824,8 +844,9 @@ paths:
               schema: {$ref: '#/components/schemas/BadRequestError'}
     get:
       tags: 
-        - ownerSiteUser GET Endpoint Definition
-      x-group-name: CoPilot
+        - fields
+      x-group-name: fields
+      x-child-product-name: CoPilot
       x-proxy-name: ownerSiteUser GET
       x-default-example: PaymentCard
       summary: Use the GET method to retrieve the current owner site user data for an account.
@@ -1066,6 +1087,42 @@ paths:
               schema: 
                 $ref: '#/components/schemas/bankAcctTypesResponse'
               example: {"billToDetailCodes": [{"code": "CC", "name": "CardConnect"}, { "code": "INTSALE", "name": "Internal Sale"},{"code": "SWAP","name": "Swap"}, {"code": "NEXTECH","name": "NexTech"},{"code": "PO", "name": "Purchase Order"}]}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /lookup/billingFrequencyCodes:
+    get:
+      tags: 
+        - lookup
+      x-group-name: lookup
+      x-child-product-name: CoPilot
+      x-proxy-name: Billing Frequency Codes
+      operationId: billingFrequencyCodes
+      summary: A GET endpoint call to retrieve all possible Billing Frequency Codes.
+      description: |+
+       A GET endpoint call to retrieve all possible Billing Frequency Codes.
+      parameters:
+        - in: header
+          $ref: '#/components/parameters/ContentTypeHeader'
+        - in: header
+          $ref: '#/components/parameters/X-CopilotAPI-Version'
+        - in: header
+          $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/bankAcctTypesResponse'
+              example: {"billingFequencyCodes": [ { "code": "ONETIME","name": "One Time"},{          "code": "MONTHLY", "name": "Monthly" }  ]}
         400:
           description: Not Found
           content:
