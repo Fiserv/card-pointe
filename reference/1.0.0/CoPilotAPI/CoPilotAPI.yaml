@@ -39,14 +39,14 @@ servers:
 tags:
   - name: lookup
     description: ''
-  - name: fields
+  - name: Endpoints
     description: ''
 paths:
   /auth/realms/cardconnect/protocol/openid-connect/token:
     post: 
       tags: 
-        - fields
-      x-group-name: fields
+        - Endpoints
+      x-group-name: Endpoints
       x-child-product-name: CoPilot
       x-proxy-name: token
       x-default-example: PaymentCard
@@ -93,8 +93,8 @@ paths:
   /merchant:
     post: 
       tags: 
-        - fields
-      x-group-name: fields
+        - Endpoints
+      x-group-name: Endpoints
       x-child-product-name: CoPilot
       x-proxy-name: merchant (CREATE)
       x-default-example: PaymentCard
@@ -143,8 +143,8 @@ paths:
   /merchant/{merchantId}:
     get: 
       tags: 
-        - fields
-      x-group-name: fields
+        - Endpoints
+      x-group-name: Endpoints
       x-child-product-name: CoPilot
       x-proxy-name: merchant (GET Data)
       x-default-example: PaymentCard
@@ -184,8 +184,8 @@ paths:
               schema: {$ref: '#/components/schemas/BadRequestError'}
     put:
       tags: 
-        - fields
-      x-group-name: fields
+        - Endpoints
+      x-group-name: Endpoints
       x-child-product-name: CoPilot
       x-proxy-name: merchant (PUT)
       x-default-example: PaymentCard
@@ -230,8 +230,8 @@ paths:
   /merchant/{merchantId}/status:
     get: 
       tags: 
-        - fields
-      x-group-name: fields
+        - Endpoints
+      x-group-name: Endpoints
       x-child-product-name: CoPilot
       x-proxy-name: merchant (GET Status)
       x-default-example: PaymentCard
@@ -266,8 +266,8 @@ paths:
   /merchant/{merchantId}/signature:
     put: 
       tags: 
-        - fields
-      x-group-name: fields
+        - Endpoints
+      x-group-name: Endpoints
       x-child-product-name: CoPilot
       x-proxy-name: signature (PUT)
       x-default-example: PaymentCard
@@ -305,8 +305,8 @@ paths:
               schema: {$ref: '#/components/schemas/BadRequestError'}
     get: 
       tags: 
-        - fields
-      x-group-name: fields
+        - Endpoints
+      x-group-name: Endpoints
       x-child-product-name: CoPilot
       x-proxy-name: signature (GET)
       x-default-example: PaymentCard
@@ -344,8 +344,8 @@ paths:
               schema: {$ref: '#/components/schemas/BadRequestError'}
     delete: 
       tags: 
-        - fields
-      x-group-name: fields
+        - Endpoints
+      x-group-name: Endpoints
       x-child-product-name: CoPilot
       x-proxy-name: signature (DELETE)
       x-default-example: PaymentCard
@@ -388,8 +388,8 @@ paths:
   /merchant/{merchantId}/attachment:
     put:
       tags: 
-        - fields
-      x-group-name: fields
+        - Endpoints
+      x-group-name: Endpoints
       x-child-product-name: CoPilot
       x-proxy-name: attachment 
       x-default-example: PaymentCard
@@ -434,8 +434,8 @@ paths:
   /equipmentCatalog/list:
     get:
       tags: 
-        - fields
-      x-group-name: fields
+        - Endpoints
+      x-group-name: Endpoints
       x-child-product-name: CoPilot
       x-proxy-name: equipmentCatalog 
       x-default-example: PaymentCard
@@ -495,8 +495,8 @@ paths:
   /order:
     post:
       tags: 
-        - fields
-      x-group-name: fields
+        - Endpoints
+      x-group-name: Endpoints
       x-child-product-name: CoPilot
       x-proxy-name: order POST
       x-default-example: PaymentCard
@@ -533,8 +533,8 @@ paths:
   /order/{orderId}:
     get:
       tags: 
-        - fields
-      x-group-name: fields
+        - Endpoints
+      x-group-name: Endpoints
       x-child-product-name: CoPilot
       x-proxy-name: order  GET
       x-default-example: PaymentCard
@@ -572,8 +572,8 @@ paths:
               schema: {$ref: '#/components/schemas/BadRequestError'}
     put:
       tags: 
-        - fields
-      x-group-name: fields
+        - Endpoints
+      x-group-name: Endpoints
       x-child-product-name: CoPilot
       x-proxy-name: order PUT
       x-default-example: PaymentCard
@@ -618,8 +618,8 @@ paths:
   /order/list:
     get:
       tags: 
-        - fields
-      x-group-name: fields
+        - Endpoints
+      x-group-name: Endpoints
       x-child-product-name: CoPilot
       x-proxy-name: orderlist GET
       x-default-example: PaymentCard
@@ -668,8 +668,8 @@ paths:
   /order/{orderId}/cancel:
     post:
       tags: 
-        - fields
-      x-group-name: fields
+        - Endpoints
+      x-group-name: Endpoints
       x-child-product-name: CoPilot
       x-proxy-name: order CANCEL
       x-default-example: PaymentCard
@@ -708,8 +708,8 @@ paths:
   /merchant/{merchantId}/customfields:
     put:
       tags: 
-        - fields
-      x-group-name: fields
+        - Endpoints
+      x-group-name: Endpoints
       x-child-product-name: CoPilot
       x-proxy-name: customFields Update
       x-default-example: PaymentCard
@@ -751,8 +751,8 @@ paths:
               schema: {$ref: '#/components/schemas/BadRequestError'}
     get:
       tags: 
-        - fields
-      x-group-name: fields
+        - Endpoints
+      x-group-name: Endpoints
       x-child-product-name: CoPilot
       x-proxy-name: customFields GET
       x-default-example: PaymentCard
@@ -795,8 +795,8 @@ paths:
   /merchant/{merchantId}/ownerSiteUser:
     put:
       tags: 
-        - fields
-      x-group-name: fields
+        - Endpoints
+      x-group-name: Endpoints
       x-child-product-name: CoPilot
       x-proxy-name: ownerSiteUser PUT Update
       x-default-example: PaymentCard
@@ -844,8 +844,8 @@ paths:
               schema: {$ref: '#/components/schemas/BadRequestError'}
     get:
       tags: 
-        - fields
-      x-group-name: fields
+        - Endpoints
+      x-group-name: Endpoints
       x-child-product-name: CoPilot
       x-proxy-name: ownerSiteUser GET
       x-default-example: PaymentCard
@@ -1050,7 +1050,8 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/bankAcctTypesResponse'
-              example: {"billToCodes": [{ "code": "PARTNER",  "name": "Partner Residuals" },{       "code": "PARTNERCC","name": "Partner Credit Card"}, {"code": "CUST","name": "Customer"}]}
+              example: 
+                "billToCodes": [{ "code": "PARTNER",  "name": "Partner Residuals" },{       "code": "PARTNERCC","name": "Partner Credit Card"}, {"code": "CUST","name": "Customer"}]
         400:
           description: Not Found
           content:
@@ -1086,7 +1087,8 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/bankAcctTypesResponse'
-              example: {"billToDetailCodes": [{"code": "CC", "name": "CardConnect"}, { "code": "INTSALE", "name": "Internal Sale"},{"code": "SWAP","name": "Swap"}, {"code": "NEXTECH","name": "NexTech"},{"code": "PO", "name": "Purchase Order"}]}
+              example: 
+                "billToDetailCodes": [{"code": "CC", "name": "CardConnect"}, { "code": "INTSALE", "name": "Internal Sale"},{"code": "SWAP","name": "Swap"}, {"code": "NEXTECH","name": "NexTech"},{"code": "PO", "name": "Purchase Order"}]
         400:
           description: Not Found
           content:
@@ -1133,6 +1135,1571 @@ paths:
           content:  
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
+  /lookup/cloverSecurityBundleCodes:
+    get:
+      tags: 
+        - lookup
+      x-group-name: lookup
+      x-child-product-name: CoPilot
+      x-proxy-name: Clover Security Bundle Codes
+      operationId: cloverSecurityBundleCodes
+      summary: A GET endpoint call to retrieve all possible Clover Security Bundle Codes.
+      description: |+
+       A GET endpoint call to retrieve all possible Clover Security Bundle Codes.
+      parameters:
+        - in: header
+          $ref: '#/components/parameters/ContentTypeHeader'
+        - in: header
+          $ref: '#/components/parameters/X-CopilotAPI-Version'
+        - in: header
+          $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/bankAcctTypesResponse'
+              example:
+                  "cloverSecurityBundleCodes": [
+                      {
+                          "code": "CSPFB",
+                          "name": "Clover Security Plus - Full Bundle (01)"       
+                      },
+                      {
+                          "code": "PCI",
+                          "name": "PCI Compliance Tool Only (04)"
+                      },
+                      {
+                          "code": "OPTOUT",
+                          "name": "Opt Out (09)"        
+                      },    
+                      {
+                          "code": "TDP",
+                          "name": "TransArmor Data Protection (13)"        
+                      },
+                      {
+                          "code": "TDPPCI",
+                          "name": "Clover Security-TransArmor Data Protection + PCI Compliance Tool (21)"       
+                      }    
+                  ]
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /lookup/countryCodes:
+    get:
+      tags: 
+        - lookup
+      x-group-name: lookup
+      x-child-product-name: CoPilot
+      x-proxy-name: Country Codes
+      operationId: countryCodes
+      summary: A GET endpoint call to retrieve all possible Country Codes.
+      description: |+
+       A GET endpoint call to retrieve all possible Country Codes.
+      parameters:
+        - in: header
+          $ref: '#/components/parameters/ContentTypeHeader'
+        - in: header
+          $ref: '#/components/parameters/X-CopilotAPI-Version'
+        - in: header
+          $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/bankAcctTypesResponse'
+              example:
+                "countryCodes": [
+                    {
+                        "code": "US",
+                        "name": "United States of America"
+                    },
+                    {
+                        "code": "AF",
+                        "name": "Afghanistan"
+                    },
+                    {
+                        "code": "AL",
+                        "name": "Albania"
+                    },
+                    {
+                        "code": "DZ",
+                        "name": "Algeria"
+                    },
+                    {
+                        "code": "AS",
+                        "name": "American Samoa"
+                    },
+                    {
+                        "code": "AD",
+                        "name": "Andorra"
+                    },
+                    {
+                        "code": "AO",
+                        "name": "Angola"
+                    },
+                    {
+                        "code": "AI",
+                        "name": "Anguilla"
+                    },
+                    {
+                        "code": "AQ",
+                        "name": "Antarctica"
+                    },
+                    {
+                        "code": "AG",
+                        "name": "Antigua and Barbuda"
+                    },
+                    {
+                        "code": "AR",
+                        "name": "Argentina"
+                    },
+                    {
+                        "code": "AM",
+                        "name": "Armenia"
+                    },
+                    {
+                        "code": "AW",
+                        "name": "Aruba"
+                    },
+                    {
+                        "code": "AU",
+                        "name": "Australia"
+                    },
+                    {
+                        "code": "AT",
+                        "name": "Austria"
+                    },
+                    {
+                        "code": "AZ",
+                        "name": "Azerbaijan"
+                    },
+                    {
+                        "code": "BS",
+                        "name": "Bahamas"
+                    },
+                    {
+                        "code": "BH",
+                        "name": "Bahrain"
+                    },
+                    {
+                        "code": "BD",
+                        "name": "Bangladesh"
+                    },
+                    {
+                        "code": "BB",
+                        "name": "Barbados"
+                    },
+                    {
+                        "code": "BY",
+                        "name": "Belarus"
+                    },
+                    {
+                        "code": "BE",
+                        "name": "Belgium"
+                    },
+                    {
+                        "code": "BZ",
+                        "name": "Belize"
+                    },
+                    {
+                        "code": "BJ",
+                        "name": "Benin"
+                    },
+                    {
+                        "code": "BM",
+                        "name": "Bermuda"
+                    },
+                    {
+                        "code": "BT",
+                        "name": "Bhutan"
+                    },
+                    {
+                        "code": "BO",
+                        "name": "Bolivia"
+                    },
+                    {
+                        "code": "BQ",
+                        "name": "Bonaire"
+                    },
+                    {
+                        "code": "BA",
+                        "name": "Bosnia and Herzegovina"
+                    },
+                    {
+                        "code": "BW",
+                        "name": "Botswana"
+                    },
+                    {
+                        "code": "BV",
+                        "name": "Bouvet Island"
+                    },
+                    {
+                        "code": "BR",
+                        "name": "Brazil"
+                    },
+                    {
+                        "code": "IO",
+                        "name": "British Indian Ocean Territory"
+                    },
+                    {
+                        "code": "BN",
+                        "name": "Brunei Darussalam"
+                    },
+                    {
+                        "code": "BG",
+                        "name": "Bulgaria"
+                    },
+                    {
+                        "code": "BF",
+                        "name": "Burkina Faso"
+                    },
+                    {
+                        "code": "BI",
+                        "name": "Burundi"
+                    },
+                    {
+                        "code": "CV",
+                        "name": "Cabo Verde"
+                    },
+                    {
+                        "code": "KH",
+                        "name": "Cambodia"
+                    },
+                    {
+                        "code": "CM",
+                        "name": "Cameroon"
+                    },
+                    {
+                        "code": "CA",
+                        "name": "Canada"
+                    },
+                    {
+                        "code": "KY",
+                        "name": "Cayman Islands"
+                    },
+                    {
+                        "code": "CF",
+                        "name": "Central African Republic"
+                    },
+                    {
+                        "code": "TD",
+                        "name": "Chad"
+                    },
+                    {
+                        "code": "CL",
+                        "name": "Chile"
+                    },
+                    {
+                        "code": "CN",
+                        "name": "China"
+                    },
+                    {
+                        "code": "CX",
+                        "name": "Christmas Island"
+                    },
+                    {
+                        "code": "CC",
+                        "name": "Cocos Islands"
+                    },
+                    {
+                        "code": "CO",
+                        "name": "Colombia"
+                    },
+                    {
+                        "code": "KM",
+                        "name": "Comoros"
+                    },
+                    {
+                        "code": "CD",
+                        "name": "Congo"
+                    },
+                    {
+                        "code": "CG",
+                        "name": "Congo"
+                    },
+                    {
+                        "code": "CK",
+                        "name": "Cook Islands"
+                    },
+                    {
+                        "code": "CR",
+                        "name": "Costa Rica"
+                    },
+                    {
+                        "code": "HR",
+                        "name": "Croatia"
+                    },
+                    {
+                        "code": "CU",
+                        "name": "Cuba"
+                    },
+                    {
+                        "code": "CW",
+                        "name": "Curaçao"
+                    },
+                    {
+                        "code": "CY",
+                        "name": "Cyprus"
+                    },
+                    {
+                        "code": "CZ",
+                        "name": "Czech Republic"
+                    },
+                    {
+                        "code": "CI",
+                        "name": "Côte d'Ivoire"
+                    },
+                    {
+                        "code": "DK",
+                        "name": "Denmark"
+                    },
+                    {
+                        "code": "DJ",
+                        "name": "Djibouti"
+                    },
+                    {
+                        "code": "DM",
+                        "name": "Dominica"
+                    },
+                    {
+                        "code": "DO",
+                        "name": "Dominican Republic"
+                    },
+                    {
+                        "code": "EC",
+                        "name": "Ecuador"
+                    },
+                    {
+                        "code": "EG",
+                        "name": "Egypt"
+                    },
+                    {
+                        "code": "SV",
+                        "name": "El Salvador"
+                    },
+                    {
+                        "code": "GQ",
+                        "name": "Equatorial Guinea"
+                    },
+                    {
+                        "code": "ER",
+                        "name": "Eritrea"
+                    },
+                    {
+                        "code": "EE",
+                        "name": "Estonia"
+                    },
+                    {
+                        "code": "ET",
+                        "name": "Ethiopia"
+                    },
+                    {
+                        "code": "FK",
+                        "name": "Falkland Islands"
+                    },
+                    {
+                        "code": "FO",
+                        "name": "Faroe Islands"
+                    },
+                    {
+                        "code": "FJ",
+                        "name": "Fiji"
+                    },
+                    {
+                        "code": "FI",
+                        "name": "Finland"
+                    },
+                    {
+                        "code": "FR",
+                        "name": "France"
+                    },
+                    {
+                        "code": "GF",
+                        "name": "French Guiana"
+                    },
+                    {
+                        "code": "PF",
+                        "name": "French Polynesia"
+                    },
+                    {
+                        "code": "TF",
+                        "name": "French Southern Territories"
+                    },
+                    {
+                        "code": "GA",
+                        "name": "Gabon"
+                    },
+                    {
+                        "code": "GM",
+                        "name": "Gambia"
+                    },
+                    {
+                        "code": "GE",
+                        "name": "Georgia"
+                    },
+                    {
+                        "code": "DE",
+                        "name": "Germany"
+                    },
+                    {
+                        "code": "GH",
+                        "name": "Ghana"
+                    },
+                    {
+                        "code": "GI",
+                        "name": "Gibraltar"
+                    },
+                    {
+                        "code": "GR",
+                        "name": "Greece"
+                    },
+                    {
+                        "code": "GL",
+                        "name": "Greenland"
+                    },
+                    {
+                        "code": "GD",
+                        "name": "Grenada"
+                    },
+                    {
+                        "code": "GP",
+                        "name": "Guadeloupe"
+                    },
+                    {
+                        "code": "GU",
+                        "name": "Guam"
+                    },
+                    {
+                        "code": "GT",
+                        "name": "Guatemala"
+                    },
+                    {
+                        "code": "GG",
+                        "name": "Guernsey"
+                    },
+                    {
+                        "code": "GN",
+                        "name": "Guinea"
+                    },
+                    {
+                        "code": "GW",
+                        "name": "Guinea-Bissau"
+                    },
+                    {
+                        "code": "GY",
+                        "name": "Guyana"
+                    },
+                    {
+                        "code": "HT",
+                        "name": "Haiti"
+                    },
+                    {
+                        "code": "HM",
+                        "name": "Heard and McDonald Islands"
+                    },
+                    {
+                        "code": "VA",
+                        "name": "Holy See"
+                    },
+                    {
+                        "code": "HN",
+                        "name": "Honduras"
+                    },
+                    {
+                        "code": "HK",
+                        "name": "Hong Kong"
+                    },
+                    {
+                        "code": "HU",
+                        "name": "Hungary"
+                    },
+                    {
+                        "code": "IS",
+                        "name": "Iceland"
+                    },
+                    {
+                        "code": "IN",
+                        "name": "India"
+                    },
+                    {
+                        "code": "ID",
+                        "name": "Indonesia"
+                    },
+                    {
+                        "code": "IR",
+                        "name": "Iran"
+                    },
+                    {
+                        "code": "IQ",
+                        "name": "Iraq"
+                    },
+                    {
+                        "code": "IE",
+                        "name": "Ireland"
+                    },
+                    {
+                        "code": "IM",
+                        "name": "Isle of Man"
+                    },
+                    {
+                        "code": "IL",
+                        "name": "Israel"
+                    },
+                    {
+                        "code": "IT",
+                        "name": "Italy"
+                    },
+                    {
+                        "code": "JM",
+                        "name": "Jamaica"
+                    },
+                    {
+                        "code": "JP",
+                        "name": "Japan"
+                    },
+                    {
+                        "code": "JE",
+                        "name": "Jersey"
+                    },
+                    {
+                        "code": "JO",
+                        "name": "Jordan"
+                    },
+                    {
+                        "code": "KZ",
+                        "name": "Kazakhstan"
+                    },
+                    {
+                        "code": "KE",
+                        "name": "Kenya"
+                    },
+                    {
+                        "code": "KI",
+                        "name": "Kiribati"
+                    },
+                    {
+                        "code": "KP",
+                        "name": "Korea (Democratic People's Republic of)"
+                    },
+                    {
+                        "code": "KR",
+                        "name": "Korea (Republic of)"
+                    },
+                    {
+                        "code": "KW",
+                        "name": "Kuwait"
+                    },
+                    {
+                        "code": "KG",
+                        "name": "Kyrgyzstan"
+                    },
+                    {
+                        "code": "LA",
+                        "name": "Lao People's Democratic Republic"
+                    },
+                    {
+                        "code": "LV",
+                        "name": "Latvia"
+                    },
+                    {
+                        "code": "LB",
+                        "name": "Lebanon"
+                    },
+                    {
+                        "code": "LS",
+                        "name": "Lesotho"
+                    },
+                    {
+                        "code": "LR",
+                        "name": "Liberia"
+                    },
+                    {
+                        "code": "LY",
+                        "name": "Libya"
+                    },
+                    {
+                        "code": "LI",
+                        "name": "Liechtenstein"
+                    },
+                    {
+                        "code": "LT",
+                        "name": "Lithuania"
+                    },
+                    {
+                        "code": "LU",
+                        "name": "Luxembourg"
+                    },
+                    {
+                        "code": "MO",
+                        "name": "Macao"
+                    },
+                    {
+                        "code": "MK",
+                        "name": "Macedonia"
+                    },
+                    {
+                        "code": "MG",
+                        "name": "Madagascar"
+                    },
+                    {
+                        "code": "MW",
+                        "name": "Malawi"
+                    },
+                    {
+                        "code": "MY",
+                        "name": "Malaysia"
+                    },
+                    {
+                        "code": "MV",
+                        "name": "Maldives"
+                    },
+                    {
+                        "code": "ML",
+                        "name": "Mali"
+                    },
+                    {
+                        "code": "MT",
+                        "name": "Malta"
+                    },
+                    {
+                        "code": "MH",
+                        "name": "Marshall Islands"
+                    },
+                    {
+                        "code": "MQ",
+                        "name": "Martinique"
+                    },
+                    {
+                        "code": "MR",
+                        "name": "Mauritania"
+                    },
+                    {
+                        "code": "MU",
+                        "name": "Mauritius"
+                    },
+                    {
+                        "code": "YT",
+                        "name": "Mayotte"
+                    },
+                    {
+                        "code": "MX",
+                        "name": "Mexico"
+                    },
+                    {
+                        "code": "FM",
+                        "name": "Micronesia"
+                    },
+                    {
+                        "code": "MD",
+                        "name": "Moldova"
+                    },
+                    {
+                        "code": "MC",
+                        "name": "Monaco"
+                    },
+                    {
+                        "code": "MN",
+                        "name": "Mongolia"
+                    },
+                    {
+                        "code": "ME",
+                        "name": "Montenegro"
+                    },
+                    {
+                        "code": "MS",
+                        "name": "Montserrat"
+                    },
+                    {
+                        "code": "MA",
+                        "name": "Morocco"
+                    },
+                    {
+                        "code": "MZ",
+                        "name": "Mozambique"
+                    },
+                    {
+                        "code": "MM",
+                        "name": "Myanmar"
+                    },
+                    {
+                        "code": "NA",
+                        "name": "Namibia"
+                    },
+                    {
+                        "code": "NR",
+                        "name": "Nauru"
+                    },
+                    {
+                        "code": "NP",
+                        "name": "Nepal"
+                    },
+                    {
+                        "code": "NL",
+                        "name": "Netherlands"
+                    },
+                    {
+                        "code": "NC",
+                        "name": "New Caledonia"
+                    },
+                    {
+                        "code": "NZ",
+                        "name": "New Zealand"
+                    },
+                    {
+                        "code": "NI",
+                        "name": "Nicaragua"
+                    },
+                    {
+                        "code": "NE",
+                        "name": "Niger"
+                    },
+                    {
+                        "code": "NG",
+                        "name": "Nigeria"
+                    },
+                    {
+                        "code": "NU",
+                        "name": "Niue"
+                    },
+                    {
+                        "code": "NF",
+                        "name": "Norfolk Island"
+                    },
+                    {
+                        "code": "MP",
+                        "name": "Northern Mariana Islands"
+                    },
+                    {
+                        "code": "NO",
+                        "name": "Norway"
+                    },
+                    {
+                        "code": "OM",
+                        "name": "Oman"
+                    },
+                    {
+                        "code": "PK",
+                        "name": "Pakistan"
+                    },
+                    {
+                        "code": "PW",
+                        "name": "Palau"
+                    },
+                    {
+                        "code": "PS",
+                        "name": "Palestine, State of"
+                    },
+                    {
+                        "code": "PA",
+                        "name": "Panama"
+                    },
+                    {
+                        "code": "PG",
+                        "name": "Papua New Guinea"
+                    },
+                    {
+                        "code": "PY",
+                        "name": "Paraguay"
+                    },
+                    {
+                        "code": "PE",
+                        "name": "Peru"
+                    },
+                    {
+                        "code": "PH",
+                        "name": "Philippines"
+                    },
+                    {
+                        "code": "PN",
+                        "name": "Pitcairn"
+                    },
+                    {
+                        "code": "PL",
+                        "name": "Poland"
+                    },
+                    {
+                        "code": "PT",
+                        "name": "Portugal"
+                    },
+                    {
+                        "code": "PR",
+                        "name": "Puerto Rico"
+                    },
+                    {
+                        "code": "QA",
+                        "name": "Qatar"
+                    },
+                    {
+                        "code": "RO",
+                        "name": "Romania"
+                    },
+                    {
+                        "code": "RU",
+                        "name": "Russian Federation"
+                    },
+                    {
+                        "code": "RW",
+                        "name": "Rwanda"
+                    },
+                    {
+                        "code": "RE",
+                        "name": "Réunion"
+                    },
+                    {
+                        "code": "BL",
+                        "name": "Saint Barthélemy"
+                    },
+                    {
+                        "code": "SH",
+                        "name": "Saint Helena, Ascension and Tristan da Cunha"
+                    },
+                    {
+                        "code": "KN",
+                        "name": "Saint Kitts and Nevis"
+                    },
+                    {
+                        "code": "LC",
+                        "name": "Saint Lucia"
+                    },
+                    {
+                        "code": "MF",
+                        "name": "Saint Martin"
+                    },
+                    {
+                        "code": "PM",
+                        "name": "Saint Pierre and Miquelon"
+                    },
+                    {
+                        "code": "VC",
+                        "name": "Saint Vincent and the Grenadines"
+                    },
+                    {
+                        "code": "WS",
+                        "name": "Samoa"
+                    },
+                    {
+                        "code": "SM",
+                        "name": "San Marino"
+                    },
+                    {
+                        "code": "ST",
+                        "name": "Sao Tome and Principe"
+                    },
+                    {
+                        "code": "SA",
+                        "name": "Saudi Arabia"
+                    },
+                    {
+                        "code": "SN",
+                        "name": "Senegal"
+                    },
+                    {
+                        "code": "RS",
+                        "name": "Serbia"
+                    },
+                    {
+                        "code": "SC",
+                        "name": "Seychelles"
+                    },
+                    {
+                        "code": "SL",
+                        "name": "Sierra Leone"
+                    },
+                    {
+                        "code": "SG",
+                        "name": "Singapore"
+                    },
+                    {
+                        "code": "SX",
+                        "name": "Sint Maarten"
+                    },
+                    {
+                        "code": "SK",
+                        "name": "Slovakia"
+                    },
+                    {
+                        "code": "SI",
+                        "name": "Slovenia"
+                    },
+                    {
+                        "code": "SB",
+                        "name": "Solomon Islands"
+                    },
+                    {
+                        "code": "SO",
+                        "name": "Somalia"
+                    },
+                    {
+                        "code": "ZA",
+                        "name": "South Africa"
+                    },
+                    {
+                        "code": "GS",
+                        "name": "South Georgia"
+                    },
+                    {
+                        "code": "SS",
+                        "name": "South Sudan"
+                    },
+                    {
+                        "code": "ES",
+                        "name": "Spain"
+                    },
+                    {
+                        "code": "LK",
+                        "name": "Sri Lanka"
+                    },
+                    {
+                        "code": "SD",
+                        "name": "Sudan"
+                    },
+                    {
+                        "code": "SR",
+                        "name": "Suriname"
+                    },
+                    {
+                        "code": "SJ",
+                        "name": "Svalbard and Jan Mayen"
+                    },
+                    {
+                        "code": "SZ",
+                        "name": "Swaziland"
+                    },
+                    {
+                        "code": "SE",
+                        "name": "Sweden"
+                    },
+                    {
+                        "code": "CH",
+                        "name": "Switzerland"
+                    },
+                    {
+                        "code": "SY",
+                        "name": "Syrian Arab Republic"
+                    },
+                    {
+                        "code": "TW",
+                        "name": "Taiwan"
+                    },
+                    {
+                        "code": "TJ",
+                        "name": "Tajikistan"
+                    },
+                    {
+                        "code": "TZ",
+                        "name": "Tanzania, United Republic of"
+                    },
+                    {
+                        "code": "TH",
+                        "name": "Thailand"
+                    },
+                    {
+                        "code": "TL",
+                        "name": "Timor-Leste"
+                    },
+                    {
+                        "code": "TG",
+                        "name": "Togo"
+                    },
+                    {
+                        "code": "TK",
+                        "name": "Tokelau"
+                    },
+                    {
+                        "code": "TO",
+                        "name": "Tonga"
+                    },
+                    {
+                        "code": "TT",
+                        "name": "Trinidad and Tobago"
+                    },
+                    {
+                        "code": "TN",
+                        "name": "Tunisia"
+                    },
+                    {
+                        "code": "TR",
+                        "name": "Turkey"
+                    },
+                    {
+                        "code": "TM",
+                        "name": "Turkmenistan"
+                    },
+                    {
+                        "code": "TC",
+                        "name": "Turks and Caicos Islands"
+                    },
+                    {
+                        "code": "TV",
+                        "name": "Tuvalu"
+                    },
+                    {
+                        "code": "UG",
+                        "name": "Uganda"
+                    },
+                    {
+                        "code": "UA",
+                        "name": "Ukraine"
+                    },
+                    {
+                        "code": "AE",
+                        "name": "United Arab Emirates"
+                    },
+                    {
+                        "code": "GB",
+                        "name": "United Kingdom"
+                    },
+                    {
+                        "code": "UM",
+                        "name": "United States Minor Outlying Islands"
+                    },
+                    {
+                        "code": "UY",
+                        "name": "Uruguay"
+                    },
+                    {
+                        "code": "UZ",
+                        "name": "Uzbekistan"
+                    },
+                    {
+                        "code": "VU",
+                        "name": "Vanuatu"
+                    },
+                    {
+                        "code": "VE",
+                        "name": "Venezuela"
+                    },
+                    {
+                        "code": "VN",
+                        "name": "Viet Nam"
+                    },
+                    {
+                        "code": "VG",
+                        "name": "Virgin Islands (British)"
+                    },
+                    {
+                        "code": "VI",
+                        "name": "Virgin Islands (U.S.)"
+                    },
+                    {
+                        "code": "WF",
+                        "name": "Wallis and Futuna"
+                    },
+                    {
+                        "code": "EH",
+                        "name": "Western Sahara"
+                    },
+                    {
+                        "code": "YE",
+                        "name": "Yemen"
+                    },
+                    {
+                        "code": "ZM",
+                        "name": "Zambia"
+                    },
+                    {
+                        "code": "ZW",
+                        "name": "Zimbabwe"
+                    },
+                    {
+                        "code": "AX",
+                        "name": "Åland Islands"
+                    }
+                ]
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /lookup/discoverProgramCodes:
+    get:
+      tags: 
+        - lookup
+      x-group-name: lookup
+      x-child-product-name: CoPilot
+      x-proxy-name: Discover Program Codes
+      operationId: discoverProgramCodes
+      summary: A GET endpoint call to retrieve all possible Discover Program Codes.
+      description: |+
+       A GET endpoint call to retrieve all possible Discover Program Codes.
+      parameters:
+        - in: header
+          $ref: '#/components/parameters/ContentTypeHeader'
+        - in: header
+          $ref: '#/components/parameters/X-CopilotAPI-Version'
+        - in: header
+          $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/bankAcctTypesResponse'
+              example:
+                  "discoverProgramCodes": [
+                      {
+                          "code": "EASI",
+                          "name": "External Agent Sales Incentive"
+                      },
+                      {
+                          "code": "MAP",
+                          "name": "Merchant Acquiring Program"
+                      }
+                  ]
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /lookup/equipmentSupplierCodes:
+    get:
+      tags: 
+        - lookup
+      x-group-name: lookup
+      x-child-product-name: CoPilot
+      x-proxy-name: Equipment Supplier Codes
+      operationId: equipmentSupplierCodes
+      summary: A GET endpoint call to retrieve all possible Equipment Supplier Codes.
+      description: |+
+       A GET endpoint call to retrieve all possible Equipment Supplier Codes.
+      parameters:
+        - in: header
+          $ref: '#/components/parameters/ContentTypeHeader'
+        - in: header
+          $ref: '#/components/parameters/X-CopilotAPI-Version'
+        - in: header
+          $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/bankAcctTypesResponse'
+              example:
+                "equipmentSupplierCodes": [
+                    {
+                        "code": "FDMP",
+                        "name": "First Data Marketplace"
+                    },
+                    {
+                        "code": "CARDCONNECT",
+                        "name": "CardConnect"
+                    },
+                    {
+                        "code": "THIRDPARTY",
+                        "name": "Thirdparty"
+                    },
+                    {
+                        "code": "TMS",
+                        "name": "TMS"
+                    }
+                ]
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /lookup/equipmentTypeCodes:
+    get:
+      tags: 
+        - lookup
+      x-group-name: lookup
+      x-child-product-name: CoPilot
+      x-proxy-name: Equipment Type Codes
+      operationId: equipmentTypeCodes
+      summary: A GET endpoint call to retrieve all possible Equipment Type Codes.
+      description: |+
+       A GET endpoint call to retrieve all possible Equipment Type Codes.
+      parameters:
+        - in: header
+          $ref: '#/components/parameters/ContentTypeHeader'
+        - in: header
+          $ref: '#/components/parameters/X-CopilotAPI-Version'
+        - in: header
+          $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/bankAcctTypesResponse'
+              example:
+                "equipmentTypeCodes": [
+                    {
+                        "code": "TERMINAL",
+                        "name": "Terminal"
+                    },
+                    {
+                        "code": "GATEWAY",
+                        "name": "Gateway"
+                    },
+                    {
+                        "code": "SOFTWARE",
+                        "name": "Software"
+                    }
+                ]
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /lookup/frontEndPlatformCodes:
+    get:
+      tags: 
+        - lookup
+      x-group-name: lookup
+      x-child-product-name: CoPilot
+      x-proxy-name: Front End Platform Codes
+      operationId: frontEndPlatformCodes
+      summary: A GET endpoint call to retrieve all possible Front End Platform Codes.
+      description: |+
+       A GET endpoint call to retrieve all possible Front End Platform Codes.
+      parameters:
+        - in: header
+          $ref: '#/components/parameters/ContentTypeHeader'
+        - in: header
+          $ref: '#/components/parameters/X-CopilotAPI-Version'
+        - in: header
+          $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/bankAcctTypesResponse'
+              example: 
+                "frontEndPlatformCodes": [
+                    {
+                        "code": "AMEX",
+                        "name": "American Express Pltfrm"
+                    },
+                    {
+                        "code": "CPSAF",
+                        "name": "CP Salem - FE Pltfrm"
+                    },
+                    {
+                        "code": "CPTAF",
+                        "name": "CP Tampa - FE Pltfrm"
+                    },
+                    {
+                        "code": "CRDX",
+                        "name": "Credorax Pltfrm"
+                    },
+                    {
+                        "code": "ELVN",
+                        "name": "Elavon Pltfrm"
+                    },
+                    {
+                        "code": "FDBUF",
+                        "name": "FD BuyPass - FE Pltfrm"
+                    },
+                    {
+                        "code": "RCBUF",
+                        "name": "FD RC BuyPass - FE Pltfrm"
+                    },
+                    {
+                        "code": "RCBUF",
+                        "name": "FD RC BuyPass - FE Pltfrm"
+                    },
+                    {
+                        "code": "FDBUF",
+                        "name": "FD BuyPass - FE Pltfrm"
+                    },
+                    {
+                        "code": "RCBUF",
+                        "name": "FD RC BuyPass - FE Pltfrm"
+                    },
+                    {
+                        "code": "FDBUF",
+                        "name": "FD BuyPass - FE Pltfrm"
+                    },
+                    {
+                        "code": "FDCOF",
+                        "name": "FD Compass - FE Pltfrm"
+                    },
+                    {
+                        "code": "FDNAF",
+                        "name": "FD Nashville - FE Pltfrm"
+                    },
+                    {
+                        "code": "FDNAF",
+                        "name": "FD Nashville - FE Pltfrm"
+                    },
+                    {
+                        "code": "FDNAF",
+                        "name": "FD Nashville - FE Pltfrm"
+                    },
+                    {
+                        "code": "FDNOF",
+                        "name": "FD North - FE Pltfrm"
+                    },
+                    {
+                        "code": "FDNOF",
+                        "name": "FD North - FE Pltfrm"
+                    },
+                    {
+                        "code": "FDOMF",
+                        "name": "FD Omaha - FE Pltfrm"
+                    },
+                    {
+                        "code": "RCNAF",
+                        "name": "FD RC Nashville - FE Pltfrm"
+                    },
+                    {
+                        "code": "RCNAF",
+                        "name": "FD RC Nashville - FE Pltfrm"
+                    },
+                    {
+                        "code": "RCNOF",
+                        "name": "FD RC North - FE Pltfrm"
+                    },
+                    {
+                        "code": "RCNOF",
+                        "name": "FD RC North - FE Pltfrm"
+                    },
+                    {
+                        "code": "FDSOF",
+                        "name": "FD South - FE Pltfrm"
+                    },
+                    {
+                        "code": "GBLP",
+                        "name": "Global Payment Pltfrm"
+                    },
+                    {
+                        "code": "LITL",
+                        "name": "Litle Pltfrm"
+                    },
+                    {
+                        "code": "MNRS",
+                        "name": "Moneris Pltfrm"
+                    },
+                    {
+                        "code": "PPAL",
+                        "name": "PayPal Pltfrm"
+                    },
+                    {
+                        "code": "PEXP",
+                        "name": "Payment Express Pltfrm"
+                    },
+                    {
+                        "code": "PSTR",
+                        "name": "ProfitStars Pltfrm"
+                    },
+                    {
+                        "code": "SVS",
+                        "name": "Stored Value Solutions Pltfrm"
+                    },
+                    {
+                        "code": "TSYSF",
+                        "name": "TSYS - FE Pltfrm"
+                    },
+                    {
+                        "code": "TSYSF",
+                        "name": "TSYS - FE Pltfrm"
+                    },
+                    {
+                        "code": "VNTV",
+                        "name": "Vantiv Pltfrm"
+                    },
+                    {
+                        "code": "VITLF",
+                        "name": "Vital - FE Pltfrm"
+                    },
+                    {
+                        "code": "WLDP",
+                        "name": "Worldpay Pltfrm"
+                    }
+                ]
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /lookup/interchangeTypeCodes:
+    get:
+      tags: 
+        - lookup
+      x-group-name: lookup
+      x-child-product-name: CoPilot
+      x-proxy-name: Interchange Type Codes
+      operationId: interchangeTypeCodes
+      summary: A GET endpoint call to retrieve all possible Interchange Type Codes.
+      description: |+
+       A GET endpoint call to retrieve all possible Interchange Type Codes.
+      parameters:
+        - in: header
+          $ref: '#/components/parameters/ContentTypeHeader'
+        - in: header
+          $ref: '#/components/parameters/X-CopilotAPI-Version'
+        - in: header
+          $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/bankAcctTypesResponse'
+              example:
+                "interchangeTypeCodes": [
+                    {
+                        "code": "GROSS",
+                        "name": "Gross"
+                    },
+                    {
+                        "code": "NET",
+                        "name": "Net"
+                    }        
+                ]
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /lookup/orderStatusCodes:
+    get:
+      tags: 
+        - lookup
+      x-group-name: lookup
+      x-child-product-name: CoPilot
+      x-proxy-name: Order Status Codes
+      operationId: orderStatusCodes
+      summary: A GET endpoint call to retrieve all possible Order Status Codes.
+      description: |+
+       A GET endpoint call to retrieve all possible Order Status Codes.
+      parameters:
+        - in: header
+          $ref: '#/components/parameters/ContentTypeHeader'
+        - in: header
+          $ref: '#/components/parameters/X-CopilotAPI-Version'
+        - in: header
+          $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/bankAcctTypesResponse'
+              example:
+                "orderStatusCodes": [
+                    {
+                        "code": "NEW",
+                        "name": "New"
+                    },
+                    {
+                        "code": "CANCELLED",
+                        "name": "Cancelled"
+                    },
+                    {
+                        "code": "EXPORTED",
+                        "name": "Exported"
+                    },
+                    {
+                        "code": "PLACED",
+                        "name": "Placed"
+                    },
+                    {
+                        "code": "FULFILLING",
+                        "name": "Fulfilling"
+                    },
+                    {
+                        "code": "SHIPPED",
+                        "name": "Shipped"
+                    }
+                ]
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /lookup/whenCustomerChargedCodes:
+    get:
+      tags: 
+        - lookup
+      x-group-name: lookup
+      x-child-product-name: CoPilot
+      x-proxy-name: When Customer Charged Codes
+      operationId: whenCustomerChargesCodes
+      summary: A GET endpoint call to retrieve all possible When Customer Charged Codes.
+      description: |+
+       A GET endpoint call to retrieve all possible When Customer Charged Codes.
+      parameters:
+        - in: header
+          $ref: '#/components/parameters/ContentTypeHeader'
+        - in: header
+          $ref: '#/components/parameters/X-CopilotAPI-Version'
+        - in: header
+          $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/bankAcctTypesResponse'
+              example: 
+                "billingFequencyCodes": [ { "code": "ONETIME","name": "One Time"},{          "code": "MONTHLY", "name": "Monthly" }  ]
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
 components:
   schemas:
     bankAcctTypesResponse:
@@ -1142,22 +2709,21 @@ components:
           $ref: '#/components/schemas/lcode'
         name: 
           $ref: '#/components/schemas/lname'
-      example: {
-    "bankAcctTypes": [
-        {
-            "code": "BIZ",
-            "name": "Business Checking"
-        },
-        {
-            "code": "GL",
-            "name": "General Ledger"
-        },
-        {
-            "code": "SAVINGS",
-            "name": "Savings"
-        }
-    ]
-}
+      example: 
+        "bankAcctTypes": [
+          {
+              "code": "BIZ",
+              "name": "Business Checking"
+          },
+          {
+              "code": "GL",
+              "name": "General Ledger"
+          },
+          {
+              "code": "SAVINGS",
+              "name": "Savings"
+          }
+          ]
     backEndPlatformCodesResponse:
       x-model-version: 1.0
       properties:
@@ -1165,7 +2731,8 @@ components:
           $ref: '#/components/schemas/lcode'
         bepcname:
           $ref: "#/components/schemas/lname"
-      example: {"backEndPlatformCodes": [
+      example: 
+        "backEndPlatformCodes": [
         {"code": "AMEX","name": "American Express Pltfrm"},{ "code": "PSTR","name": "ProfitStars Pltfrm"
         },{"code": "MNRS","name": "Moneris Pltfrm"},{"code": "PEXP","name": "Payment Express Pltfrm"},{
             "code": "WLDP",
@@ -1220,7 +2787,7 @@ components:
             "name": "CP Tampa - BE Pltfrm"
         },
         {"code": "GBLP","name": "Global Payment Pltfrm"},  {"code": "ELVN",
-            "name": "Elavon Pltfrm"}]}
+            "name": "Elavon Pltfrm"}]
     amexAccessCodesResponse:
       x-model-version: 1.0
       properties:
@@ -1228,8 +2795,8 @@ components:
           $ref: '#/components/schemas/lcode'
         name: 
           $ref: '#/components/schemas/lname'
-      example: {
-      "amexProgramAssetCodes": [
+      example:
+        "amexProgramAssetCodes": [
         {
             "code": "OPTBLUE",
             "name": "American Express(AMEX) OptBlue"
@@ -1239,7 +2806,6 @@ components:
             "name": "American Express(AMEX) ESA"
               }
           ]
-        }
     lcode:
       type: string
       description: The associated code
