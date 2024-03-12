@@ -109,10 +109,8 @@ paths:
           description: Success
           content:
             application/json:
-              schema: {$ref: '#/components/schemas/inquireMerchantSuccess'}
+              schema: {$ref: '#/components/schemas/approvedSurchargeResponse'}
               examples:
-                Approved for Surcharge:
-                  $ref: '#/components/examples/approvedsurchargeExample'
                 Debit Card not Elligible:
                   $ref: '#/components/examples/debitcardnotelligible'
                 Missing Postal and Token:
@@ -1095,6 +1093,39 @@ components:
       in: header
       description: A message to send in the ping request and receive in the response. The value can be blank, however the message field must be included in the request.
   schemas:
+    approvedSurchargeResponse:
+      description: Approved for Surcharge
+      x-model-version: 1.0 
+      properties:
+        token:
+          $ref: '#/components/schemas/token'
+        postal:
+          $ref: '#/components/schemas/postal'
+        messages:
+          $ref: '#/components/schemas/messages'
+      example:
+        token: CREDIT,
+        postal: NOT_RESTRICTED,
+        messages: []
+    messages:
+      type: array
+      items:
+        properties:
+          message:
+            $ref: '#/components/schemas/message'
+    message:
+      type: string
+      description: |+
+        Empty ([]) for a successful request.
+
+        Otherwise, an array with one or more of the following objects:
+        
+        * "field":"merchid", "message":"Invalid merchid"
+        * "field":"postal", "message":"postal is missing or empty"
+        * "field":"token", "message":"Bin info not found for token"
+        * "field":"token", "message":"Invalid Token"
+        * "field":"token", "message":"token is missing or empty"
+      maxLength: 28
     account:
       maxLength: 19
       type: integer
