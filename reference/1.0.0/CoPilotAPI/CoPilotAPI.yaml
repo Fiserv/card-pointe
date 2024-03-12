@@ -1051,7 +1051,20 @@ paths:
               schema: 
                 $ref: '#/components/schemas/bankAcctTypesResponse'
               example: 
-                "billToCodes": [{ "code": "PARTNER",  "name": "Partner Residuals" },{       "code": "PARTNERCC","name": "Partner Credit Card"}, {"code": "CUST","name": "Customer"}]
+                "billToCodes": [
+                  {
+                      "code": "PARTNER",
+                      "name": "Partner Residuals"
+                  },
+                  {
+                      "code": "PARTNERCC",
+                      "name": "Partner Credit Card"
+                  },
+                  {
+                      "code": "CUST",
+                      "name": "Customer"
+                  }
+              ]
         400:
           description: Not Found
           content:
@@ -1088,7 +1101,28 @@ paths:
               schema: 
                 $ref: '#/components/schemas/bankAcctTypesResponse'
               example: 
-                "billToDetailCodes": [{"code": "CC", "name": "CardConnect"}, { "code": "INTSALE", "name": "Internal Sale"},{"code": "SWAP","name": "Swap"}, {"code": "NEXTECH","name": "NexTech"},{"code": "PO", "name": "Purchase Order"}]
+                "billToDetailCodes": [
+                  {
+                      "code": "CC",
+                      "name": "CardConnect"
+                  },
+                  {
+                      "code": "INTSALE",
+                      "name": "Internal Sale"
+                  },
+                  {
+                      "code": "SWAP",
+                      "name": "Swap"
+                  },
+                  {
+                      "code": "NEXTECH",
+                      "name": "NexTech"
+                  },
+                  {
+                      "code": "PO",
+                      "name": "Purchase Order"
+                  }
+              ]
         400:
           description: Not Found
           content:
@@ -1124,7 +1158,17 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/bankAcctTypesResponse'
-              example: {"billingFequencyCodes": [ { "code": "ONETIME","name": "One Time"},{          "code": "MONTHLY", "name": "Monthly" }  ]}
+              example: 
+                "billingFequencyCodes": [
+                  {
+                      "code": "ONETIME",
+                      "name": "One Time"
+                  },
+                  {
+                      "code": "MONTHLY",
+                      "name": "Monthly"
+                  }
+              ]
         400:
           description: Not Found
           content:
@@ -2663,6 +2707,225 @@ paths:
           content:  
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
+  /lookup/ownershipTypes:
+    get:
+      tags: 
+        - lookup
+      x-group-name: lookup
+      x-child-product-name: CoPilot
+      x-proxy-name: Ownership Types
+      operationId: ownershipTypes
+      summary: A GET endpoint call to retrieve all possible Ownership Types.
+      description: |+
+       A GET endpoint call to retrieve all possible Ownership Types.
+      parameters:
+        - in: header
+          $ref: '#/components/parameters/ContentTypeHeader'
+        - in: header
+          $ref: '#/components/parameters/X-CopilotAPI-Version'
+        - in: header
+          $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/bankAcctTypesResponse'
+              example: 
+                "ownershipTypes": [
+                  {
+                      "code": "GOVT",
+                      "name": "Government"
+                  },
+                  {
+                      "code": "INDIVSOLE",
+                      "name": "Individual / Sole Proprietor"
+                  },
+                  {
+                      "code": "LLC",
+                      "name": "LLC"
+                  },
+                  {
+                      "code": "NONPRFT",
+                      "name": "Non-Profit Org"
+                  },
+                  {
+                      "code": "PRTNRSHP",
+                      "name": "Partnership"
+                  },
+                  {
+                      "code": "PRIVCORP",
+                      "name": "Private Corporation"
+                  },
+                  {
+                      "code": "PUBCORP",
+                      "name": "Public Corporation"
+                  },
+                  {
+                      "code": "TAXEXMPT",
+                      "name": "Tax Exempt"
+                  }
+              ]
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /lookup/pciProgramCodes:
+    get:
+      tags: 
+        - lookup
+      x-group-name: lookup
+      x-child-product-name: CoPilot
+      x-proxy-name: PCI Program Codes
+      operationId: pciProgramCodes
+      summary: A GET endpoint call to retrieve all possible PCI Program Codes.
+      description: |+
+       A GET endpoint call to retrieve all possible PCI Program Codes.
+      parameters:
+        - in: header
+          $ref: '#/components/parameters/ContentTypeHeader'
+        - in: header
+          $ref: '#/components/parameters/X-CopilotAPI-Version'
+        - in: header
+          $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/bankAcctTypesResponse'
+              example: 
+                "pciProgramCodes": [
+                {
+                    "code": "ANNUAL",
+                    "name": "PCI Annual Program"       
+                },
+                {
+                    "code": "CONCIERGE",
+                    "name": "PCI Concierge Program"
+                } ]
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /lookup/refundPolicyCodes:
+    get:
+      tags: 
+        - lookup
+      x-group-name: lookup
+      x-child-product-name: CoPilot
+      x-proxy-name: Refund Policy Codes
+      operationId: refundPolicyCodes
+      summary: A GET endpoint call to retrieve all possible Refund Policy Codes.
+      description: |+
+       A GET endpoint call to retrieve all possible Refund Policy Codes.
+      parameters:
+        - in: header
+          $ref: '#/components/parameters/ContentTypeHeader'
+        - in: header
+          $ref: '#/components/parameters/X-CopilotAPI-Version'
+        - in: header
+          $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/bankAcctTypesResponse'
+              example: 
+                "refundPolicyCodes": [
+                  {
+                      "code": "EXCHONLY",
+                      "name": "Exchange Only"
+                  },
+                  {
+                      "code": "NOREFEXCH",
+                      "name": "No Refund or Exchange"
+                  },
+                  {
+                      "code": "MORE30",
+                      "name": "More than 30 days"
+                  },
+                  {
+                      "code": "LESSEQL30",
+                      "name": "30 Days or Less"
+                  }
+              ]
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /lookup/serviceProvidedInCodes:
+    get:
+      tags: 
+        - lookup
+      x-group-name: lookup
+      x-child-product-name: CoPilot
+      x-proxy-name: Service Provided In Codes
+      operationId: serviceProvidedInCodes
+      summary: A GET endpoint call to retrieve all possible Service Provided In Codes.
+      description: |+
+       A GET endpoint call to retrieve all possible Service Provided In Codes.
+      parameters:
+        - in: header
+          $ref: '#/components/parameters/ContentTypeHeader'
+        - in: header
+          $ref: '#/components/parameters/X-CopilotAPI-Version'
+        - in: header
+          $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/bankAcctTypesResponse'
+              example: 
+                "serviceProvidedInCodes": [
+                {
+                    "code": "30LESS",
+                    "name": "30 Days or Less"
+                },
+                {
+                    "code": "31TO60",
+                    "name": "31 to 60 Days"
+                },
+                {
+                    "code": "60PLUS",
+                    "name": "60+ Days"
+                }
+            ]
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
   /lookup/whenCustomerChargedCodes:
     get:
       tags: 
@@ -2731,63 +2994,85 @@ components:
           $ref: '#/components/schemas/lcode'
         bepcname:
           $ref: "#/components/schemas/lname"
-      example: 
+      example:
         "backEndPlatformCodes": [
-        {"code": "AMEX","name": "American Express Pltfrm"},{ "code": "PSTR","name": "ProfitStars Pltfrm"
-        },{"code": "MNRS","name": "Moneris Pltfrm"},{"code": "PEXP","name": "Payment Express Pltfrm"},{
-            "code": "WLDP",
-            "name": "Worldpay Pltfrm"
-        },
-        {
-            "code": "PPAL",
-            "name": "PayPal Pltfrm"
-        },
-        {
-            "code": "TSYSB",
-            "name": "TSYS - BE Pltfrm"
-        },
-        {
-            "code": "SVS",
-            "name": "Stored Value Solutions Pltfrm"
-        },
-        {
-            "code": "CPSAB",
-            "name": "CP Salem - BE Pltfrm"
-        },
-        {
-            "code": "VNTV",
-            "name": "Vantiv Pltfrm"
-        },
-        {
-            "code": "FDSOB",
-            "name": "FD South - BE Pltfrm"
-        },
-        {
-            "code": "FDMEB",
-            "name": "FE Memphis - BE Pltfrm"
-        },
-        {
-            "code": "LITL",
-            "name": "Litle Pltfrm"
-        },
-        {
-            "code": "FDNOB",
-            "name": "FD North - BE Pltfrm"
-        },
-        {
-            "code": "FDOMB",
-            "name": "FD Omaha - BE Pltfrm"
-        },
-        {
-            "code": "CRDX",
-            "name": "Credorax Pltfrm"
-        },
-        {
-            "code": "CPTAB",
-            "name": "CP Tampa - BE Pltfrm"
-        },
-        {"code": "GBLP","name": "Global Payment Pltfrm"},  {"code": "ELVN",
-            "name": "Elavon Pltfrm"}]
+            {
+                "code": "AMEX",
+                "name": "American Express Pltfrm"
+            },
+            {
+                "code": "PSTR",
+                "name": "ProfitStars Pltfrm"
+            },
+            {
+                "code": "MNRS",
+                "name": "Moneris Pltfrm"
+            },
+            {
+                "code": "PEXP",
+                "name": "Payment Express Pltfrm"
+            },
+            {
+                "code": "WLDP",
+                "name": "Worldpay Pltfrm"
+            },
+            {
+                "code": "PPAL",
+                "name": "PayPal Pltfrm"
+            },
+            {
+                "code": "TSYSB",
+                "name": "TSYS - BE Pltfrm"
+            },
+            {
+                "code": "SVS",
+                "name": "Stored Value Solutions Pltfrm"
+            },
+            {
+                "code": "CPSAB",
+                "name": "CP Salem - BE Pltfrm"
+            },
+            {
+                "code": "VNTV",
+                "name": "Vantiv Pltfrm"
+            },
+            {
+                "code": "FDSOB",
+                "name": "FD South - BE Pltfrm"
+            },
+            {
+                "code": "FDMEB",
+                "name": "FE Memphis - BE Pltfrm"
+            },
+            {
+                "code": "LITL",
+                "name": "Litle Pltfrm"
+            },
+            {
+                "code": "FDNOB",
+                "name": "FD North - BE Pltfrm"
+            },
+            {
+                "code": "FDOMB",
+                "name": "FD Omaha - BE Pltfrm"
+            },
+            {
+                "code": "CRDX",
+                "name": "Credorax Pltfrm"
+            },
+            {
+                "code": "CPTAB",
+                "name": "CP Tampa - BE Pltfrm"
+            },
+            {
+                "code": "GBLP",
+                "name": "Global Payment Pltfrm"
+            },
+            {
+                "code": "ELVN",
+                "name": "Elavon Pltfrm"
+            }
+        ]
     amexAccessCodesResponse:
       x-model-version: 1.0
       properties:
