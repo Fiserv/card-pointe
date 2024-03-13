@@ -1068,7 +1068,7 @@ components:
           maxLength: 18
           example: 14012PP20131409
         amount:
-          maxLength: 2147483647
+          maxLength: 14
           description: | 
             **Required Field**
             
