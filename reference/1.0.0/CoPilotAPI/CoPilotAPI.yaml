@@ -2968,19 +2968,8 @@ components:
     amexProgramResponse:
       x-model-version: 1.0
       properties:
-        amexProgramResponse:
+        amexProgramAssetCodes:
           $ref: '#/components/schemas/amexProgramCodes'
-          example: 
-            "amexProgramAssetCodes": [
-                {
-                    "code": "OPTBLUE",
-                    "name": "American Express(AMEX) OptBlue"
-                },
-                {
-                    "code": "ESA",
-                    "name": "American Express(AMEX) ESA"
-                }
-            ]
     amexProgramCodes:
       type: array
       items:
@@ -2991,17 +2980,11 @@ components:
           name:
             type: string
             description: The code name
-        example: 
-          "amexProgramAssetCodes": [
-              {
-                  "code": "OPTBLUE",
-                  "name": "American Express(AMEX) OptBlue"
-              },
-              {
-                  "code": "ESA",
-                  "name": "American Express(AMEX) ESA"
-              }
-          ]
+      example:
+        - code: OPTBLUE
+          name: American Express(AMEX) OptBlue
+        - code: ESA
+          name: American Express(AMEX) ESA
     attachmentTypeResponse:
       type: array
       items:
