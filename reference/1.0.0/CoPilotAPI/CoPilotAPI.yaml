@@ -1793,14 +1793,15 @@ components:
         amexProgramAssetCodes:
           $ref: '#/components/schemas/amexProgramCodes'
     amexProgramCodes:
-      x-model-version: 1.0 
-      properties:
-        code:
-          type: string
-          description: The associated code
-        name:
-          type: string
-          description: The code name
+      type: array
+      items: 
+        properties:
+          code:
+            type: string
+            description: The associated code
+          name:
+            type: string
+            description: The code name
       example: 
         - code: OPTBLUE
           name: American Express(AMEX) OptBlue
