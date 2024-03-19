@@ -1808,14 +1808,20 @@ components:
         - code: ESA
           name: American Express(AMEX) ESA
     attachmentTypeResponse:
-      x-model-version: 1.0 
+      x-model-version: 1.0
       properties:
-        code:
-          type: string
-          description: The associated code
-        name:
-          type: string
-          description: The code name
+        attachmentTypeCodes:
+          $ref: "#/components/schemas/attachmentTypeCodes"
+    attachmentTypeCodes:
+      type: array
+      items:
+        properties:
+          code:
+            type: string
+            description: The associated code
+          name:
+            type: string
+            description: The code name
       example: 
           attachmentTypeCodes:
             - code: 501C
@@ -1878,6 +1884,11 @@ components:
               name: Bank 2 Voided Check
     backendPlatformResponse:
       x-model-version: 1.0
+      properties:
+        backEndPlatformCodes:
+          $ref: "#/components/schemas/backEndPlatformCodes"
+    backEndPlatformCodes:
+      type: array
       items:
         properties:
           code:
@@ -1886,7 +1897,7 @@ components:
           name:
             type: string
             description: The code name
-        example:
+      example:
           backEndPlatformCodes:
             - code: AMEX
               name: American Express Pltfrm
@@ -1929,6 +1940,12 @@ components:
     bankAcctTypesResponse:
       x-model-version: 1.0
       properties:
+        bankAcctTypes:
+          $ref: "#/components/schemas/bankAcctTypes"
+    bankAcctTypes:
+      type: array
+      items:
+        properties:
           code:
             type: string
             description: The associated code
@@ -1944,14 +1961,20 @@ components:
           - code: SAVINGS
             name: Savings            
     billToResponse:
-      x-model-version: 1.0 
+      x-model-version: 1.0
       properties:
-        code:
-          type: string
-          description: The associated code
-        name:
-          type: string
-          description: The code name
+        billToCodes:
+          $ref: "#/components/schemas/billToCodes"
+    billToCodes:
+      type: array
+      items:
+        properties:
+          code:
+            type: string
+            description: The associated code
+          name:
+            type: string
+            description: The code name
       example: 
           billToCodes:
             - code: PARTNER
@@ -1963,12 +1986,18 @@ components:
     billToDetailsResponse:
       x-model-version: 1.0 
       properties:
-        code:
-          type: string
-          description: The associated code
-        name:
-          type: string
-          description: The code name
+        billToDetailCodes:
+          $ref: "#/components/schemas/billToDetailCodes"
+    billToDetailCodes:
+      type: array
+      items:
+        properties:
+          code:
+            type: string
+            description: The associated code
+          name:
+            type: string
+            description: The code name
       example: 
           billToDetailCodes:
             - code: CC
@@ -1984,12 +2013,18 @@ components:
     billingFrequencyResponse:
       x-model-version: 1.0 
       properties:
-        code:
-          type: string
-          description: The associated code
-        name:
-          type: string
-          description: The code name
+        billingFrequencyCodes:
+          $ref: "#/components/schemas/billingFrequencyCodes"
+    billingFrequencyCodes:
+      type: array
+      items:
+        properties:
+          code:
+            type: string
+            description: The associated code
+          name:
+            type: string
+            description: The code name
       example: 
           billingFequencyCodes:
             - code: ONETIME
@@ -1999,12 +2034,18 @@ components:
     cloverSecurityBundleResponse:
       x-model-version: 1.0 
       properties:
-        code:
-          type: string
-          description: The associated code
-        name:
-          type: string
-          description: The code name
+        cloverSecurityBundleCodes:
+          $ref: "#/components/schemas/cloverSecurityBundleCodes"
+    cloverSecurityBundleCodes:
+      type: array
+      items:
+        properties:
+          code:
+            type: string
+            description: The associated code
+          name:
+            type: string
+            description: The code name
       example: 
           cloverSecurityBundleCodes:
             - code: CSPFB
@@ -2020,12 +2061,18 @@ components:
     countryResponse:
       x-model-version: 1.0 
       properties:
-        code:
-          type: string
-          description: The associated code
-        name:
-          type: string
-          description: The code name
+        countryCodes:
+          $ref: "#/components/schemas/countryCodes"
+    countryCodes:
+      type: array
+      items:
+        properties:
+          code:
+            type: string
+            description: The associated code
+          name:
+            type: string
+            description: The code name
       example: 
           countryCodes:
             - code: US
@@ -2529,12 +2576,18 @@ components:
     discoverProgramResponse:
       x-model-version: 1.0 
       properties:
-        code:
-          type: string
-          description: The associated code
-        name:
-          type: string
-          description: The code name
+        discoverProgramCodes:
+          $ref: "#/components/schemas/discoverProgramCodes"
+    discoverProgramCodes:
+      type: array
+      items:
+        properties:
+          code:
+            type: string
+            description: The associated code
+          name:
+            type: string
+            description: The code name
       example: 
           discoverProgramCodes:
             - code: EASI
@@ -2544,12 +2597,18 @@ components:
     equipmentSupplierResponse:
       x-model-version: 1.0 
       properties:
-        code:
-          type: string
-          description: The associated code
-        name:
-          type: string
-          description: The code name
+        equipmentSupplierCodes:
+          $ref: "#/components/schemas/equipmentSupplierCodes"
+    equipmentSupplierCodes:
+      type: array
+      items:
+        properties:
+          code:
+            type: string
+            description: The associated code
+          name:
+            type: string
+            description: The code name
       example: 
           equipmentSupplierCodes:
             - code: FDMP
@@ -2563,12 +2622,18 @@ components:
     equipmentTypesResponse:
       x-model-version: 1.0 
       properties:
-        code:
-          type: string
-          description: The associated code
-        name:
-          type: string
-          description: The code name
+        equipmentTypeCodes:
+          $ref: "#/components/schemas/equipmentTypeCodes"
+    equipmentTypeCodes:
+      type: array
+      items:
+        properties:
+          code:
+            type: string
+            description: The associated code
+          name:
+            type: string
+            description: The code name
       example: 
           equipmentTypeCodes:
             - code: TERMINAL
@@ -2580,12 +2645,18 @@ components:
     frontEndPlatformResponse:
       x-model-version: 1.0 
       properties:
-        code:
-          type: string
-          description: The associated code
-        name:
-          type: string
-          description: The code name
+        frontEndPlatformCodes:
+          $ref: '#/components/schemas/frontEndPlatformCodes'
+    frontEndPlatformCodes:
+      type: array
+      items:
+        properties:
+          code:
+            type: string
+            description: The associated code
+          name:
+            type: string
+            description: The code name
       example: 
           frontEndPlatformCodes:
             - code: AMEX
@@ -2661,12 +2732,18 @@ components:
     interchangeTypeResponse:
       x-model-version: 1.0 
       properties:
-        code:
-          type: string
-          description: The associated code
-        name:
-          type: string
-          description: The code name
+        interchangeTypeCodes:
+          $ref: '#/components/schemas/interchangeTypeCodes'
+    interchangeTypeCodes:
+      type: array
+      items:
+        properties:
+          code:
+            type: string
+            description: The associated code
+          name:
+            type: string
+            description: The code name
       example: 
           interchangeTypeCodes:
             - code: GROSS
@@ -2676,12 +2753,18 @@ components:
     orderStatusResponse:
       x-model-version: 1.0 
       properties:
-        code:
-          type: string
-          description: The associated code
-        name:
-          type: string
-          description: The code name
+        orderStatusCodes:
+          $ref: '#/components/schemas/orderStatusCodes'
+    orderStatusCodes:
+      type: array
+      items:
+        properties:
+          code:
+            type: string
+            description: The associated code
+          name:
+            type: string
+            description: The code name
       example: 
           orderStatusCodes:
             - code: NEW
@@ -2699,12 +2782,18 @@ components:
     ownershipTypesResponse:
       x-model-version: 1.0 
       properties:
-        code:
-          type: string
-          description: The associated code
-        name:
-          type: string
-          description: The code name
+        ownershipTypes:
+          $ref: "#/components/schemas/ownershipTypes"
+    ownershipTypes:
+      type: array
+      items:
+        properties:
+          code:
+            type: string
+            description: The associated code
+          name:
+            type: string
+            description: The code name
       example: 
         ownershipTypes:
           - code: GOVT
@@ -2726,12 +2815,18 @@ components:
     pciProgramResponse:
       x-model-version: 1.0
       properties:
-        code:
-          type: string
-          description: The associated code
-        name:
-          type: string
-          description: The code name
+        pciProgramCodes:
+          $ref: "#/components/schemas/pciProgramCodes"
+    pciProgramCodes:
+      type: array
+      items:
+        properties:
+          code:
+            type: string
+            description: The associated code
+          name:
+            type: string
+            description: The code name
       example:
         pciProgramCodes:
           - code: ANNUAL
@@ -2741,12 +2836,18 @@ components:
     refundPolicyResponse:
       x-model-version: 1.0
       properties:
-        code:
-          type: string
-          description: The associated code
-        name:
-          type: string
-          description: The code name
+        refundPolicyCodes:
+          $ref: "#/components/schemas/refundPolicyCodes"
+    refundPolicyCodes:
+      type: array
+      items:
+        properties:
+          code:
+            type: string
+            description: The associated code
+          name:
+            type: string
+            description: The code name
       example:
         refundPolicyCodes:
           - code: EXCHONLY
@@ -2760,12 +2861,18 @@ components:
     serviceProvidedResponse:
       x-model-version: 1.0
       properties:
-        code:
-          type: string
-          description: The associated code
-        name:
-          type: string
-          description: The code name
+        serviceProvidedCodes:
+          $ref: "#/components/schemas/serviceProvidedCodes"
+    serviceProvidedCodes:
+      type: array
+      items:
+        properties:
+          code:
+            type: string
+            description: The associated code
+          name:
+            type: string
+            description: The code name
       example:
         serviceProvidedInCodes:
           - code: 30LESS
@@ -2777,12 +2884,18 @@ components:
     shippingCarrierResponse:
       x-model-version: 1.0
       properties:
-        code:
-          type: string
-          description: The associated code
-        name:
-          type: string
-          description: The code name
+        shippingCarrierCodes:
+          $ref: "#/components/schemas/shippingCarrierCodes"
+    shippingCarrierCodes:
+      type: array
+      items:
+        properties:
+          code:
+            type: string
+            description: The associated code
+          name:
+            type: string
+            description: The code name
       example:
         shippingCarrierCodes:
           - code: FEDEX
@@ -2792,12 +2905,18 @@ components:
     shippingMethodResponse:
       x-model-version: 1.0
       properties:
-        code:
-          type: string
-          description: The associated code
-        name:
-          type: string
-          description: The code name
+        shippingMethodCodes:
+          $ref: "#/components/schemas/shippingMethodCodes"
+    shippingMethodCodes:
+      type: array
+      items:
+        properties:
+          code:
+            type: string
+            description: The associated code
+          name:
+            type: string
+            description: The code name
       example:
         shippingMethodCodes:
           - code: EXPEDITED
@@ -2807,12 +2926,18 @@ components:
     stateResponse:
       x-model-version: 1.0
       properties:
-        code:
-          type: string
-          description: The associated code
-        name:
-          type: string
-          description: The code name
+        stateCodes:
+          $ref: "#/components/schemas/stateCodes"
+    stateCodes:
+      type: array
+      items:
+        properties:
+          code:
+            type: string
+            description: The associated code
+          name:
+            type: string
+            description: The code name
       example:
         stateCodes:
           - code: AL
@@ -2920,12 +3045,18 @@ components:
     transarmorTokenTypeResponse:
       x-model-version: 1.0
       properties:
-        code:
-          type: string
-          description: The associated code
-        name:
-          type: string
-          description: The code name
+        transArmorTokenTypeCodes:
+          $ref: '#/components/schemas/transArmorTokenTypeCodes'
+    transArmorTokenTypeCodes:
+      type: array
+      items:
+        properties:
+          code:
+            type: string
+            description: The associated code
+          name:
+            type: string
+            description: The code name
       example:
         transarmorTokenTypeCodes:
           - code: SINGLE
@@ -2935,12 +3066,18 @@ components:
     whenCustomerChargedResponse:
       x-model-version: 1.0
       properties:
-        code:
-          type: string
-          description: The associated code
-        name:
-          type: string
-          description: The code name
+        whenCustomerChargedCodes:
+          $ref: '#/components/schemas/whenCustomerChargedCodes'
+    whenCustomerChargedCodes:
+      type: array
+      items:
+        properties:
+          code:
+            type: string
+            description: The associated code
+          name:
+            type: string
+            description: The code name
       example:
         whenCustomerChargedCodes:
           - code: INADVANCE
