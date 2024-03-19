@@ -945,66 +945,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/attachmentTypeResponse'
-              example: 
-                attachmentTypeCodes:
-                  - code: 501C
-                    name: 501C Form
-                  - code: ACCTUPDTR
-                    name: Account Updater Addendum
-                  - code: ACCTUPDTRINTAKE
-                    name: Account Updater - Intake Form
-                  - code: ACCTUPDTRMC
-                    name: Account Updater - MasterCard Update Form
-                  - code: ACCTUPDTRVISA
-                    name: Account Updater - VISA Update Form
-                  - code: ACCTUPDTRAGG
-                    name: Account Updater Aggregator Addendum
-                  - code: ACHFEESCHD
-                    name: ACH - Fee Schedule
-                  - code: ACHLST3BNK
-                    name: ACH - Last 3 Bank Statements
-                  - code: ACHPROCSRV
-                    name: ACH - Processing Services Agreement
-                  - code: ACHPROFITSTR
-                    name: ACH - ProfitStars Application
-                  - code: ACKACCEPTAGRMT
-                    name: Acknowledgement of Acceptance of Agreement
-                  - code: APPLIC
-                    name: Application form
-                  - code: BPACHPROCESSING
-                    name: Blue Chex ACH Processing
-                  - code: BOARDING
-                    name: Boarding Form
-                  - code: CANCELREQ
-                    name: Cancel Request
-                  - code: CLIQUEAGREEMENT
-                    name: Clique Agreement
-                  - code: CLOVER
-                    name: Clover Addendum
-                  - code: CLOVERGO
-                    name: CloverGo Addendum
-                  - code: DISCARD
-                    name: Discard
-                  - code: EQUIPMENTRENTAL
-                    name: Equipment Rental
-                  - code: GEP
-                    name: GEP Addendum
-                  - code: FIN
-                    name: Merchant Financials
-                  - code: OTHER
-                    name: Other
-                  - code: SIGNEDAPP
-                    name: Signed Application
-                  - code: SIGNEDCONFIRMATION
-                    name: Signed Confirmation Page
-                  - code: STMTS
-                    name: Statements
-                  - code: TELECHECK
-                    name: Telecheck Addendum
-                  - code: VOIDBNKCHK1
-                    name: Bank 1 Voided Check
-                  - code: VOIDBNKCHK2
-                    name: Bank 2 Voided Check
         400:
           description: Not Found
           content:
