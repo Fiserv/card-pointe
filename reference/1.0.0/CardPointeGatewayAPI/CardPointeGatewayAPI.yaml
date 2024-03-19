@@ -309,7 +309,7 @@ paths:
 
         You can refund a specific transaction using the retrieval reference number <code>retref</code> provided in the authorization response. 
         
-        You can retrieve the status of a transaction using the <a href="https://developerstudio.fiserv.com/product/CardPointe/api/?type=get&path=/cardconnect/rest/inquire">inquire</a> or <a href="https://developerstudio.fiserv.com/product/CardPointe/api/?type=get&path=/cardconnect/rest/inquireByOrderid">inquireByOrderid</a> endpoint.
+        You can retrieve the status of a transaction using the <code>inquire</code> or <code>inquireByOrderid</code> endpoint.
 
         The response includes a <code>refundable</code> field, which indicates whether or not the transaction can be refunded.
 
@@ -1385,14 +1385,14 @@ components:
     track:
       maxLength: 76
       type: string
-      description: Payment card track data captured using a supported card reader device (for example, a <a href='https://developer.cardpointe.com/guides/desktop'>desktop card reader</a> device). Can be unencrypted Track 1 or Track 2 data, or encrypted swipe data (containing Track 1 and/or Track 2) data. 
+      description: Payment card track data captured using a supported card reader device (for example, a desktop card reader device). Can be unencrypted Track 1 or Track 2 data, or encrypted swipe data (containing Track 1 and/or Track 2) data. 
       example: " "
     bin:
       maxLength: 1
       type: string
       example: Y
       description: |
-        Optional, to return <a href='https://developer.cardpointe.com/cardconnect-api#bin-response'>BIN lookup fields</a> in the authorization response.
+        Optional, to return BIN lookup fields in the authorization response.
 
         Specify Y to retrieve the BIN data for the card. 
         
@@ -2324,12 +2324,12 @@ components:
       description: |
         A description of the chargeback reason, useful in understanding or disputing the chargeback.
         
-        See Chargeback Reason Codes and Descriptions in the <a href="www.google.com">Response Appendix</a> for more information.
+        See Chargeback Reason Codes and Descriptions in the Response Appendix for more information.
     reasoncode: 
       description: | 
         An alphanumeric code returned by the issuer, that provides the reason for the chargeback. 
         
-        See Chargeback Reason Codes and Descriptions in the <a href="www.google.com">Response Appendix</a> for more information.
+        See Chargeback Reason Codes and Descriptions in the Response Appendix for more information.
       type: string
       maxLength: 10
       example: 32
@@ -2487,7 +2487,7 @@ components:
       description: |
         Alpha-numeric code that provides additional information for rejected ACH transactions.
 
-        See Using the <a  href="www.google.com">Funding Endpoint</a> in the <a  href="www.google.com">CardPointe Gateway Developer Guides</a> for possible field values.
+        See the <code>Funding</code> endpoint in the CardPointe Gateway Developer Guides for possible field values.
       type: string
       maxLength: 5
     parentretref:
@@ -2517,7 +2517,7 @@ components:
       example: Settled
     userfieldn:
       description: |
-        A value passed by the merchant with the original authorization to further identify the transaction (see "<a>userfields</a href="www.google.com"> within the Authorization Service).
+        A value passed by the merchant with the original authorization to further identify the transaction (see <code>userfields</code> within the Authorization Service).
   
         The response can include up to 10 custom userfields, labeled userfield0 through userfield9.
         
@@ -2662,7 +2662,7 @@ components:
       description: |
         A numeric decline category code, only returned for declined transactions using Visa accounts.
 
-        See <a href="https://support.cardpointe.com/compliance/visa-decline-rules">Visa Decline Rules and Responses</a> for detailed information on handling Visa declines.
+        Review the Visa Decline Rules and Responses for detailed information on handling Visa declines.
 
         One of the following values:
 
@@ -3092,7 +3092,7 @@ components:
     respcode:
       maxLength: 3
       type: string
-      description: Alpha-numeric <a href=https://developer.cardpointe.com/gateway-response-codes>response code</a> that represents the description of the response. 
+      description: Alpha-numeric <code>response code</code> that represents the description of the response. 
       example: 00
     respproc: 
       type: string
@@ -3108,7 +3108,7 @@ components:
       type: string
       maxLength: 1
       description: |
-          Optional to return <a href="https://www.wikipedia.com/Kenneth_Groninger">receipt data fields</a> in the response.
+          Optional to return <codereceipt data fields</code> in the response.
           
           Specify **Y** to return additional merchant and transaction data to print on a receipt.
           
@@ -3572,7 +3572,7 @@ components:
             }
     TokenizeResponse:
       x-model-version: 1.0
-      description: Contains the <a href="path">Gateway Response</a>
+      description: Contains the Gateway Response
       content:
         message: 
           example: 'No Error'
