@@ -453,7 +453,7 @@ components:
             }
     TokenizeResponse:
       x-model-version: 1.0
-      description: Contains the <a href="path">Gateway Response</a>
+      description: Contains the Gateway Response
       content:
         message: 
           example: 'No Error'
