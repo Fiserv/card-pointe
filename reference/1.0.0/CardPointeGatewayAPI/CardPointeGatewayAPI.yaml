@@ -1301,7 +1301,7 @@ components:
     profileupdate:
       maxLength: 1
       type: string
-      description: 	<code>Y</code> to update profile data with non-empty request data only as opposed to full profile replacement including empty values
+      description:   <code>Y</code> to update profile data with non-empty request data only as opposed to full profile replacement including empty values
       example: N
     authcode:
       maxLength: 16
@@ -1382,6 +1382,42 @@ components:
           $ref: '#/components/schemas/termid'
         accttype:
           $ref: '#/components/schemas/accttype'
+        userfields:
+          $ref: "#/components/schemas/userfields"
+        custommerchant:
+          $ref: "#/components/schemas/custommerchant"
+        customproduct:
+          $ref: "#/components/schemas/customproduct"
+        customphone:
+          $ref: "#/components/schemas/customphone"
+    custommerchant:
+      type: string
+      description: |+
+        Custom merchant name field
+        
+        You can provide custom identifying information about a merchant (for example, business name or phone number) or a custom product name in an authorization request, which appears on buyers’ credit/debit card statements. 
+
+        See your sales person for feature availability and merchant configuration. Once configured add UserField entries for each piece of custom data to be replaced.
+      maxLength: 12
+      example: John Smith
+    customproduct:
+      type: string
+      description: |+
+        You can provide custom identifying information about a merchant (for example, business name or phone number) or a custom product name in an authorization request, which appears on buyers’ credit/debit card statements. 
+
+        See your sales person for feature availability and merchant configuration. Once configured add UserField entries for each piece of custom data to be replaced.
+      maxLength: 12
+      example: John Smith's Shoes
+    customphone:
+      type: string
+      description: |+
+        Custom phone number where format must be ##########
+        
+        You can provide custom identifying information about a merchant (for example, business name or phone number) or a custom product name in an authorization request, which appears on buyers’ credit/debit card statements. 
+
+        See your sales person for feature availability and merchant configuration. Once configured add UserField entries for each piece of custom data to be replaced.
+      maxLength: 12
+      example: 7777777777
     track:
       maxLength: 76
       type: string
@@ -1735,6 +1771,14 @@ components:
           $ref: '#/components/schemas/receiptdata'
         receiptObj:
           $ref: '#/components/schemas/receiptObj'
+        userfields:
+          $ref: "#/components/schemas/userfields"
+        custommerchant:
+          $ref: "#/components/schemas/custommerchant"
+        customproduct:
+          $ref: "#/components/schemas/customproduct"
+        customphone:
+          $ref: "#/components/schemas/customphone"
     amount:
       maxLength: 12
       type: integer
@@ -3317,6 +3361,16 @@ components:
         Optional if postal is specified.
     userfields: 
       type: array 
+      description: |+
+        You can include additional data in the authorization request for future retrieval by using optional userfields. The value of the userfields object is a series of name-value pairs that are meaningful to the merchant. 
+
+        You can use an array or an object.
+        
+        The name and value fields can include any string value, and you can include as many fields as necessary; however, the total length of user defined fields, URL/JSON encoded, is limited to 4000 bytes, where 1 character is equal to 1 byte. 
+        
+        If you use the CardPointe web application for transaction reporting, you must ensure that you pass your custom fields in an array, in the order that they are configured in the CardPointe application to ensure that the fields are populated correctly in the Transactions table. If there is no value for a field, you must include the field with an empty value (for example, "udf1":"") to preserve the expected order of the fields. If you pass the fields in an object, the order will not be preserved.
+        
+        While the example is a JSON array, a JSON object version of userfields is also available.
       items: 
         properties:
           name:
