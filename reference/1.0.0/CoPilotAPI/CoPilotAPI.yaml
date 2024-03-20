@@ -1762,8 +1762,7 @@ components:
           name:
             type: string
             description: The code name
-      example: 
-          attachmentTypeCodes:
+      example:
             - code: 501C
               name: 501C Form
             - code: ACCTUPDTR
@@ -1838,7 +1837,6 @@ components:
             type: string
             description: The code name
       example:
-          backEndPlatformCodes:
             - code: AMEX
               name: American Express Pltfrm
             - code: PSTR
@@ -1893,7 +1891,6 @@ components:
             type: string
             description: The code name
       example: 
-        bankAcctTypes:
           - code: BIZ
             name: Business Checking
           - code: GL
@@ -1915,8 +1912,7 @@ components:
           name:
             type: string
             description: The code name
-      example: 
-          billToCodes:
+      example:
             - code: PARTNER
               name: Partner Residuals
             - code: PARTNERCC
@@ -1939,7 +1935,6 @@ components:
             type: string
             description: The code name
       example: 
-          billToDetailCodes:
             - code: CC
               name: CardConnect
             - code: INTSALE
@@ -1966,7 +1961,6 @@ components:
             type: string
             description: The code name
       example: 
-          billingFequencyCodes:
             - code: ONETIME
               name: One Time
             - code: MONTHLY
@@ -1987,7 +1981,6 @@ components:
             type: string
             description: The code name
       example: 
-          cloverSecurityBundleCodes:
             - code: CSPFB
               name: Clover Security Plus - Full Bundle (01)
             - code: PCI
@@ -2014,7 +2007,6 @@ components:
             type: string
             description: The code name
       example: 
-          countryCodes:
             - code: US
               name: United States of America
             - code: AF
@@ -2529,7 +2521,6 @@ components:
             type: string
             description: The code name
       example: 
-          discoverProgramCodes:
             - code: EASI
               name: External Agent Sales Incentive
             - code: MAP
@@ -2550,7 +2541,6 @@ components:
             type: string
             description: The code name
       example: 
-          equipmentSupplierCodes:
             - code: FDMP
               name: First Data Marketplace
             - code: CARDCONNECT
@@ -2575,7 +2565,6 @@ components:
             type: string
             description: The code name
       example: 
-          equipmentTypeCodes:
             - code: TERMINAL
               name: Terminal
             - code: GATEWAY
@@ -2598,7 +2587,6 @@ components:
             type: string
             description: The code name
       example: 
-          frontEndPlatformCodes:
             - code: AMEX
               name: American Express Pltfrm
             - code: CPSAF
@@ -2684,8 +2672,7 @@ components:
           name:
             type: string
             description: The code name
-      example: 
-          interchangeTypeCodes:
+      example:
             - code: GROSS
               name: Gross
             - code: NET
@@ -2705,8 +2692,7 @@ components:
           name:
             type: string
             description: The code name
-      example: 
-          orderStatusCodes:
+      example:
             - code: NEW
               name: New
             - code: CANCELLED
@@ -2734,8 +2720,7 @@ components:
           name:
             type: string
             description: The code name
-      example: 
-        ownershipTypes:
+      example:
           - code: GOVT
             name: Government
           - code: INDIVSOLE
@@ -2768,7 +2753,6 @@ components:
             type: string
             description: The code name
       example:
-        pciProgramCodes:
           - code: ANNUAL
             name: PCI Annual Program
           - code: CONCIERGE
@@ -2789,7 +2773,6 @@ components:
             type: string
             description: The code name
       example:
-        refundPolicyCodes:
           - code: EXCHONLY
             name: Exchange Only
           - code: NOREFEXCH
@@ -2814,7 +2797,6 @@ components:
             type: string
             description: The code name
       example:
-        serviceProvidedInCodes:
           - code: 30LESS
             name: 30 Days or Less
           - code: 31TO60
@@ -2837,7 +2819,6 @@ components:
             type: string
             description: The code name
       example:
-        shippingCarrierCodes:
           - code: FEDEX
             name: FedEx
           - code: UPS
@@ -2858,7 +2839,6 @@ components:
             type: string
             description: The code name
       example:
-        shippingMethodCodes:
           - code: EXPEDITED
             name: Expedited
           - code: STANDARD
@@ -2879,7 +2859,6 @@ components:
             type: string
             description: The code name
       example:
-        stateCodes:
           - code: AL
             name: Alabama
           - code: AK
@@ -2998,7 +2977,6 @@ components:
             type: string
             description: The code name
       example:
-        transarmorTokenTypeCodes:
           - code: SINGLE
             name: Single Pay
           - code: MULTI
@@ -3019,7 +2997,6 @@ components:
             type: string
             description: The code name
       example:
-        whenCustomerChargedCodes:
           - code: INADVANCE
             name: In Advance
           - code: WHENSERV
