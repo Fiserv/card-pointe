@@ -3380,7 +3380,6 @@ components:
             type: string
             description: The value of the field.
       example:
-        "userfields":
           [
             {"udf0": "value0"},
             {"udf1": "value1"},
