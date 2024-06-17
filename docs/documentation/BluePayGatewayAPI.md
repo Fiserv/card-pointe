@@ -79,7 +79,7 @@ These third-party WordPress plugins are compatible with the BluePay Gateway.
 - [WP eCommerce Gold Cart](https://wpecommerce.org/news/gold-cart-api-key-requests-issue/)
 - [Tribulant WordPress Shopping Cart Plugin](https://tribulant.com/plugins/view/10/wordpress-shopping-cart-plugin)
 
-## **Plugins available via CDI.**
+## **Plugins available via CDI**
 
 <!--
 type: tab
