@@ -2,9 +2,21 @@
 
 The following entries describe changes to the [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md) and documentation.
 
-Visit status.cardconnect.com and click subscribe to updates to receive important release and status notifications.
+Visit status.cardconnect.com and **click subscribe to updates** to receive important release and status notifications.
 
-## Date Updated: 2/2/2024
+## Date Updated: 4/30/2024 
+
+An update to the CardPointe Gateway is planned for deployment to the UAT and Production environments on 5/2/2024.
+
+This update includes backend enhancements, as well as the following API updates.
+
+### Funding Adjustment Case Number 
+
+The funding response now includes a `casenumber` field within the adjustments array.
+
+In the event of a chargeback reversal, you can use the `casenumber` in the chargebacks array and the matching `casenumber` in the adjustments array to correlate the chargeback and reversal.
+
+## Date Updated: 2/10/2024
 
 An update to the CardPointe Gateway was released to the UAT environment on 2/2/2024 and to the Production environment on 2/10/2024.
 
