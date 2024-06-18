@@ -9,6 +9,28 @@ The API complements the CoPilot web application, offering a programmatic interfa
 <!-- theme: warning -->
 > Visit [Statuspage](http://status.cardconnect.com/) and click **subscribe to updates** to receive important release and status notifications.
 
+## Date Updated: 4/16/2024 
+
+An update to the CoPilot API has been released to the Production environment on 4/16/2024. This release includes the following update in addition to internal fixes and enhancements:
+
+### New Delivery Percentages Field
+
+The **Delivery Percentages** object now includes a **dlvrySameDayPct** field to specify the percentage of orders that the merchant fulfills same-day, represented as a whole number.
+
+The following example illustrates a possible entry including the new field:
+
+```
+"deliveryPercentages": {
+    "dlvrySameDayPct": 96,
+    "dlvry0To7DaysPct": 1,
+    "dlvry8To14DaysPct": 1,
+    "dlvry15To30DaysPct": 1,
+    "dlvryOver30DaysPct": 1
+}
+```
+
+The addition of this field aligns with the same-day delivery option being made available to newly created accounts in CoPilot and the Digital Application. For more information on this, please refer to the CardPointe Support Site. 
+
 ## Date Updated: 11/8/2023 
 
 An update to the CoPilot API has been released to the Production environment on 11/8/2023. This release includes the following updates in addition to internal fixes and enhancements:
