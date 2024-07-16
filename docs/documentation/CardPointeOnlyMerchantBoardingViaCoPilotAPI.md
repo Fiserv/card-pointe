@@ -59,5 +59,6 @@ The access token is valid for a limited timeframe, indicated by the <code>expire
 ### Token Request
 
 | **Method** | Post |
+| -- | -- |
 |**Host** | https://accountsuat.cardconnect.com |
 
