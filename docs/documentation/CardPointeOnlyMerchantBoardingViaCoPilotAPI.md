@@ -54,11 +54,24 @@ The access token is valid for a limited timeframe, indicated by the <code>expire
 > - Do not expose the <code>access_token</code> or <code>refresh_token</code> in client-side applications.
 > - Create a **dedicated** CoPilot user account for authenticating your CoPilot API requests, and do not use this account to access the CoPilot web application. Using this account to access the CoPilot web application will initiate the two-factor authentication (2FA) requirement for this account, preventing the authentication of your API requests until the 2FA requirement is satisfied
 
-
-
-### Token Request
-
 | **Method** | <code>POST</code> |
 | -- | -- |
 |**Host** | https://accountsuat.cardconnect.com |
+| **Path** | /auth/realms/cardconnect/protocol/openid-connect/token | 
+| **Headers** | Content-Type: application/x-www-form-urlencoded |
+| **Consumes** | application/x-www-form-urlencoded | 
+| **Produces** | application/json |
+
+### Token Request
+
+| Field | Required | Default Value | Comments| 
+| -- | -- | -- | -- |
+| username | Yes | N/A | The username for the CoPilot user account used to authenticate your API requests. |
+| password | Yes | N/A | The password for the CoPilot user account used to authenticate your API requests. | 
+| grant_type | Yes | password | |
+| client_id | Yes | merchapi | | 
+| client_secret | Yes | N/A | CoPilot API registration is required in order to receive your client_secret. |
+
+
+
 
