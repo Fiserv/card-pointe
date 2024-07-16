@@ -51,5 +51,9 @@ To authenticate any request to the CoPilot API, you must first request an access
 The access token is valid for a limited timeframe, indicated by the <code>expires_in</code> value (in seconds). Once a token has expired, you must request a new token.
 
 > - The provided <code>client_secret</code> is a secret and should never be exposed on the client side via JavaScript. Ensure that the client secret is stored securely in your application.
-> - Do not expose the access_token or 'refresh_token' in client-side applications.
-> - Create a dedicated CoPilot user account for authenticating your CoPilot API requests, and do not use this account to access the CoPilot web application. Using this account to access the CoPilot web application will initiate the two-factor authentication (2FA) requirement for this account, preventing the authentication of your API requests until the 2FA requirement is satisfied.
+> - Do not expose the <code>access_token</code> or <code>refresh_token</code> in client-side applications.
+> - Create a **dedicated** CoPilot user account for authenticating your CoPilot API requests, and do not use this account to access the CoPilot web application. Using this account to access the CoPilot web application will initiate the two-factor authentication (2FA) requirement for this account, preventing the authentication of your API requests until the 2FA requirement is satisfied
+
+
+
+### Token Request
