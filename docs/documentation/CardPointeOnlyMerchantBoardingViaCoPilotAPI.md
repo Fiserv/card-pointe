@@ -76,6 +76,7 @@ The access token is valid for a limited timeframe, indicated by the <code>expire
 
 The JSON-encoded request will return a signed OpenID Connect JSON Web Token (JWT) as the access_token value, as well as other properties pertaining to authentication.
 
+'''json
 {    
     "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIzNDZZVkUwaGJXQlVvT1NoMm5wOHF4d2NuZ2tKUjY1Uzh3SVM2UmI5X3N3In0.eyJqdGkiOiJmYmZjMjY5My04YTliLTQyOTAtOGRiMS0zM2YxODc3M2IwMTkiLCJleHAiOjE0OTkxMTYyODUsIm5iZiI6MCwiaWF0IjoxNDk5MTE1OTg1LCJpc3MiOiJodHRwOi8vYWNjb3VudHMtbG9jYWwuY2FyZGNvbm5lY3QuY29tL2F1dGgvcmVhbG1zL2NhcmRjb25uZWN0IiwiYXVkIjoiY29waWxvdCIsInN1YiI6IjZlZjdkOTkyLWZhZTMtNDVhYy1iMDA5LTIzOGIzMzIwOTA1MSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImNvcGlsb3QiLCJhdXRoX3RpbWUiOjAsInNlc3Npb25fc3RhdGUiOiJjYzExYWYyMi0xMjMxLTQ4M2ItYjA0ZC01ZmYyMTIwMTM0OGYiLCJhY3IiOiIxIiwiY2xpZW50X3Nlc3Npb24iOiJmNGQ1ZWQyOC05MzM0LTQwOGYtODlmZC0zNzY0MmU3OGViNWUiLCJhbGxvd2VkLW9yaWdpbnMiOltdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsidW1hX2F1dGhvcml6YXRpb24iXX0sInJlc291cmNlX2FjY2VzcyI6eyJhY2NvdW50Ijp7InJvbGVzIjpbIm1hbmFnZS1hY2NvdW50Iiwidmlldy1wcm9maWxlIl19fSwibmFtZSI6IiIsInByZWZlcnJlZF91c2VybmFtZSI6ImFwaW9uZXNhbGVzY29kZSIsImNjVU5hbWUiOiJhcGlvbmVzYWxlc2NvZGUifQ.a6W3BihEKH4vcbFDInWIF0KmiAU3g3jtdQmBLEwEdOhOlRtsAyYVngeUxJ7pjUqqM9rv9Y8pCTAyZCZegu1Qi6ZSd3vQ1A7TKaR61LvxFXgFwuNodl-PKtJOCnSk9C1tnOEW_hlz-amBq19ydx2PoPZPqjeyopbnXFMOXvXP3_Km5gDM8JqVXlN0Awg38WpMB1SWgw5f8ZItjAVj3_9EpMi1pImO7wyjKw7KXk_O_drUPJIO6XB1vwd_tYWdNf_pAuoUPQLl9R0xGHDkIOAioXYjWnVpZ8bNExwPdSGJkkzTuTOEoWGuMsXKKFkLZxzzzzzz",    
     "expires_in": 300,    
@@ -86,5 +87,5 @@ The JSON-encoded request will return a signed OpenID Connect JSON Web Token (JWT
     "session_state": "cc11af22-1231-483b-b04d-5ff21201348f",
     "scope": "isv"
 }
-
+'''
 
