@@ -49,3 +49,4 @@ The following API methods are used to create and submit a CardPointe-Only mercha
 To authenticate any request to the CoPilot API, you must first request an access token using the Token endpoint. The Token endpoint requires CoPilot user account credentials and returns the access token you will use to make API requests during a session.
 
 The access token is valid for a limited timeframe, indicated by the <code>expires_in</code> value (in seconds). Once a token has expired, you must request a new token.
+
