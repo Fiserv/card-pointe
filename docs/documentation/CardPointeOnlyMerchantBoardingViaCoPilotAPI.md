@@ -170,7 +170,7 @@ The following API fields must be supplied to allow for automatic boarding:
 | -- | -- |  -- | -- | -- |
 | owner | n/a | object | Yes | The owner object contains information about the owner. | 
 
-###### Owner Definitino
+###### Owner Definition
 
 | Field | Size | Type | Required | Comments | 
 | -- | -- |  -- | -- | -- |
