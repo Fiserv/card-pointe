@@ -28,7 +28,7 @@ See our documentation on the [Postman Collection for the CoPilot API]() for more
 
 Click the button below to download the collection:
 
-> [CardPointe Only Boarding Postman Collection](https://developer.cardpointe.com/assets/developer/assets/ACH-Payment-Services-NACHA-Operational-Guidelines-Mar-2021.pdf)
+> [CardPointe Only Boarding Postman Collection](https://developer.cardpointe.com/assets/developer/assets/CardPointe-OnlyBoarding.postman_collection.json)
 
 # Limitations
 
