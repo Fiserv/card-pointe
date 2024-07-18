@@ -5,7 +5,7 @@
   "brandLogoURL": "https://raw.githubusercontent.com/Fiserv/Developer-Portal-Tenant-API/develop/assets/images/Fiserv_Logo.jpg",
   "solution": ["merchants"],
   "brandDescription": "CardPointe Integrated Payments provides a suite of API and SDK integrations to build secure, omnichannel payments into any application.",
-  "getStartedFilePath": "/docs/get-started.md",
+  "getStartedFilePath": "docs/get-started.md",
   "apiVersions": [
       {
         "version": "1.0.0",
