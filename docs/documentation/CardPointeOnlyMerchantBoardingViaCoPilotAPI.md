@@ -119,6 +119,6 @@ The following fields are uniquely required for a successful API call to create a
 | -- | -- |
 |**Host** | https://api-uat.cardconnect.com |
 | **Path** | /merchantt | 
-| **Headers** | Authorization: Bearer <br> X-CoPilotAPI-Version: 1.0 \\ Content-Type: application/json|
+| **Headers** | Authorization: Bearer <br> X-CoPilotAPI-Version: 1.0 <br> Content-Type: application/json|
 | **Consumes** | application/json | 
 | **Produces** | application/json |
