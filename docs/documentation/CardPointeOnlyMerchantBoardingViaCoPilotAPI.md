@@ -184,4 +184,151 @@ The following API fields must be supplied to allow for automatic boarding:
 | Field | Size | Type | Required | Comments | 
 | -- | -- |  -- | -- | -- |
 | platformDetails | n/a | Object | Yes | The platform details object containing platform processing information. |
-| n/a | Object | Yes | The mode of transaction object containing transaction mode information. |
+| modeOfTransaction | n/a | Object | Yes | The mode of transaction object containing transaction mode information. |
+
+###### Platform Details Definition
+
+| Field                 | Size | Type    | Required | Comments                                                                                                                                                      |
+|-----------------------|------|---------|----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| backEndMid            | 25   | string  | Yes      | The settlement processor merchant ID.                                                                                                                         |
+| frontEndMid           | 25   | string  | Yes      | The authorization processor merchant ID.                                                                                                                      |
+| processorReportingMid | 25   | string  | Yes      | The processor merchant ID used for reporting.                                                                                                                 |
+| backEndPlatformCd     | 20   | string  | Yes      | The back end platform code that represents the settlement processor.                                                                                          |
+| frontEndPlatformCd    | 20   | string  | Yes      | The front end platform code that represents the authorization processor.                                                                                      |
+| acquiringFlg          | n/a  | boolean | Yes      | This flag must be set to False for a successful CardPointe-Only merchant creation. If this flag is set to True, the account will be set as Merchant Services. |
+| taxId                 | 9    | string  | Yes      | The merchant's Social Security Number or Employer Identification Number.                                                                                      |
+| tid                   | 30   | string  | Yes      |                                                                                                                                                               |
+| mccId                 | 5    | string  | Yes      | The Merchant Category Code (MCC) that represents the business industry                                                                                        |
+
+###### Mode of Transaction Definition
+
+| Field              | Size | Type    | Required | Comments                                                                                                                                                      |
+|--------------------|------|---------|----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| eCommercePct       | 3    | number  | Yes      | The percentage of card-not-present transactions accepted via eCommerce solutions, represented as a whole number.                                              |
+| keyedPct           | 3    | number  | Yes      | The percentage of card-not-present transactions entered manually using a hardware terminal keypad or the Virtual Terminal, represented as a whole number.     |
+| mailOrderPct       | 3    | number  | Yes      | The percentage of card-not-present transactions accepted via a call center, represented as a whole number.                                                    |
+| swipedPct          | 3    | number  | Yes      | The percentage of card-present transactions accepted via hardware terminals, represented as a whole number                                                    |
+
+##### Owner Site User Definition
+
+
+| Field              | Size | Type    | Required | Comments                                                                                                                                                      |
+|--------------------|------|---------|----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| firstName          | 300  | string  | Yes      | The first name of the CardPointe user.                                                                                                                        |
+| lastName           | 300  | string  | Yes      | The last name of the CardPointe user.                                                                                                                         |
+| email              | 300  | string  | Yes      | The email address used to create the CardPointe User                                                                                                          |
+
+##### Custom Fields Definition
+
+While custom fields must be included, values do not have to be passed if they are not needed. If a custom field object is needed, the below fields are required. View the examples below for more information. 
+
+| Field              | Size | Type    | Required | Comments                                                                                                                                                      |
+|--------------------|------|---------|----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| userFieldNumber    | n/a  | number  | No       | The index number of the custom field. Must be a number between 1-10.                                                                                          |
+| customFieldValue   | 100  | string  | No       | Required when the userFieldNumber is marked as required in the CoPilot web interface.                                                                         |
+
+#### Create CardPointe-Only Merchant - Required Fields Only
+
+```json
+{
+    "templateId": "99999",
+    "merchant": {
+        "salesCode": "APT1",
+        "dbaName": "DBA Red Wizard GWO",
+        "legalBusinessName": "Legal Red Wizard GWO",
+        "taxFilingMethod": "EIN",
+        "taxFilingName": "Filing Red Wizard GWO",
+        "demographic": {
+            "websiteAddress": "www.test.com",
+            "businessPhone": "302-876-9855",
+            "businessAddress": {
+                "address1": "1000 Continental Dr.",
+                "address2": "Floor 3",
+                "city": "Newark",
+                "countryCd": "US",
+                "stateCd": "DE",
+                "zip": "19702"
+            }
+        },
+        "ownership": {
+            "owner": {
+                "ownerEmail": "redwizardgwo4@redwizardgwo4.com",
+                "ownerName": "John Smith",
+                "ownerTitle": "CEO",
+                "ownerSSN": "999-99-9999"
+            }
+        },
+        "processing": {
+            "platformDetails": {
+		"backEndMid": "418493849598",
+                "discoverProgramCd": "MAP",
+                "acquiringFlg": false,
+                "taxId": "999999999",
+                "tid": "01234567",
+                "mccId": "5812"
+        },
+           "modeOfTransaction": {
+                "eCommercePct": 100,
+                "keyedPct": 0,
+                "mailOrderPct": 0,
+                "swipedPct": 0
+            }
+        },
+        "customFields": []
+    },
+    "ownerSiteUser": {
+        "firstName": "John",
+        "lastName": "Smith",
+        "email": "RedWizard@redwizard.com"
+    }
+}
+```
+
+## Submit a Merchant Account
+
+> Any required changes to this account must be made before using the following submit endpoint. Once this endpoint is used, the CardPointe-Only merchant information cannot be changed via the CoPilot API.
+> This includes changes to equipment ordering and attachments, as well as other settings.
+
+| Method   | PUT                                                                            |
+|----------|--------------------------------------------------------------------------------|
+| **Host**     | https://accountsuat.cardconnect.com                                            |   
+| **Path**     | /merchant/{merchant-Id}/submit                                                 |   
+| **Headers**  | Authorization: Bearer Content-Type: application/json X-CopilotAPI-Version: 1.0 |   
+| **Consumes** | n/a                                                                            |   
+| **Produces** | application/json                                                               |
+
+### Submit Request Body
+
+There is no request body for this endpoint.
+
+## Submit Response
+
+The following are examples of the response body for calls of this endpoint. 
+
+## Example Submit Response
+
+### Status: 200 OK
+
+```json
+{
+    "errors": null,
+    "validationErrors": null
+}
+```
+
+## Acquiring Flag Set to True Error
+
+### Status: 401 Unauthorized
+
+```json
+{
+    "errors": [
+        {
+            "code": "1005",
+            "message": "Access denied.",
+            "errorField": null,
+            "status": "UNAUTHORIZED"
+        }
+    ]
+}
+```
