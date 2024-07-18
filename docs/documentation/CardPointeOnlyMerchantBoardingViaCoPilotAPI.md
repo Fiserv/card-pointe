@@ -122,3 +122,66 @@ The following fields are uniquely required for a successful API call to create a
 | **Headers** | Authorization: Bearer <br> X-CoPilotAPI-Version: 1.0 <br> Content-Type: application/json|
 | **Consumes** | application/json | 
 | **Produces** | application/json |
+
+### Create Merchant Request Body
+
+The following API fields must be supplied to allow for automatic boarding:
+
+| Field | Size | Type | Required | Comments | 
+| -- | -- |  -- | -- | -- |
+|templateId | 19 | Number | Yes | The ID of the application template created wihtin the CoPilot web interface. |
+| merchant | n/a | |Object | Yes | The merchant object. |
+| ownerSiteUser | n/a | Object | Yes | The owner site user object is used to create the merchant's CardPointe user. If this is null, a CardPointe user will be created using the ownership fields in the merchant. |
+
+#### Merchant Definition
+
+| Field | Size | Type | Required | Comments | 
+| -- | -- |  -- | -- | -- |
+| salesCode | 25 | string | Yes | The Sales Code created within the CoPilot web interface that is applicable for this merchant account. |
+| legalBusinessName | 500 | string | Yes | The full legal name of the registered business. |
+| taxFilingName | 500 | string | Yes | The business name used in tax filing. Include only the following special characters: &, - |
+| demographic | n/a | object | Yes | The demographic object, containing business information. |
+| ownership | n/a | object | Yes | The ownership object, containing ownership information for this merchant account. |
+| processing | n/a | Object | Yes | The processing object that contains various data and options necessary for payment processing. |
+| customFields | 10 | Array | Yes | The custom fields array, containing an object for each custom field object. Required when one or more custom fields have been configured in the CoPilot web interface as a required field for new merchants. | 
+
+##### Demographic Definition
+
+| Field | Size | Type | Required | Comments | 
+| -- | -- |  -- | -- | -- |
+| websiteAddress | 200 | string | Yes | Business website is required if merchant.processing.modeOfTransaction.eCommercePct is greater than 0. |
+| businessPhone | 12 | string | Yes | The business phone number, formatted as ###-###-####. |
+| businessAddress | n/a | object | Yes | The address object, containing the business address. |
+
+###### Address Definition
+
+| Field | Size | Type | Required | Comments | 
+| -- | -- |  -- | -- | -- |
+| address1 | 200 | string | Yes | The number and street of the address. |
+| address2 | 200 | string | Yes | Any additional address information such as apartment number or suite number of the address. |
+| city | 300 | string | Yes | The city of the address. |
+| stateCd | 2 | string | Yes | The state code that represents the US state where the address is located. |
+| zip | 15 | string | Yes | The ZIP code of the address. | 
+| countryCd | 2 | string | Yes | The country code that represents the country where the address is located. |
+
+##### Ownership Definition
+
+| Field | Size | Type | Required | Comments | 
+| -- | -- |  -- | -- | -- |
+| owner | n/a | object | Yes | The owner object contains information about the owner. | 
+
+###### Owner Definitino
+
+| Field | Size | Type | Required | Comments | 
+| -- | -- |  -- | -- | -- |
+| ownerEmail | 300 | string | Yes | The email address of the owner. |
+| ownerName | 300 | string | Yes | The first and last name of the owner. <br> **Note**: Do no include title, middle name, or suffix. First name must contain only characters. Last name must not contain more than 1 hyphen or 1 apostrophe. | 
+| ownerSSN | 11 | string | Yes | The Social Security Number of the owner, formatted as ###-##-####. | 
+| ownerTitle | 200 | string | Yes | One of the Valid Owner Titles listed below. | 
+
+##### Processing Definition
+
+| Field | Size | Type | Required | Comments | 
+| -- | -- |  -- | -- | -- |
+| platformDetails | n/a | Object | Yes | The platform details object containing platform processing information. |
+| n/a | Object | Yes | The mode of transaction object containing transaction mode information. |
