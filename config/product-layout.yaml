@@ -37,7 +37,7 @@ benefits:
     description: Omnichannel tokens and customer profiles enable a seamless payment experience across your brand.
   - title: Flexible APIs
     description: Our suite of APIs allows you to integrate a wide range of payment, reporting, and transaction management features depending on your needs.
-getStarted: /docs/get-started.md
+getStarted: docs/get-started.md
 featuredFeatures:
   - title: Tokenization
     groupName: Ecommerce
