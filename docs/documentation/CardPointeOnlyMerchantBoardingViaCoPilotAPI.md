@@ -109,9 +109,8 @@ titles: Example: Token Example Response
 
 Supply the <code>access_token</code> value in the Authorization header of your subsequent API calls, using the Bearer Authentication scheme as shown below.
 
-```json
-Authorization: Bearer <access_token>
-```
+<code>Authorization: Bearer <access_token></code>
+
 ## Create a Merchant Account
 
 The following fields are uniquely required for a successful API call to create a CardPointe-Only merchant. These fields must be fulfilled in addition to any required fields for the create Merchant API endpoint in general. Review the Create Merchant Endpoint documentation for more information.
@@ -120,8 +119,6 @@ The following fields are uniquely required for a successful API call to create a
 | -- | -- |
 |**Host** | https://api-uat.cardconnect.com |
 | **Path** | /merchantt | 
-| **Headers** | Authorization: Bearer
-X-CoPilotAPI-Version: 1.0
-Content-Type: application/json|
+| **Headers** | Authorization: Bearer <br> X-CoPilotAPI-Version: 1.0 \\ Content-Type: application/json|
 | **Consumes** | application/json | 
 | **Produces** | application/json |
