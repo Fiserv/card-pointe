@@ -56,4 +56,4 @@ To accept immediate tips, you must first enable the **Tip At Time of Sale** sett
 > This procedure is only available for merchants who have the **Tip Adjust** ability. This ability can be granted to a merchant by enabling the **Tip Adjustment** Billpay Flag in CoPilot.
 
 You must also enable the tipping ability in the CardPointe Mobile Application. To do this, navigate to the **Application** page under the **Settings** tab and enable **Restaurant-Style Gratuity**. This will result in printed receipts including two lines for the tip and the total amount after tipping for the customer to fill out.
-![CardPointe Mobile Settings](../../assets/images/TipGuideMobileSettings.jpg)
+<img src="../../assets/images/TipGuideMobileSettings.jpg" alt="CardPointe Mobile Settings Tab" width = "350"/>
