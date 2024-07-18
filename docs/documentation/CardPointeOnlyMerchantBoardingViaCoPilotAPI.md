@@ -95,3 +95,33 @@ titles: Example: Token Example Response
 ```
 
 <!-- type: tab-end -->
+
+| Field | Type | Comment |
+| -- | -- | -- |
+| access_token | string	| The access token value to be used with the Bearer Authentication scheme for subsequent calls to the API. | 
+| expires_in | number | The number of seconds until the access token is no longer valid. |
+| refresh_expires_in | number | The number of seconds until the refresh token is no longer valid. |
+| refresh_token | string | The refresh token used to request a new access token. |
+| token_type | string | The type of token provided. A successful request returns a bearer token. |
+| not-before-policy | number | When applicable, restricts authentication prior to the timestamp value. |
+| session_state | string | The session state string. |
+| scope | string | The scope of use for the token, based on the user that initiated the request. |
+
+Supply the <code>access_token</code> value in the Authorization header of your subsequent API calls, using the Bearer Authentication scheme as shown below.
+
+```json
+Authorization: Bearer <access_token>
+```
+## Create a Merchant Account
+
+The following fields are uniquely required for a successful API call to create a CardPointe-Only merchant. These fields must be fulfilled in addition to any required fields for the create Merchant API endpoint in general. Review the Create Merchant Endpoint documentation for more information.
+
+| **Method** | <code>POST</code> |
+| -- | -- |
+|**Host** | https://api-uat.cardconnect.com |
+| **Path** | /merchantt | 
+| **Headers** | Authorization: Bearer
+X-CoPilotAPI-Version: 1.0
+Content-Type: application/json|
+| **Consumes** | application/json | 
+| **Produces** | application/json |
