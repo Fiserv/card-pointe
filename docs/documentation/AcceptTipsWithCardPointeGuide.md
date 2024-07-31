@@ -58,3 +58,20 @@ To accept immediate tips, you must first enable the **Tip At Time of Sale** sett
 You must also enable the tipping ability in the CardPointe Mobile Application. To do this, navigate to the **Application** page under the **Settings** tab and enable **Restaurant-Style Gratuity**. This will result in printed receipts including two lines for the tip and the total amount after tipping for the customer to fill out.
 
 <img src="../../assets/images/TipGuideMobileSettings.jpg" alt="CardPointe Mobile Settings Tab" width = "350"/>
+
+After completing the above, the procedure for accepting tips is as follows.
+
+1. Accept the customer's payment information via the CardPointe Mobile Device or CardPointe Mobile Application.
+2. Print and provide the receipt to the customer.
+3. Once the customer has filled out the tip and amount line, use the CardPointe Mobile Application to search for the transaction. To do this, navigate to the Transactions page under the Reporting tab. Then enter the retrieval reference number in the search bar and select your transaction.
+4. Once your transaction is open, you can enter the amount into the Tip Adjust line and complete the transaction.
+
+## CardPointe Web Application Procedure
+
+> The following method results in changing the card-present transaction into a card-not-present transaction. Due to this the rates and fees for accepting the transaction will differ from card-present transactions. Learn more about the differences between these card-present and card-not-present transaction types by viewing our Card-Present and Card-Not-Present documentation.
+
+To accept immediate tips, you must first enable the Tip At Time of Sale setting located in the Virtual Terminal section under the Administration tab in the CardPointe Web Application. This will allow for both the CardPointe Mobile and CardPointe Web Applications to accept tips during a Virtual Terminal transaction.
+
+> This procedure is only available for merchants who have the Tip Adjust ability. This ability can be granted to a merchant by enabling the Tip Adjustment Billpay Flag in CoPilot.
+
+To add tip lines to your receipts, navigate to the Receipts page under the Administration tab in the CardPointe Web Application and enable the Tip Lines option.
