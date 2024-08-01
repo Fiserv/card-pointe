@@ -4,6 +4,39 @@ The following entries describe changes to the [CardPointe Gateway API](?path=doc
 
 Visit status.cardconnect.com and **click subscribe to updates** to receive important release and status notifications.
 
+## Date Updated: 7/13/2024
+
+An update to the CardPointe Gateway was deployed to the UAT environment on 7/8/2024 and to the Production environment on 7/13/2024.
+
+This update includes backend enhancements, as well as the following API updates.
+
+### Rapid Connect Refund Authorization for Amex 
+For merchants on the First Data Rapid Connect processor, this update includes support for online refunds (also known as refund authorizations) for American Express cards.
+
+See the [Refund Authorization overview](https://support.cardpointe.com/compliance/refund-authorizations) for more information on online refunds.
+
+### Surcharge Fee Amount Calculation
+The surcharge request now includes an optional amount parameter which, when included, returns the calculated surcharge fee amount in a new `fee_amount` response field.
+
+For example:
+
+```
+https://<site>.cardconnect.com/cardconnect/rest/surcharge?amount=100.00&merchid=831831831921&token=9424500693402230&postal=30040
+```
+
+Returns:
+
+```
+{ 
+  "token": "CREDIT",
+  "postal": "NOT_RESTRICTED",
+  "fee_amount": "3.00",
+  "messages": []
+}
+```
+<!-- theme: warning -->
+The fee value calculation is rounded at the second decimal place, where the value is rounded down from a third decimal value of 4 or less, and up from 5 and greater. For example, for a 3% fee applied to a $24.99 sale amount, the calculated fee value is $.749, rounded and applied as $.75.
+
 ## Date Updated: 4/30/2024 
 
 An update to the CardPointe Gateway is planned for deployment to the UAT and Production environments on 5/2/2024.
