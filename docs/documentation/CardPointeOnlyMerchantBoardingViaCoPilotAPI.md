@@ -1,10 +1,6 @@
-# Overview
+# Boarding CardPointe-Only Merchants Using the CoPilot API 
 
-Merchants that process transactions through the CardPointe Gateway while still maintaining their relationship with their acquirer are known as CardPointe-Only accounts.
-
-Boarding for these accounts can be done automatically through CoPilot allowing for minimal manual interaction with the account. 
-
-The following guide illustrates how to allow for merchants to be automatically boarded to the CardPointe Gateway through the API while still maintaining a relationship with their acquirer. 
+Merchants that process transactions through the CardPointe Gateway while still maintaining their relationship with their acquirer are known as CardPointe-Only accounts. This guide provides information for using the CoPilot API to board these merchants to the CardPointe Gateway. 
 
 # Requirements
 
