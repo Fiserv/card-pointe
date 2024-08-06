@@ -76,5 +76,5 @@ To accept immediate tips, you must first enable the Tip At Time of Sale setting 
 
 To add tip lines to your receipts, navigate to the Receipts page under the Administration tab in the CardPointe Web Application and enable the Tip Lines option.
 
-<img src="../../assets/images/TipLineMobile.png", alt="CardPointe Mobile Tip Line" width = "350"/>
+[Mobile Tip Line](../../assets/images/TipLineMobile.png")
 
