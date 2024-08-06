@@ -6,11 +6,17 @@ Merchants that process transactions through the CardPointe Gateway while still m
 
 To allow for merchants to be automatically boarded to the CardPointe Gateway through the API the following requirements must be met.
 
-If these requirements are not met, the account must be manually reviewed by an internal team. 
+If these requirements are not met, the account must be manually reviewed by an internal team. Using the following CardPointe Only method without meeting these requirements will not be successful.
+
+Currently, the following CardPointe Only Boarding method is only available to a select group of partners. Contact your representative to inquire further.
 
 ## API Endpoint Requirements
 
 Account information provided must include the fields that are necessary to run the Token, Merchant, and Submit CoPilot API endpoints. For more information on the exact fields needed, refer to the [API Request Details](#api-request-details) section of this document. 
+
+## Permissions
+
+The **Allow CardPointe Gateway Straight through Boarding** setting in CoPilot must be enabled. 
 
 # Submitting a Merchant Application via CoPilot API
 
