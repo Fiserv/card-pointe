@@ -75,3 +75,6 @@ To accept immediate tips, you must first enable the Tip At Time of Sale setting 
 > This procedure is only available for merchants who have the Tip Adjust ability. This ability can be granted to a merchant by enabling the Tip Adjustment Billpay Flag in CoPilot.
 
 To add tip lines to your receipts, navigate to the Receipts page under the Administration tab in the CardPointe Web Application and enable the Tip Lines option.
+
+<img src="../../assets/images/TipLineMobile.png", alt="CardPointe Mobile Tip Line" width = "350"/>
+
