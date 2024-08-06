@@ -95,31 +95,31 @@ There are three accepted workflows for managing a bar tab.
 
 > The following method results in changing the card-present transaction into a card-not-present transaction. Due to this the rates and fees for accepting the transaction will differ from card-present transactions. Learn more about the differences between these card-present and card-not-present transaction types by viewing our Card-Present and Card-Not-Present documentation.
 
-1. When the bar tab is opened, use readCard to gather the card details.
+1. When the bar tab is opened, use <code>readCard</code> to gather the card details.
 2. Retain the token, expiration date, and customer name.
-3. Use auth with "capture" : "N" to create a $0 authorization to validate the card details.
+3. Use <code>auth</code> with <code>"capture" : "N"</code> to create a $0 authorization to validate the card details.
 4. When it is time to close the tab, run a new authorization for the final amount using the token you initially obtained.
 
 ## Static Ceiling Workflow
 
 > The following method results in changing the card-present transaction into a card-not-present transaction. Due to this the rates and fees for accepting the transaction will differ from card-present transactions. Learn more about the differences between these card-present and card-not-present transaction types by viewing our Card-Present and Card-Not-Present documentation.
 
-1. When the bar tab is opened, use readCard to gather the card details.
+1. When the bar tab is opened, use <code>readCard</code> to gather the card details.
 2. Retain the token, expiration date, and customer name.
-3. Set a ceiling for the bar tab, for example, $100.00 by running the transaction using auth with "capture" : "N".
-4. If the ceiling is reached, run auth again with "capture" : "N" for a higher ceiling, $200.00 for example.
+3. Set a ceiling for the bar tab, for example, $100.00 by running the transaction using <code>auth</code> with <code>"capture" : "N"</code>.
+4. If the ceiling is reached, run <code>auth</code> again with <code>"capture" : "N"</code> for a higher ceiling, $200.00 for example.
    a. If the transaction is declined, it is probably best to close the tab and open a new one with a new card.
-    i. If this new auth attempt fails, close out the original tab and capture the original auth call for the final amount.
-5. When the bar tab closes, capture the transaction for the final amount using capture. If the final amount is 25% higher than the initial amount ($125.00 in this example), then void the original authorization, and run auth again with "capture" : "Y" if the tip amount is included. 
-  a. If there is no added tip amount, an additional step using capture would be needed to add the tip amount.
+    i. If this new <code>auth</code> attempt fails, close out the original tab and capture the original <code>auth</code> call for the final amount.
+5. When the bar tab closes, capture the transaction for the final amount using <code>capture</code>. If the final amount is 25% higher than the initial amount ($125.00 in this example), then void the original authorization, and run <code>auth</code> again with <code>"capture" : "Y"</code> if the tip amount is included. 
+  a. If there is no added tip amount, an additional step using <code>capture</code> would be needed to add the tip amount.
 
 # Dynamic Ceiling Workflow
 
-1. Set a ceiling for the bar tab by running the transaction using authCard with "capture" : "false" for a chosen amount. For example, $100.00 by running the transaction using authCard with "capture" : "false" for $100.00.
+1. Set a ceiling for the bar tab by running the transaction using <code>authCard</code> with <code>"capture" : "false"</code> for a chosen amount. For example, $100.00 by running the transaction using <code>authCard</code> with <code>"capture" : "false"</code> for $100.00.
 2. When the tab reaches the chosen amount from the previous step have the terminal prompt the user to retrieve the card from the customer again.
-3. Run an authCard request with "capture" : "false" again for a higher ceiling, $200.00 for example. 
+3. Run an <code>authCard</code> request with <code>"capture" : "false"</code> again for a higher ceiling, $200.00 for example. 
   a. If the transaction is declined, it is best to close the tab and open a new one with a new card.
-    i. If the new authCard attempt fails, close out the original tab and capture the original authCard call for the final amount.
+    i. If the new <code>authCard</code> attempt fails, close out the original tab and capture the original <code>authCard</code> call for the final amount.
 4. If higher ceiling authorization is approved, void the original $100.00 authorization and save the new retrieval reference number for capture later.
 5. If this ceiling is reached again, do this process over again.
 6. When the tab is ready to be closed, capture the most recent authorization for the final amount.
