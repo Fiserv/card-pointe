@@ -2,19 +2,19 @@
 
 The CardPointe Mobile Android SDK seamlessly connects your Android<sup>tm</sup> applications to CardSecure for tokenization of customer card data. Tokens and other associated payment details are then retrieved by your server and securely transmitted to the CardPointe Gateway for authorization, using a server-side REST client.
 
-# What's New?
+## What's New?
 
 <!-- theme: warning -->
 > See [Getting Started](#getting-started), below, to download the latest version of the CardPointe Mobile Android SDK.
 
-## Version 3.0.86
+### Version 3.0.86
 
 This version includes the following changes from this and previous builds:
 
 - To improve BBPOS Chipper Mini 2 connectivity, added a check for isConnected in the BBPOS swiper listener callback. The SDK will check that the device is connected and, if so, call `onConnected` to notify the app.
 - Other minor fixes and improvements.
 
-## Version 3.0.80
+### Version 3.0.80
 
 This version includes the following changes from this and previous builds:
 
@@ -31,7 +31,7 @@ link: ?path=docs/changelog/CardPointeMobileAndroidSDK.md
 
 <!-- type: row-end -->
 
-# Overview
+## Overview
 
 A complete mobile payment integration consists of two components:
 
@@ -52,11 +52,11 @@ See the [CardPointe Mobile Device User's Guide](https://support.cardpointe.com/i
 > The ID TECH VP3300 is only available for merchants processing on the First Data Rapid Connect platform.
 > Support for NFC (contactless) transactions on the VP3300 is planned for a future update of the SDK.
 
-# Getting Started
+## Getting Started
 
 Download the latest version of the SDK to get started:
 
-> [CardPointe Mobile Android SDK v3.0.86 ZIP](https://github.com/Fiserv/card-pointe/raw/develop/assets/files/cardpointe-mobile-android-v3.0.86.zip)
+> [CardPointe Mobile Android SDK v3.0.86 ZIP](/assets/files/cardpointe-mobile-android-v3.0.86.zip)
 
 For new integrations, see the [Android SDK Integration Guide](#android-sdk-integration-guide), below for detailed information on integrating the SDK with your application.
 
@@ -65,7 +65,7 @@ For migrating an existing app to the latest version of the SDK, see the [Android
 <!-- theme: warning -->
 > The CardPointe Mobile Android SDK includes an API reference help file. Browse to **/docs/reference api** and double-click **help-doc.html** to launch the API help.
 
-## Requirements
+### Requirements
 
 Before you begin, ensure that you have the following:
 
@@ -84,15 +84,15 @@ Before you begin, ensure that you have the following:
 
 - **(Optional) Android Device** - If you are using a mobile payment reader (swiper) device, you will need a physical Android device to test the integration.
 
-## Customer and Merchant-Facing Applications
+### Customer and Merchant-Facing Applications
 
 The CardPointe Mobile SDK supports both merchant and customer-facing applications. Depending on the type of application you are developing, you can include specific modules tailored to your specific audience and integration needs.
 
-### Customer-Facing Applications
+#### Customer-Facing Applications
 
 A customer user downloads and interacts with your application directly, without interacting with a merchant or participating in a card-present transaction.
 
-### Merchant-Facing Applications
+#### Merchant-Facing Applications
 
 A merchant user interacts with the application as an extension of the integrated point-of-sale (POS) system, and might accept both card present and card not present payments.
 
@@ -107,7 +107,7 @@ The following table provides an overview of the features that you might want to 
 
 Additionally, you can integrate the Google Pay Android API to add Google Paytm support to your app. See the [Google Pay Developer Guide](?path=docs/documentation/GooglePayDeveloperGuide.md) for more information.
 
-# Android SDK Sample APP
+### Android SDK Sample APP
 
 Before you begin your integration, you should review the sample app, which includes demos of the features provided by the SDK.
 
@@ -120,11 +120,11 @@ The sample app includes the following demos:
 - **Theming** - Customize the colors used throughout the app.
 - **Signature** - Capture a signature in the format required for the CardPointe Gateway Signature Capture service.
 
-## Tokenization URL
+### Tokenization URL
 
 The sample app includes an editable URL field. This URL is used to connect to CardSecure to tokenize the payment card data. Ensure that you enter the URL provided for your merchant account.
 
-# Android SDK Integration Guide
+## Android SDK Integration Guide
 
 This guide provides information for integrating the CardPointe Mobile Android SDK with your application.
 
@@ -132,7 +132,7 @@ This guide provides information for integrating the CardPointe Mobile Android SD
 > See the API reference documentation for detailed information on using the classes and methods described in this guide. Browse to **/docs/reference api** and double-click **help-doc.html** to launch the API help.
 > If you already integrated an older version of the Android SDK and want to migrate to the latest version, see the [Android SDK Migration Guide](#android-sdk-migration-guide), below.
 
-## Importing the SDK to Your Project
+### Importing the SDK to Your Project
 
 Do the following to import the SDK with your project:
 
@@ -189,7 +189,7 @@ dependencies {
 >
 > `-keep class com.bolt.consumersdk.** { *; }`
 
-## Integrating the Customer Profile UI (optional)
+### Integrating the Customer Profile UI (optional)
 
 The SDK supports an integrated user interface for managing customer account profiles. The profile UI integrates the CardPointe Gateway's profile service and allows your app to:
 
@@ -318,7 +318,7 @@ protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 }
 ```
 
-## Generating a Token using a Custom UI
+### Generating a Token using a Custom UI
 
 The Android SDK enables your application to capture payment information and generate a token in either a customer-facing UI that supports manual entry, or a merchant-facing UI that supports manual entry and card reader devices.
 
@@ -376,13 +376,13 @@ Card information through these components is not accessible from the application
 CCConsumer._getInstance_().getApi().generateAccountForCard( **mCCConsumerCardInfo**** this**);
 ```
 
-## Integrating a Mobile Payment Reader
+### Integrating a Mobile Payment Reader
 
 The SDK supports integrated mobile payment reader devices, allowing your app to retrieve payment card data directly from device, and to pass that data to CardSecure for tokenization.
 
 See [Supported Devices](#supported-devices) for information on currently supported mobile payment reader devices.
 
-### Establishing a Persistent Connection for VP3300 Devices 
+#### Establishing a Persistent Connection for VP3300 Devices 
 
 The SDK allows you to provides numerous connection methods, including establishing a persistent connection to prevent the device from disconnecting from the phone or tablet.
 
@@ -728,7 +728,7 @@ Additionally, the `IDTechSwiperController` class provides the following properti
 - The `isConnected` method specifies if the swiper is connected.
 - The `timeout()` method controls the timeout length for card reads and has a maximum value of approximately 18 hours and 20 minutes. You can set this value to the desired threshold for fewer delays in waiting for the reader to be ready to accept a card.
 
-### Connecting to a VP3300 Device
+#### Connecting to a VP3300 Device
 
 If you are using an ID TECH VP3300 mobile payment reader (swiper) device, do the following to find and connect to the device:
 
@@ -740,7 +740,7 @@ Found devices will be returned to `BluetoothSearchResponseListener.onDeviceFound
 
 Once connected, the swiper will begin waiting for a card and `SwiperControllerListener.onLogUpdate()` will be called.
 
-### Getting a Token from a Mobile Payment Reader
+#### Getting a Token from a Mobile Payment Reader
 
 To capture and tokenize card data using a mobile payment reader, use the `SwiperControllerListener` interface.
 
@@ -815,11 +815,11 @@ protected void onDestroy() {
 }
 ```
 
-# Android SDK Migration Guide
+## Android SDK Migration Guide
 
 If you have an existing integration using a previous version of the Android SDK, do the following to upgrade to the latest version.
 
-## Integrating the New Framework
+### Integrating the New Framework
 
 **1.** Remove the existing SDK, **ccconsumersdk-consumerSwiper-release.aar**, file from your project's /app/libs folder.
 
@@ -841,9 +841,9 @@ If you have an existing integration using a previous version of the Android SDK,
 
 **10.** Click **Build** and select **Rebuild Project** to rebuild the updated project.
 
-# Troubleshooting
+## Troubleshooting
 
-## Troubleshooting Device Configuration Issues
+### Troubleshooting Device Configuration Issues
 
 If you or your merchants integrated the VP3300 CardPointe Mobile device with a version of the Android SDK prior to version 3.0.40, and have upgraded to version 3.0.61, you may need to update your devices' firmware or configuration if you are experiencing connection or tokenization issues.
 
@@ -851,11 +851,11 @@ If you or your merchants integrated the VP3300 CardPointe Mobile device with a v
 > As of SDK version 3.0.40, the VP3300 CardPointe Mobile device must be running firmware v1.01.129 or higher
 > New devices should not require firmware or configuration updates. Future configuration updates will be applied automatically.
 
-### Checking the Firmware Version
+#### Checking the Firmware Version
 
 To check the firmware version, using version 3.0.61 of the SDK, use a `SwiperControllerListener` to listen for `onDeviceConfigurationUpdate:` during the connection progress. This will return the firmware version of the device (for example, “Device firmware version: VP3300 Bluetooth NEO v1.01.129”). If your device is not running v1.01.129 or higher, contact isvintegrations@fiserv.com to update your device.
 
-### Forcing a Configuration Update
+#### Forcing a Configuration Update
 
 If your device is running firmware 1.01.129 or higher, and you are still experiencing connection or tokenization issues, you can force a configuration update to attempt to resolve the issues. The SDK provides a force configuration flag, `ForceConfigUpdate`, when creating a `SwiperController` that you can use to reconfigure the device. 
 
