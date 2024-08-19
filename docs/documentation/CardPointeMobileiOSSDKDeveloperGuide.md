@@ -2,12 +2,12 @@
 
 The CardPointe Mobile iOS SDK seamlessly connects your iOS applications to CardSecure for tokenization of customer card data. Tokens and other associated payment details are then retrieved by your server and securely transmitted to the CardPointe Gateway for authorization, using a server-side REST client. 
 
-# What's New?
+## What's New?
 
 <!-- theme: warning -->
 > See [Getting Started](#getting-started), below, to download the latest version of the CardPointe Mobile iOS SDK.
 
-## Version 5.2
+### Version 5.2
 
 This version of the iOS SDK includes the following updates:
 
@@ -38,7 +38,7 @@ link: ?path=docs/changelog/CardPointeMobileiOSSDK.md
 
 <!-- type: row-end -->
 
-# Overview
+## Overview
 
 A complete mobile payment integration consists of two components:
 
@@ -47,7 +47,7 @@ A complete mobile payment integration consists of two components:
 
 See the [CardPointe Mobile SDKs Developer Guide](?path=docs/documentation/CardPointeMobileSDKs.md) for detailed information on the overall solution, as well as example host scripts to help you get started with your server-side implementation.
 
-## Supported Devices
+### Supported Devices
 
 If you are developing an application to accept card present payments, you must integrate a mobile payment reader (swiper) device with your solution. Currently, the CardPointe Mobile iOS SDK includes support for the ID TECH VP3300. 
 
@@ -58,11 +58,11 @@ For more information on using the VP3300, see the [CardPointe Mobile Device User
 <!-- theme: danger -->
 > The ID TECH VP3300 is only available for merchants processing on the First Data Rapid Connect platform.
 
-# Getting Started
+## Getting Started
 
 Download the latest version of the SDK to get started:
 
-> [CardPoint Mobile iOS SDK v5.2 ZIP](https://github.com/Fiserv/card-pointe/raw/develop/assets/files/cardpointe-mobile-ios-sdk-v5.2.zip)
+> [CardPoint Mobile iOS SDK v5.2 ZIP](/assets/files/cardpointe-mobile-ios-sdk-v5.2.zip)
 
 The CardPointe Mobile iOS SDK includes the following resources:
 
@@ -73,7 +73,7 @@ The CardPointe Mobile iOS SDK includes the following resources:
 - **SwiftSampleApp** - Contains a Swift sample application.
 - **ThemeGuide** - Contains a series of diagrams that illustrate the relationship of theme properties to UI elements in the sample application.
 
-## Requirements
+### Requirements
 
 Before you begin, ensure that you have the following:
 
@@ -92,15 +92,15 @@ Before you begin, ensure that you have the following:
 
 - **(Optional) iPhone or iPad Device** - If you are using a mobile payment reader (swiper) device, you will need a physical iPhone or iPad device to test the integration. The Xcode device emulator does not support these connected devices.
 
-## Customer and Merchant-Facing Applications
+### Customer and Merchant-Facing Applications
 
 The CardPointe Mobile iOS SDK supports both merchant and customer-facing applications. Depending on the type of application you are developing, you can include specific modules tailored to your specific audience and integration needs.
 
-### Customer-Facing Applications
+#### Customer-Facing Applications
 
 A customer user downloads and interacts with your application directly, without interacting with a merchant or participating in a card-present transaction.
 
-### Merchant-Facing Applications
+#### Merchant-Facing Applications
 
 A merchant user interacts with the application as an extension of the integrated point-of-sale (POS) system, and might accept both card present and card not present payments.
 
@@ -114,7 +114,7 @@ The following table provides an overview of the features that you might want to 
 | Apple Pay Wallet Support | Customer | [Apple Pay Integration](?path=docs/documentation/ApplePayDeveloperGuide.md) | Adds the option to use Apple Pay wallet credentials and stored payment methods. <br> <br> See the [Apple Pay Developer Guide](?path=docs/documentation/ApplePayDeveloperGuide.md) for more information. |
 | Mobile Payment Reader Devices	| Merchant | [iOS Swiper Implementation](#adding-support-for-mobile-payment-readers) | An integrated mobile payment reader (swiper) device used to securely capture and encrypt card data prior to tokenization. <br> <br> See [Supported Devices](#supported-devices) for information on the devices that are currently supported. <br> <br> See the [iOS SDK Integration Guide](#ios-sdk-integration-guide) for instructions for integrating mobile payment reader devices. |
 
-# iOS Sample App User's Guide
+## iOS Sample App User's Guide
 
 Before you begin your integration, you should review the sample app, which includes demos of the features provided by the SDK.
 
@@ -127,11 +127,11 @@ The sample app includes the following demos:
 - **Theming** - Customize the colors used throughout the app.
 - **Signature** - Capture a signature in the format required for the CardPointe Gateway Signature Capture service.
 
-## Tokenization URL
+### Tokenization URL
 
 The sample app includes an editable URL field. This url is used to connect to CardSecure to tokenize the payment card data. Ensure that you enter the URL provided for your merchant account.
 
-## Configure Swiper 
+### Configure Swiper 
 
 The configure swiper demo allows you to find and connect to a mobile payment reader (swiper) device that is properly configured and ready to connect to the app. 
 
@@ -147,7 +147,7 @@ To connect to a mobile payment reader, do the following:
 
 - The device is now connected and ready for use.
 
-## Tokenization Methods
+### Tokenization Methods
 
 This demo allows you to manually enter or use a connected mobile payment reader device to capture and tokenize payment card data. 
 
@@ -167,7 +167,7 @@ Additionally, you can select the following methods used to display the input in 
 - **Last4** - hides each digit of the card number, displaying only the last four.  For example, 1111.
 - **FirstandLast4** - Masks each digit with the selected character (*, &, or -), except for the first four digits and last four digits. For example, 4444********1111.
 
-## Modal and Stack Profile Flows
+### Modal and Stack Profile Flows
 
 The sample app includes two implementations of the Customer Profile UI, the Modal Profile View and the Stack Profile View. 
 
@@ -200,30 +200,30 @@ Both versions of the demo include sample profile data, and the ability to add, e
 <!-- theme: warning -->
 > When you integrate the SDK with your application, you can extend the Profile UI to edit the customer billing information and make an update profile request to the CardPointe Gateway.
 
-## Theming
+### Theming
 
 The sample app includes a theming demo, that allows you to change the colors used throughout the app to match your custom theme. 
 
 The **ThemeGuide** folder, included in the SDK package, includes diagrams to help you map the theme parameters to their associated UI components.
 
-## Signature
+### Signature
 
 The sample app includes a demo interface for capturing signatures. 
 
 The demo presents a touch input field that you can use to draw a signature. Click **Test** to capture the signature, or click **Clear** to clear the input. Note that the signature data is not stored in this demo.
 
-# iOS SDK Integration Guide
+## iOS SDK Integration Guide
 
 This guide provides information for integrating the CardPointe Mobile iOS SDK with your application. 
 
 <!-- theme: warning -->
 > See the API reference documentation, included in the SDK package, for detailed information on using the classes and methods described in this guide.
 
-## Integrating the SDK
+### Integrating the SDK
 
 The following topics provide information for integrating the CardPointe Mobile iOS SDK with your application, using the Xcode integrated development environment (IDE).
 
-### Adding the Framework to your Project
+#### Adding the Framework to your Project
 
 Do the following to add the framework to your project.
 
@@ -241,7 +241,7 @@ Do the following to add the framework to your project.
 
 **7.** Ensure that the framework is listed as Embed & Sign.
 
-### Configuring your Project
+#### Configuring your Project
 
 Do the following to configure your project:
 
@@ -253,7 +253,7 @@ Do the following to configure your project:
 
 `[BMSAPI instance].endpoint = @”<endpoint provided for your account>”;`
 
-## Adding Support for Mobile Payment Readers
+### Adding Support for Mobile Payment Readers
 
 If you are integrating support for a mobile payment reader (swiper) device, do the following to configure your project:
 
@@ -265,13 +265,13 @@ If you are integrating support for a mobile payment reader (swiper) device, do t
 
 **4.** In the **Value** column, enter a description to display to users (for example, "Required for swiper usage").
 
-### Adding Support for the VP3300 Device
+#### Adding Support for the VP3300 Device
 
 To integrate an ID TECH VP3300, do the following to add the required bundle to your project:
 
 **1.** In the **Project Navigator** (left) pane, right-click your project name and select **Add files to "<app name>"**.
 
-**2.** Browse to the directory that includes the framework and add the **IDTech.bundle** file to your project at the path **<project directory>/BoltMobileSDK.xcframework/IDTech.bundle**.
+**2.** Browse to the directory that includes the framework and add the **IDTech.bundle** file to your project at the path **{project directory}/BoltMobileSDK.xcframework/IDTech.bundle**.
 
 **3.** Select the **Info** tab on the Project Editor
 
@@ -281,7 +281,7 @@ To integrate an ID TECH VP3300, do the following to add the required bundle to y
 
 **6.** In the **Value** column, enter a description to display to users (for example, "Required for the VP3300 swiper").
 
-## Integrating the Mobile Payment Reader
+### Integrating the Mobile Payment Reader
 
 To use a mobile payment reader (swiper) device, perform the following steps to integrate the device with your application:
 
@@ -308,11 +308,11 @@ The swiper should initialize when the view appears. You can get the connection s
 
 **5.** If you are using a VP3300 device, continue to [Integrating a VP3300 Device](#integrating-a-vp3300-device).
 
-## Integrating a VP3300 Device
+### Integrating a VP3300 Device
 
 The following topics provide information for integrating the ID TECH VP3300.
 
-### Validating and Updating the Device Configuration
+#### Validating and Updating the Device Configuration
 
 When the application connects to the VP3300, by calling `connectToDevice:mode:`, it validates the device's configuration. If this is the first time the device is connected, or if a new device configuration is available, the VP3300 automatically enters configuration mode. In configuration mode, the application updates the VP3300 with the current valid configuration. When the process completes, the device automatically begins waiting for card input.
 
@@ -325,7 +325,7 @@ In this view, once the device is found using `[swiper findDevices];`, connect us
 
 Note that you should delay the call to cancel the transaction to allow adequate time for the device time to initialize.  See `SwiperConfigurationViewController.m` or the .swift class in the sample application for an example of this workflow. 
 
-### Selecting Card Read Methods
+#### Selecting Card Read Methods
 
 The SDK provides several modes to connect to a mobile payment reader device, depending on the types of card read methods you want to support.
 
@@ -337,7 +337,7 @@ The SDK provides several modes to connect to a mobile payment reader device, dep
 
 - `BMSCardReadModeSwipe` to force the reader to only accept the swipe (MSR) card read method. In this mode, attempting to insert a card will result in an error.
 
-### Connecting the Device
+#### Connecting the Device
 
 Do the following to find and connect to the VP3300:
 
@@ -353,7 +353,7 @@ Do the following to find and connect to the VP3300:
 
 > All messages from `swiper:displayMessage:canCancel:` must be displayed. If the **cancelable** parameter is set to **true**, you can use `[self.swiper cancelTransaction];` to include a cancel function.
 
-### Establishing a Persistent Connection
+#### Establishing a Persistent Connection
 
 The SDK allows you to provides numerous connection methods, including establishing a persistent connection to prevent the device from disconnecting from the phone or tablet.
 
@@ -391,7 +391,7 @@ When the swiper is used to read a card, `SwiperControllerManager` should respond
 - `func swiperControllerManager(_ controller: SwiperControllerManager, generatedTokenWith account: BMSAccount, completion: @escaping (() -> Void)){}`
 - `func swiperControllerManager(_ controller: SwiperControllerManager, failedWithError error: NSError, completion: @escaping (() -> Void)){}){}`
 
-## Integrating the Customer Profile UI
+### Integrating the Customer Profile UI
 
 The SDK framework supports an integrated user interface for managing user accounts. The integrated UI allows you to use the CardPointe Gateway's profile service to add, delete, edit, and display a profile’s accounts with an easy to use interface. The integrated UI also includes a custom theming class that allows you to modify the look and feel.
 
@@ -421,7 +421,7 @@ To use the integrated UI, do the following:
 
 The integrated profile UI is now configured to display in the method you selected and use your API bridge class to supply data to the user. When the user finishes and selects a payment method, the controller is dismissed and the account is returned to your root view.
 
-## Integrating Field Formatting and Validation
+### Integrating Field Formatting and Validation
 
 The SDK includes the following delegate classes, which provide functions for field formatting and validation:
 
@@ -448,7 +448,7 @@ The SDK includes the following delegate classes, which provide functions for fie
 <!-- theme: warning -->
 > When clearing text fields using the custom delegate classes, call `clearTextField` on the delegates themselves to clear internal information.
 
-## Generating a Token
+### Generating a Token
 
 You use the `BMSCardInfo` and `BMSAPI` classes to send a payment card data to CardSecure in a tokenization request. See the API reference documentation, included in the SDK package, for detailed information on these classes.
 
