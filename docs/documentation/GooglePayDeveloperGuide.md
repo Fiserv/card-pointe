@@ -125,7 +125,7 @@ See the [CardPointe Gateway API Developer documentation](?path=docs/APIs/CardPoi
 
 # Support
 
-For assistance with your CarPointe merchant account, or integrating CardSecure and the CardPointe Gateway, contact isvintegrations@fiserv.com.
+For assistance with your CardPointe merchant account, or integrating CardSecure and the CardPointe Gateway, contact isvintegrations@fiserv.com.
 
 For assistance with integrating the Google Pay API, see the [Google Pay API Troubleshooting page](https://developers.google.com/pay/api/android/support/troubleshooting) or complete the [Google Pay API Integration Support Request Form](https://services.google.com/fb/forms/googlepayAPIsupport/).
 
