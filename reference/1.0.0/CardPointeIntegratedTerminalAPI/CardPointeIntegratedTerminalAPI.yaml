@@ -479,7 +479,7 @@ paths:
       summary: A call to the readInput endpoint sends a prompt to the terminal to request user input, in a format specified in the request.
       description: |
         A call to the readInput endpoint sends a prompt to the terminal to request user input, in a format specified in the request.
-        See <a href=".../docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md#using-readinput-to-capture-customer-information">Using readInput to Capture Customer Information</a> for more information.
+        See <a href="../docs/?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md&branch=develop#using-readinput-to-capture-customer-information">Using readInput to Capture Customer Information</a> for more information.
       requestBody:
         required: true
         content:
@@ -516,7 +516,7 @@ paths:
       description: |
         A call to the <code>readSignature</code> endpoint sends a prompt to the terminal to capture the cardholder's signature, which is then returned in the response. The readSignature endpoint is supported for terminal devices that support signature capture.
 
-        See <a href="">Capturing and Handling Cardholder Signatures</a> for guidance on how and when to capture signatures.
+        See <a href="../docs/?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md&branch=develop#capturing-and-handling-cardholder-signatures">Capturing and Handling Cardholder Signatures</a> for guidance on how and when to capture signatures.
       requestBody:
         required: true
         content:
@@ -590,7 +590,7 @@ paths:
 
         To authorize and capture a transaction, call the authCard endpoint.
 
-        See Using the <a href= "">Terminal API Tokenization and Payment Endpoints</a> for more information.
+        See Using the <a href= "../docs/?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md&branch=develop#understanding-the-terminal-api-service-endpoints">Terminal API Tokenization and Payment Endpoints</a> for more information.
       requestBody:
         required: true
         content:
@@ -627,9 +627,9 @@ paths:
       description: |
         A call to the readManual endpoint requests manually-keyed card data and returns a token to be used in a subsequent authorization request to the CardPointe Gateway. The readManual endpoint does not initiate an authorization or capture funds. To authorize and capture a transaction, call the authManual endpoint.
 
-        See Using the <a href="">Terminal API Tokenization and Payment Endpoints</a> for more information.
+        See Using the <a href="../docs/?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md&branch=develop#understanding-the-terminal-api-service-endpoints">Terminal API Tokenization and Payment Endpoints</a> for more information.
         
-        WARNING: The readManual endpoint is currently not supported for Clover terminals. See the <a href="">CardPointe Integrated Terminal Developer Guide for Clover Terminals</a> for more information.
+        WARNING: The readManual endpoint is currently not supported for Clover terminals. See the <a href="../docs/?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuideForCloverTerminals.md&branch=develop">CardPointe Integrated Terminal Developer Guide for Clover Terminals</a> for more information.
       requestBody:
         required: true
         content:
@@ -666,7 +666,7 @@ paths:
       description: |
         A call to the authCard endpoint initiates an MSR (magnetic stripe), EMV (chip), or NFC (contactless) payment card interaction and initiates an authorization request to the CardPointe Gateway.
 
-        See Using the <a href="">Terminal API Tokenization and Payment Endpoints</a> for more information.
+        See Using the <a href="../docs/?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md&branch=develop#understanding-the-terminal-api-service-endpoints">Terminal API Tokenization and Payment Endpoints</a> for more information.
       requestBody:
         required: true
         content:
@@ -703,9 +703,9 @@ paths:
       description: |
         A call to the authManual endpoint requests manually-entered card data and initiates Authorization request to the CardPointe Gateway.
 
-        See Using the <a href="">Terminal API Tokenization and Payment Endpoints</a> for more information.
+        See Using the <a href="../docs/?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md&branch=develop#understanding-the-terminal-api-service-endpoints">Terminal API Tokenization and Payment Endpoints</a> for more information.
         
-        The Terminal API does not provide the ability to void or inquire on transactions. See the <a href="">CardPointe Gateway API</a> for information on integrating these features and other advanced capabilities.
+        The Terminal API does not provide the ability to void or inquire on transactions. See the <a href="../api/?type=post&path=/cardpointegatewayapi">CardPointe Gateway API</a> for information on integrating these features and other advanced capabilities.
       requestBody:
         required: true
         content:
@@ -742,7 +742,7 @@ paths:
       description: |
         A call to the tip endpoint prompts the user to specify a tip amount on the terminal.
 
-        See Using the <a href="">Terminal API Tokenization and Payment Endpoints</a> for more information.
+        See Using the <a href="../docs/?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md&branch=develop#understanding-the-terminal-api-service-endpoints">Terminal API Tokenization and Payment Endpoints</a> for more information.
         
         For Ingenico terminals, the tip endpoint is only supported on terminals running firmware version 1.6.3.4 or higher.
       requestBody:
@@ -781,7 +781,7 @@ paths:
       description: |
         A call to the printReceipt endpoint prints one or two receipts for a past transaction, specified by the orderId.
 
-        The printReceipt endpoint is only supported for Clover terminals. See the <a href="">CardPointe Integrated Terminal Developer Guide for Clover Terminals</a> for more information on printing receipts.
+        The printReceipt endpoint is only supported for Clover terminals. See the <a href="../docs/?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuideForCloverTerminals.md&branch=develop">CardPointe Integrated Terminal Developer Guide for Clover Terminals</a> for more information on printing receipts.
       requestBody:
         required: true
         content:
@@ -960,7 +960,7 @@ components:
       description: |
             An object that includes additional fields to be printed on a receipt.
 
-            See <a href="">Printing Receipts Using Authorization Data</a> in the <code>CardPointe Integrated Terminal Developer Guides</code> for detailed information. 
+            See <a href="../docs/?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuideForCloverTerminals.md&branch=develop#printing-receipts">Printing Receipts Using Authorization Data</a> in the <code>CardPointe Integrated Terminal Developer Guides</code> for detailed information. 
       properties:
         header:
           type: string
@@ -1068,7 +1068,7 @@ components:
           maxLength: 18
           example: 14012PP20131409
         amount:
-          maxLength: 2147483647
+          maxLength: 14
           description: | 
             **Required Field**
             
@@ -1323,7 +1323,7 @@ components:
 
             If <code>false</code>, no profile is created. Defaults to false if not provided.
 
-            See the CardPointe Gateway API <a href="">profile endpoint description</a> for detailed information.
+            See the CardPointe Gateway API <code>profile endpoint description</code> for detailed information.
           type: boolean
         gzipSignature:
           description: | 
@@ -1382,7 +1382,7 @@ components:
 
             You can use the order ID to get information on a transaction using the CardPointe Gateway API inquireByOrderid endpoint.
 
-            Additionally, when an authorization attempt times out and the terminal service does not receive a response from the CardPointe Gateway, the terminal service uses the order ID to make an <a href="">inquireByOrderid</a> request to check the status of the transaction. If the transaction status cannot be determined, the terminal service makes three <a href="">voidByOrderId</a> requests to void the transaction. See <a href="">Handling Timeouts</a> in the <a href="">CardPointe Integrated Terminal Developer Guides</a> for more information.
+            Additionally, when an authorization attempt times out and the terminal service does not receive a response from the CardPointe Gateway, the terminal service uses the order ID to make an <code>inquireByOrderid</code> request to check the status of the transaction. If the transaction status cannot be determined, the terminal service makes three <code>voidByOrderId</code> requests to void the transaction. Review the Handling Timeouts section in the <a href="../docs/?path=docs/APIs/CardPointeIntegratedTerminalAPI.md&branch=develop">CardPointe Integrated Terminal Developer Guides</a> for more information.
 
             **Note**: If you include an order ID it must meet the following requirements: 
 
@@ -1580,7 +1580,7 @@ components:
 
             This data returned should be presented on a receipt if applicable, and recorded with the transaction details for future reference.
 
-            See <a href="">Printing Receipts Using Authorization Data</a> in the <a href="">CardPointe Integrated Terminal Developer Guides</a> for detailed information. 
+            See <a href=""../docs/?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md&branch=develop#accepting-pin-debit-cards"">Printing Receipts Using Authorization Data</a> in the <a href="../docs/?path=docs/APIs/CardPointeIntegratedTerminalAPI.md&branch=develop">CardPointe Integrated Terminal Developer Guides</a> for detailed information. 
           type: string 
           example: N/A
         tokenExpired:
@@ -1668,7 +1668,7 @@ components:
           description: |
             Sets the default EMV application ID, which processes the request as either a PIN debit or a credit transaction.
 
-            See <a href="">Accepting PIN Debit Cards</a> for detailed information on PIN Debit requirements and application workflows.
+            See <a href="https://qa-developerstudio.fiserv.com/product/CardPointe/docs/?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md&branch=develop#accepting-pin-debit-cards">Accepting PIN Debit Cards</a> for detailed information on PIN Debit requirements and application workflows.
 
             **Note**: PIN debit is only supported for qualified merchants boarded on the First Data North and Rapid Connect processing platforms. 
 
@@ -1743,7 +1743,7 @@ components:
 
             If <code>false</code>, no profile is created. Defaults to false if not provided.
 
-            See the CardPointe Gateway API <a href="">profile endpoint description</a> for detailed information.
+            See the CardPointe Gateway API <code>profile endpoint description</code> for detailed information.
           type: boolean
         gzipSignature:
           description: | 
@@ -1777,7 +1777,7 @@ components:
           description: |
             Determines if the user is prompted to enter a PIN after card swipe for MSR (magnetic-stripe) debit cards that support PIN.
 
-            See <a href="">Accepting PIN Debit Cards</a> for detailed information on PIN Debit requirements and application workflows.
+            See <a href="https://qa-developerstudio.fiserv.com/product/CardPointe/docs/?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md&branch=develop#accepting-pin-debit-cards">Accepting PIN Debit Cards</a> for detailed information on PIN Debit requirements and application workflows.
 
             Note: PIN debit is only supported for qualified merchants boarded on the First Data North and Rapid Connect processing platforms. Contact Support for more information.
 
@@ -1806,7 +1806,7 @@ components:
 
             You can use the order ID to get information on a transaction using the CardPointe Gateway API inquireByOrderid endpoint.
 
-            Additionally, when an authorization attempt times out and the terminal service does not receive a response from the CardPointe Gateway, the terminal service uses the order ID to make an <a href="">inquireByOrderid</a> request to check the status of the transaction. If the transaction status cannot be determined, the terminal service makes three <a href="">voidByOrderId</a> requests to void the transaction. See <a href="">Handling Timeouts</a> in the <a href="">CardPointe Integrated Terminal Developer Guides</a> for more information.
+            Additionally, when an authorization attempt times out and the terminal service does not receive a response from the CardPointe Gateway, the terminal service uses the order ID to make an <code>inquireByOrderid</code> request to check the status of the transaction. If the transaction status cannot be determined, the terminal service makes three <code>voidByOrderId</code> requests to void the transaction. Review the Handling Timeouts section in the <a href="https://qa-developerstudio.fiserv.com/product/CardPointe/docs/?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md&branch=develop">CardPointe Integrated Terminal Developer Guides</a> for more information.
 
             **Note**: If you include an order ID it must meet the following requirements: 
 
@@ -2116,7 +2116,7 @@ components:
           description: |
             Sets the default EMV application ID, which processes the request as either a PIN debit or a credit transaction.
 
-            See <a href="">Accepting PIN Debit Cards</a> for detailed information on PIN Debit requirements and application workflows.
+            See <a href="../docs/?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md&branch=develop#accepting-pin-debit-cards">Accepting PIN Debit Cards</a> for detailed information on PIN Debit requirements and application workflows.
 
             **Note**: PIN debit is only supported for qualified merchants boarded on the First Data North and Rapid Connect processing platforms. 
 
@@ -2131,7 +2131,7 @@ components:
           description: |
             Determines if the user is prompted to enter a PIN after card swipe for MSR (magnetic-stripe) debit cards that support PIN.
 
-            See <a href="">Accepting PIN Debit Cards</a> for detailed information on PIN Debit requirements and application workflows.
+            See <a href="../docs/?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md&branch=develop#accepting-pin-debit-cards">Accepting PIN Debit Cards</a> for detailed information on PIN Debit requirements and application workflows.
 
             Note: PIN debit is only supported for qualified merchants boarded on the First Data North and Rapid Connect processing platforms. Contact Support for more information.
 
@@ -2335,7 +2335,7 @@ components:
           description: | 
             The readInput request reads data from the terminal keypad in the specified format.
 
-            The format must be a valid getInput format. For more information on this formating, refer to <a href="">getInputformat</a>.
+            The format must be a valid getInput format. For more information on this formating, refer to <code>getInputformat</code>.
           type: string
           example: PHONE
           

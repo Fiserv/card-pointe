@@ -29,8 +29,8 @@
 ################################################################################
 
 - sections:
-  - title: Getting Started
-    link: docs/getting-started.md
+  - title: Get Started
+    link: docs/get-started.md
 - sections:
   - title: CardPointe Gateway
     sections:

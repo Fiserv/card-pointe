@@ -37,7 +37,7 @@ benefits:
     description: Omnichannel tokens and customer profiles enable a seamless payment experience across your brand.
   - title: Flexible APIs
     description: Our suite of APIs allows you to integrate a wide range of payment, reporting, and transaction management features depending on your needs.
-getStarted: /docs/getting-started.md
+getStarted: docs/get-started.md
 featuredFeatures:
   - title: Tokenization
     groupName: Ecommerce
@@ -88,7 +88,7 @@ featuredFeatures:
         path: "/v1/profile"
   - title: Semi-Integrated Terminals
     groupName: Card-Present
-    description: Use the CardPointe Integrated Terminal API to integrate P2PE-validated, card-present payments to your point-of-cale (POS) application.
+    description: Use the CardPointe Integrated Terminal API to integrate P2PE-validated, card-present payments to your point-of-sale (POS) application.
     featured: true
     tags: ["card-present", "semi-integration", "P2PE"]
     relatedDocs:

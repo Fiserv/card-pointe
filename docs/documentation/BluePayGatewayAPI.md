@@ -71,41 +71,6 @@ Payment.js allows merchants working with various First Data APIs and gateways to
 
 [Visit Payment.js documentation](https://docs.paymentjs.firstdata.com/)
 
-### QuickBooks Desktop
-
-#### QuickBooks Desktop Plugin Features
-
-The QuickBooks Desktop plugin works right out of the box, but it also comes with a range of advanced features, including the ability to:
-
-- Run credit, debit, and ACH transactions as Payments, Sales Receipts, and Credit Memos
-- Store payment methods for repeat customers via tokenization
-- Set up, modify, and delete rebillings
-- Import batches of tokens, as well as rebillings
-- Process batches of invoices at one time
-- Import transactions processed outside of QuickBooks Desktop
-- Use with Desktop versions of Pro, Premier, and Enterprise editions 2012 or later
-- Reduce card processing fees and optimize reporting using Level 2/Level 3 processing
-
-#### Setting Up the QuickBooks Desktop Plugin
-
-To use this dedicated plugin, you'll need both an active BluePay account and QuickBooks Desktop - Pro, Premier, or Enterprise editions 2012 or later. Click below to download the plugin, and contact us at bluepay-gateway@fiserv.com for additional support.
-
-During the setup process, you’ll need to provide your Account ID (which is different from your BluePay username) and Secret Key (which is different from your BluePay password).
-
-If you’re not sure where to find your Account ID or Secret Key:
-
-- Log directly into your BluePay account and click on Administration > Accounts > List
-- Next, click on the View icon, which will reveal your Account ID and Secret Key
-- You’ll need to copy these credentials and paste them into the relevant fields within the setup wizard
-
-Once you're done installing the payment module, you’re ready to configure and begin using the QuickBooks Desktop plugin.
-
-_See instructional videos available in the left navigation._
-
-> [BluePay QuickBooks Desktop Plugin](https://developer.cardpointe.com/assets/developer/assets/BluePay-QuickBooks-Desktop-Plugin.pdf)
-
-> [BluePay QuickBooks Setup](https://developer.cardpointe.com/assets/developer/assets/BluePay_QuickBooks_Setup.zip)
-
 ### WordPress
 
 These third-party WordPress plugins are compatible with the BluePay Gateway. 
@@ -114,7 +79,7 @@ These third-party WordPress plugins are compatible with the BluePay Gateway.
 - [WP eCommerce Gold Cart](https://wpecommerce.org/news/gold-cart-api-key-requests-issue/)
 - [Tribulant WordPress Shopping Cart Plugin](https://tribulant.com/plugins/view/10/wordpress-shopping-cart-plugin)
 
-## **Plugins available via CDI.**
+## **Plugins available via CDI**
 
 <!--
 type: tab
@@ -826,21 +791,6 @@ titles: Stored Credential Sample Scenarios
 - [Negative Database](https://www.youtube.com/watch?v=CUKNbz38M8M)
 - [Threshold](https://www.youtube.com/watch?v=yi0TPRslXJI)
 - [Velocity Filter](https://www.youtube.com/watch?v=CZgDy6JigZs)
-
-## QuickBooks Desktop Plugin 
-
-- [Introduction and How to Process Against an Invoice](https://www.youtube.com/watch?v=5IvDtulT9TU)
-- [How to Process a Sales Receipt](https://www.youtube.com/watch?v=jaPV4_10quo)
-- [How to Set Up and Modify Recurring Billing Cycles](https://www.youtube.com/watch?v=qmrJp7bgT48)
-
-## QuickBooks Online Plugin 
-
-- [Setting Up Your Account](https://www.youtube.com/watch?v=5Z8lUxdRGps)
-- [Processing a Transaction](https://www.youtube.com/watch?v=L6doZ3zNHUs)
-- [Importing Transactions](https://www.youtube.com/watch?v=9y-AzIDCv8g)
-- [Invoice Presentment](https://www.youtube.com/watch?v=oPY2ATs7-SI)
-- [Setting Up and Modifying Billing Cycles](https://www.youtube.com/watch?v=VGMXmNIIwDQ)
-- [Storing Payment Information](https://www.youtube.com/watch?v=kdPcJvW_fKs)
 
 ## Salesforce Plugin 
 

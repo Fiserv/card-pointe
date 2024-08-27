@@ -109,10 +109,8 @@ paths:
           description: Success
           content:
             application/json:
-              schema: {$ref: '#/components/schemas/inquireMerchantSuccess'}
+              schema: {$ref: '#/components/schemas/approvedSurchargeResponse'}
               examples:
-                Approved for Surcharge:
-                  $ref: '#/components/examples/approvedsurchargeExample'
                 Debit Card not Elligible:
                   $ref: '#/components/examples/debitcardnotelligible'
                 Missing Postal and Token:
@@ -311,7 +309,7 @@ paths:
 
         You can refund a specific transaction using the retrieval reference number <code>retref</code> provided in the authorization response. 
         
-        You can retrieve the status of a transaction using the <a href="https://developerstudio.fiserv.com/product/CardPointe/api/?type=get&path=/cardconnect/rest/inquire">inquire</a> or <a href="https://developerstudio.fiserv.com/product/CardPointe/api/?type=get&path=/cardconnect/rest/inquireByOrderid">inquireByOrderid</a> endpoint.
+        You can retrieve the status of a transaction using the <code>inquire</code> or <code>inquireByOrderid</code> endpoint.
 
         The response includes a <code>refundable</code> field, which indicates whether or not the transaction can be refunded.
 
@@ -1095,6 +1093,39 @@ components:
       in: header
       description: A message to send in the ping request and receive in the response. The value can be blank, however the message field must be included in the request.
   schemas:
+    approvedSurchargeResponse:
+      description: Approved for Surcharge
+      x-model-version: 1.0 
+      properties:
+        token:
+          $ref: '#/components/schemas/token'
+        postal:
+          $ref: '#/components/schemas/postal'
+        messages:
+          $ref: '#/components/schemas/messages'
+      example:
+        token: CREDIT,
+        postal: NOT_RESTRICTED,
+        messages: []
+    messages:
+      type: array
+      items:
+        properties:
+          message:
+            $ref: '#/components/schemas/message'
+    message:
+      type: string
+      description: |+
+        Empty ([]) for a successful request.
+
+        Otherwise, an array with one or more of the following objects:
+        
+        * "field":"merchid", "message":"Invalid merchid"
+        * "field":"postal", "message":"postal is missing or empty"
+        * "field":"token", "message":"Bin info not found for token"
+        * "field":"token", "message":"Invalid Token"
+        * "field":"token", "message":"token is missing or empty"
+      maxLength: 28
     account:
       maxLength: 19
       type: integer
@@ -1270,7 +1301,7 @@ components:
     profileupdate:
       maxLength: 1
       type: string
-      description: 	<code>Y</code> to update profile data with non-empty request data only as opposed to full profile replacement including empty values
+      description:   <code>Y</code> to update profile data with non-empty request data only as opposed to full profile replacement including empty values
       example: N
     authcode:
       maxLength: 16
@@ -1351,17 +1382,53 @@ components:
           $ref: '#/components/schemas/termid'
         accttype:
           $ref: '#/components/schemas/accttype'
+        userfields:
+          $ref: "#/components/schemas/userfields"
+        custommerchant:
+          $ref: "#/components/schemas/custommerchant"
+        customproduct:
+          $ref: "#/components/schemas/customproduct"
+        customphone:
+          $ref: "#/components/schemas/customphone"
+    custommerchant:
+      type: string
+      description: |+
+        Custom merchant name field
+        
+        You can provide custom identifying information about a merchant (for example, business name or phone number) or a custom product name in an authorization request, which appears on buyers’ credit/debit card statements. 
+
+        See your sales person for feature availability and merchant configuration. Once configured add UserField entries for each piece of custom data to be replaced.
+      maxLength: 12
+      example: John Smith
+    customproduct:
+      type: string
+      description: |+
+        You can provide custom identifying information about a merchant (for example, business name or phone number) or a custom product name in an authorization request, which appears on buyers’ credit/debit card statements. 
+
+        See your sales person for feature availability and merchant configuration. Once configured add UserField entries for each piece of custom data to be replaced.
+      maxLength: 12
+      example: John Smith's Shoes
+    customphone:
+      type: string
+      description: |+
+        Custom phone number where format must be ##########
+        
+        You can provide custom identifying information about a merchant (for example, business name or phone number) or a custom product name in an authorization request, which appears on buyers’ credit/debit card statements. 
+
+        See your sales person for feature availability and merchant configuration. Once configured add UserField entries for each piece of custom data to be replaced.
+      maxLength: 12
+      example: 7777777777
     track:
       maxLength: 76
       type: string
-      description: Payment card track data captured using a supported card reader device (for example, a <a href='https://developer.cardpointe.com/guides/desktop'>desktop card reader</a> device). Can be unencrypted Track 1 or Track 2 data, or encrypted swipe data (containing Track 1 and/or Track 2) data. 
+      description: Payment card track data captured using a supported card reader device (for example, a desktop card reader device). Can be unencrypted Track 1 or Track 2 data, or encrypted swipe data (containing Track 1 and/or Track 2) data. 
       example: " "
     bin:
       maxLength: 1
       type: string
       example: Y
       description: |
-        Optional, to return <a href='https://developer.cardpointe.com/cardconnect-api#bin-response'>BIN lookup fields</a> in the authorization response.
+        Optional, to return BIN lookup fields in the authorization response.
 
         Specify Y to retrieve the BIN data for the card. 
         
@@ -1704,6 +1771,14 @@ components:
           $ref: '#/components/schemas/receiptdata'
         receiptObj:
           $ref: '#/components/schemas/receiptObj'
+        userfields:
+          $ref: "#/components/schemas/userfields"
+        custommerchant:
+          $ref: "#/components/schemas/custommerchant"
+        customproduct:
+          $ref: "#/components/schemas/customproduct"
+        customphone:
+          $ref: "#/components/schemas/customphone"
     amount:
       maxLength: 12
       type: integer
@@ -2293,12 +2368,12 @@ components:
       description: |
         A description of the chargeback reason, useful in understanding or disputing the chargeback.
         
-        See Chargeback Reason Codes and Descriptions in the <a href="www.google.com">Response Appendix</a> for more information.
+        See Chargeback Reason Codes and Descriptions in the Response Appendix for more information.
     reasoncode: 
       description: | 
         An alphanumeric code returned by the issuer, that provides the reason for the chargeback. 
         
-        See Chargeback Reason Codes and Descriptions in the <a href="www.google.com">Response Appendix</a> for more information.
+        See Chargeback Reason Codes and Descriptions in the Response Appendix for more information.
       type: string
       maxLength: 10
       example: 32
@@ -2456,7 +2531,7 @@ components:
       description: |
         Alpha-numeric code that provides additional information for rejected ACH transactions.
 
-        See Using the <a  href="www.google.com">Funding Endpoint</a> in the <a  href="www.google.com">CardPointe Gateway Developer Guides</a> for possible field values.
+        See the <code>Funding</code> endpoint in the CardPointe Gateway Developer Guides for possible field values.
       type: string
       maxLength: 5
     parentretref:
@@ -2486,7 +2561,7 @@ components:
       example: Settled
     userfieldn:
       description: |
-        A value passed by the merchant with the original authorization to further identify the transaction (see "<a>userfields</a href="www.google.com"> within the Authorization Service).
+        A value passed by the merchant with the original authorization to further identify the transaction (see <code>userfields</code> within the Authorization Service).
   
         The response can include up to 10 custom userfields, labeled userfield0 through userfield9.
         
@@ -2631,7 +2706,7 @@ components:
       description: |
         A numeric decline category code, only returned for declined transactions using Visa accounts.
 
-        See <a href="https://support.cardpointe.com/compliance/visa-decline-rules">Visa Decline Rules and Responses</a> for detailed information on handling Visa declines.
+        Review the Visa Decline Rules and Responses for detailed information on handling Visa declines.
 
         One of the following values:
 
@@ -3061,7 +3136,7 @@ components:
     respcode:
       maxLength: 3
       type: string
-      description: Alpha-numeric <a href=https://developer.cardpointe.com/gateway-response-codes>response code</a> that represents the description of the response. 
+      description: Alpha-numeric <code>response code</code> that represents the description of the response. 
       example: 00
     respproc: 
       type: string
@@ -3077,7 +3152,7 @@ components:
       type: string
       maxLength: 1
       description: |
-          Optional to return <a href="https://www.wikipedia.com/Kenneth_Groninger">receipt data fields</a> in the response.
+          Optional to return <codereceipt data fields</code> in the response.
           
           Specify **Y** to return additional merchant and transaction data to print on a receipt.
           
@@ -3286,6 +3361,16 @@ components:
         Optional if postal is specified.
     userfields: 
       type: array 
+      description: |+
+        You can include additional data in the authorization request for future retrieval by using optional userfields. The value of the userfields object is a series of name-value pairs that are meaningful to the merchant. 
+
+        You can use an array or an object.
+        
+        The name and value fields can include any string value, and you can include as many fields as necessary; however, the total length of user defined fields, URL/JSON encoded, is limited to 4000 bytes, where 1 character is equal to 1 byte. 
+        
+        If you use the CardPointe web application for transaction reporting, you must ensure that you pass your custom fields in an array, in the order that they are configured in the CardPointe application to ensure that the fields are populated correctly in the Transactions table. If there is no value for a field, you must include the field with an empty value (for example, "udf1":"") to preserve the expected order of the fields. If you pass the fields in an object, the order will not be preserved.
+        
+        While the example is a JSON array, a JSON object version of userfields is also available.
       items: 
         properties:
           name:
@@ -3295,7 +3380,6 @@ components:
             type: string
             description: The value of the field.
       example:
-        "userfields":
           [
             {"udf0": "value0"},
             {"udf1": "value1"},
@@ -3541,7 +3625,7 @@ components:
             }
     TokenizeResponse:
       x-model-version: 1.0
-      description: Contains the <a href="path">Gateway Response</a>
+      description: Contains the Gateway Response
       content:
         message: 
           example: 'No Error'
