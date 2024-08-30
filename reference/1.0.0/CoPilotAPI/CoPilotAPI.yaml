@@ -4425,6 +4425,8 @@ components:
       type: array
       items:
         properties:
+          dlvrySameDayPct:
+            $ref: '#/components/schemas/dlvrySameDayPct'
           dlvry0To7DaysPct:
             $ref: '#/components/schemas/dlvry0To7DaysPct'
           dlvry8To14DaysPct:
@@ -4433,11 +4435,16 @@ components:
             $ref: '#/components/schemas/dlvry15To30DaysPct'
           dlvryOver30DaysPct:
             $ref: '#/components/schemas/dlvryOver30DaysPct'
+    dlvrySameDayPct:
+      maxLength: 3
+      type: number
+      description: The percentage of products or services delivered within the same day of purchase, represented as a whole number.
+      example: 96
     dlvry0To7DaysPct:
       maxLength: 3
       type: number
       description: The percentage of products or services delivered within 7 days of purchase, represented as a whole number.
-      example: 97
+      example: 1
     dlvry8To14DaysPct:
       maxLength: 3
       type: number
