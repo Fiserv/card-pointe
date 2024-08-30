@@ -7,6 +7,16 @@ The Hosted iFrame Tokenizer helps to reduce your Payment Card Industry (PCI) Dat
 <!-- theme: warning -->
 > Visit [Statuspage](https://status.cardconnect.com/) and click **subscribe to updates** to receive important release and status notifications.
 
+## Date Updated: 11/8/2023 
+
+An update to the Hosted iFrame Tokenizer was deployed to the UAT environment on 11/2/2023 with an additional fix deployed to UAT on 11/7/2023. These updates were then deployed to the Production environment on 11/9/2023. 
+
+This release of the Hosted iFrame Tokenizer includes backend fixes and enhancements, in addition to the following update:
+
+### Fix for Orientation 
+
+An issue that caused the orientation to not align with the set parameter was fixed. This setting now functions as expected. 
+
 ## Date Updated 8/20/2021
 
 The changes below were deployed to the UAT environment on 6/25/2021 and later deployed to the production environment on 7/24/2021.
