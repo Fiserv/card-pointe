@@ -6,7 +6,7 @@ description: Our Developer Guides provide detailed information and best practice
 
 <!-- type: row-end -->
 
-# Getting Started
+# Get Started
 
 <!-- type: row -->
 

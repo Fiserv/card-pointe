@@ -11,7 +11,7 @@ Before you begin, consider the following:
 - Currently, Apple Pay is only supported for **First Data Rapid Connect** merchants in the **US**. 
 - You must obtain a Certificate Signing Request (CSR) file from our Integration Delivery team. You use this file to generate an Apple Pay Payment Processing Certificate, and you must send the public key file for this certificate back to your representative.
 
-> Contact integrationdelivery@fiserv.com to request the required CSR file.
+> Contact [integrationdelivery@fiserv.com](integrationdelivery@fiserv.com) to request the required CSR file.
 > 
 > Note that this process can take up to 5 business days.
 
@@ -39,13 +39,16 @@ As described [here](#integrating-apple-pay-using-the-cardsecure-api), CardSecure
 - You must tokenize the Apple Pay payload within 2 minutes of retrieval. Attempting to tokenize an expired Apple Pay payload results in an `"decryption failure"` error response from CardSecure.
 - You must retrieve a new Apple Pay payload for each tokenization attempt. Tokens generated for Apple Pay payloads are valid for a single authorization.
 
-# Configuring an Apple Pay Merchant Account
+## Configuring an Apple Pay Merchant Account
+
+<!-- theme: danger -->
+> When configuring the merchant account, **do not** enable the `supportsEMV` merchant capability setting. This setting is not compatible with the CardPointe Gateway and will result in transaction declines for certain card brands. See [Apple's Developer Documentation](https://developer.apple.com/documentation/apple_pay_on_the_web/applepaypaymentrequest/1916123-merchantcapabilities) for more information.
 
 Perform the following procedures to create and configure an Apple Pay merchant account.
 
-## Creating an Apple Merchant ID
+### Creating an Apple Merchant ID
 
-**1.** Log in to https://developer.apple.com/account.
+**1.** Log in to [your Apple Developer account](https://developer.apple.com/account).
 
 **2.** Select the **Certificates, Identifiers & Profiles** link.
 
@@ -57,9 +60,9 @@ Perform the following procedures to create and configure an Apple Pay merchant a
 
 **6.** Click **Register**.
 
-## Creating an Apple Pay Payment Processing Certificate and Uploading the CSR
+### Creating an Apple Pay Payment Processing Certificate and Uploading the CSR
 
-**1.** Log in to https://developer.apple.com/account.
+**1.** Log in to [your Apple Developer account](https://developer.apple.com/account).
 
 **2.** Select the **Certificates, Identifiers & Profiles** link.
 
@@ -81,11 +84,11 @@ Perform the following procedures to create and configure an Apple Pay merchant a
 
 > To test your solution using test (non-production) Apple Pay data, you must use the Apple Pay Sandbox environment. Attempting to tokenize test data generated in the Xcode simulator will fail. See the [Apple Pay Sandbox Testing](https://developer.apple.com/apple-pay/sandbox-testing/) documentation for more information.
  
-# Integrating Apple Pay using the CardPointe Mobile iOS SDK
+## Integrating Apple Pay using the CardPointe Mobile iOS SDK
 
 This topic provides information for adding Apple Pay to an iOS application using the [CardPointe Mobile iOS SDK](?path=docs/documentation/CardPointeMobileiOSSDKDeveloperGuide.md).
 
-## Configuring the Application
+### Configuring the Application
 
 Do the following to add the Apple Pay capability to your merchant ID and provision your application:
 
@@ -95,11 +98,11 @@ Do the following to add the Apple Pay capability to your merchant ID and provisi
 
 **3.** Ensure your application is set up to run with your provisioning profile and run the application or use the simulator.
 
-## Creating a Custom Flow
+### Creating a Custom Flow
 
 The CardPointe Mobile iOS SDK includes a function called `generateTokenForApplePay:completion:`. This function takes the Apple Pay PKPayment object and generates a CardSecure token. For information on creating a custom workflow, see [Apple's Apple Pay Programming Guide](https://developer.apple.com/library/archive/ApplePay_Guide/).
 
-## Creating an Integrated Flow
+### Creating an Integrated Flow
 
 The CardPointe Mobile iOS SDK's integrated UI supports a basic Apple Pay workflow. It handles display of the Apple Pay UI, token generation, and response of the result. Your application needs to make the authentication request using the API bridge class and forward the response.
 
@@ -117,7 +120,7 @@ The following procedure provides general guidance for creating an integrated App
 
 **6.** You can also customize how the Apple Pay UI is displayed using your `BMSTheme` class and the parameters `applePayButtonDescription`, `applePayButtonStyle`, and `applePayButtonType`.
 
-## Troubleshooting
+### Troubleshooting
 
 If the Apple Pay button doesn’t appear on the initial payment controller screen, enable debug logging on `BMSAPI`. When the payment controller screen displays, it will include a debug log to help troubleshoot.
 
@@ -127,7 +130,7 @@ Some related log messages include:
 - “total not set or <= $0.”
 - “Device doesn’t support payments.”
 
-# Integrating Apple Pay using the CardSecure API
+## Integrating Apple Pay using the CardSecure API
 
 This topic provides information for adding Apple Pay to your website or application using the CardSecure API. Apple Pay tokenization makes use of [CardSecure's RSA encryption](?path=docs/APIs/CardSecureAPI.md#tokenizing-and-encrypting-pan-data) capabilities. A similar decryption process handles the encrypted data returned from Apple.
 
@@ -136,13 +139,13 @@ Before you begin, review the Apple Pay [Payment Token Format Reference](https://
 <!-- theme: danger -->
 > A unique Apple Pay Device Personal Account Number (DPAN) is generated for each transaction. Tokens generated for the unique DPAN must not be stored for reuse or saved to customer profiles.
 
-## Making a CardSecure Tokenization Request
+### Making a CardSecure Tokenization Request
 
 To pass the Apple Pay payment token to CardSecure, your application must first parse the data to retrieve and the required properties and reformat them in an encoded string. Your application includes this string in the devicedata field in the CardSecure tokenize request.
 
 ### CardSecure Request URL
 
-https://<site>.cardconnect.com/cardsecure/api/v1/ccn/tokenize
+https://{site}.cardconnect.com/cardsecure/api/v1/ccn/tokenize
 
 ### CardSecure Request Method
 
@@ -160,7 +163,7 @@ The following parameters are required in the tokenize request:
 <!-- theme: danger -->
 > Do not URL encode the devicedata string. See the example later in this topic to ensure that you format the string properly.
 
-## Formatting the Apple Pay Tokenization Request
+### Formatting the Apple Pay Tokenization Request
 
 To use CardSecure to tokenize an Apple Pay payment token, you must pass specific properties from the payment token object to CardSecure in the `devicedata` field in the tokenization request as follows:
 
@@ -214,6 +217,6 @@ Content-Type: application/json
 }
 ```
 
-## Making a CardPointe Gateway Authorization Request
+### Making a CardPointe Gateway Authorization Request
 
 Once you obtain a token, you can pass that token in an authorization request to the CardPointe Gateway. See the [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md) for more information.

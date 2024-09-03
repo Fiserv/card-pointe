@@ -9,70 +9,56 @@ The CardPointe Gateway API allows you to securely accept a wide-range of credit,
 <!-- theme: warning -->
 > Visit [Statuspage](http://status.cardconnect.com/) and click **subscribe to updates** to receive important release and status notifications.
 
-## Date Updated: 2/2/2024
+## Date Updated: 7/13/2024
+
+An update to the CardPointe Gateway was deployed to the UAT environment on 7/8/2024 and to the Production environment on 7/13/2024.
+
+This update includes backend enhancements, as well as the following API updates.
+
+Rapid Connect Refund Authorization for Amex 
+For merchants on the First Data Rapid Connect processor, this update includes support for online refunds (also known as refund authorizations) for American Express cards.
+
+See the [Refund Authorizations support article](https://support.cardpointe.com/compliance/refund-authorizations) for more information.
+
+Surcharge Fee Amount Calculation
+The surcharge request now includes an optional amount parameter which, when included, returns the calculated surcharge fee amount in a new fee_amount response field.
+
+For example:
+
+`https://<site>.cardconnect.com/cardconnect/rest/surcharge?amount=100.00&merchid=831831831921&token=9424500693402230&postal=30040`
+
+returns
+
+```
+{ 
+  "token": "CREDIT",
+  "postal": "NOT_RESTRICTED",
+  "fee_amount": "3.00",
+  "messages": []
+}
+
+```
+
+<!-- theme: warning -->
+> The fee value calculation is rounded at the second decimal place, where the value is rounded down from a third decimal value of 4 or less, and up from 5 and greater. For example, for a 3% fee applied to a $24.99 sale amount, the calculated fee value is $.749, rounded and applied as $.75.
+
+## Date Updated: 5/2/2024 
+
+An update to the CardPointe Gateway was deployed to the UAT and Production environments on 5/2/2024.
+
+This update includes backend enhancements, as well as the following API updates.
+
+### Funding Adjustment Case Number 
+
+The funding response now includes a `casenumber` field within the adjustments array.
+
+In the event of a chargeback reversal, you can use the `casenumber` in the chargebacks array and the matching `casenumber` in the adjustments array to correlate the chargeback and reversal.
+
+## Date Updated: 2/10/2024
 
 An update to the CardPointe Gateway was released to the UAT environment on 2/2/2024 and to the Production environment on 2/10/2024.
 
 This update includes backend enhancements. 
-
-## Date Updated: 11/9/2023
-
-An update to the CardPointe Gateway was released to the UAT environment on 10/23/2023 and has been deployment to the production environment on 11/9/2023.
-
-This release includes the following updates in addition to internal fixes and enhancements:
-
-### Original MID Requirement for Refund Requests 
-
-Refund requests must include the Merchant ID (MID) used in the original authorization request. If the refund includes a different MID, or a null value, then the request returns an error as seen in the example below. See the [Refund Requirement Update](https://support.cardpointe.com/refund-requirements-update#whats-changing) for more information. 
-
-```
-{ 
-    "respproc": "PPS", 
-    "resptext": "Txn not found", 
-    "retref": "198096236590", 
-    "respcode": "29", 
-    "respstat": "C" 
-}
-```
-
-### Surcharge Endpoint 
-
-The [surcharge endpoint](../api/?type=get&path=/cardconnect/rest/surcharge) has been added to determine whether or not a surcharge fee will be applied to a transaction, based on the cardholder's postal code and payment method. This allows your application to notify the cardholder of the potential credit card surcharge prior to completing a transaction.
-
-This request does **not** effect whether or not a surcharge is applied to a transaction; the CardPointe Gateway automatically applies a surcharge depending on the merchant configuration and the eligibility of the payment account. This request is used only for informational purposes.
-
-For more information on credit card surcharging, see the [Merchant Surcharge Program overview](https://support.cardpointe.com/compliance/surcharging). 
-
-```
-{
-    "token": "CREDIT",
-    "postal": "NOT_RESTRICTED",
-    "messages": []
-}
-```
-
-### Authorization Code in Refund Endpoint 
-
-The `authcode` field is now included in the API response for the [/refund](../api/?type=post&path=/cardconnect/rest/refund) endpoint for both online and offline refunds. For online refunds the `authcode` returned by the processor will be included in the response. For auto-approved (offline) refunds, the `"authcode":"REFUND"` is returned in the response. The following example displays an online refund authorization response:
-
-```
-{
-    "authcode": "PPS655",
-    "respproc": "AMEX",
-    "amount": "3.00",
-    "resptext": "Approval",
-    "retref": "270110240566",
-    "respstat": "A",
-    "respcode": "000",
-    "merchid": "831831831901"
-}
-```
-
-See the [Refund Authorization overview](https://support.cardpointe.com/compliance/refund-authorizations) for more information on online refunds.
-
-### Profile Field Validation 
-
-When making an authorization request with a stored profile, the profile field will no longer accept a token; instead, you must include the profile ID and account ID pair to authorize a transaction. 
 
 <!-- type: row -->
 
