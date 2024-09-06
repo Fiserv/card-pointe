@@ -1,4 +1,4 @@
-# Overview
+# Accepting Tips with CardPointe 
 
 This document provides an overview on how to best accept and process tips.
 
