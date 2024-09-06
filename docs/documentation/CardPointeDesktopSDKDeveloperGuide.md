@@ -10,7 +10,7 @@ The CardPointe Desktop SDK integration consists of the following components:
 
 - The CardPointe Desktop EMV/MSR card reader (ID TECH Augusta)
 - Your point-of-sale application, which integrates one or more of the following services to tokenize payment cards and authorize payments:
-    - [CardSecure API](?path=docs/APIs/CardSecureAPI.md)
+    - [CardSecure API](../docs/APIs/CardSecureAPI.md)
     - [Hosted iFrame Tokenizer](?path=docs/documentation/HostediFrameTokenizer.md)
     - [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md)
       
