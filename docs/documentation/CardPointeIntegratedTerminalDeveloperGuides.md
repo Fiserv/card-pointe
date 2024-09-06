@@ -580,7 +580,7 @@ The CardPointe Gateway sends the authorization request to the payment processing
 
 In some cases (for example, a network error), the terminal service might not receive a response from the CardPointe Gateway. In these cases, the terminal service automatically initiates a timeout reversal sequence to ensure that the transaction is voided. 
 
-See [Terminal API Timeout Handling](terminal-api-timeout-handling), later in this guide, for more information.
+See [Terminal API Timeout Handling](#terminal-api-timeout-handling), later in this guide, for more information.
 
 ### CardPointe Gateway Authorization Timeout (32 Seconds)
 
