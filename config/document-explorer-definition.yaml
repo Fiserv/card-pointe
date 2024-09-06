@@ -38,6 +38,8 @@
       link: docs/APIs/CardPointeGatewayAPI.md
     - title: Changelog
       link: docs/changelog/CardPointeGatewayAPI.md
+    - title: Gateway Response Codes
+      link: docs/documentation/GatewayResponseCodes.md
     - title: Developer Guide
       link: docs/documentation/CardPointeGatewayDeveloperGuides.md
 - sections:
