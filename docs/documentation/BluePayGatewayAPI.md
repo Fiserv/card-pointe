@@ -144,15 +144,15 @@ Our primary transaction processing API. Name/value pairs are posted to the gatew
 
 **Samples**: [PHP](https://github.com/BluePay/BluePay-Sample-Code/tree/master/PHP), [Perl](https://github.com/BluePay/BluePay-Sample-Code/tree/master/Perl), [Ruby](https://github.com/BluePay/BluePay-Sample-Code/tree/master/Ruby), [Java](https://github.com/BluePay/BluePay-Sample-Code/tree/master/Java), [Python](https://github.com/BluePay/BluePay-Sample-Code/tree/master/Python), [C#](https://github.com/BluePay/BluePay-Sample-Code/tree/master/C%23), [C++](https://github.com/BluePay/BluePay-Sample-Code/tree/master/C%2B%2B), [Visual Basic.net](https://github.com/BluePay/BluePay-Sample-Code/tree/master/VB), [Classic ASP](https://www.bluepay.com/sites/default/files/documentation/BluePay_bp10emu-ASP-WinHTTP%20+%20ACH.zip), [Cold Fusion](https://www.bluepay.com/sites/default/files/documentation/BluePay_bp10emu-Cold_Fusion.zip)
 
-> [BluePay Post (bp10emu)](https://developer.cardpointe.com/assets/developer/assets/BluePay_Post_bp10emu.txt)
+> [BluePay Post (bp10emu)](?path=assets/files/BluePay_Post_bp10emu.txt)
 
-> [BluePay 10emu Test Form](https://developer.cardpointe.com/assets/developer/assets/bp10emu-Test-Form.htm)
+> [BluePay 10emu Test Form](?path=assets/files/bp10emu-Test-Form.htm)
 
 ### BluePay Redirect (bp10emu) 
 
 The customer fills out a html form served from the merchant’s web server. When they click submit the information they filled in is sent to the redirect interface. It then processes the transaction and redirects the customer’s web browser to a web page on the merchant’s web server.
 
-> [BluePay Post (bp10emu)](https://developer.cardpointe.com/assets/developer/assets/BluePay_Post_bp10emu.txt)
+> [BluePay Post (bp10emu)](?path=assets/files/BluePay_Post_bp10emu.txt)
 
 ### BluePay Hosted Payment Form (shpf)
 
@@ -160,29 +160,29 @@ Service where a order form can be securely hosted on the BluePay gateway server.
 
 **Tool**: [Hosted Payment Form URL Generator](https://secure.bluepay.com/interfaces/support/urlgeneratorform)
 
-> [BluePay Hosted Payment Form (shpf)](https://developer.cardpointe.com/assets/developer/assets/BluePay_Hosted_Payment_Form_shpf.txt)
+> [BluePay Hosted Payment Form (shpf)](?path=assets/files/BluePay_Hosted_Payment_Form_shpf.txt)
 
 ### BluePayJS
 
 Javascript method to tokenize payment information from a merchant's payment form.
 
-> [BluePay JS Documentation & Sample Code](https://developer.cardpointe.com/assets/developer/assets/BluePayJS_2016-05-17.zip)
+> [BluePay JS Documentation & Sample Code](?path=assets/files/BluePayJS_2016-05-17.zip)
 
 ### BluePay Authorize.net AIM Emulator (a.net) 
 
 This interface allows existing Authorize.net integrations to communicate to the BluePay gateway.
 
-> [BluePay Authorize.net AIM Emulator (a.net)](https://developer.cardpointe.com/assets/developer/assets/BluePay_Authorize.net_AIM_Emulator_a.net.txt)
+> [BluePay Authorize.net AIM Emulator (a.net)](?path=assets/files/BluePay_Authorize.net_AIM_Emulator_a.net.txt)
 
 ### Manual CSV Upload 
 
 File upload of transactions to be processed using the gateway's web site.
 
-> [BluePay Manual CSV Upload](https://developer.cardpointe.com/assets/developer/assets/BluePay-Manual-CSV-Upload.txt)
+> [BluePay Manual CSV Upload](?path=assets/files/BluePay-Manual-CSV-Upload.txt)
 
-> [No Level 3 Single Line Format Documentation](https://developer.cardpointe.com/assets/developer/assets/bpbuweb.txt)
+> [No Level 3 Single Line Format Documentation](?path=assets/files/bpbuweb.txt)
 
-> [Level 3 Multiple Line Format Documentation](https://developer.cardpointe.com/assets/developer/assets/bp20bu_line_item.pdf)
+> [Level 3 Multiple Line Format Documentation](?path=assets/files/bp20bu_line_item.pdf)
 
 ### BluePay CSV Upload (bp20bu) 
 
@@ -190,17 +190,17 @@ Interface to upload comma delimited files into the gateway for processing.
 
 **Sample**: [PHP](https://github.com/BluePay/BluePay-Sample-Code/tree/master/PHP)
 
-> [BluePay CSV Upload (bp20bu)](https://developer.cardpointe.com/assets/developer/assets/BluePay-CSV-Upload-bp20bu.txt)
+> [BluePay CSV Upload (bp20bu)](?path=assets/files/BluePay-CSV-Upload-bp20bu.txt)
 
-> [No Level 3 Single Line Format Documentation](https://developer.cardpointe.com/assets/developer/assets/bp20bu.txt)
+> [No Level 3 Single Line Format Documentation](?path=assets/files/bp20bu.txt)
 
-> [Level 3 Multiple Line Format Documentation](https://developer.cardpointe.com/assets/developer/assets/bp20bu_line_item.pdf)
+> [Level 3 Multiple Line Format Documentation](?path=assets/files/bp20bu_line_item.pdf)
 
 ### BluePay CSV Upload Report (bpbureport) 
 
 Interface to check the status of and download results of CSV files uploaded into the gateway for processing.
 
-> [BluePay CSV Upload Report (bpbureport)](https://developer.cardpointe.com/assets/developer/assets/BluePay_CSV_Upload_Report_bpbureport.txt)
+> [BluePay CSV Upload Report (bpbureport)](?path=assets/files/BluePay_CSV_Upload_Report_bpbureport.txt)
 
 ### BluePay Rebill Administration (bprebadmin) 
 
@@ -208,13 +208,13 @@ This interface is for updating and cancelling rebillings set up in the BluePay G
 
 **Samples**: [PHP](https://github.com/BluePay/BluePay-Sample-Code/tree/master/PHP/Rebill), [Perl](https://github.com/BluePay/BluePay-Sample-Code/tree/master/Perl/Rebill), [Ruby](https://github.com/BluePay/BluePay-Sample-Code/tree/master/Ruby/samples/Rebill), [Java](https://github.com/BluePay/BluePay-Sample-Code/tree/master/Java/src/rebill), [Python](https://github.com/BluePay/BluePay-Sample-Code/tree/master/Python/Rebill), [C#](https://github.com/BluePay/BluePay-Sample-Code/tree/master/C%23/Rebill), [C++](https://github.com/BluePay/BluePay-Sample-Code/tree/master/C%2B%2B/Rebill), [Visual Basic.net](https://github.com/BluePay/BluePay-Sample-Code/tree/master/VB/vbnet/Rebill)
 
-> [BluePay Rebill Administration (bprebadmin)](https://developer.cardpointe.com/assets/developer/assets/BluePay_Rebill_Administration_bprebadmin.txt)
+> [BluePay Rebill Administration (bprebadmin)](?path=assets/files/BluePay_Rebill_Administration_bprebadmin.txt)
 
 ### BluePay Customer Token Administration (bp20tokenadmin) 
 
 Interface for creating, updating and reading Customer Token data.
 
-> [BluePay Customer Token Administration (bp20tokenadmin)](https://developer.cardpointe.com/assets/developer/assets/BluePay_Customer_Token_Administration_bp20tokenadmin.txt)
+> [BluePay Customer Token Administration (bp20tokenadmin)](?path=assets/files/BluePay_Customer_Token_Administration_bp20tokenadmin.txt)
 
 ### BluePay Daily Report 2 (bpdailyreport2)
 
@@ -224,9 +224,9 @@ A new version of the reporting interface for the retrieval of transaction data.
 
 **Retrieve by settlement date samples:** [PHP](https://github.com/BluePay/BluePay-Sample-Code/blob/master/PHP/Get_Data/Retrieve_Settlement_Data.php), [Perl](https://github.com/BluePay/BluePay-Sample-Code/blob/master/Perl/Get_Data/Retrieve_Settlement_Data.pl), [Ruby](https://github.com/BluePay/BluePay-Sample-Code/blob/master/Ruby/samples/Get_Data/Retrieve_Settlement_Data.rb), [Java](https://github.com/BluePay/BluePay-Sample-Code/blob/master/Java/src/get_data/Retrieve_Settlement_Data.java), [Python](https://github.com/BluePay/BluePay-Sample-Code/blob/master/Python/Get_Data/Retrieve_Settlement_Data.py), [C#](https://github.com/BluePay/BluePay-Sample-Code/blob/master/C%23/Get_Data/Retrieve_Settlement_Data.cs), [C++](https://github.com/BluePay/BluePay-Sample-Code/blob/master/C%2B%2B/Get_Data/Retrieve_Settlement_Data.cpp), [Visual Basic.net](https://github.com/BluePay/BluePay-Sample-Code/blob/master/VB/vbnet/Get_Data/Retrieve_Settlement_Data.vb)
 
-> [BluePay Daily Report 2 (bpdailyreport2)](https://developer.cardpointe.com/assets/developer/assets/BluePay_Daily_Report_2_bpdailyreport2.pdf)
+> [BluePay Daily Report 2 (bpdailyreport2)](?path=assets/files/BluePay_Daily_Report_2_bpdailyreport2.pdf)
 
-> [BluePay Daily Report 2 (bpdailyreport2) Test Form](https://developer.cardpointe.com/assets/developer/assets/bpdailyreport2-Test-Form.htm)
+> [BluePay Daily Report 2 (bpdailyreport2) Test Form](?path=assets/files/bpdailyreport2-Test-Form.htm)
 
 ### BluePay Single Transaction Query (stq) 
 
@@ -234,29 +234,29 @@ Interface that can retrieve information of a single transaction using the transa
 
 **Samples**: [PHP](https://github.com/BluePay/BluePay-Sample-Code/blob/master/PHP/Get_Data/Single_Transaction_Query.php), [Perl](https://github.com/BluePay/BluePay-Sample-Code/blob/master/Perl/Get_Data/Single_Transaction_Query.pl), [Ruby](https://github.com/BluePay/BluePay-Sample-Code/blob/master/Ruby/samples/Get_Data/Single_Transaction_Query.rb), [Java](https://github.com/BluePay/BluePay-Sample-Code/blob/master/Java/src/get_data/Single_Transaction_Query.java), [Python](https://github.com/BluePay/BluePay-Sample-Code/blob/master/Python/Get_Data/Single_transaction_query.py), [C#](https://github.com/BluePay/BluePay-Sample-Code/blob/master/C%23/Get_Data/Single_Transaction_Query.cs), [C++](https://github.com/BluePay/BluePay-Sample-Code/blob/master/C%2B%2B/Get_Data/Single_Transaction_Query.cpp), [Visual Basic.net](https://github.com/BluePay/BluePay-Sample-Code/blob/master/VB/vbnet/Get_Data/Single_Transaction_Query.vb)
 
-> [BluePay Single Transaction Query (stq)](https://developer.cardpointe.com/assets/developer/assets/BluePay_Single_Transaction_Query_stq.txt)
+> [BluePay Single Transaction Query (stq)](?path=assets/files/BluePay_Single_Transaction_Query_stq.txt)
 
-> [BluePay Single Transaction Query (stq) Test Form](https://developer.cardpointe.com/assets/developer/assets/stq-Test-Form.htm)
+> [BluePay Single Transaction Query (stq) Test Form](?path=assets/files/stq-Test-Form.htm)
 
 ### BluePay Reserve Query (reserveq) 
 
 Interface that can retrieve information on ACH reserve payments using a date range and other fields.
 
-> [BluePay Reserve Query (reserveq)](https://developer.cardpointe.com/assets/developer/assets/BluePay_Reserve_Query_reserveq.txt)
+> [BluePay Reserve Query (reserveq)](?path=assets/files/BluePay_Reserve_Query_reserveq.txt)
 
-> [BluePay Reserve Query (reserveq) Test Form](https://developer.cardpointe.com/assets/developer/assets/reserveq-Test-Form.htm)
+> [BluePay Reserve Query (reserveq) Test Form](?path=assets/files/reserveq-Test-Form.htm)
 
 ### BluePay Manager CSV Export 
 
 Export of transaction data in Comma Separated Value (CSV) format using the gateway's website.
 
-> [BluePay Manual CSV Download](https://developer.cardpointe.com/assets/developer/assets/BluePay_Manual_CSV_Download.txt)
+> [BluePay Manual CSV Download](?path=assets/files/BluePay_Manual_CSV_Download.txt)
 
 ### Rebill Post 
 
 Post to remote application when a recurring billing transaction is processed.
 
-> [BluePay Rebill Post](https://developer.cardpointe.com/assets/developer/assets/BluePay_Rebill_Post.txt)
+> [BluePay Rebill Post](?path=assets/files/BluePay_Rebill_Post.txt)
 
 ### Trans Notify Post
 
@@ -264,7 +264,7 @@ Post to remote application when transactions are processed by the gateway.
 
 **Samples**: [PHP](https://github.com/BluePay/BluePay-Sample-Code/blob/master/PHP/Get_Data/Transaction_Notification.php), [Perl](https://github.com/BluePay/BluePay-Sample-Code/blob/master/Perl/Get_Data/Transaction_Notification.pl), [Ruby](https://github.com/BluePay/BluePay-Sample-Code/blob/master/Ruby/samples/Get_Data/Transaction_Notification.rb), [Java](https://github.com/BluePay/BluePay-Sample-Code/blob/master/Java/src/get_data/Transaction_Notification.java), [Python](https://github.com/BluePay/BluePay-Sample-Code/blob/master/Python/Get_Data/Transaction_Notification.py), [C#](https://github.com/BluePay/BluePay-Sample-Code/blob/master/C%23/Get_Data/Transaction_Notification.cs), [Visual Basic.net](https://github.com/BluePay/BluePay-Sample-Code/blob/master/VB/vbnet/Get_Data/Transaction_Notification.vb)
 
-> [BluePay Trans Notify Post Webhook](https://developer.cardpointe.com/assets/developer/assets/BluePay_Trans_Notify_Post_Webhook.txt)
+> [BluePay Trans Notify Post Webhook](?path=assets/files/BluePay_Trans_Notify_Post_Webhook.txt)
 
 ## Deprecated APIs
 
@@ -274,15 +274,15 @@ Name/value pairs are posted to the gateway which returns results as name/value p
 
 **Samples**: [PHP](https://www.bluepay.com/sites/default/files/documentation/BluePay_bp20post-PHP.zip), [Perl](http://search.cpan.org/~cpkois/Bluepay-Bluepay20Post-0.15/), [Ruby](https://www.bluepay.com/sites/default/files/documentation/BluePay_bp20post-Ruby.zip), [Classic ASP](https://www.bluepay.com/sites/default/files/documentation/BluePay_bp20post-ASP-WinHTTP.zip)
 
-> [BluePay 2.0 Post (bp20post)](https://developer.cardpointe.com/assets/developer/assets/BluePay_2.0_Post_bp20post.txt)
+> [BluePay 2.0 Post (bp20post)](?path=assets/files/BluePay_2.0_Post_bp20post.txt)
 
-> [BluePay 2.0 Post (bp20post) Test Form](https://developer.cardpointe.com/assets/developer/assets/bp20post-Test-Form.htm)
+> [BluePay 2.0 Post (bp20post) Test Form](?path=assets/files/bp20post-Test-Form.htm)
 
 ### BluePay XML Post (asby)
 
 XML based interface to the gateway that can be used for basic transaction processing. See BluePay 1.0 Post if advanced features are needed.
 
-> [BluePay XML Post (asby)](https://developer.cardpointe.com/assets/developer/assets/BluePay_XML_Post_asby.pdf)
+> [BluePay XML Post (asby)](?path=assets/files/BluePay_XML_Post_asby.pdf)
 
 ### BluePay Daily Report (bpdailyreport)
 
@@ -290,9 +290,9 @@ A reporting interface for the retrieval of transaction data.
 
 **Sample**: [Perl](http://search.cpan.org/~cpkois/Bluepay-Bluepay20DailyReport-0.20/Bluepay-Bluepay20DailyReport-0.20/lib/Bluepay/Bluepay20DailyReport)
 
-> [BluePay Daily Report (bpdailyreport) Documentation](https://developer.cardpointe.com/assets/developer/assets/dailyreport.txt)
+> [BluePay Daily Report (bpdailyreport) Documentation](?path=assets/files/dailyreport.txt)
 
-> [BluePay Daily Report (bpdailyreport) Test Form](https://developer.cardpointe.com/assets/developer/assets/bpdailyreport-Test-Form.htm)
+> [BluePay Daily Report (bpdailyreport) Test Form](?path=assets/files/bpdailyreport-Test-Form.htm)
 
 # Code Samples
 
