@@ -1,0 +1,240 @@
+###
+# BluePay 2.0 "Daily Report" Interface
+
+# Description
+
+This interface is intended to be polled by a merchant on a daily basis, to get updates on 
+VOID/DECLINED/SETTLED status for transactions on the day prior.
+
+Last Update: 2019-05-31
+
+The URL of this interface is currently:
+https://secure.bluepay.com/interfaces/bpdailyreport
+
+# Input format
+
+Input to this web service is formatted as a standard HTTP "POST" is formatted. The parameters 
+to the service may be URI-encoded in the body of the request, as is standard for a POST. 
+
+# Output format
+
+Output will be in the immediate response to the POST, in standard HTTP response format with a 
+header and a body separated by a newline. The header contains and HTTP status line which will 
+indicate a status of 200 for success and 400 for an error or other failure. If successful, the 
+body of the response will contain a number of lines, one for each updated transaction. Each 
+line contains a comma-separated list of values you may use to tie the transaction back to data 
+in your own system. If failed, the output will contain only a single line, containing a 
+message indicating the reason for failure. Any commas existing in the data will be escaped by 
+preceding them with a backslash character: ',' becomes '\,'.
+
+# Input parameters
+
+ACCOUNT_ID
+  Set to your 12-digit BluePay 2.0 Account ID.
+PAYMENT_TYPE
+  May be 'ACH' to request updated statuses for E-check transactions, or 'CREDIT' to request 
+  statuses for credit card transactions.
+INCLUDE_DECLINES
+  Pass this parameter with a value of '1' to included declined transactions in the output.
+REPORT_START_DATE
+REPORT_END_DATE
+  These are the dates within which transactions will be reported. Dates are formatted in ISO 
+  standard format:  YYYY-MM-DD. The report will begin midnight of the start day, and end at 
+  11:59:59.999999 on the day before the end date So, for example, if you wish to get the list 
+  of all status updated on 2006-08-08, you would set REPORT_START_DATE to 2006-08-08 and 
+  REPORT_END_DATE to 2006-08-09.
+TAMPER_PROOF_SEAL
+  Hash for security, using selected algorithm (either TPS_HASH_TYPE or account's 'Hash Type in 
+  APIs' value). See TAMPER_PROOF_SEAL section below for more details.
+TPS_HASH_TYPE 
+  -- Optional
+  The algorithm used to compute the TAMPER_PROOF_SEAL. Accepted values are 'MD5', 'SHA256', 
+  'SHA512', 'HMAC_SHA256', or 'HMAC_SHA512'. Merchant's 'Hash Type in APIs' value is used if 
+  this parameter is not present. See TAMPER_PROOF_SEAL section below for more details. 
+TPS_DEF 
+  -- Optional
+  **  NOTICE: THE USE OF THIS FIELD CAN POSSIBLY WEAKEN YOUR SECURITY. PLEASE BE SURE YOU 
+      UNDERSTAND HOW THE TAMPER_PROOF_SEAL WORKS BEFORE YOU CONSIDER USING THIS OPTION. ** 
+  Space-separated list of input field names in the order they are to be used in the calculation 
+  of the TAMPER_PROOF_SEAL. If set as blank or not sent, it will default to: 
+  "ACCOUNT_ID REPORT_START_DATE REPORT_END_DATE". The merchant's Secret Key is always used in 
+  the calculation of the TAMPER_PROOF_SEAL, but should NOT be included in the TPS_DEF. See 
+  TAMPER_PROOF_SEAL section below for more details. 
+
+# Output parameters
+
+The first line of the body of the response contains a list of the field names used through the 
+remainder of the lines. These are:
+id
+  Length 12
+  Maximum length 128
+  The merchant-supplied or system supplied order id.
+f_void
+  Length 1
+  A flag to identify if the transaction was a void.
+status
+  Length 1
+  '1' for approved, '0' for declined, 'E' for error.
+origin
+  Maximum length 16 
+  Where the transaction originated. Possible values are:
+  bp10emu:      Weblink
+  bp20post:     Weblink 2
+  asbyemu:      Assurebuy Emulation mode
+  a.net-aim:    Authorize.net Emulation mode
+  VTerm:        Input on Virtual Terminal
+  AGG:          Aggregation
+  BATCH:        
+  CAPQUEUE:     
+  FRAUDSCRUB:   
+  REBILL:       
+  REJECT:       Automatic reject or chargeback from bank
+message
+  Maximum length 64
+  Some human-parsable text describing the reason of the transaction. For settlements this 
+  normally just reads "Approved".
+settle_date
+  Length 19
+  The date and time of settlement for the transaction. ie. "yyyy-mm-dd hh:mm:ss" 
+master_id
+  Length 12
+  The trans_id if the current transaction was generated from a previous transaction.
+issue_date
+  Length 19
+  The date that the transaction was entered into BluePay. ie. "yyyy-mm-dd hh:mm:ss" 
+trans_type
+  Maximum length 8
+  The type of transaction run.
+  'AUTH'
+  'CAPTURE'
+  'CREDIT'
+  'REFUND'
+  'SALE'
+  'VOID'
+rebilling_id
+  Length 12
+  The rebilling sequence ID if this transaction was initiated by a rebill.
+
+###############################
+# TAMPER_PROOF_SEAL
+###############################
+
+BluePay uses cryptographic hash (or "digest") functions as a means of both protecting 
+transaction data from being altered and ensuring that the transaction is genuine. A 
+cryptographic hash function is an algorithm that maps data of any size to a bit string of a 
+fixed size that cannot be deciphered. 
+
+All merchants have a default hash type assigned to their account. This can be viewed and 
+updated on the merchant's Account Admin page of BluePay's Gateway (https://secure.bluepay.com) 
+under "Hash Type in APIs". Merchants may override their default by including the TPS_HASH_TYPE 
+field in the transaction request. 
+
+The default hash type and the TPS_HASH_TYPE may be any of the following algorithms (in 
+hexadecimal form):
+
+MD5           Use md5sum or a similar program to calculate a 128-bit hash, then convert it 
+              into hexadecimal form; result is 32 hexadecimal characters.
+SHA256        Use sha256sum or a similar program to calculate a 256-bit hash, then convert it 
+              into hexadecimal form; result is 64 hexadecimal characters.
+SHA512        Use sha512sum or a similar program to calculate a 512-bit hash, then convert it 
+              into hexadecimal form; result is 128 hexadecimal characters.
+
+HMAC_SHA256   A 128-bit hash, resulting in a sequence of 64 hexadecimal characters.
+HMAC_SHA512   A 128-bit hash, resulting in a sequence of 128 hexadecimal characters.
+
+Steps to find the HMAC of either SHA256 (HMAC_SHA256) or SHA512 (HMAC_SHA512):
+
+1. Compare the length of the key (the merchant's Secret Key) to the hash's input blocksize.
+   SHA256 blocksize = 64, SHA512 blocksize = 128.
+   If length of key is > blocksize, set the key's value to the hash of the original key.
+   If length of key is < blocksize, pad the key to the right with zeros until its length 
+   equals the blocksize.
+
+2. Create the inner key (inner_key):
+   Create an inner padding value of 0x36 repeated the blocksize number of times.
+   Perform a bitwise exclusive-OR (XOR) on the key and the inner padding to create the inner 
+   key.
+
+3. Create the outer key (outer_key):
+   Create an outer padding value of 0x5c repeated the blocksize number of times.
+   Perform a bitwise exclusive-OR (XOR) on the key and the outer padding to create the outer 
+   key.
+
+4. Calculate the hash of the inner key concatenated with the text string, then calculate the 
+   hash of the outer key concatenated with the previous hash result:
+   hash(outer_key + hash(inner_key + string))
+
+5. Convert the result into a hex string.
+ 
+When using a program or function to calculate the TAMPER_PROOF_SEAL, make sure that it will 
+accept a text string (or "message") argument and will return the hashed string (or "message 
+digest") in hexadecimal form. 
+
+
+####################################
+# Calculating the TAMPER_PROOF_SEAL
+####################################
+
+STEP ONE
+Concatenate the values of the fields that make up the TPS_DEF in same order that they are 
+listed. Use ""(empty string - no space) as the value for any fields that are empty or 
+unsent. When no TPS_DEF is sent ('+' represents string concatenation, and the field names 
+represent the contents of the respective fields):
+
+message  = ACCOUNT_ID + REPORT_START_DATE + REPORT_END_DATE
+
+STEP TWO
+- If TPS_HASH_TYPE is "" or is not sent, the merchant's 'Hash Type in APIs' value will 
+  determine which hash function to use.
+
+- If TPS_HASH_TYPE is 'MD5', 'SHA256', or 'SHA512', find the md5sum, sha256sum, or sha512sum 
+  of (the merchant's Secret Key + message) in hex format.
+
+- If TPS_HASH_TYPE is 'HMAC_SHA256' or 'HMAC_SHA512', find the HMAC_SHA256 or HMAC_SHA512 of 
+  (the merchant's Secret Key, message) in hex format.
+
+
+EXAMPLE:
+Merchant A's account information is as follows:
+  Secret Key = "abcdabcdabcdabcd"
+  ACCOUNT_ID = "123412341234"
+  Hash Type in APIs (default hash type) = "MD5"
+
+If Merchant A wanted a report of all TEST transactions issued on 2018-02-28, including 
+declines, the request might include:
+  TPS_DEF = "ACCOUNT_ID PAYMENT_TYPE REPORT_START_DATE REPORT_END_DATE INCLUDE_DECLINES"
+  ACCOUNT_ID = "123412341234"
+  INCLUDE_DECLINES = "1"
+  REPORT_START_DATE = "2018-02-28"
+  REPORT_END_DATE = "2018-03-01"
+  MODE = "TEST"
+
+To calculate the TAMPER_PROOF_SEAL, Merchant A would need to:
+
+STEP ONE
+Concatenate the values in the TPS_DEF to create a message string. Remember, if the field isn't 
+sent or if the value is undefined, use an empty string as that field's value.
+message  = ACCOUNT_ID + PAYMENT_TYPE + REPORT_START_DATE + REPORT_END_DATE + INCLUDE_DECLINES
+         = "123412341234" + "" + "2018-02-28" + "2018-03-01" + "1"
+         = "1234123412342018-02-282018-03-011"
+
+STEP TWO
+This step will vary depending on which TPS_HASH_TYPE is sent (if any).
+
+-- If TPS_HASH_TYPE = "" or was not sent, the merchant's default hash type must be used
+TAMPER_PROOF_SEAL = md5sum( Secret Key + message ) in hex format
+                  = md5sum("abcdabcdabcdabcd" + "1234123412342018-02-282018-03-011") in hex 
+                    format 
+                  = "0d76fcbca9501abe9cc3985e03a62d7d"
+
+-- If TPS_HASH_TYPE = "SHA256"
+TAMPER_PROOF_SEAL = sha256sum( Secret Key + message ) in hex format
+                  = sha256sum("abcdabcdabcdabcd" + "1234123412342018-02-282018-03-011") in hex 
+                    format
+                  = "c8981328bba52de2e931fe5b67bbfb76d92c16262ff04896ae62bf9d1d30e076"
+
+-- If TPS_HASH_TYPE = "HMAC_SHA256"
+TAMPER_PROOF_SEAL = HMAC_SHA256( Secret Key, message ) in hex format
+                  = HMAC_SHA256("abcdabcdabcdabcd", "1234123412342018-02-282018-03-011") in hex 
+                    format
+                  = "08859f8e5fe469bb9dd93cb4da6334f7473d9f76a98d7056bd2e8e62c656ad5d"

@@ -1,0 +1,195 @@
+BluePay Reserve Query (reserveq)
+
+Last Update: 2020-05-02
+
+This API can be used to query payment information for ACH transactions. There 
+are two transaciton types invovled, original and reserve transactions. 
+The original transaction takes the money from the source account and moves it to
+BluePay's reserve bank account. The reserve transaction moves the money from 
+BluePay's reserve bank account to the destination account.
+
+Post URL: https://secure.bluepay.com/interfaces/reserveq
+
+-----
+INPUT
+-----
+
+Required Parameters
+
+ACCOUNT_ID        Gateway account ID number
+TAMPER_PROOF_SEAL Hash for security, using selected algorithm (either TPS_HASH_TYPE or 
+                  account's 'Hash Type in APIs' value). See TAMPER_PROOF_SEAL section below 
+                  for more details. 
+REPORT_START_DATE Start date in YYYY-MM-DD HH:MM:SS format
+REPORT_END_DATE   End date in YYYY-MM-DD HH:MM:SS format
+
+Optional Parameters
+
+TPS_DEF           **  NOTICE: THE USE OF THIS FIELD CAN POSSIBLY WEAKEN YOUR SECURITY. PLEASE 
+                      BE SURE YOU UNDERSTAND HOW THE TAMPER_PROOF_SEAL WORKS BEFORE YOU 
+                      CONSIDER USING THIS OPTION. ** 
+                  Space-separated list of input field names in the order they are to be used 
+                  in the calculation of the TAMPER_PROOF_SEAL. If set as blank or not sent, it 
+                  will default to: "ACCOUNT_ID REPORT_START_DATE REPORT_END_DATE". The 
+                  merchant's Secret Key is always used in the calculation of the 
+                  TAMPER_PROOF_SEAL, but should NOT be included in the TPS_DEF. See 
+                  TAMPER_PROOF_SEAL section below for more details. 
+TPS_HASH_TYPE     The algorithm used to compute the TAMPER_PROOF_SEAL. Accepted values are 
+                  'MD5', 'SHA256', 'SHA512', 'HMAC_SHA256', or 'HMAC_SHA512'. Merchant's 'Hash 
+                  Type in APIs' value is used if this parameter is not present. See 
+                  TAMPER_PROOF_SEAL section below for more details. 
+
+The output fields can also be included in the input to search on those fields as well.
+
+To search if a field value is null prepend isnull_ to the front of the field name. 
+(ex. isnull_orig_backend_id would return transactions without a orig_backend_id)
+
+
+------
+OUTPUT
+------
+
+Transaction data in CSV format. Top row contains column names.
+
+proc_type - MBRES (MB Bank reserve account used) or BOFARES (Bank of America reserve account used)
+orig_id - Merchant's transaction ID
+orig_account_id - Merchant's gateway Account ID number
+orig_account_name - Merchant's Account Name
+orig_type - Transaction Type
+orig_date - Transaction Date
+orig_status - Transaction Status, 1 (Approved), 0 (Declined) or E (Error)
+orig_void - '1' if merchant's transaction is voided/rejected
+orig_amount - Amount
+orig_settle_date - Date Settled (Date we charged customer for SALE, merchant for REFUND/CREDIT)
+orig_settle_id - Settlement ID
+est_payout - Estimated Day to Pay Out (pay to merchant if SALE, to customer is REFUND/CREDIT)
+debit_hold - Merchant's Debit Hold time
+credit_hold - Merchant's Credit Hold time
+orig_backend_id - The backend ID (payout ID)
+res_id - The payout ID (same as orig_backend_id)
+res_date - The payout created date
+res_status - The payout status
+res_void - '1' if payout is void or rejected
+res_amount - payout amount
+res_settle_date - payout settlement date
+res_settle_id - Settlement ID for payout
+
+-----------------
+TAMPER_PROOF_SEAL
+-----------------
+
+BluePay uses cryptographic hash (or "digest") functions as a means of both protecting 
+transaction data from being altered and ensuring that the transaction is genuine. A 
+cryptographic hash function is an algorithm that maps data of any size to a bit string of a 
+fixed size that cannot be deciphered. 
+
+All merchants have a default hash type assigned to their account. This can be viewed and 
+updated on the merchant's Account Admin page of BluePay's Gateway (https://secure.bluepay.com) 
+under "Hash Type in APIs". Merchants may override their default by including the TPS_HASH_TYPE 
+field in the transaction request. 
+
+The default hash type and the TPS_HASH_TYPE may be any of the following algorithms (in 
+hexadecimal form):
+
+MD5           Use md5sum or a similar program to calculate a 128-bit hash, then convert it 
+              into hexadecimal form; result is 32 hexadecimal characters.
+SHA256        Use sha256sum or a similar program to calculate a 256-bit hash, then convert it 
+              into hexadecimal form; result is 64 hexadecimal characters.
+SHA512        Use sha512sum or a similar program to calculate a 512-bit hash, then convert it 
+              into hexadecimal form; result is 128 hexadecimal characters.
+
+HMAC_SHA256   A 128-bit hash, resulting in a sequence of 64 hexadecimal characters.
+HMAC_SHA512   A 128-bit hash, resulting in a sequence of 128 hexadecimal characters.
+
+Steps to find the HMAC of either SHA256 (HMAC_SHA256) or SHA512 (HMAC_SHA512):
+
+1. Compare the length of the key (the merchant's Secret Key) to the hash's input blocksize.
+   SHA256 blocksize = 64, SHA512 blocksize = 128.
+   If length of key is > blocksize, set the key's value to the hash of the original key.
+   If length of key is < blocksize, pad the key to the right with zeros until its length 
+   equals the blocksize.
+
+2. Create the inner key (inner_key):
+   Create an inner padding value of 0x36 repeated the blocksize number of times.
+   Perform a bitwise exclusive-OR (XOR) on the key and the inner padding to create the inner 
+   key.
+
+3. Create the outer key (outer_key):
+   Create an outer padding value of 0x5c repeated the blocksize number of times.
+   Perform a bitwise exclusive-OR (XOR) on the key and the outer padding to create the outer 
+   key.
+
+4. Calculate the hash of the inner key concatenated with the text string, then calculate the 
+   hash of the outer key concatenated with the previous hash result:
+   hash(outer_key + hash(inner_key + string))
+
+5. Convert the result into a hex string.
+ 
+When using a program or function to calculate the TAMPER_PROOF_SEAL, make sure that it will 
+accept a text string (or "message") argument and will return the hashed string (or "message 
+digest") in hexadecimal form. 
+
+---------------------------------
+Calculating the TAMPER_PROOF_SEAL
+---------------------------------
+
+STEP ONE
+Concatenate the values of the fields that make up the TPS_DEF in same order that they are 
+listed. Use ""(empty string - no space) as the value for any fields that are empty or 
+unsent. When no TPS_DEF is sent ('+' represents string concatenation, and the field names 
+represent the contents of the respective fields):
+
+message = ACCOUNT_ID + REPORT_START_DATE + REPORT_END_DATE
+
+STEP TWO
+- If TPS_HASH_TYPE is "" or is not sent, the merchant's 'Hash Type in APIs' value will 
+  determine which hash function to use.
+
+- If TPS_HASH_TYPE is 'MD5', 'SHA256', or 'SHA512', find the md5sum, sha256sum, or sha512sum 
+  of (the merchant's Secret Key + message) in hex format.
+
+- If TPS_HASH_TYPE is 'HMAC_SHA256' or 'HMAC_SHA512', find the HMAC_SHA256 or HMAC_SHA512 of 
+  (the merchant's Secret Key, message) in hex format.
+
+
+EXAMPLE:
+Merchant A's account information is as follows:
+  Secret Key = "abcdabcdabcdabcd"
+  ACCOUNT_ID = "123412341234"
+  Hash Type in APIs (default hash type) = "MD5"
+
+If Merchant A wanted a report of all transactions where a MB Bank reserve account was used on 
+2018-02-28, the request might include:
+  TPS_DEF = "ACCOUNT_ID ORIG_VOID REPORT_START_DATE PROC_TYPE"
+  PROC_TYPE = "MBRES"
+  REPORT_START_DATE = "2018-02-28 00:00:00"
+  REPORT_END_DATE = "2018-03-01 00:00:00"
+
+To calculate the TAMPER_PROOF_SEAL, Merchant A would need to:
+
+STEP ONE
+Concatenate the values in the TPS_DEF to create a message string. Remember, if the field isn't 
+sent or if the value is undefined, use an empty string as that field's value.
+message  = ACCOUNT_ID + ORIG_VOID + REPORT_START_DATE + PROC_TYPE
+         = "123412341234" + "" + "2018-02-28 00:00:00" + "MBRES"
+         = "1234123412342018-02-28 00:00:00MBRES"
+STEP TWO
+This step will vary depending on which TPS_HASH_TYPE is sent (if any).
+
+-- If TPS_HASH_TYPE = "" or was not sent, the merchant's default hash type must be used
+TAMPER_PROOF_SEAL = md5sum( Secret Key + message ) in hex format
+                  = md5sum("abcdabcdabcdabcd" + "1234123412342018-02-28 00:00:00MBRES") in hex 
+                    format 
+                  = "ebeccd0c7b012af5b22943006e750a26"
+
+-- If TPS_HASH_TYPE = "SHA256"
+TAMPER_PROOF_SEAL = sha256sum( Secret Key + message ) in hex format
+                  = sha256sum("abcdabcdabcdabcd" + "1234123412342018-02-28 00:00:00MBRES") in hex 
+                    format
+                  = "46eb629d5e6974182cf9044263a8da5bd7a1e5eb0a0591fde67be5af1dfced10"
+
+-- If TPS_HASH_TYPE = "HMAC_SHA256"
+TAMPER_PROOF_SEAL = HMAC_SHA256( Secret Key, message ) in hex format
+                  = HMAC_SHA256("abcdabcdabcdabcd", "1234123412342018-02-28 00:00:00MBRES") in hex 
+                    format
+                  = "fbc8e956b12f22e64482286e03c983d423ffb04b2c0e2af58e4630bcc3524217"
