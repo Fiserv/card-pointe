@@ -1,0 +1,1625 @@
+BluePay 2.0 POST Method
+
+Note: This API is meant for automated integration. This interface is NOT for POSTing directly from a web form.
+
+Last Updated: 2022-02-28
+Latest RESPONSEVERSION: 11
+
+The URL of this interface is currently:
+https://secure.bluepay.com/interfaces/bp20post
+
+PLEASE NOTE: This URL may change in the future. In integrating your system, please remember 
+to make the URL a parameter so that it can easily be changed, if required. If you are coding a shopping cart, please 
+make the URL a parameter the merchants can easily set.
+
+The 12 digit gateway account ID number and the 32 character secret key are used for 
+authentication. They can be found by logging into the BluePay Gateway web site at 
+https://secure.bluepay.com , then on the left side menu go to ADMIN>Accounts>List and click on 
+the account name.
+
+REQUEST FORMAT:
+Expected input format is that of a standard HTTPS POST. All parameters are uri-encoded in the
+body of the request. 
+For example:
+
+### BEGIN REQUEST EXAMPLE ###
+POST https://secure.bluepay.com/interfaces/bp20post
+Content-Type: application/x-www-form-urlencoded
+
+ACCOUNT_ID=123412341234&NAME1=Chris%20J.&NAME2=Jansen
+### END REQUEST EXAMPLE ###
+
+Of course, there are more parameters than that required for a successful transaction.
+
+RESPONSE FORMAT:
+Expected output is that of a standard HTTPS response. All response parameters are uri-encoded 
+in the body of the response. See below under "Output format" for more details.
+For example:
+
+### BEGIN RESPONSE EXAMPLE ###
+HTTP/1.1 200 OK
+Cache-Control: max-age=0
+Connection: close
+Date: Tue, 07 Dec 2004 17:31:12 GMT
+Server: Apache
+Content-Type: text/html; charset=ISO-8859-1
+Expires: Tue, 07 Dec 2004 17:31:12 GMT
+
+TRANS_ID=100000000150&STATUS=0&AVS=0&CVV2=7&MESSAGE=Declined&REBID=
+### END RESPONSE EXAMPLE ###
+
+
+Input Parameters are:
+
+AMOUNT            = The FULL amount of the transaction, including tax and tip. (XXXXXXXX.XX 
+                    format)
+ACCOUNT_ID        = Your 12-digit BluePay 2.0 Account ID
+USER_ID           = Optional. Your 12-digit BluePay 2.0 User ID
+TAMPER_PROOF_SEAL = Hash for security, using selected algorithm (either TPS_HASH_TYPE or 
+                    account's 'Hash Type in APIs' value). See TAMPER_PROOF_SEAL & BP_STAMP 
+                    section for more details.
+TRANS_TYPE        = Optional(defaults to SALE). 
+					  AUTH
+					  SALE
+					  REFUND (ACH requires DOC_TYPE PPD or CCD.)
+					  CAPTURE
+					  VOID
+					  UPDATE 
+                      CREDIT (ACH requires DOC_TYPE PPD or CCD.)
+					  AGG
+F_REBILLING       = Rebilling flag. Only used for non-BluePay generated rebillings to 
+                    identify the transaction as a rebilling. Set value to 1 for rebill 
+                    transaction.
+STORED_INDICATOR
+ -- Optional
+ This field indicates whether a stored credential is being used with the transaction. See
+ STORED CREDENTIALS section for more information.
+  'F' - "First" transaction of a stored credential transaction.
+  'S' - "Subsequent" transaction in a stored credential setup.
+  (null) - Ignore this entire new system and do nothing different.
+ NOTE: When sending the first transaction ('F'), the VERSION field must be set to
+       8 or higher so that the response will include the STORED_ID (which will be required
+       for the subsequent transactions).
+
+STORED_ID
+ -- Required if STORED_INDICATOR = 'S'
+ Value of the STORED_ID response field from the initial 'F' stored indicator transaction. 
+ See STORED CREDENTIALS section for more information.
+ 
+STORED_TYPE
+ -- Required if STORED_INDICATOR sent
+ This field indicates who initiated this transaction. See STORED CREDENTIALS section for 
+ more information.
+  'M' - "Merchant" initiated stored credentials transaction.   
+  'C' - "Cardholder" initiated stored credentials transaction.
+  
+PAYMENT_TYPE      = Optional. CREDIT or ACH or DEBIT (Defaults to CREDIT)
+MODE              = Optional. TEST or LIVE (Defaults to TEST)
+                    Note: 
+					If the MODE is not set and a master transaction is used, then the 
+						master transaction's mode will be used on the new transaction. 
+					If the MODE is anything other than "LIVE" and there is no master 
+						transaction, the new transaction will be processed using MODE of "TEST".
+
+MASTER_ID         = Optional. The TRANS_ID of a previous transaction; any parameters not sent 
+                    will be filled out from the previous transaction. This allows you to run 
+                    a "manual" rebilling. The results of a test transaction are determined by 
+                    the dollar amount of the transaction without cents. If the dollar amount 
+                    is odd a approval is returned. If the dollar amount is even a decline is
+                    returned.
+                    REQUIRED for CAPTURE or REFUND; contains the TRANS_ID of the transaction 
+                    to CAPTURE or REFUND.
+
+ACH_DESCRIPTION
+  -- Optional
+  10 character alphanumeric field that is used to identify the type of transaction being performed.
+  
+  When MODE=TEST and PAYMENT_TYPE=ACH ACH_DESCRIPTION can be used to trigger specific ACH transaction results.
+  ACH Account Validation must be enabled on the gateway account to use the ACH Account Validation test actions.
+  See VALIDATION_RESULT in the Output section for additional information.
+  
+  ACH_DESCRIPTION	Result
+  blank/null        STATUS=1 VALIDATION_RESULT=(Not Returned) MESSAGE=ACH Approved
+  BPTESTREJ         STATUS=0 VALIDATION_RESULT=(Not Returned) MESSAGE=Account Previously Rejected: R00 (no validation fee charged)
+  BPTESTINSF        STATUS=0 VALIDATION_RESULT=(Not Returned) MESSAGE=Too Many Attempts to Resubmit Account with Insufficient Funds (no validation fee charged)
+  BPTESTVR15        STATUS=0 VALIDATION_RESULT=15 MESSAGE=Bank Account Failed Validation (validation fee charged for LIVE transactions)
+  BPTESTVRR         STATUS=0 VALIDATION_RESULT=R MESSAGE=Bank Account Previously Failed Validation (no validation fee charged)
+  BPTESTVR20        STATUS=1 VALIDATION_RESULT=20 (Unknown bank account but with a valid format) MESSAGE=App ACH Sale (validation fee charged for LIVE transactions)
+  BPTESTVR25        STATUS=1 VALIDATION_RESULT=25 (Unknown bank account) MESSAGE=App ACH Sale (validation fee charged for LIVE transactions)
+  BPTESTVR35        STATUS=1 VALIDATION_RESULT=35 (Bank account found but pending transaction settlement) MESSAGE=App ACH Sale (validation fee charged for LIVE transactions)
+  BPTESTVR45        STATUS=1 VALIDATION_RESULT=45 (Known good bank account) MESSAGE=App ACH Sale (validation fee charged for LIVE transactions)
+  BPTESTVRE         STATUS=1 VALIDATION_RESULT=E (Error, Bank account validation failed) MESSAGE=App ACH Sale (no validation fee charged)
+  BPTESTVRB         STATUS=1 VALIDATION_RESULT=B (Account Validation Bypassed) MESSAGE=App ACH Sale (no validation fee charged)
+  
+  Example:
+  When ACH Description is BPTESTVRB, then the BluePay test validation result indicates 
+  that account validation for this transaction was bypassed.
+
+ACH_SAME_DAY_FUNDING
+	-- Optional
+	Flag to determine if the current transaction should be processed as a 
+	Same-Day ACH transaction. Same-Day ACH funding requires approval before it 
+	can be enabled and is not available for all banks. For Same-Day funding, the 
+	transaction must be processed prior to the final Same-Day cutoff.
+	The valid values are:
+		1 (True) same-day funding
+		0 (False) standard funding
+		Defaults to 0 if not set. 
+  NOTE: To view this field value in the output, set the RESPONSEVERSION field to 9 or above.
+
+###
+# STORED CREDENTIALS
+###
+Only merchants who are set up to use the following processor(s) should include these fields:
+- North/8583
+
+The use of a Stored Credential is only meant to provide additional information to the credit
+card companies to better manage risk and fraud. It is not used in place of payment information.
+Credit card companies want to know when a merchant stores a cardholder's payment information
+*with the cardholder's permission*, as well as when the merchant uses that stored payment
+information. The most common example of this would be when a cardholder sets up a recurring
+payment.
+
+When sending initial transaction:
+- Include STORED_INDICATOR=F
+- Include STORED_TYPE set to either 'M' or 'C'
+- Include VERSION with a value of 8 or higher
+- A transaction identifier is returned in the response as STORED_ID
+  (only returned if the transaction was approved)
+
+When sending subsequent transactions:
+- Include STORED_INDICATOR=S
+- Include STORED_TYPE set to either 'M' or 'C'
+- Include STORED_ID set to the value received in the initial transaction
+
+CUST_TOKEN        = Optional. The Customer Token whose stored payment information should be 
+                    used for this transaction. Any parameters not sent will be filled out from 
+                    the last transaction that used this Customer Token. 
+NEW_CUST_TOKEN    = Optional. The new Customer Token that will store this customer's payment 
+                    information. Must be 6-16 alphanumeric characters. Cannot include the 
+                    values of NAME1, NAME2, or COMPANY_NAME. Cannot include the last 4 digits 
+                    of the customer's payment account number. Must be unique to this account.
+AUTH_CODE         = Authorization code for a force transaction (voice auth). 
+PAYMENT_ACCOUNT   = The customer's credit card number.
+CARD_CVV2         = The customer's Card Validation Code. This is the three-digit code printed
+                    on the back of most credit cards.
+CARD_EXPIRE       = The customer's Credit Card Expiration Date, in MMYY format. 
+
+We also accept swipe data in multiple formats:
+Unencrypted Swipe
+    SWIPE         = The full swiped track data, just the way it comes to you from the card 
+                    reader, including both Track1 and Track2.
+    TRACK2        = Only Track2 of the swiped data.
+Encrypted Swipe
+    KSN           = Key Serial Number
+    TRACK1_ENC    = Track 1 data encrypted
+    TRACK1_EDL    = Pre-encryption track 1 length
+    TRACK2_ENC    = Track 2 data encrypted
+    TRACK2_EDL    = Pre-encryption track 2 length
+
+EMV (IDTech Augusta S)
+  EMV_DATA        = The full output of a keyboard emulation EMV reader 
+  EMV_DIRECT      = Set to "1" to indicate a direct read from a connected EMV card reader device.
+  EMV_FALLBACK    = Set to "1" on a swipe transaction after an EMV transaction has failed.
+
+The following fields are only applicable to merchants setup to process TransArmor Tokens:
+F_TRANSARMOR      = Set to "2" to create a TransArmor Token
+                    Set to "1" to indicate a TransArmor Token is being used
+                    Set to "0" or don't set if not using a TransArmor Token
+CARD_TYPE         = A four-character indicator of the credit card brand represented by the 
+                    TransArmor Token. Required if F_TRANSARMOR=1
+                    Possible values are:
+                      AMEX = American Express
+                      DC   = Diner's Club
+                      DISC = Discover
+                      JCB  = JCB
+                      MC   = MasterCard
+                      VISA = Visa
+Creating TransArmor Token
+  F_TRANSARMOR    = Set to '2' if creating a TransArmor Token
+  TRANS_TYPE      = Must be AUTH or SALE
+  VERSION         = Must be '8' or higher to include TOKEN_TRANSARMOR field in response
+Using TransArmor Token
+  F_TRANSARMOR    = Set to '1' if using a TransArmor Token
+  PAYMENT_ACCOUNT = This is set to the TransArmor Token being used
+  CARD_TYPE       = Credit card brand of the credit card represented by the TransArmor Token
+  CARD_EXPIRE     = Expiration date of the credit card represented by the TransArmor Token						
+
+The following fields are required for ACH transactions unless MASTER_ID is set:
+PAYMENT_ACCOUNT   = This is set to three colon-separated fields. First, the account type must 
+                    be 'C' for checking, or 'S' for savings. Second, the bank's routing 
+                    number, and finally the customer's account number.
+                    (eg: 'C:123456789:1234123412341234')
+DOC_TYPE          = Documentation Type also known as Standard Entry Class (SEC) Codes
+                    Can be one of the following:
+                    PPD  Prearranged Payment and Deposit
+                         Indicates there is a personal signed agreement on file for the customer, this is
+                           the default if not set.
+                    CCD  Corporate Credit or Debit Entry
+                         Indicates there is a company-signed agreement on file for the customer.
+                    WEB  Internet Initiated/Mobile Entry
+                         Indicates the customer has agreed to the charges via an internet-based or 
+                           electronic form.
+                    TEL  Telephone-Initiated Entry
+                         Indicates there is a recorded telephone call on file with the customer verbally 
+                           agreeing to be charged.
+                    ARC  Accounts Receivable Entry
+                         Indicates that a consumer check was received in the mail or at a dropbox location
+                           and converted to an ACH transfer.
+                    BOC  Back Office Conversion Entry
+                         Indicates that a consumer check was recieved in person from the consumer and later
+                           converted to an ACH transfer.
+                    POP  Point of Purchase Entry
+                         Indicates that a consumer check was received in person from the consumer and was
+                           converted to an ACH transfer while the consumer was present.
+
+The following fields are optional:
+IS_CORPORATE        = Set to '1' if this is a corporate transaction, rather than personal.
+COMPANY_NAME        = The name of the company on the check or credit card. (64 characters)
+NAME1               = The customer's first name (32 characters)
+NAME2               = The customer's last name (32 characters)
+ADDR1               = The customer's street address, necessary for AVS. (64 
+                      Characters) 
+ADDR2               = The customer's second address line, if any (64 Characters)
+CITY                = The customer's city (32 Characters)
+STATE               = The customers' state, province, or equivalent. (16 Characters max; 
+                      2-letter abbrev preferred)
+ZIP                 = The customer's zip code or equivalent. (16 Characters)
+COUNTRY             = The customer's country (64 Characters)
+EMAIL               = The customer's email address. (64 Characters)
+PHONE               = The customer's phone number. (16 Characters)
+MEMO                = 128-character descriptor field.
+CUSTOM_ID           = Merchant-specified data, searchable and reportable. (16 Characters)
+CUSTOM_ID2          = Merchant-specified data, searchable and reportable. (64 Characters)
+DUPLICATE_OVERRIDE  = Set to 1 to turn of duplicate scrubbing for a transaction. Set to 0 or 
+                      leave blank to process with duplicate scrubbing.
+CUSTOMER_IP         = IP address of the customer. Used for velocity filtering. It is 
+                      recommended that this value be sent.
+VERSION             = Determines fields included in output. See output section below.
+
+The following fields are optional (See TAMPER_PROOF_SEAL & BP_STAMP section for more details):
+TPS_HASH_TYPE       = The algorithm used to compute the TAMPER_PROOF_SEAL and BP_STAMP. 
+                      Accepted values are 'MD5', 'SHA256', 'SHA512', 'HMAC_SHA256', or 
+                      'HMAC_SHA512'. Merchant's 'Hash Type in APIs' value is used if this 
+                      parameter is not present. 
+TPS_DEF             = **  NOTICE: THE USE OF THIS FIELD CAN POSSIBLY WEAKEN YOUR SECURITY. 
+                          PLEASE BE SURE YOU UNDERSTAND HOW THE TAMPER_PROOF_SEAL WORKS BEFORE 
+                          YOU CONSIDER USING THIS OPTION. **
+                      Space-separated list of input field names in the order they are to be  
+                      used in the calculation of the TAMPER_PROOF_SEAL. If set as blank or not 
+                      sent, it will default to:
+                      "ACCOUNT_ID TRANS_TYPE AMOUNT MASTER_ID NAME1 PAYMENT_ACCOUNT". The 
+                      merchant's Secret Key is always used in the calculation of the 
+                      TAMPER_PROOF_SEAL, but should NOT be included in the TPS_DEF. 
+BP_STAMP_DEF        = Space-separated list of field names in the order they are to be used 
+                      in the calculation of BP_STAMP. This is similar to the TPS_DEF, but the 
+                      BP_STAMP_DEF uses output fields rather than input fields. If set as blank
+                      or not sent, it will default to: "TRANS_ID ISSUE_DATE STATUS". The 
+                      merchant's Secret Key is always used in the calculation of the 
+                      BP_STAMP, but should NOT be included in the BP_STAMP_DEF. 
+
+The following fields are optional but may be required for the best rates from your merchant 
+account:
+ORDER_ID          = Optional Purchase Order ID (128 Characters)
+AMOUNT_TIP        = The tip amount, if any. If AMOUNT_TIP supplied AMOUNT value must be modified to include this value.
+AMOUNT_FOOD       = The amount of the total that was spent on food, for restaurants. If AMOUNT_FOOD supplied AMOUNT value must be modified to include this value.
+AMOUNT_MISC       = The amount of the total that was spent on beverages and other. If AMOUNT_MISC supplied AMOUNT value must be modified to include this value.
+
+The following fields are to add rebilling to a SALE or AUTH:
+Note: Rebilling is only available to US merchants.
+DO_REBILL         = 1 for rebilling, not set or 0 for no rebilling.
+REB_IS_CREDIT     = Field to indicate whether the rebill transaction is SALE or CREDIT.
+                    The valid values are:
+                    1: For CREDIT
+                    0: For SALE (default).
+REB_FIRST_DATE    = Date and time of first rebilling to run in ISO format 
+                    (YYYY-MM-DD HH:MM:SS) or expression stating the amount of time from the 
+                    current date. ("3 DAY" to run three days from transaction date, "1 MONTH"
+                    to run 1 month from transaction date, "1 YEAR" to run 1 year from 
+                    transaction date, "2 WEEK" to 2 weeks from transaction date, etc.)
+                    Required for rebilling. Time portion is optional; will default to 
+                    midnight on the date specified.
+REB_EXPR          = How often to run rebilling, in date expression format ("3 DAY" to run 
+                    every three days, "1 MONTH" to run monthly, "1 YEAR" to run yearly, 
+                    "2 WEEK" to run bi-weekly, etc.) Required for rebilling.
+REB_CYCLES        = Optional. How many times to rebill. Not set to rebill until canceled.
+REB_AMOUNT        = Optional. How much to charge when rebillings are run. Defaults to amount 
+                    of transaction being run.
+
+STORED_INDICATOR -  (1 AN) [ F|S]
+  'F' - "First" transaction of a stored credential transaction.
+  'S' - "Subsequent" transaction in a stored credential setup.
+  (null) - Ignore this entire new system and do nothing different.
+
+STORED_ID - (AN) (id number)
+  Transaction identifier received from FD after the initial 'F' stored indicator transaction.  Required on 'S' indicator.
+
+STORED_TYPE - (1 AN) [ M|C] 
+  'M' - "Merchant" initiated stored credentials transaction.   
+  'C' - "Cardholder" initiated stored credentials transaction. 
+  Required if STORED_INDICATOR sent.
+
+The following fields are available only when PAYMENT_TYPE is set to DEBIT
+SMID_ID           = Required, this is the encryption key information
+PIN_BLOCK         = Required, this is the encrypted PIN
+AMOUNT_CASHBACK   = Optional, amount of cash given to customer
+AMOUNT_SURCHARGE  = Optional, surcharge for performing cash back
+Note that DEBIT also requires you to send either SWIPE or TRACK2.
+
+The following fields are available but not currently required for any application:
+SSN               = The customer's SSN or TAXID, all digits (no dashes) (9 Characters).
+BIRTHDATE         = The customer's birthdate in ISO format (YYYY-MM-DD)
+CUST_ID           = The customer's state ID or driver's license. (25 Characters)
+CUST_ID_STATE     = The state of issuance of the customer's ID. (16 Characters)
+
+###
+# LEVEL 2 (Optional)
+###
+
+                                                  US        Canada
+Field Name                      Length/Type    Required    Required    Amex Only
+------------------              -----------    --------    --------    ---------
+INVOICE_ID                      10 AN             L2          L2
+AMOUNT_TAX                       6 N              L2          L2
+
+INVOICE_ID
+  64 Characters
+
+AMOUNT_TAX
+  If AMOUNT_TAX is supplied AMOUNT value must be modified to include this value.			 																			 
+
+
+###
+# LEVEL 3 (Optional)
+###
+
+Note: The fields with names starting with LV2 are Level 3 order level fields.
+      The fields with names starting with LV3 are Level 3 line item detail fields.
+
+                                                  US        Canada
+Field Name                      Length/Type    Required    Required    Amex Only
+------------------              -----------    --------    --------    ---------
+LV2_ITEM_TAX_RATE                4 N                          L3
+LV2_ITEM_GOODS_TAX_RATE          4 N                          L3
+LV2_ITEM_GOODS_TAX_AMOUNT        6 N                          L3
+LV2_ITEM_SHIPPING_AMOUNT        10 N                          L3
+LV2_ITEM_DISCOUNT_AMOUNT        10 N                          L3
+LV2_ITEM_CUST_PO                22 AN                         L3
+LV2_ITEM_GOODS_TAX_ID           30 AN                         L3
+LV2_ITEM_TAX_ID                 30 AN                         L3
+LV2_ITEM_CUSTOMER_TAX_ID        15 AN                         L3
+LV2_ITEM_DUTY_AMOUNT            10 N
+LV2_ITEM_SUPPLEMENTAL_DATA      24 AN
+LV2_ITEM_CITY_TAX_RATE           4 N                                      Yes
+LV2_ITEM_CITY_TAX_AMOUNT         6 N                                      Yes
+LV2_ITEM_COUNTY_TAX_RATE         4 N                                      Yes
+LV2_ITEM_COUNTY_TAX_AMOUNT       6 N                                      Yes
+LV2_ITEM_STATE_TAX_RATE          4 N                                      Yes
+LV2_ITEM_STATE_TAX_AMOUNT        6 N                                      Yes
+LV2_ITEM_BUYER_NAME             40 AN                         L3          Yes
+LV2_ITEM_CUSTOMER_REFERENCE     17 AN                                     Yes
+LV2_ITEM_CUSTOMER_NUMBER        30 AN                                     Yes
+LV2_ITEM_SHIP_NAME              40 AN                                     Yes
+LV2_ITEM_SHIP_ADDR1             40 AN                                     Yes
+LV2_ITEM_SHIP_ADDR2             40 AN                                     Yes
+LV2_ITEM_SHIP_CITY              30 AN                                     Yes
+LV2_ITEM_SHIP_STATE              2 A                                      Yes
+LV2_ITEM_SHIP_ZIP               15 AN                                     Yes
+LV2_ITEM_SHIP_COUNTRY            3 AN                         L3          Yes
+
+
+The following fields are available for Level 3 processing with corporate purchasing cards. 
+"x" is replaced with a unique sequence number for each item. Maximum number of items is 99.
+
+                                                  US        Canada
+Field Name                      Length/Type    Required    Required    Amex Only
+------------------              -----------    --------    --------    ---------
+LV3_ITEMx_ITEM_SKU              12 AN                         L3
+LV3_ITEMx_ITEM_DESCRIPTOR       26 AN             L3          L3
+LV3_ITEMx_COMMODITY_CODE        12 AN             L3          L3
+LV3_ITEMx_PRODUCT_CODE          12 AN             L3
+LV3_ITEMx_MEASURE_UNITS         12 AN             L3          L3
+LV3_ITEMx_UNIT_COST             10 N              L3          L3
+LV3_ITEMx_QUANTITY              10 N              L3          L3
+LV3_ITEMx_ITEM_DISCOUNT         10 N                          L3
+LV3_ITEMx_TAX_RATE               4 N              L3
+LV3_ITEMx_GOODS_TAX_RATE         4 N                          L3
+LV3_ITEMx_TAX_AMOUNT            10 N              L3
+LV3_ITEMx_GOODS_TAX_AMOUNT      10 N                          L3
+LV3_ITEMx_CITY_TAX_RATE          4 N                                      Yes
+LV3_ITEMx_CITY_TAX_AMOUNT       10 N                                      Yes
+LV3_ITEMx_COUNTY_TAX_RATE        4 N                                      Yes
+LV3_ITEMx_COUNTY_TAX_AMOUNT     10 N                                      Yes
+LV3_ITEMx_STATE_TAX_RATE         4 N                                      Yes
+LV3_ITEMx_STATE_TAX_AMOUNT      10 N                                      Yes
+LV3_ITEMx_ITEM_SKU              30 AN                                     Yes
+LV3_ITEMx_CUST_SKU              30 AN                                     Yes
+LV3_ITEMx_CUST_PO               22 AN                                     Yes
+LV3_ITEMx_SUPPLEMENTAL_DATA     40 AN                                     Yes
+LV3_ITEMx_GL_ACCOUNT_NUMBER     40 AN                                     Yes
+LV3_ITEMx_DIVISION_NUMBER       40 AN                                     Yes
+LV3_ITEMx_PO_LINE_NUMBER         5 N                                      Yes
+LV3_ITEMx_LINE_ITEM_TOTAL       10 N              L3
+
+
+LV3_ITEMx_PRODUCT_CODE 
+  12 characters
+  Merchant-defined code for the product or service being purchased. This can be an inventory, 
+  catalog, UPC code or other.
+
+LV3_ITEMx_UNIT_COST 
+  9 digits decimal
+  The cost per unit of item.
+
+LV3_ITEMx_QUANTITY 
+  5 digits
+  The number of units of item.
+
+LV3_ITEMx_ITEM_DESCRIPTOR 
+  26 characters
+  Description of the item purchased.
+
+LV3_ITEMx_MEASURE_UNITS
+  3 characters
+  The unit of measure of the item purchase. Normally EA for Each.
+    5B    Batch
+    ACT   Activity
+    ANN   Year
+    AU    Activity Unit
+    DAY   Day
+    DZN   Dozen
+    E49   Working Day
+    EA    Each
+    FOT   Foot
+    FTQ   Cubic Foot
+    GLL   Gallon
+    GRM   Gram
+    HUR   Hour
+    INH   Inch
+    KGM   Kilogram
+    KMT   Kilometer
+    LBR   Pound
+    LTR   Liter
+    MIN   Minute
+    MMT   Millimeter
+    MON   Month
+    MTQ   Cubic Meter
+    MTR   Meter
+    ONZ   Ounce
+    SEC   Second
+    SMI   Mile
+    STN   Ton
+    TNE   Metric Ton
+    WEE   Week
+    XBG   Bag
+    XBX   Box
+    XCR   Crate
+    XCS   Case
+    XCT   Carton
+    XPK   Package
+    XPX   Pallet
+    XSX   Set
+    YRD   Yard
+
+LV3_ITEMx_COMMODITY_CODE
+  12 characters
+  The Commodity Code of the item. A list of Commodity Codes can be found at 
+  https://urldefense.com/v3/__http://www.census.gov/svsd/www/cfsdat/2002data/cfs021200.pdf__;!!P9vvK-4S!0_fdYVH1S8Dz52NxzFz22EC-XgSDrWicB8sMVQLdPqL_OCoQxmxKufYFf5m3jboOtg$  .
+
+LV3_ITEMx_TAX_AMOUNT
+  9 digits
+  Tax amount for the item.
+
+LV3_ITEMx_TAX_RATE
+  4 digits
+  Tax rate for the item.
+
+LV3_ITEMx_ITEM_DISCOUNT
+  12 digits decimal
+  The amount of any discounts on the item.
+
+LV3_ITEMx_LINE_ITEM_TOTAL
+  The total amount for the item including taxes and discounts.
+
+
+###
+# Lodging (Optional)
+###
+
+The following fields are available for optional Lodging processing.
+
+LODGING_FOLIO_NUM
+  -- Required for lodging
+  The lodging folio number.
+
+LODGING_ARRIVAL_DATE
+  -- Required for lodging
+  The date the customer arrived at lodging.
+  "YYYY-MM-DD"
+
+LODGING_DEPART_DATE
+  -- Required for lodging
+  The date the customer checked out of lodging.
+  "YYYY-MM-DD"
+  
+LODGING_LOCAL_PHONE
+  -- Required for lodging
+  The local phone number of the specific lodging location, up to 10 digits.
+
+LODGING_COUNTRY
+  -- Required for lodging (if outside of USA)
+  The code for the country in which the lodging is located. Defaults to 'USA' if not set.
+  Use the ISO 3166-1 Alpha-3 Country Code (i.e.: USA, CAN).
+
+LODGING_PREF_CUST_F
+  -- Optional
+  1 if the customer is a preferred customer.
+  0 or not present if not applicable.
+
+LODGING_EXTRA_GIFTSHOP_F
+  -- Optional
+  1 if there was an additional charge for the gift shop.
+  0 or not present if not applicable.
+
+LODGING_EXTRA_LAUNDRY_F
+  -- Optional
+  1 if there was an additional charge for a parking violation.
+  0 or not present if not applicable.
+
+LODGING_EXTRA_MINIBAR_F
+  -- Optional
+  1 if there was an additional charge for the mini bar.
+  0 or not present if not applicable.
+
+LODGING_EXTRA_RESTAURANT_F
+  -- Optional
+  1 if there was an additional charge for the restaurant.
+  0 or not present if not applicable.
+
+LODGING_EXTRA_PHONE_F
+  -- Optional
+  1 if there was an additional charge for the telephone.
+  0 or not present if not applicable.
+
+LODGING_EXTRA_OTHER_F
+  -- Optional
+  This should not include gift shop, laundry, mini bar, restaurant, or telephone charges.
+  1 if there was an additional charge.
+  0 or not present if not applicable.
+
+LODGING_CHARGE_TYPE
+  -- Optional
+  The code for the description of the lodging charge. Defaults to '1' (Hotel Stay) if not set. 
+  Possible codes are:
+    1 = Hotel Stay
+    2 = Assured Reservation - No Show
+    3 = CARDeposit
+    4 = Delayed Charge
+    5 = Express Service
+    6 = Assured Reservation
+
+The following fields are available for optional Vehicle Rental processing.
+
+VEHICLE_RENT_AGREE_NUM
+  -- Required for vehicle rentals
+  The invoice or rental agreement number of the original vehicle rental agreement.
+
+VEHICLE_PICKUP_DATETIME
+  -- Required for vehicle rentals
+  The date the vehicle rental began.
+  "YYYY-MM-DD HH:MM:SS" Hours, minutes, and seconds are optional
+
+VEHICLE_DROPOFF_DATETIME
+  -- Required for vehicle rentals
+  The date the vehicle rental ended.
+  "YYYY-MM-DD HH:MM:SS" Hours, minutes, and seconds are optional
+
+VEHICLE_PICKUP_CITY
+  -- Required for vehicle rentals (unless same as merchant's city)
+  The city in which the vehicle was rented.
+
+VEHICLE_DROPOFF_CITY
+  -- Required for vehicle rentals (unless same as merchant's city)
+  The city in which the vehicle was returned.
+  
+VEHICLE_PICKUP_STATE
+  -- Required for vehicle rentals (unless same as merchant's state)
+  The 2-letter abbreviation for the state/province in which the vehicle was rented. 
+  Defaults to merchant's state if not set. Use the ISO 3166-2 US or CA standard 
+  (i.e.: "AL" = Alabama, "AB" = Alberta).
+
+VEHICLE_DROPOFF_STATE
+  -- Required for vehicle rentals (unless same as merchant's state)
+  The 2-letter abbreviation for the state/province in which the vehicle was returned. 
+  Defaults to merchant's state if not set. Use the ISO 3166-2 US or CA standard 
+  (i.e.: "AL" = Alabama, "AB" = Alberta).
+  
+VEHICLE_DROPOFF_LOCATION_ID
+  -- Required for vehicle rentals
+  Identification of return location (phone, store ID, etc.), up to 10 characters.
+
+VEHICLE_PICKUP_COUNTRY
+  -- Required for vehicle rentals (if outside of USA)
+  The code for the country in which the vehicle was rented. Defaults to 'USA' if not set.
+  Use the ISO 3166-1 Alpha-3 Country Code (i.e.: USA, CAN).
+
+VEHICLE_DROPOFF_COUNTRY
+  -- Required for vehicle rentals (if outside of USA)
+  The code for the country in which the vehicle was returned. Defaults to 'USA' if not set.
+  Use the ISO 3166-1 Alpha-3 Country Code (i.e.: USA, CAN).
+
+VEHICLE_RENTER_NAME1
+  -- Required for vehicle rentals (if different from NAME1)
+  The first name of the renter. Defaults to NAME1 if not set.
+
+VEHICLE_RENTER_NAME2
+  -- Required for vehicle rentals (if different from NAME2)
+  The last name of the renter. Defaults to NAME2 if not set.
+  
+VEHICLE_PREF_CUST_F
+  -- Optional
+  1 if the customer is a preferred customer.
+  0 or not present if not applicable.
+
+VEHICLE_EXTRA_GAS_F
+  -- Optional
+  1 if there was an additional charge for gas.
+  0 or not present if not applicable.
+
+VEHICLE_EXTRA_MILES_F
+  -- Optional
+  1 if there was an additional charge for extra mileage.
+  0 or not present if not applicable.
+
+VEHICLE_EXTRA_LATE_F
+  -- Optional
+  1 if there was an additional charge for a late return.
+  0 or not present if not applicable.
+
+VEHICLE_EXTRA_VIOLATIONS_F
+  -- Optional
+  1 if there was an additional charge for a parking violation.
+  0 or not present if not applicable.
+
+VEHICLE_ONEWAY_AMOUNT
+  -- Optional
+  The amount charged for a one-way rental.
+
+VEHICLE_NO_SHOW_AMOUNT
+  -- Optional
+  The amount charged if the renter did not claim the vehicle as scheduled.
+
+VEHICLE_TOTAL_EXTRA_AMOUNT
+  -- Optional
+  The total amount of extra charges that have been added.
+
+VEHICLE_TYPE
+  -- Optional
+  The code for the type of vehicle being rented. Defaults to '99' (Miscellaneous) if not set. 
+  Possible codes are:
+    01 = Mini
+    02 = Subcompact
+    03 = Economy
+    04 = Compact
+    05 = Midsize
+    06 = Intermediate
+    07 = Standard
+    08 = Full size
+    09 = Luxury
+    10 = Premium
+    11 = Minivan
+    12 = Van (12-passenger)
+    13 = Van (moving)
+    14 = Van (15-passenger)
+    15 = Van (cargo)
+    16 = Truck (12-foot)
+    17 = Truck (20-foot)
+    18 = Truck (24-foot)
+    19 = Truck (26-foot)
+    20 = Moped
+    21 = Stretch
+    22 = Regular
+    23 = Unique
+    24 = Exotic
+    25 = Truck (small/medium)
+    26 = Truck (large)
+    27 = SUV (small)
+    28 = SUV (medium)
+    29 = SUV (large)
+    30 = SUV (exotic)
+    99 = Miscellaneous
+
+Apple Pay Fields
+Only used for the processing of Apple Pay transactions.
+APPLE_EPK         = Ephemeral public key.
+APPLE_DATA        = Encrypted payment data.
+APPLE_SIG         = Signature of the payment & header data.
+  
+AVS_ALLOWED
+  -- Optional for AUTH & SALE
+  -- Overrides legacy AVS filter.
+  -- Does not override Fraud Management settings.
+  Allows a string of allowed Address Verification System (AVS) response codes to be set on a 
+  per transaction basis. If the resulting AVS response is not in this list, the transaction 
+  will be voided and a decline response returned. If set to '#', all AVS responses are 
+  considered valid. For example, if the merchant wishes to allow AVS responses 'X', 'Y', and 
+  'Z', he sets this to 'XYZ'.
+  Note: The Fraud Management system or the legacy AVS filter should be used to set AVS 
+        filters if possible.
+
+CVV2_ALLOWED
+  -- Optional for AUTH & SALE
+  -- Overrides legacy CVV filter.
+  -- Does not override Fraud Management settings.
+  Allows a string of allowed Card Verification Value (CVV) response codes to be set on a per 
+  transaction basis. If the resulting CVV response is not in this list, the transaction will 
+  be voided and a decline response returned. If set to '#', all CVV responses are considered
+  valid. For example, if the merchant wishes to allow CVV responses 'X', 'Y', and 'Z', he 
+  sets this to 'XYZ'.
+  Note: The Fraud Management system or the legacy CVV filter should be used to set CVV 
+        filters if possible.
+
+F_BYPASS_CAU
+  -- Optional for AUTH & SALE
+  0 or not present to use Card Account Updater if enabled on the gateway account.
+  1 to process transaction as submitted. The Card Account Updater service will not be used.
+  On some occasions the Card Account Updater service receives invalid information. This flag
+  can be used to process a transaction using the provided informaiton instead of the updated
+  information.
+
+The following fields are DEPRECATED and should not be used:
+DO_AUTOCAP        = '1' or '0'. '1' will cause BluePay2.0 to automatically CAPTURE an AUTH if 
+                    it is approved. This is equivalent to running a SALE.
+
+## Notes on the TAMPER_PROOF_SEAL:
+The TAMPER_PROOF_SEAL is a hash of your SECRET KEY and a few transaction parameters. 
+We use a hash simply to avoid sending the SECRET KEY over the wire, and we include some of 
+the transaction parameters simply as a convenient source of "random" padding. The 
+TAMPER_PROOF_SEAL is currently calculated as follows:
+
+hash(SECRET KEY + ACCOUNT_ID + TRANS_TYPE + AMOUNT + MASTER_ID + NAME1 + PAYMENT_ACCOUNT)
+where '+' indicates string concatenation and undefined fields are concatenated as '' (null 
+string)
+
+TPS_DEF
+**  NOTICE: THE USE OF THIS FIELD CAN POSSIBLY WEAKEN YOUR SECURITY. PLEASE BE SURE YOU 
+    UNDERSTAND HOW THE TAMPER_PROOF_SEAL WORKS BEFORE YOU CONSIDER USING THIS OPTION. **
+This option allows a merchant to determine which fields are included in the 
+TAMPER_PROOF_SEAL. If set blank or not sent, it will default to the fields as described under 
+TAMPER_PROOF_SEAL, above. If set to a space-separated list of field names, then the TPS will 
+be calculated using the fields listed, in order.
+
+The secret key is always the first field, and should not be listed.
+
+Imagine your account ID were 123412341234 and you wanted to run a $10.00 TEST transaction. 
+Your secret key is abcdabcdabcdabcd:
+
+You might set TPS_DEF to:
+    "ACCOUNT_ID AMOUNT MODE"
+In which case, the system would expect the TAMPER_PROOF_SEAL to be a hash of the following 
+string:
+    "abcdabcdabcdabcd12341234123410.00TEST"
+
+Some of the BluePay Sample Code (such as the Ruby library) illustrates a use of the TPS_DEF 
+to essentially remove everything but the SECRET_KEY from the calculation.								  
+
+################################################################################
+#
+# Output Parameters are:
+
+----------------------
+VERSION NULL
+----------------------
+ 
+TRANS_ID            = The ID assigned to the transaction by the gateway
+ 
+STATUS              = '1' for APPROVED
+                      '0' for DECLINE
+                      'E' and all other responses are ERROR.
+                      Note: If a transaction is blocked by Duplicate Scrub STATUS will be 1 
+                            and MESSAGE will be DUPLICATE. All other fields will be from the 
+                            original transaction, not the current transaction.
+                      Note: The results of a test transaction are determined by the dollar 
+                            portion of the amount without cents. If the dollars are odd an 
+                            approval is returned. If the dollars are even a decline is 
+                            returned
+ 
+AVS                 = Address Verification System (AVS) response code received on the 
+                      transaction. Possible codes are:
+
+                      A - Partial match - Street Address matches, ZIP Code does not
+                      B - International street address match, postal code not verified due 
+                          to incompatible formats
+                      C - International street address and postal code not verified due to 
+                          incompatible formats
+                      D - International street address and postal code match
+                      E - Not a mail or phone order
+                      F - Address and Postal Code match (UK only)
+                      G - Service Not supported, non-US Issuer does not participate
+                      I - Address information not verified for international transaction
+                      M - Address and Postal Code match
+                      N - No match - No Address or ZIP Code match
+                      P - International postal code match, street address not verified due to
+                          incompatible format
+                      Q - Bill to address did not pass edit checks/Card Association can't 
+                          verify the authentication of an address
+                      R - Retry - Issuer system unavailable, retry later
+                      S - Service not supported
+                      W - Partial match - ZIP Code matches, Street Address does not
+                      U - Unavailable - Address information is unavailable for that account 
+                          number, or the card issuer does not support
+                      X - Exact match, 9 digit zip - Street Address, and 9 digit ZIP Code
+                          match
+                      Y - Exact match, 5 digit zip - Street Address, and 5 digit ZIP Code 
+                          match
+                      Z - Partial match - 5 digit ZIP Code match only
+                      1 - Cardholder name matches
+                      2 - Cardholder name, billing address, and postal code match
+                      3 - Cardholder name and billing postal code match
+                      4 - Cardholder name and billing address match
+                      5 - Cardholder name incorrect, billing address and postal code match
+                      6 - Cardholder name incorrect, billing postal code matches
+                      7 - Cardholder name incorrect, billing address matches
+                      8 - Cardholder name, billing address, and postal code are all incorrect
+
+                      Note: When a transaction is processed with MODE=TEST if the first 
+                            character of ADDR1 is one of the possible AVS response codes that 
+                            value will be returned as the AVS response value.
+
+CVV2                = Card Verification Value 2 response code. Result of the validation of 
+                      the CVV2 value entered by the payer. Possible response codes are:
+
+                      _ = Unsupported on this network or transaction type
+                      M = CVV2 Match
+                      N = CVV2 did not match
+                      P = CVV2 was not processed
+                      S = CVV2 exists but was not input
+                      U = Card issuer does not provide CVV2 service
+                      X = No response from association
+                      Y = CVV2 Match (Amex only when processed through BluePay Canada)
+
+                      Note: When a transaction is processed with MODE=TEST if the first 
+                            character of ADDR2 is one of the possible CVV2 response codes 
+                            that value will be returned as the CVV2 response value.
+ 
+MESSAGE             = A human-readable description of the transaction status
+ 
+REBID               = The ID of the newly-created rebilling sequence, if any
+ 
+TRANS_TYPE          = The transaction type. The only time it should be different from the 
+                      requested TRANS_TYPE is in the case of VOID promotion where a REFUND
+                      was sent and we returned a VOID
+ 
+----------------------
+VERSION = 1
+----------------------
+VERSION 1 includes output from all lower VERSIONs plus the following.
+
+AUTH_CODE             = The auth code for successful AUTH
+ 
+PAYMENT_ACCOUNT_MASK  = The used credit card or ACH account, masked with 'X' as appropriate
+ 
+CARD_TYPE             = VISA, MC, DISC, AMEX, ACH, etc
+ 
+----------------------
+VERSION = 2
+----------------------
+VERSION 2 includes output from all lower VERSIONs plus the following.
+
+BIN                   = Bank Identification Number, first six digits of the credit card 
+                        number used. Identifies the bank that issued the card.
+ 
+----------------------
+VERSION = 3
+----------------------
+VERSION 3 includes output from all lower VERSIONs plus the following.
+
+BANK_NAME           = Up to 64 characters containing the customer's bank name
+ 
+CARD_COUNTRY        = Country of credit card issuer
+ 
+BINDATA             = Tilde (~) separated list of of transaction information returned by 
+                      credit card processing network. Example: BINDATA=6~V~X~~~~~~~~A~N~~~Y~C
+
+                      binlen      Length of the Bank Identification Number (BIN). A value 
+                                  between 1 and 16
+                      ~
+                      cardtype    V - Visa
+                                  M - MasterCard
+                                  A - American Express
+                                  D - Discover
+                                  N - PIN Only (Non-Visa/MasterCard/Amex/Discover)
+                      ~
+                      cardusage   C - Credit Hybrid (meaning it has pin capability also)
+                                  E - PIN Only Debit with Electronic Benefit Transfer
+                                  H - Debit Hybrid (PIN and Signature)
+                                  J - USA Commercial Debit, Signature Only, No PIN Access
+                                  K - USA Commercial Debit, PIN Capable
+                                  L - Non USA Consumer Debit, No PIN Access
+                                  M - Non USA Commercial Debit, No PIN Access
+                                  N - Non USA Consumer Debit, PIN Capable
+                                  O - Non USA Commercial Debit, PIN Capable
+                                  P - PIN Only Debit without Electronic Benefit Transfer
+                                  R - Private Label Credit (MasterCard)
+                                  S - Signature only Debit, No PIN Access
+                                  X - True credit, No PIN/Signature capability
+                      ~
+                      networks    A5 - PAVD FISERV
+                                  01 - SHAZAM
+                                  02 - NYCE
+                                  03 - PULSE
+                                  05 - STAR-WEST
+                                  07 - STAR-EAST
+                                  14 - STAR NE
+                                  15 - PAVD
+                                  16 - CNB-ENID
+                                  17 - ATH-SCOTIA BANK
+                                  18 - ATH-DIRECT
+                                  19 - INTERLINK
+                                  20 - INTERAC EVERLINK
+                                  21 - EVERLINK INTERAC ICU
+                                  25 - MAESTRO DIRECT
+                                  26 - MCX
+                                  29 - EBT ACS
+                                  30 - MAESTRO STAR WEST
+                                  31 - STAR WEST OPTION
+                                  33 - JEANIE STAR WEST
+                                  34 - JEANIE DIRECT
+                                  35 - AFFN DIRECT
+                                  36 - CU24-DIRECT
+                                  37 - EBT TEAM OF TEXAS
+                                  39 - EBT JPCHASE
+                                  41 - SVS
+                                  42 - EXXON
+                                  43 - BASE 24/INTERAC
+                                  46 - CU24-FIDELITY
+                                  47 - EBT EFUNDS
+                                  48 - AFFN FIDELITY
+                                  49 - EBT NORTHRUP GRUMMAN
+                                  51 - CU24-FISERV
+                                  52 - AFFN FISERV
+                                  56 - STAR-EAST FISERV
+                                  57 - PULSE FISERV
+                                  59 - NYCE FISERV
+                                  62 - STAR-WEST FISERV
+                                  63 - STAR NE FISERV
+                                  64 - MAESTRO FISERV
+                                  65 - INTERLINK FISERV
+                                  67 - EBT-FISERV
+                                  68 - ACCEL FISERV
+                                  69 - OPTION-FISERV
+                                  A  - PINLESS POS
+                                  B  - PINNED POS, PINLESS BILLPAY
+                                  C  - PINLESS BILLPAY, PINLESS POS
+                                  D  - PINNED POS, PINLESS POS
+                                  E  - PINNED POS, PINLESS BILLPAY, PINLESS POS
+                                  L  - PINLESS BILLPAY
+                                  P  - PINNED POS
+                      ~
+                      ebt         Electronic Benefit Transfer State
+                      ~
+                      fsa         Flexible Spending Account
+                      ~
+                      issbin      Unused
+                      ~
+                      processbin  Unused
+                      ~
+                      ica         Unused
+                      ~
+                      prepaid     Not Present - Not a Prepaid Card
+                                  P           - Prepaid Card
+                      ~
+                      prodid      Card Product Sub Category
+                                  A   - Visa Traditional 
+                                  B   - Visa Traditional Rewards 
+                                  C   - Visa Signature 
+                                  D   - Visa Signature Preferred 
+                                  E   - Visa Proprietary ATM 
+                                  F   - Visa Classic 
+                                  G   - Visa Business
+                                  G1  - Visa Signature Business (non-US) 
+                                  G1  - Visa Business Tier 3 (US) 
+                                  G3  - Visa Business Enhanced (non-US) 
+                                  G3  - Visa Business Tier 2 (US) 
+                                  G4  - Visa Infinite Business (non-US) 
+                                  G4  - Visa Business Tier 4 (US) 
+                                  G5  - Visa Business Rewards 
+                                  I^  - Visa Infinite 
+                                  I1  - Visa Infinite Privilege 
+                                  I2  - Visa Ultra High Net Worth 
+                                  J3  - Visa Healthcare 
+                                  K^  - Visa Corporate T&E 
+                                  K1  - Visa GSA Corporate T&E (US)?Visa Government Corporate 
+                                        T&E (global) 
+                                  L^  - Visa Electron 
+                                  N^  - Visa Platinum 
+                                  N1  - Visa Rewards 
+                                  N2  - Visa Select 
+                                  P^  - Visa Gold 
+                                  Q^  - Visa Private Label 
+                                  Q2  - Visa Private Label Basic 
+                                  Q3  - Visa Private Label Standard 
+                                  Q4  - Visa Private Label Enhanced 
+                                  Q5  - Visa Private Label Specialized 
+                                  Q6  - Visa Private Label Premium 
+                                  R^  - Visa Proprietary 
+                                  S^  - Visa Purchasing 
+                                  S1  - Visa Purchasing with Fleet 
+                                  S2  - Visa GSA Purchasing (US)?Visa Government Purchasing 
+                                        (Global) 
+                                  S3  - Visa GSA Purchasing with Fleet (US)?Visa Government 
+                                        Purchasing With Fleet (global) 
+                                  S4  - Visa Government Services Loan 
+                                  S5  - Visa Commercial Transport (EBT) 
+                                  S6  - Visa Business Loan 
+                                  U^  - Visa Travel Money 
+                                  V^  - Visa V Pay 
+                                  BPD - MasterCard Business Premium Debit 
+                                  DAG - MasterCard Gold Debit MasterCard Salary 
+                                  DAP - MasterCard Platinum Debit MasterCard Salary 
+                                  DAS - MasterCard Standard Debit MasterCard Salary 
+                                  DLG - MasterCard Gold Delayed Debit 
+                                  DLH - MasterCard World Embossed Delayed Debit 
+                                  DLP - MasterCard Platinum Delayed Debit 
+                                  DLS - MasterCard Card Delayed Debit 
+                                  DOS - MasterCard Standard Debit Social 
+                                  MAB - MasterCard World Elite for Business
+                                  MAC - MasterCard World Elite Corporate Card 
+                                  MAP - MasterCard MAP Commercial Payments Account 
+                                  MAQ - MasterCard Prepaid Commercial Payments Account 
+                                  MBB - MasterCard Prepaid Consumer 
+                                  MBC - MasterCard Prepaid Voucher 
+                                  MBD - MasterCard Professional Debit BusinessCard Card 
+                                  MBE - MasterCard Electronic Business Card 
+                                  MBF - MasterCard Prepaid Food 
+                                  MBK - MasterCard Black Card 
+                                  MBM - MasterCard Prepaid Meal 
+                                  MBP - MasterCard Corporate Prepaid 
+                                  MBS - MasterCard B2B Product
+                                  MBT - MasterCard Corporate Prepaid Travel
+                                  MBW - MasterCard World MasterCard Black Edition Debit
+                                  MCB - MasterCard Business Card
+                                  MCC - MasterCard Credit Card (Mixed BIN)
+                                  MCD - MasterCard Debit Card 
+                                  MCE - MasterCard Electronic Card 
+                                  MCF - MasterCard Fleet Card 
+                                  MCG - MasterCard Gold Card 
+                                  MCH - MasterCard Premium Charge 
+                                  MCO - MasterCard Corporate Card 
+                                  MCP - MasterCard Purchasing Card 
+                                  MCS - MasterCard Standard Card 
+                                  MCT - MasterCard Titanium Card 
+                                  MCV - MasterCard Merchant-Branded Program 
+                                  MCW - MasterCard World Card 
+                                  MDB - MasterCard Business Debit Card
+                                  MDG - MasterCard Gold Debit Card 
+                                  MDH - MasterCard Other Embossed Debit Card 
+                                  MDJ - MasterCard Debit Enhanced 
+                                  MDL - MasterCard Business Debit Other Embossed 
+                                  MDO - MasterCard Debit Other 
+                                  MDP - MasterCard Platinum Debit Card 
+                                  MDR - MasterCard Debit Brokerage 1 
+                                  MDS - MasterCard Debit Card 
+                                  MDT - MasterCard Commercial Debit Card 
+                                  MDW - MasterCard World Black Debit (LAC region excluding 
+                                        Mexico) 
+                                  MEB - MasterCard Executive Business Card
+                                  MEC - MasterCard Electronic Commercial 
+                                  MEF - MasterCard Electronic Payment Account 
+                                  MEO - MasterCard Corporate Executive Card 
+                                  MFB - MasterCard Flex World Elite
+                                  MFD - MasterCard Flex Platinum
+                                  MFE - MasterCard Flex Charge World Elite
+                                  MFH - MasterCard Flex World
+                                  MFL - MasterCard Flex Charge Platinum
+                                  MFW - MasterCard Flex Charge World 
+                                  MGF - MasterCard Government Commercial Card 
+                                  MHA - MasterCard Healthcare Prepaid Non-Tax 
+                                  MHB - MasterCard HSA Substantiated 
+                                  MHD - MasterCard HELOC Debit Standard 
+                                  MHH - MasterCard HSA Non-Substantiated 
+                                  MHK - MasterCard Magna Health Access Card 
+                                  MHL - MasterCard HELOC Debit Gold 
+                                  MHM - MasterCard HELOC Debit Platinum 
+                                  MHN - MasterCard HELOC Debit Premium 
+                                  MIA - MasterCard Prepaid Unembossed Student Card 
+                                  MIP - MasterCard Prepaid Student Card 
+                                  MIU - MasterCard Debit Unembossed (Non-US) 
+                                  MLA - MasterCard Central Travel Solutions Air Card 
+                                  MLB - MasterCard Brazil Benefit for Home Improvement 
+                                  MLD - MasterCard Distribution Card 
+                                  MLE - MasterCard Brazil General Benefits 
+                                  MLF - MasterCard Agro 
+                                  MLL - MasterCard Central Travel Solutions Land Card 
+                                  MNF - MasterCard Public Sector Commercial Card 
+                                  MNW - MasterCard World Card 
+                                  MOC - MasterCard Standard Maestro Social 
+                                  MOG - MasterCard Maestro Gold Card 
+                                  MOP - MasterCard Maestro Platinum 
+                                  MOW - MasterCard World Maestro 
+                                  MPA - MasterCard Prepaid Debit Standard Payroll 
+                                  MPB - MasterCard Preferred Business Card 
+                                  MPF - MasterCard Prepaid Debit Standard Gift
+                                  MPG - MasterCard Debit Standard Prepaid General Spend
+                                  MPH - MasterCard Cash
+                                  MPJ - MasterCard Prepaid Debit Voucher Meal/Food Card
+                                  MPK - MasterCard Prepaid Government Commercial Card 
+                                  MPL - MasterCard Platinum Card 
+                                  MPM - MasterCard Prepaid Debit Standard Consumer Incentive 
+                                  MPN - MasterCard Prepaid Debit Standard Insurance 
+                                  MPO - MasterCard Prepaid Debit Standard Other 
+                                  MPP - MasterCard Prepaid Card 
+                                  MPR - MasterCard Prepaid Debit Standard Travel 
+                                  MPT - MasterCard Prepaid Debit Standard Teen 
+                                  MPV - MasterCard Prepaid Debit Standard Government
+                                  MPW - MasterCard Debit Business Card Prepaid Workplace 
+                                        Business to Business
+                                  MPX - MasterCard Prepaid Debit Standard Flex Benefit
+                                  MPY - MasterCard Prepaid Debit Standard Employee Incentive
+                                  MPZ - MasterCard Prepaid Debit Standard Government Consumer
+                                  MRC - MasterCard Prepaid Electronic Card (Non-US)
+                                  MRF - MasterCard Standard Deferred
+                                  MRG - MasterCard Prepaid Card (Non-US)
+                                  MRH - MasterCard Platinum Prepaid Travel Card
+                                  MRJ - MasterCard Prepaid MasterCard Voucher Meal/Food Card
+                                  MRK - MasterCard Prepaid MasterCard Public Sector 
+                                        Commercial Card
+                                  MRO - MasterCard Rewards Only
+                                  MRL - MasterCard Prepaid Business Preferred
+                                  MRP - MasterCard Standard Retailer Centric Payments
+                                  MRW - MasterCard Prepaid Business Card (Non-US)
+                                  MSA - MasterCard Prepaid Maestro Payroll Card
+                                  MSB - MasterCard Maestro Small Business Card
+                                  MSF - MasterCard Prepaid Maestro Gift Card
+                                  MSG - MasterCard Prepaid Maestro Consumer Reloadable Card
+                                  MSI - MasterCard Maestro Card
+                                  MSJ - MasterCard Maestro Prepaid Voucher Meal and Food Card
+                                  MSM - MasterCard Maestro Prepaid Consumer Promotion Card
+                                  MSN - MasterCard Maestro Prepaid Insurance Card
+                                  MSO - MasterCard Maestro Prepaid Other Card
+                                  MSQ - MasterCard Reserved for future use
+                                  MSR - MasterCard Prepaid Maestro Travel Card
+                                  MST - MasterCard Prepaid Maestro Teen Card
+                                  MSV - MasterCard Prepaid Maestro Government Benefit Card
+                                  MSW - MasterCard Prepaid Maestro Corporate Card
+                                  MSX - MasterCard Prepaid Maestro Flex Benefit Card
+                                  MSY - MasterCard Prepaid Maestro Employee Incentive Card
+                                  MSZ - MasterCard Prepaid Maestro Emergency Assistance Card
+                                  MTP - MasterCard Platinum Prepaid Travel Card
+                                  MUW - MasterCard World Domestic Affluent
+                                  MWB - MasterCard World for Business Card
+                                  MWD - MasterCard World Deferred
+                                  MWE - MasterCard World Elite
+                                  MWO - MasterCard World Elite Corporate Card
+                                  MWR - MasterCard World Retailer Centric Payments
+                                  OLB - MasterCard Maestro Small Business Delayed Debit
+                                  OLG - MasterCard Maestro Gold Delayed Debit
+                                  OLP - MasterCard Maestro Platinum Delayed Debit 
+                                  OLS - MasterCard Maestro Delayed Debit 
+                                  OLW - MasterCard World Maestro Delayed Debit 
+                                  PMC - MasterCard Proprietary Credit Card (Sweden domestic) 
+                                  PMD - MasterCard Proprietary Debit Card (Sweden domestic) 
+                                  PSC - MasterCard Common Proprietary Swedish Credit Card 
+                                  PSD - MasterCard Common Proprietary Swedish Debit Card 
+                                  PVA - MasterCard Private Label A 
+                                  PVB - MasterCard Private Label B
+                                  PVC - MasterCard Private Label C
+                                  PVD - MasterCard Private Label D
+                                  PVE - MasterCard Private Label E
+                                  PVF - MasterCard Private Label F
+                                  PVG - MasterCard Private Label G 
+                                  PVH - MasterCard Private Label H 
+                                  PVI - MasterCard Private Label I 
+                                  PVJ - MasterCard Private Label J 
+                                  PVL - MasterCard Private Label L 
+                                  SAG - MasterCard Gold Salary Immediate Debit 
+                                  SAL - MasterCard Standard Maestro Salary 
+                                  SAP - MasterCard Platinum Salary Immediate Debit 
+                                  SAS - MasterCard Standard Salary Immediate Debit 
+                                  SOS - MasterCard Standard Social Immediate Debit 
+                                  SUR - MasterCard Prepaid Unembossed Card (Non-US) 
+                                  TBE - MasterCard Electronic Business Immediate Debit 
+                                  TCB - MasterCard Corporate Executive Business Card 
+                                        Immediate Debit 
+                                  TCC - MasterCard (mixed BIN) Immediate Debit 
+                                  TCE - MasterCard Electronic Immediate Debit 
+                                  TCF - MasterCard Fleet Card Immediate Debit 
+                                  TCG - MasterCard Gold Card Immediate Debit 
+                                  TCO - MasterCard Corporate Immediate Debit 
+                                  TCP - MasterCard Purchasing Card Immediate Debit 
+                                  TCS - MasterCard Standard Card Immediate Debit 
+                                  TCW - MasterCard World Signia Card Immediate Debit 
+                                  TEB - MasterCard Executive BusinessCard Card 
+                                  TEC - MasterCard Electronic Commercial Immediate Debit 
+                                  TEO - MasterCard Corporate Executive Card Immediate Debit 
+                                  TNF - MasterCard Public Sector Commercial Card Immediate 
+                                        Debit 
+                                  TNW - MasterCard New World Immediate Debit 
+                                  TPB - MasterCard Preferred Business Card Immediate Debit
+                                  TPL - MasterCard Platinum Immediate Debit
+                                  TWB - MasterCard World Black Edition Immediate Debit
+                                  WBE - MasterCard World Black Edition
+                      ~
+                      regulated   B - ISS Regulated Issuer
+                                  N - ISS Non-Regulated Issuer or Non-US issued card
+                                  1 - ISS Regulated Issuer with fraud
+                      ~
+                      subtype     AC - Brazil Agriculture Maintenance Account/Custeio
+                                  AE - Brazil Agriculture Debit Account/Electron
+                                  AG - Brazil Agriculture
+                                  AI - Brazil Agriculture Investment Loan/Investimento
+                                  CG - Brazil Cargo
+                                  CS - Construction
+                                  DS - Distribution
+                                  HC - Healthcare
+                                  LP - Visa large-Purchase Advantage
+                                  MA - Visa Mobile Agent
+                                  MB - Interoperable Mobile Branchless Banking
+                                  MG - Visa Mobile General
+                                  VA - Brazil Food or Supermarket 
+                                  VF - Brazil Fuel / Flex Visa Vale
+                                  VR - Brazil Food or Restaurant
+                      ~
+                      largeticket   L - Visa Large Ticket
+                                    Space - Not Visa Large Ticket
+                      ~
+                      acctlylproc   Y - Account Level Processing
+                                    Space - No Account Level Processing
+                                    N - Not applicable for BIN
+                      ~
+                      acctfunsrc    Account Fund Source
+                                    C - Credit
+                                    D - Debit
+                                    P - Prepaid
+                                    H - Charge
+                                    R - Deferred Debit (Visa Only)
+                                    Space - Network Only
+
+----------------------
+VERSION = 4
+----------------------
+VERSION 4 includes output from all lower VERSIONs plus the following.
+
+CUSTOM_ID           = The CUSTOM_ID value submitted on the transaction.
+
+CUSTOM_ID2          = The CUSTOM_ID2 value submitted on the transaction.
+
+ORDER_ID            = Merchant specified value. Usually the an identifier for the payment 
+                      from the merchant's system.
+
+INVOICE_ID          = Merchant specified value. Usually the an identifier for the payment 
+                      from the merchant's system.
+
+ISSUE_DATE          = Date and time that the transaction was processed.
+
+BP_STAMP            = Hash of the merchant's Secret Key and a string concatenation of the 
+                      values of various fields returned from BluePay. The exact fields and 
+                      their order are determined by BP_STAMP_DEF, and the hash type used is the 
+                      same algorithm that the merchant used to calculate the TAMPER_PROOF_SEAL 
+                      (the TPS_HASH_TYPE provided in the response from BluePay). See 
+                      TAMPER_PROOF_SEAL & BP_STAMP section for more details.
+
+BP_STAMP_DEF        = Definition of which fields are included in the BP_STAMP. See 
+                      TAMPER_PROOF_SEAL & BP_STAMP section for more details.
+
+TPS_HASH_TYPE       = The algorithm used to validate the TAMPER_PROOF_SEAL and to generate the 
+                      BP_STAMP. This is either the TPS_HASH_TYPE value received in the 
+                      transaction request or the merchant's 'Hash Type in APIs' value. See 
+                      TAMPER_PROOF_SEAL & BP_STAMP section for more details.
+
+----------------------
+VERSION = 5
+----------------------
+VERSION 5 includes output from all lower VERSIONs plus the following.
+
+ACCT_UPDATE_ID
+  The ID of any updated account data for the payment account used for the transaction. Updated
+  account data only provided for merchants using Account Updater. 
+
+CARD_EXPIRE
+  Type: character(4)
+  Expiration date for a credit card in MMYY. This will be blank for an ACH.
+
+----------------------
+VERSION = 6
+----------------------
+VERSION 6 includes output from all lower VERSIONs plus the following.
+
+CUST_TOKEN     
+  The Customer Token that may be used in the future to reuse this customer's payment 
+  information.
+
+----------------------
+VERSION = 7
+----------------------
+VERSION 7 includes output from all lower VERSIONs plus the following.
+
+EMV
+  A hash value that contains information, such as emv_serial number, emv_version and emv_data in the form of key-value pair.
+
+EMV_APPLICATION
+  The EMV Application ID, also known as AID, to be printed on the EMV receipt. 
+  This field displays in the output only when EMV data is in provided in the transaction request.
+
+EMV_APPNAME
+  The EMV Application Name to be printed on the EMV receipt. 
+  This field displays in the output only when EMV data is provided in the transaction request.
+
+----------------------
+VERSION = 8
+----------------------
+VERSION 8 includes output from all lower VERSIONs plus the following.
+
+TOKEN_TRANSARMOR
+  TransArmor token that is generated for the credit card transaction and is used in this transaction.
+  This field displays only when the following parameters are set in the request:
+  - F_TRANSARMOR must set to '2'
+  - TRANS_TYPE must either be AUTH or SALE
+----------------------
+VERSION = 9
+----------------------
+VERSION 9 includes output from all lower VERSIONs plus the following:
+
+STORED_ID
+  The transaction identifier generated after passing the STORED_INDICATOR flag as 'F' to store the customer's payment information. 
+ This value should be stored by the merchant and must be included in the STORED_ID input field for any
+ subsequent stored credential transactions, that is when STORED_INDICATOR = 'S'. 
+
+----------------------
+VERSION = 10
+----------------------
+VERSION 10 includes output from all lower VERSIONs plus the following:
+
+ACH_NOC_ID
+  A 12-digit Notification of Change (NOC) ID generated and displayed when a transaction is processed using the corrected details received in the 
+  ACH NOC. If there is no ACH_NOC_ID value then no Notice Of Change information was used.
+
+VALIDATION_RESULT
+  Status value that includes bank account validation results.
+  
+  Possible status values are:
+  - '15': Known bad bank account. The transaction is immediately declined (validation fee charged for LIVE transactions)
+  - '20': Unknown bank account but with a valid format (validation fee charged for LIVE transactions))
+  - '25': Unknown bank account (validation fee charged for LIVE transactions))
+  - '35': Bank account found but pending transaction settlement (validation fee charged for LIVE transactions))
+  - '45': Known good bank account (validation fee charged for LIVE transactions)
+  - 'B': Account validation bypassed (no validation fee charged)
+  - 'R': Bank Account received known bad previously (no validation fee charged)
+  - 'E': Error, Bank account validation failed (no validation fee charged)
+  - null: Account validation not performed (no validation fee charged)
+  
+  See ACH_DESCRIPTION in the Input section for method to trigger specific results on MODE=TEST transactions.
+
+ACH_SAME_DAY_FUNDING
+  The flag value (0 or 1) received in the transaction request to indicate presence or absence of the same-day funding.
+
+VERSION = 11
+----------------------
+VERSION 11 includes output from all lower VERSIONs plus the following:
+
+REB_IS_CREDIT
+  Flag value that indicates whether the rebill transaction is SALE or CREDIT.
+  Possible values are:
+  1: For CREDIT
+  0: For SALE
+
+Output HTTP status code is 200 for a successfully processed transaction, whether it was 
+declined or approved. 
+
+Output HTTP status code is 400 for an error transaction.
+
+Keep in mind the number and ordering of output fields may change. Do not rely on either to 
+be the same or your code may break in a future update.
+
+
+###############################
+# TAMPER_PROOF_SEAL & BP_STAMP
+###############################
+
+BluePay uses cryptographic hash (or "digest") functions as a means of both protecting 
+transaction data from being altered and ensuring that the transaction is genuine. A 
+cryptographic hash function is an algorithm that maps data of any size to a bit string of a 
+fixed size that cannot be deciphered. 
+
+All merchants have a default hash type assigned to their account. This can be viewed and 
+updated on the merchant's Account Admin page of BluePay's Gateway (https://secure.bluepay.com) 
+under "Hash Type in APIs". Merchants may override their default by including the TPS_HASH_TYPE 
+field in the transaction request. 
+
+The default hash type and the TPS_HASH_TYPE may be any of the following algorithms (in 
+hexadecimal form):
+
+MD5           Use md5sum or a similar program to calculate a 128-bit hash, then convert it 
+              into hexadecimal form; result is 32 hexadecimal characters.
+SHA256        Use sha256sum or a similar program to calculate a 256-bit hash, then convert it 
+              into hexadecimal form; result is 64 hexadecimal characters.
+SHA512        Use sha512sum or a similar program to calculate a 512-bit hash, then convert it 
+              into hexadecimal form; result is 128 hexadecimal characters.
+
+HMAC_SHA256   A 128-bit hash, resulting in a sequence of 64 hexadecimal characters.
+HMAC_SHA512   A 128-bit hash, resulting in a sequence of 128 hexadecimal characters.
+
+Steps to find the HMAC of either SHA256 (HMAC_SHA256) or SHA512 (HMAC_SHA512):
+
+1. Compare the length of the key (the merchant's Secret Key) to the hash's input blocksize.
+   SHA256 blocksize = 64, SHA512 blocksize = 128.
+   If length of key is > blocksize, set the key's value to the hash of the original key.
+   If length of key is < blocksize, pad the key to the right with zeros until its length 
+   equals the blocksize.
+
+2. Create the inner key (inner_key):
+   Create an inner padding value of 0x36 repeated the blocksize number of times.
+   Perform a bitwise exclusive-OR (XOR) on the key and the inner padding to create the inner 
+   key.
+
+3. Create the outer key (outer_key):
+   Create an outer padding value of 0x5c repeated the blocksize number of times.
+   Perform a bitwise exclusive-OR (XOR) on the key and the outer padding to create the outer 
+   key.
+
+4. Calculate the hash of the inner key concatenated with the text string, then calculate the 
+   hash of the outer key concatenated with the previous hash result:
+   hash(outer_key + hash(inner_key + string))
+
+5. Convert the result into a hex string.
+ 
+When using a program or function to calculate the TAMPER_PROOF_SEAL and BP_STAMP, make sure 
+that it will accept a text string (or "message") argument and will return the hashed string 
+(or "message digest") in hexadecimal form. 
+
+
+####################################
+# Calculating the TAMPER_PROOF_SEAL
+####################################
+
+STEP ONE
+Concatenate the values of the fields that make up the TPS_DEF in same order that they are 
+listed. Use ""(empty string - no space) as the value for any fields that are empty or 
+unsent. When no TPS_DEF is sent ('+' represents string concatenation, and the field names 
+represent the contents of the respective fields):
+
+message  = ACCOUNT_ID + TRANS_TYPE + AMOUNT + MASTER_ID + NAME1 + PAYMENT_ACCOUNT
+
+STEP TWO
+- If TPS_HASH_TYPE is "" or is not sent, the merchant's 'Hash Type in APIs' value will 
+  determine which hash function to use.
+
+- If TPS_HASH_TYPE is 'MD5', 'SHA256', or 'SHA512', find the md5sum, sha256sum, or sha512sum 
+  of (the merchant's Secret Key + message) in hex format.
+
+- If TPS_HASH_TYPE is 'HMAC_SHA256' or 'HMAC_SHA512', find the HMAC_SHA256 or HMAC_SHA512 of 
+  (the merchant's Secret Key, message) in hex format.
+
+
+EXAMPLE:
+Merchant A's account information is as follows:
+  Secret Key = "abcdabcdabcdabcd"
+  ACCOUNT_ID = "123412341234"
+  Hash Type in APIs (default hash type) = "MD5"
+
+If Merchant A set their TPS_DEF to "ACCOUNT_ID AMOUNT COMPANY_NAME MODE" and wanted to run a 
+$10.00 TEST transaction, the transaction would include:
+  TPS_DEF = "ACCOUNT_ID AMOUNT COMPANY_NAME MODE"
+  ACCOUNT_ID = "123412341234"
+  AMOUNT = "10.00"
+  MODE = "TEST"
+
+To calculate the TAMPER_PROOF_SEAL, Merchant A would need to:
+
+STEP ONE
+Concatenate the values in the TPS_DEF to create a message string. Remember, if the field isn't 
+sent or if the value is undefined, use an empty string as that field's value.
+message  = ACCOUNT_ID + AMOUNT + COMPANY_NAME + MODE
+         = "123412341234" + "10.00" + "" + "TEST" 
+         = "12341234123410.00TEST"
+
+STEP TWO
+This step will vary depending on which TPS_HASH_TYPE is sent (if any).
+
+-- If TPS_HASH_TYPE = "" or was not sent, the merchant's default hash type must be used
+TAMPER_PROOF_SEAL = md5sum( Secret Key + message ) in hex format
+                  = md5sum("abcdabcdabcdabcd" + "12341234123410.00TEST") in hex format 
+                  = "91750725E668979C4B91E7303CB69CC0"
+
+-- If TPS_HASH_TYPE = "SHA256"
+TAMPER_PROOF_SEAL = sha256sum( Secret Key + message ) in hex format
+                  = sha256sum("abcdabcdabcdabcd" + "12341234123410.00TEST") in hex format
+                  = "DC8F5AC97C00CB83D93E74C26D0CF042377AA88D484424352B9D96B42F89C949"
+
+-- If TPS_HASH_TYPE = "HMAC_SHA256"
+TAMPER_PROOF_SEAL = HMAC_SHA256( Secret Key, message ) in hex format
+                  = HMAC_SHA256("abcdabcdabcdabcd", "12341234123410.00TEST") in hex format
+                  = "A89259FF6997496EA55360978B62F799309B22BF8E33B78B1952CE57FDBD9DAB"
+
+
+###########################
+# Calculating the BP_STAMP
+###########################
+
+STEP ONE
+Concatenate the values of the fields that make up the BP_STAMP_DEF in same order that they are 
+listed. Use "" (empty string - no space) as the value for any fields that are empty or 
+unsent. When no BP_STAMP_DEF is sent ('+' represents string concatenation, and the field names 
+represent the contents of the respective fields):
+
+message  = TRANS_ID + ISSUE_DATE + STATUS
+
+STEP TWO
+Calculate the expected BP_STAMP and compare that value to the BP_STAMP in the response to 
+verify that the response is genuine. The hash type used is the same algorithm that the merchant 
+used to calculate the TAMPER_PROOF_SEAL (the TPS_HASH_TYPE provided in the response from 
+BluePay).
+
+- If TPS_HASH_TYPE is 'MD5', 'SHA256', or 'SHA512', find the md5sum, sha256sum, or sha512sum 
+  of (the merchant's Secret Key + message) in hex format.
+
+- If TPS_HASH_TYPE is 'HMAC_SHA256' or 'HMAC_SHA512', find the HMAC_SHA256 or HMAC_SHA512 of 
+  (the merchant's Secret Key, message) in hex format.
+
+Finally, the merchant should take the result and compare it to the value of BP_STAMP. If 
+they match, the response is genuine. If they do not, the response has been tampered with 
+somehow.
+
+
+EXAMPLE:
+Merchant B's account information is as follows:
+  Secret Key = "abcdabcdabcdabcd"
+  ACCOUNT_ID = "123412341234"
+  Hash Type in APIs (default hash type) = "MD5"
+
+If Merchant B sent the transaction described in the previous section and included their 
+BP_STAMP_DEF set as "MASTER_ID REBID CARD_TYPE AVS MESSAGE", the transaction would include:
+  BP_STAMP_DEF = "MASTER_ID REBID CARD_TYPE AVS MESSAGE"
+  ACCOUNT_ID = "123412341234"
+  AMOUNT = "10.00"
+  MODE = "TEST"
+  VERSION = "4"
+  TPS_HASH_TYPE = (we'll look at 3 examples)
+
+Merchant B's response post might include the following output fields:
+  MASTER_ID = "987654321001"
+  AVS = "M"
+  MESSAGE = "Approved Sale"
+  BP_STAMP_DEF = "MASTER_ID REBID CARD_TYPE AVS MESSAGE"
+  CARD_TYPE = "AMEX"
+  TPS_HASH_TYPE = ? (TPS_HASH_TYPE sent with transaction OR the merchant's default hash type)
+  BP_STAMP = ? (this differs based on the TPS_HASH_TYPE used)
+
+STEP ONE
+Concatenate the values in the BP_STAMP_DEF to create a message string. Remember, if the field 
+isn't returned or if the value is undefined, use an empty string as that field's value.
+message  = MASTER_ID + REBID + CARD_TYPE + AVS + MESSAGE
+         = "987654321001" + "" + "AMEX" + "M" + "Approved Sale"
+         = "987654321001AMEXMApproved Sale"
+
+STEP TWO
+Calculate the expected BP_STAMP and compare that value to the BP_STAMP in the response to 
+verify that the response is genuine. This step will vary depending on which TPS_HASH_TYPE is 
+included in the response. 
+
+-- If TPS_HASH_TYPE = "" or wasn't sent in the transaction request, the response would include:
+TPS_HASH_TYPE = "MD5"
+BP_STAMP = "9cc17c0b8e1064dec7a91fccaeac6331"
+
+Expected BP_STAMP = md5sum( Secret Key + message ) in hex format
+                  = md5sum("abcdabcdabcdabcd" + "987654321001AMEXMApproved Sale") in hex format 
+                  = "9cc17c0b8e1064dec7a91fccaeac6331"
+Since the expected BP_STAMP matches the BP_STAMP from the response, the response is genuine.
+
+-- If TPS_HASH_TYPE = "SHA256" in the transaction request, the response would include:
+TPS_HASH_TYPE = "SHA256"
+BP_STAMP = "1f6e33b2354a013ea3f4b4884cce1a7ad67c4ca18e800717b7c1887872dff7c7"
+
+Expected BP_STAMP = sha256sum( Secret Key + message ) in hex format
+                  = sha256sum("abcdabcdabcdabcd" + "987654321001AMEXMApproved Sale") in hex format
+                  = "1f6e33b2354a013ea3f4b4884cce1a7ad67c4ca18e800717b7c1887872dff7c7"
+Since the expected BP_STAMP matches the BP_STAMP from the response, the response is genuine.
+
+-- If TPS_HASH_TYPE = "HMAC_SHA256" in the transaction request, the response would include:
+TPS_HASH_TYPE = "HMAC_SHA256"
+BP_STAMP = "d20275b3123051ed682d4fe25238dfa58b9e6668ccef05f9696ef38cebd295a0"
+
+Expected BP_STAMP = HMAC_SHA256( Secret Key, message ) in hex format
+                  = HMAC_SHA256("abcdabcdabcdabcd", "987654321001AMEXMApproved Sale") in hex format
+                  = "d20275b3123051ed682d4fe25238dfa58b9e6668ccef05f9696ef38cebd295a0"
+Since the expected BP_STAMP matches the BP_STAMP from the response, the response is genuine.

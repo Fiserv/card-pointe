@@ -597,7 +597,7 @@ If your application uses [authCard](../api/?type=post&path=/api/v3/authCard) or 
 
 ### Gateway Timed Out Response Returned
 
-In this case, a response, including a retrieval reference number (`retref`) for the transaction, is returned. You can use the `retref` to make an [inquire](/api/?type=get&path=/cardconnect/rest/inquire) request to the CardPointe Gateway to retrieve details about the authorization attempt.
+In this case, a response, including a retrieval reference number (`retref`) for the transaction, is returned. You can use the `retref` to make an [inquire](../api/?type=get&path=/cardconnect/rest/inquire) request to the CardPointe Gateway to retrieve details about the authorization attempt.
 
 #### Gateway "Timed Out" Response Example
 

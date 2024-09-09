@@ -1,0 +1,238 @@
+BluePay 2.0 POST Method for Rebilling Updates
+For automated integration. This interface is NOT for Posting directly from a web form!
+
+Last Updated: 2021-02-26
+
+The URL of this interface is currently:
+https://secure.bluepay.com/interfaces/bp20rebadmin
+
+PLEASE NOTE: This URL may change in the future. In integrating your system, please remember to 
+make the URL a parameter you can easily change. If you are coding a shopping cart, please make 
+the URL a parameter the merchant can easily set.
+
+REQUEST FORMAT:
+Expected input format is that of a standard HTTPS POST. All parameters are uri-encoded in the 
+body of the request, for example:
+
+### BEGIN REQUEST EXAMPLE ###
+POST https://secure.bluepay.com/interfaces/bp20rebadmin
+Content-Type: application/x-www-form-urlencoded
+
+ACCOUNT_ID=123412341234&REBILL_ID=4321432143214321&TRANS_TYPE=GET
+### END REQUEST EXAMPLE ###
+
+RESPONSE FORMAT:
+Expected output is that of a standard HTTPS response. The HTTP Status will be '200' for a 
+successfully-processed request and '400' for an error. All response parameters are uri-encoded 
+in the body of the response, for example:
+
+### BEGIN RESPONSE EXAMPLE ###
+HTTP/1.1 200 OK
+Cache-Control: max-age=0
+Connection: close
+Date: Tue, 07 Dec 2004 17:31:12 GMT
+Server: Apache
+Content-Type: text/html; charset=ISO-8859-1
+Expires: Tue, 07 Dec 2004 17:31:12 GMT
+
+rebill_id=123123123123&account_id=321321321321&user_id=321123321123&status=active
+### END RESPONSE EXAMPLE ###
+
+Input Parameters are:
+
+ACCOUNT_ID        = Your 12-digit BluePay 2.0 Account ID
+USER_ID           = Optional. Your 12-digit BluePay 2.0 User ID
+REBILL_ID         = Required. The 12-digit ID of the Rebilling to modify/view
+TAMPER_PROOF_SEAL = Hash for security, using selected algorithm (either TPS_HASH_TYPE or 
+                    account's 'Hash Type in APIs' value). See TAMPER_PROOF_SEAL section below 
+                    for more details. 
+TPS_DEF           = **  NOTICE: THE USE OF THIS FIELD CAN POSSIBLY WEAKEN YOUR SECURITY. PLEASE 
+                        BE SURE YOU UNDERSTAND HOW THE TAMPER_PROOF_SEAL WORKS BEFORE YOU 
+                        CONSIDER USING THIS OPTION. ** 
+                    Optional. Space-separated list of input field names in the order they are 
+                    to be used in the calculation of the TAMPER_PROOF_SEAL. If set as blank or 
+                    not sent, it will default to: "ACCOUNT_ID TRANS_TYPE REBILL_ID". The 
+                    merchant's Secret Key is always used in the calculation of the 
+                    TAMPER_PROOF_SEAL, but should NOT be included in the TPS_DEF. See 
+                    TAMPER_PROOF_SEAL section below for more details. 
+TPS_HASH_TYPE     = Optional. The algorithm used to compute the TAMPER_PROOF_SEAL. Accepted 
+                    values are 'MD5', 'SHA256', 'SHA512', 'HMAC_SHA256', or 'HMAC_SHA512'. 
+                    Merchant's 'Hash Type in APIs' value is used if this parameter is not 
+                    present. See TAMPER_PROOF_SEAL section below for more details. 
+TRANS_TYPE        = Optional. GET or SET (defaults to SET)
+                    If set to GET, then you are only required to send the ACCOUNT_ID, 
+                    TAMPER_PROOF_SEAL, and REBILL_ID.
+                    If "SET" then you must also send at least one field, below, to set the 
+                    value of:
+  
+TEMPLATE_ID       = Optional - selects a new transaction ID to act as the template for this 
+                               rebilling sequence.
+CUST_TOKEN        = Optional - selects a new Customer Token to act as the template for this 
+                               rebilling sequence.
+NEXT_DATE         = Set the next rebill date to this date.
+REB_EXPR          = Set the rebilling expression to this expression.
+REB_CYCLES        = Set the number of remaining rebilling cycles to this number.
+REB_AMOUNT        = Set the regular rebilling amount to this amount.
+NEXT_AMOUNT       = Set the *next* rebilling only to this amount; all other rebillings will 
+                    continue at the regular (REB_AMOUNT) amount.
+STATUS            = Set the status of this rebilling. Valid statuses at the time of writing are:
+                      active:  Rebilling profile will create new transactions as scheduled
+                      deleted: The rebilling profile has been disabled from either the BluePay 
+                               gateway website or the bp20rebadmin API. It is no longer visible 
+                               in the BluePay gateway website.
+                      stopped: The rebilling profile has been disabled from either the BluePay 
+                               gateway website or the bp20rebadmin API.
+                      expired: The rebilling profile was for a fixed number of cycles and those 
+                               cycles have been completed.
+                      failed:  The last transaction created by the rebilling profile was declined. 
+                               No more transactions will be created until the status is changed 
+                               back to active. ( Optionally declined transactions can be retried 
+                               for a defined number of times before the status is changed to 
+                               failed. The default is no retries. Contact 
+                               bluepayintegration@fiserv.com if retries are needed.)
+                      error:   The last transaction created by the rebilling profile had an error. 
+                               The most common error is that the card has expired. No more 
+                               transactions will be created until the status is changed back to 
+                               active.
+
+
+
+Output Parameters are returned for GET and SET transactions - if you perform a SET, the 
+returned parameters should reflect your changes:
+
+REBILL_ID     = The 12-digit ID specifying this rebilling.
+ACCOUNT_ID    = The 12-digit ID of the account owning this rebilling.
+USER_ID       = The 12-digit ID of the user owning this rebilling.
+TEMPLATE_ID   = The 12-digit ID of the template for this rebilling.
+CUST_TOKEN    = The 6-16 character Customer Token used as a template for this rebilling.
+STATUS        = The current status of the rebilling
+CREATION_DATE = The date the rebilling sequence was originally created.
+NEXT_DATE     = The next day this rebilling will be run.
+LAST_DATE     = The last day this rebilling was run.
+SCHED_EXPR    = The current rebilling expression for this rebilling
+CYCLES_REMAIN = The number of remaining rebilling cycles for this rebilling.
+REB_AMOUNT    = the regular amount this rebilling will charge the customer.
+NEXT_AMOUNT   = The amount this rebilling will charge on the next billing only.
+
+Output HTTP status code is 200 for a successfully processed request.
+Output HTTP status code is 400 for an error request.
+
+
+###############################
+# TAMPER_PROOF_SEAL 
+###############################
+
+BluePay uses cryptographic hash (or "digest") functions as a means of both protecting 
+transaction data from being altered and ensuring that the transaction is genuine. A 
+cryptographic hash function is an algorithm that maps data of any size to a bit string of a 
+fixed size that cannot be deciphered. 
+
+All merchants have a default hash type assigned to their account. This can be viewed and 
+updated on the merchant's Account Admin page of BluePay's Gateway (https://secure.bluepay.com) 
+under "Hash Type in APIs". Merchants may override their default by including the TPS_HASH_TYPE 
+field in the transaction request. 
+
+The default hash type and the TPS_HASH_TYPE may be any of the following algorithms (in 
+hexadecimal form):
+
+MD5           Use md5sum or a similar program to calculate a 128-bit hash, then convert it 
+              into hexadecimal form; result is 32 hexadecimal characters.
+SHA256        Use sha256sum or a similar program to calculate a 256-bit hash, then convert it 
+              into hexadecimal form; result is 64 hexadecimal characters.
+SHA512        Use sha512sum or a similar program to calculate a 512-bit hash, then convert it 
+              into hexadecimal form; result is 128 hexadecimal characters.
+
+HMAC_SHA256   A 128-bit hash, resulting in a sequence of 64 hexadecimal characters.
+HMAC_SHA512   A 128-bit hash, resulting in a sequence of 128 hexadecimal characters.
+
+Steps to find the HMAC of either SHA256 (HMAC_SHA256) or SHA512 (HMAC_SHA512):
+
+1. Compare the length of the key (the merchant's Secret Key) to the hash's input blocksize.
+   SHA256 blocksize = 64, SHA512 blocksize = 128.
+   If length of key is > blocksize, set the key's value to the hash of the original key.
+   If length of key is < blocksize, pad the key to the right with zeros until its length 
+   equals the blocksize.
+
+2. Create the inner key (inner_key):
+   Create an inner padding value of 0x36 repeated the blocksize number of times.
+   Perform a bitwise exclusive-OR (XOR) on the key and the inner padding to create the inner 
+   key.
+
+3. Create the outer key (outer_key):
+   Create an outer padding value of 0x5c repeated the blocksize number of times.
+   Perform a bitwise exclusive-OR (XOR) on the key and the outer padding to create the outer 
+   key.
+
+4. Calculate the hash of the inner key concatenated with the text string, then calculate the 
+   hash of the outer key concatenated with the previous hash result:
+   hash(outer_key + hash(inner_key + string))
+
+5. Convert the result into a hex string.
+ 
+When using a program or function to calculate the TAMPER_PROOF_SEAL, make sure that it will 
+accept a text string (or "message") argument and will return the hashed string (or "message 
+digest") in hexadecimal form. 
+
+
+####################################
+# Calculating the TAMPER_PROOF_SEAL
+####################################
+
+STEP ONE
+Concatenate the values of the fields that make up the TPS_DEF in same order that they are 
+listed. Use ""(empty string - no space) as the value for any fields that are empty or 
+unsent. When no TPS_DEF is sent ('+' represents string concatenation, and the field names 
+represent the contents of the respective fields):
+
+message  = ACCOUNT_ID + TRANS_TYPE + REBILL_ID
+
+STEP TWO
+- If TPS_HASH_TYPE is "" or is not sent, the merchant's 'Hash Type in APIs' value will 
+  determine which hash function to use.
+
+- If TPS_HASH_TYPE is 'MD5', 'SHA256', or 'SHA512', find the md5sum, sha256sum, or sha512sum 
+  of (the merchant's Secret Key + message) in hex format.
+
+- If TPS_HASH_TYPE is 'HMAC_SHA256' or 'HMAC_SHA512', find the HMAC_SHA256 or HMAC_SHA512 of 
+  (the merchant's Secret Key, message) in hex format.
+
+
+EXAMPLE:
+Merchant A's account information is as follows:
+  Secret Key = "abcdabcdabcdabcd"
+  ACCOUNT_ID = "123412341234"
+  Hash Type in APIs (default hash type) = "MD5"
+
+If Merchant A set their TPS_DEF to "ACCOUNT_ID TRANS_TYPE STATUS REBILL_ID" and wanted to view 
+the rebilling with ID 987654321012, the request would include:
+  TPS_DEF = "ACCOUNT_ID TRANS_TYPE STATUS REBILL_ID"
+  ACCOUNT_ID = "123412341234"
+  REBILL_ID = "987654321012"
+  TRANS_TYPE = "GET"
+
+To calculate the TAMPER_PROOF_SEAL, Merchant A would need to:
+
+STEP ONE
+Concatenate the values in the TPS_DEF to create a message string. Remember, if the field isn't 
+sent or if the value is undefined, use an empty string as that field's value.
+message  = ACCOUNT_ID + TRANS_TYPE + STATUS + REBILL_ID
+         = "123412341234" + "GET" + "" + "987654321012" 
+         = "123412341234GET987654321012"
+
+STEP TWO
+This step will vary depending on which TPS_HASH_TYPE is sent (if any).
+
+-- If TPS_HASH_TYPE = "" or was not sent, the merchant's default hash type must be used
+TAMPER_PROOF_SEAL = md5sum( Secret Key + message ) in hex format
+                  = md5sum("abcdabcdabcdabcd" + "123412341234GET987654321012") in hex format 
+                  = "8b9505fa795955e67497cac8197cc686"
+
+-- If TPS_HASH_TYPE = "SHA256"
+TAMPER_PROOF_SEAL = sha256sum( Secret Key + message ) in hex format
+                  = sha256sum("abcdabcdabcdabcd" + "123412341234GET987654321012") in hex format
+                  = "354eae0f02c2c51d970768640bac1f2ecdb87995c593c781aac1c8d5cb9a4410"
+
+-- If TPS_HASH_TYPE = "HMAC_SHA256"
+TAMPER_PROOF_SEAL = HMAC_SHA256( Secret Key, message ) in hex format
+                  = HMAC_SHA256("abcdabcdabcdabcd", "123412341234GET987654321012") in hex format
+                  = "8e6238abf3ad6343df368eb2d50325b1a362cb5a9c935131c90a4b1be7269315"
