@@ -3861,7 +3861,6 @@ components:
       maxLength: 19
       example: 999
     merchant:
-      type: array
       items:
         properties:
           salesCodes:
