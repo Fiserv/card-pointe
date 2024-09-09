@@ -1,0 +1,159 @@
+==========================
+BluePay Manager CSV Export
+==========================
+
+Last Update: 2022-02-28
+
+Many transaction lists in the BluePay Manager web site at 
+https://secure.bluepay.com have the ability to export transaction data in comma 
+separated value (CSV) format. To perform a CSV export follow these steps.
+
+1. Access a list of transactions using one of these methods.
+    Processing --> Transactions --> List
+    Processing --> Transactions --> Search and perform a search
+    Processing --> Batching --> Daily Settlement and click the View icon of a batch
+    Administration --> Accounts --> List and click the View transactions icon
+2. Scroll to the bottom of any transaction list page.
+3. If you would like column names included in the file check the corresponding checkbox.
+3. Click the "Export to CSV" button.
+4. Browse to where you want to save the file.
+5. Click the "Save" button.
+
+The file can then be opened in Excel, imported into external systems or used for 
+other purposes.
+
+
+-----------------
+CSV Header Record
+-----------------
+id, payment_type, trans_type, amount, card_type, payment_account, order_id, invoice_id, custom_id, custom_id2,
+master_id, status, f_void, message, origin, issue_date, settle_date, rebilling_id, settlement_id, processor_id, card_expire,
+bank_name, addr1, addr2, city, state, zip, phone, email, auth_code, name1, name2, company_name, memo, backend_id,
+doc_type, f_captured, avs_result, cvv_result, card_present, merchdata, level_3_data, remote_ip, connected_ip,
+level_2_data, acct_update_id, vehicle_rental_data, lodging_data, f_refunded, fancy_name, country,
+owner_id, mode, f_rebill_master, f_will_capture, f_corporate, cvv2_status, login_name, user_name, user_id, account_name,
+update_id, f_unheld, unhold_id, customer_token_id, customer_token, token_master, token_master_trans_type, amount_tip,
+f_transarmor,account_id, ach_check_number, validation_result
+
+-----------------
+Column Definitions
+-----------------
+id                        The ID number of the transaction
+payment_type              'ACH' for ACH transactions, or 'CREDIT' for credit card transactions.
+trans_type                The transaction type. AUTH, SALE, REFUND, CAPTURE, VOID, UPDATE, CREDIT, AGG
+amount                    The amount used for the transaction.
+card_type                 Credit Card Type, a four-character indicator of the credit card type used, if any. Possible values are:
+                            AMEX = American Express, 
+                            MC   = MasterCard, 
+                            DISC = Discover, 
+                            VISA = VISA, 
+                            JCB  = JCB, 
+                            DCCB = Diner's Club or Carte Blanche,
+                            ENRT = EnRoute,
+                            BNKC = BankCard,
+                            SWTC = Switch,
+                            SOLO = Solo
+payment_account           The payment account used for the transaction. If a credit card is used, 12 x's
+                          followed by the last four digits will be returned. If a check is used the
+                          following string is returned "<account type>:<routing number>:<x's><last four
+                          digits of account number>" ie. "C:123123123:xxxxxx4321".
+                          Account Type: 'C' is checking and 'S' is savings.
+order_id                  Field to hold merchant defined data.
+invoice_id                Field to hold merchant defined data.
+custom_id                 Field to hold merchant defined data.
+custom_id2                Field to hold merchant defined data.
+master_id                 Transaction ID of a transaction that was used as the master of the current transaction.
+status                    '1' for APPROVED, '0' for DECLINE, 'E' and all other responses are ERROR.
+f_void                    0 or 1, Whether the transaction has been voided.
+message                   Comments
+origin                    Gateway interface that the transaction was received on.
+issue_date                Date & time that the transaction was processed.
+settle_date               The date and time of settlement for the transaction.
+rebilling_id              ID for a group of transaction created by the rebilling system.
+settlement_id             ID for grouping of transactions when sent for settlement.
+processor_id              ID of the processor on the account that is used to process the transaction.
+card_expire               Credit card expiration date in MMYY format
+bank_name                 Up to 64 characters containing the customer's bank name.
+addr1                     Address 1
+addr2                     Address 2
+city                      City
+state                     State/Province
+zip                       Postal Code
+phone                     Telephone Number
+email                     Email Address
+auth_code                 Authorization Code returned by card issuing bank.
+name1                     Customer's first name.
+name2                     Customer's last name.
+company_name              Company Name
+memo                      The COMMENT value received in the transaction request.
+backend_id                Transaction ID of outbound ACH payment
+doc_type                  Documentation Type also known as Standard Entry Class (SEC) Codes
+							Can be one of the following:
+							 PPD  Prearranged Payment and Deposit
+								  Indicates there is a personal signed agreement on file for the customer, this is
+									the default if not set.
+							 CCD  Corporate Credit or Debit Entry
+								  Indicates there is a company-signed agreement on file for the customer.
+							 WEB  Internet Initiated/Mobile Entry
+								  Indicates the customer has agreed to the charges via an internet-based or 
+									electronic form.
+							 TEL  Telephone-Initiated Entry
+								  Indicates there is a recorded telephone call on file with the customer verbally 
+									agreeing to be charged.
+							 ARC  Accounts Receivable Entry
+								  Indicates that a consumer check was received in the mail or at a dropbox location
+									and converted to an ACH transfer.
+							 BOC  Back Office Conversion Entry
+								  Indicates that a consumer check was recieved in person from the consumer and later
+									converted to an ACH transfer.
+							 POP  Point of Purchase Entry
+								  Indicates that a consumer check was received in person from the consumer and was
+									converted to an ACH transfer while the consumer was present.
+f_captured                0 or 1, Whether the transaction has been captured.
+avs_result                AVS result code
+cvv_result                CVV2 result code
+card_present              0 or 1, Whether the credit card was swiped
+merchdata                 All the MERCHDATA values combined into a single field.
+level_3_data              All the LV3_ITEMx_* values combined into a single field.
+remote_ip                 Either the REMOTE_IP value received in the transaction request or the customer's IP address when the post came from the customer's web browser.
+connected_ip              The IP address of the computer that accessed the BluePay system
+level_2_data              All the LV2_ITEMx_* values combined into a single field. 
+acct_update_id            If using the Account Updater service and updated credit card information is received, this will be the transaction ID of the transaction record storing the new information.
+vehicle_rental_data       All the VEHICLE_* values combined into a single field. 
+lodging_data              All the LODGING* values combined into a single field.
+f_refunded                0 or 1, Whether the transaction has been refunded. 
+fancy_name                Name1 and Name2 field combined into a single value.
+country                   Country
+owner_id                  ID number of the user that created the transaction.
+mode                      TEST or LIVE
+f_rebill_master           0 or 1, If transaction is used as the master of transactions generated by the rebilling system.
+f_will_capture            0 or 1, Whether the transaction has been flagged for auto-capture.
+f_corporate               0 or 1, Whether a ACH transaction is corporate or not
+cvv2_status               CVV2 response code
+login_name                Gateway login ID that ran the transaction
+user_name                 Name of the person that ran the transaction
+user_id                   User ID number that ran the transaction
+account_name              Name of gateway account
+update_id                 If a UPDATE transaction has been run against the transaction this is the transaction ID of that UPDATE transaction.
+f_unheld                  0 or 1, If transaction was initially held
+unhold_id                 Transaction ID of transaction created by the transaction being unheld.
+customer_token_id         Customer token unique identifier (internal use only)
+customer_token            Token ID value
+token_master              Master ID used for customer token
+token_master_trans_type   Transaction type of token master transaction
+amount_tip                Tip amount.
+f_transarmor              0 or 1, Whether the transaction used/created a TransArmor Token.
+account_id                ID number of the gateway account
+ach_check_number          Check number if one was provided on the transaction.
+validation_result         Status value that includes bank account validation results.
+						  Possible status values are:
+						  - '15': Known bad bank account. The transaction is immediately declined (validation fee charged for LIVE transactions)
+						  - '20': Unknown bank account but with a valid format (validation fee charged for LIVE transactions))
+						  - '25': Unknown bank account (validation fee charged for LIVE transactions))
+						  - '35': Bank account found but pending transaction settlement (validation fee charged for LIVE transactions))
+						  - '45': Known good bank account (validation fee charged for LIVE transactions)
+						  - 'B': Account validation bypassed (no validation fee charged)
+						  - 'R': Bank Account received known bad previously (no validation fee charged)
+						  - 'E': Error, Bank account validation failed (no validation fee charged)
+						  - null: Account validation not performed (no validation fee charged)
+
