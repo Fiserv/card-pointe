@@ -1,0 +1,68 @@
+<HTML>
+<HEAD>
+<TITLE>bpdailyreport Test Form</TITLE>
+<script src="md5.js" type="text/javascript"></script>
+</HEAD>
+<BODY>
+
+<table border=1>
+ <TR><TD colspan=2><CENTER><B>bpdailyreport</B></CENTER></TD></TR>
+ <TR><TD colspan=2><B>Step 1 - Fill In Data</B></TD></TR>
+<form name="TPS">
+ <TR>
+    <TD>SECRET_KEY:</TD>
+    <TD><input type="text" value="" name="SECRET_KEY" align="top" size="50"> <font size="-2" color="RED">TPS1</font></TD>
+ </TR>
+</form>
+<form action="https://secure.bluepay.com/interfaces/bpdailyreport" name="main" method="post">
+ <TR>
+    <TD>ACCOUNT_ID:</TD>
+    <TD>
+        <input type="text" value="" name="ACCOUNT_ID" align="top" size="50"> <font size="-2" color="RED">TPS2</font><br>
+        12-digit Bluepay 2.0 Gateway Account ID
+    </TD>
+ </TR>
+ <TR>
+    <TD>REPORT_START_DATE:</TD>
+    <TD>
+        <input type="text" value="" name="REPORT_START_DATE" align="top" size="50"> YYYY-MM-DD <font size="-2" color="RED">TPS3</font></TD>
+    </TD>
+ </TR>
+ <TR>
+    <TD>REPORT_END_DATE:</TD>
+    <TD>
+        <input type="text" value="" name="REPORT_END_DATE" align="top" size="50"> YYYY-MM-DD <font size="-2" color="RED">TPS4</font></TD>
+    </TD>
+ </TR>
+ <TR>
+    <TD>PAYMENT_TYPE:</TD>
+    <TD>
+        <input type="text" value="" name="PAYMENT_TYPE" align="top" size="50"><br>
+        ACH or CREDIT
+    </TD>
+ </TR>
+ <TR>
+    <TD>INCLUDE_DECLINES:</TD>
+    <TD>
+        <input type="text" value="" name="INCLUDE_DECLINES" align="top" size="50"><br>
+        Optional. 0 or 1 (Defaults to 0)<br>
+        0 or not set = Declined transactions not included in output.<br>
+        1 = Declined transactions included in output.
+    </TD>
+ </TR>
+ <TR>
+    <TD>TAMPER_PROOF_SEAL:</TD>
+    <TD>
+        <input type="text" value="" name="TAMPER_PROOF_SEAL" align="top" size="50"><br>
+        <input type="button" onclick="TAMPER_PROOF_SEAL.value = hex_md5(TPS.SECRET_KEY.value + ACCOUNT_ID.value + REPORT_START_DATE.value + REPORT_END_DATE.value)" value="Step 2 - Generate Tamperproof Seal"><br>
+        MD5 hash of Secret Key and transaction parameters
+    </TD>
+ </TR>
+  <TR>
+    <TD colspan=2><CENTER><input type="submit" value="Step 3 - Submit Form" align="middle"></CENTER></TD>
+  </TR>
+</TABLE>
+</form>
+
+</BODY>
+</HTML>

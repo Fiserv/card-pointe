@@ -1,0 +1,458 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+<TITLE>bp20post Test Form</TITLE>
+<script src="md5.js" type="text/javascript"></script>
+</HEAD>
+<BODY>
+
+<table border=1>
+ <TR><TD colspan=2><CENTER><B>bp20post</B></CENTER></TD></TR>
+<form action="https://secure.bluepay.com/interfaces/bp20post" name="TPS">
+ <TR>
+    <TD>SECRET_KEY:</TD>
+    <TD><input type="text" value="" name="SECRET_KEY" align="top" size="50"> <font size="-2" color="RED">TPS1</font></TD>
+ </TR>
+</form>
+<form action="https://secure.bluepay.com/interfaces/bp20post" name="main" method="post">
+ <TR>
+    <TD>ACCOUNT_ID:</TD>
+    <TD>
+        <input type="text" value="" name="ACCOUNT_ID" align="top" size="50"> <font size="-2" color="RED">TPS2</font><br>
+        12-digit Bluepay 2.0 Account ID
+    </TD>
+ </TR>
+ <TR>
+    <TD>USER_ID:</TD>
+    <TD>
+        <input type="text" value="" name="USER_ID" align="top" size="50"><br>
+        Optional.  Your 12-digit Bluepay 2.0 User ID
+    </TD>
+ </TR>
+ <TR>
+    <TD>TAMPER_PROOF_SEAL:</TD>
+    <TD>
+        <input type="text" value="" name="TAMPER_PROOF_SEAL" align="top" size="50"><br>
+        <input type="button" onclick="TAMPER_PROOF_SEAL.value = hex_md5(TPS.SECRET_KEY.value + ACCOUNT_ID.value + TRANS_TYPE.value + AMOUNT.value + MASTER_ID.value + NAME1.value + PAYMENT_ACCOUNT.value)" value="Generate Tamperproof Seal"><br>
+        MD5 hash of Secret Key and transaction parameters
+    </TD>
+ </TR>
+ <TR>
+    <TD>VERSION:</TD>
+    <TD>
+        <input type="text" value="" name="VERSION" align="top" size="50"><br>
+        Optional. Value of 1 includes PAYMENT_ACCOUNT_MASK and CARD_TYPE in response.
+    </TD>
+ </TR>
+ <TR>
+    <TD>TPS_DEF:</TD>
+    <TD>
+        <input type="text" value="" name="TPS_DEF" align="top" size="50"><br>
+        Optional. Definition of which fields are included in the TAMPER_PROOF_SEAL
+    </TD>
+ </TR>
+  <TR>
+    <TD>BP_STAMP_DEF:</TD>
+    <TD>
+        <input type="text" value="" name="BP_STAMP_DEF" align="top" size="50"><br>
+        Optional. List of field names seperated by spaces in the order they are to be used in the calculation of BP_STAMP.
+    </TD>
+ </TR>
+<TR>
+    <TD>TRANS_TYPE:</TD>
+    <TD>
+        <input type="text" value="" name="TRANS_TYPE" align="top" size="50"> <font size="-2" color="RED">TPS3</font><br>
+        Optional. AUTH, SALE, REFUND, CAPTURE, VOID (defaults to SALE)
+    </TD>
+ </TR>
+ <TR>
+    <TD>PAYMENT_TYPE:</TD>
+    <TD>
+        <input type="text" value="" name="PAYMENT_TYPE" align="top" size="50"><br>
+        Optional. CREDIT or ACH or DEBIT (Defaults to CREDIT)
+    </TD>
+ </TR>
+ <TR>
+    <TD>MODE:</TD>
+    <TD>
+        <input type="text" value="" name="MODE" align="top" size="50"><br>
+        Optional. TEST or LIVE (Defaults to TEST)
+    </TD>
+ </TR>
+ <TR>
+    <TD>MASTER_ID:</TD>
+    <TD>
+        <input type="text" value="" name="MASTER_ID" align="top" size="50"> <font size="-2" color="RED">TPS5</font><br>
+        Optional.  The TRANS_ID of a previous transaction
+    </TD>
+ </TR>
+ <TR>
+    <TD>AUTH_CODE:</TD>
+    <TD>
+        <input type="text" value="" name="AUTH_CODE" align="top" size="50"><br>
+        Authorization code for a force transaction (voice auth).
+    </TD>
+ </TR>
+ <TR>
+    <TD>CARD_CVV2:</TD>
+    <TD>
+        <input type="text" value="" name="CARD_CVV2" align="top" size="50"><br>
+        Card Verification Value 
+    </TD>
+ </TR>
+ <TR>
+    <TD>CARD_EXPIRE:</TD>
+    <TD>
+        <input type="text" value="" name="CARD_EXPIRE" align="top" size="50"><br>
+        Credit Card Expiration Date, in MMYY format.
+    </TD>
+ </TR>
+ <TR>
+    <TD>SWIPE:</TD>
+    <TD>
+        <input type="text" value="" name="SWIPE" align="top" size="50"><br>
+        The full swiped track data, including both Track1 and Track2.
+    </TD>
+ </TR>
+ <TR>
+    <TD>EMV_DATA:</TD>
+    <TD>
+        <input type="text" value="" name="EMV_DATA" align="top" size="50"><br>
+        The full output of a keyboard emulation EMV reader
+    </TD>
+ </TR>
+ <TR>
+    <TD>EMV_DIRECT:</TD>
+    <TD>
+        <input type="text" value="" name="EMV_DIRECT" align="top" size="50"><br>
+        Set to “1” to indicate a direct read from a connected EMV card reader device.
+    </TD>
+ </TR>
+ <TR>
+    <TD>EMV_FALLBACK:</TD>
+    <TD>
+        <input type="text" value="" name="EMV_FALLBACK" align="top" size="50"><br>
+        Set to “1” on a swipe transaction after an EMV transaction has failed.
+    </TD>
+ </TR>
+ <TR>
+    <TD>TRACK2:</TD>
+    <TD>
+        <input type="text" value="" name="TRACK2" align="top" size="50"><br>
+        Only Track2 of the swiped data.
+    </TD>
+ </TR>
+ <TR>
+    <TD>PAYMENT_ACCOUNT:</TD>
+    <TD>
+        <input type="text" value="" name="PAYMENT_ACCOUNT" align="top" size="50"> <font size="-2" color="RED">TPS7</font><br>
+        'C' for checking, or 'S' for savings, bank routing number and customer bank account number seperated by colons.<br>
+        (eg: 'C:123456789:1234123412341234')
+    </TD>
+ </TR>
+ <TR>
+    <TD>DOC_TYPE:</TD>
+    <TD>
+        <input type="text" value="" name="DOC_TYPE" align="top" size="50"><br>
+        ACH documentation type. 'PPD', 'CCD', 'TEL' or 'WEB'.  Defaults to 'WEB' if not set.
+    </TD>
+ </TR>
+ <TR>
+    <TD>IS_CORPORATE:</TD>
+    <TD>
+        <input type="text" value="" name="IS_CORPORATE" align="top" size="50"><br>
+        Set to '1' if this is a corporate transaction, rather than personal.
+    </TD>
+ </TR>
+ <TR>
+    <TD>COMPANY_NAME:</TD>
+    <TD>
+        <input type="text" value="" name="COMPANY_NAME" align="top" size="50"><br>
+        The name of the company on the check or credit card.  (64 characters)
+    </TD>
+ </TR>
+ <TR>
+    <TD>AMOUNT:</TD>
+    <TD>
+        <input type="text" value="" name="AMOUNT" align="top" size="50"> <font size="-2" color="RED">TPS4</font><br>
+        The FULL amount of the transaction, including tax and tip. (XXXXXXXX.XX format)
+    </TD>
+ </TR>
+ <TR>
+    <TD>NAME1:</TD>
+    <TD>
+        <input type="text" value="" name="NAME1" align="top" size="50"> <font size="-2" color="RED">TPS6</font><br>
+        The customer's first name (16 characters)
+    </TD>
+ </TR>
+ <TR>
+    <TD>NAME2:</TD>
+    <TD>
+        <input type="text" value="" name="NAME2" align="top" size="50"><br>
+        The customer's last name (16 characters)
+    </TD>
+ </TR>
+ <TR>
+    <TD>ADDR1:</TD>
+    <TD>
+        <input type="text" value="" name="ADDR1" align="top" size="50"><br>
+        The customer's street address, necessary for AVS. (64 Characters)
+    </TD>
+ </TR>
+ <TR>
+    <TD>ADDR2:</TD>
+    <TD>
+        <input type="text" value="" name="ADDR2" align="top" size="50"><br>
+        The customer's second address line, if any (64 Characters)
+    </TD>
+ </TR>
+ <TR>
+    <TD>CITY:</TD>
+    <TD>
+        <input type="text" value="" name="CITY" align="top" size="50"><br>
+        The customer's city (32 Characters)
+    </TD>
+ </TR>
+ <TR>
+    <TD>STATE:</TD>
+    <TD>
+        <input type="text" value="" name="STATE" align="top" size="50"><br>
+        The customers' state, province, or equivalent. (16 Characters max; 2-letter abbrev preferred)
+    </TD>
+ </TR>
+ <TR>
+    <TD>ZIP:</TD>
+    <TD>
+        <input type="text" value="" name="ZIP" align="top" size="50"><br>
+        The customer's zipcode or equivalent. (16 Characters)
+    </TD>
+ </TR>
+ <TR>
+    <TD>COUNTRY:</TD>
+    <TD>
+        <input type="text" value="" name="COUNTRY" align="top" size="50"><br>
+        The customer's country (64 Characters)
+    </TD>
+ </TR>
+ <TR>
+    <TD>EMAIL:</TD>
+    <TD>
+        <input type="text" value="" name="EMAIL" align="top" size="50"><br>
+        The customer's email address.  
+    </TD>
+ </TR>
+ <TR>
+    <TD>PHONE:</TD>
+    <TD>
+        <input type="text" value="" name="PHONE" align="top" size="50"><br>
+        The cusotmer's phone number.  
+    </TD>
+ </TR>
+ <TR>
+    <TD>MEMO:</TD>
+    <TD>
+        <input type="text" value="" name="MEMO" align="top" size="50"><br>
+        128-character descriptor field.
+    </TD>
+ </TR>
+ <TR>
+    <TD>CUSTOM_ID:</TD>
+    <TD>
+        <input type="text" value="" name="CUSTOM_ID" align="top" size="50"><br>
+        16 characters of merchant-specified data
+    </TD>
+ </TR>
+ <TR>
+    <TD>CUSTOM_ID2:</TD>
+    <TD>
+        <input type="text" value="" name="CUSTOM_ID2" align="top" size="50"><br>
+        64 characters of merchant-specified data
+    </TD>
+ </TR>
+ <TR>
+    <TD>ORDER_ID:</TD>
+    <TD>
+        <input type="text" value="" name="ORDER_ID" align="top" size="50"><br>
+        Optional Purchase Order ID (128 Chracters)
+    </TD>
+ </TR>
+ <TR>
+    <TD>INVOICE_ID:</TD>
+    <TD>
+        <input type="text" value="" name="INVOICE_ID" align="top" size="50"><br>
+        Optional Invoice ID (64 Characters)
+    </TD>
+ </TR>
+ <TR>
+    <TD>CUSTOMER_CODE:</TD>
+    <TD>
+        <input type="text" value="" name="CUSTOMER_CODE" align="top" size="50"><br>
+        Optional Customer ID (16 Characters)
+    </TD>
+ </TR>
+ <TR>
+    <TD>AMOUNT_TIP:</TD>
+    <TD>
+        <input type="text" value="" name="AMOUNT_TIP" align="top" size="50"><br>
+        Tip amount
+    </TD>
+ </TR>
+ <TR>
+    <TD>AMOUNT_TAX:</TD>
+    <TD>
+        <input type="text" value="" name="AMOUNT_TAX" align="top" size="50"><br>
+        Tax amount
+    </TD>
+ </TR>
+ <TR>
+    <TD>AMOUNT_FOOD:</TD>
+    <TD>
+        <input type="text" value="" name="AMOUNT_FOOD" align="top" size="50"><br>
+        Amount spent on food for restaurants
+    </TD>
+ </TR>
+ <TR>
+    <TD>AMOUNT_MISC:</TD>
+    <TD>
+        <input type="text" value="" name="AMOUNT_MISC" align="top" size="50"><br>
+        Amount spent on beverages and other
+    </TD>
+ </TR>
+ <TR>
+    <TD>F_REBILLING:</TD>
+    <TD>
+        <input type="text" value="" name="F_REBILLING" align="top" size="50"><br>
+        Rebilling flag. Only used for non-BluePay generated rebillings to identify the transaction as a rebilling. Set value to 1 for rebill. 
+    </TD>
+ </TR>
+ <TR>
+    <TD>DO_REBILL:</TD>
+    <TD>
+        <input type="text" value="" name="DO_REBILL" align="top" size="50"><br>
+        1 for create rebilling schedule, not set or 0 for do not create rebilling schedule
+    </TD>
+ </TR>
+ <TR>
+    <TD>REB_IS_CREDIT:</TD>
+    <TD>
+        <input type="text" value="" name="REB_IS_CREDIT" align="top" size="50"> <br>
+        0 or Null for SALE, 1 for CREDIT
+    </TD>
+ </TR>
+ <TR>
+    <TD>REB_FIRST_DATE:</TD>
+    <TD>
+        <input type="text" value="" name="REB_FIRST_DATE" align="top" size="50"><br>
+        Date and time of first rebilling to run, in ISO format (YYYY-MM-DD HH:MM:SS)<br>
+        Required for rebilling  Time portion is optional;<br>
+        will default to midnight on the date specified.
+    </TD>
+ </TR>
+ <TR>
+    <TD>REB_EXPR:</TD>
+    <TD>
+        <input type="text" value="" name="REB_EXPR" align="top" size="50"><br>
+        Rebilling period in date expression format ("3 DAY" to run every three days,<br>
+        "1 MONTH" to run monthly, "1 YEAR" to run yearly, "2 WEEK" to run bi-weekly, etc)<br>
+        Required for rebilling.
+    </TD>
+ </TR>
+ <TR>
+    <TD>REB_CYCLES:</TD>
+    <TD>
+        <input type="text" value="" name="REB_CYCLES" align="top" size="50"><br>
+        Optional.  Number of times to rebill.  If not set rebill will run until cancelled.
+    </TD>
+ </TR>
+ <TR>
+    <TD>REB_AMOUNT:</TD>
+    <TD>
+        <input type="text" value="" name="REB_AMOUNT" align="top" size="50"><br>
+        Optional.  How much to charge when rebillings are run.  Defaults to amount of transaction being run.
+    </TD>
+ </TR>
+ <TR>
+    <TD>SMID_ID:</TD>
+    <TD>
+        <input type="text" value="" name="SMID_ID" align="top" size="50"><br>
+        Debit card encryption key
+    </TD>
+ </TR>
+ <TR>
+    <TD>PIN_BLOCK:</TD>
+    <TD>
+        <input type="text" value="" name="PIN_BLOCK" align="top" size="50"><br>
+        Debit card encrypted PIN
+    </TD>
+ </TR>
+ <TR>
+    <TD>AMOUNT_CASHBACK:</TD>
+    <TD>
+        <input type="text" value="" name="AMOUNT_CASHBACK" align="top" size="50"><br>
+        Amount of cash given to customer
+    </TD>
+ </TR>
+ <TR>
+    <TD>AMOUNT_SURCHARGE:</TD>
+    <TD>
+        <input type="text" value="" name="AMOUNT_SURCHARGE" align="top" size="50"><br>
+        Surcharge for performing cash back
+    </TD>
+ </TR>
+ <TR>
+    <TD>SSN:</TD>
+    <TD>
+        <input type="text" value="" name="SSN" align="top" size="50"><br>
+        Customer's SSN or TAXID, all digits (no dashes) (9 Characters)
+    </TD>
+ </TR>
+ <TR>
+    <TD>BIRTHDATE:</TD>
+    <TD>
+        <input type="text" value="" name="BIRTHDATE" align="top" size="50"><br>
+        Customer's birthdate in ISO format (YYYY-MM-DD)
+    </TD>
+ </TR>
+ <TR>
+    <TD>CUST_ID:</TD>
+    <TD>
+        <input type="text" value="" name="CUST_ID" align="top" size="50"><br>
+        Customer's state ID or driver's license.  (25 Characters)
+    </TD>
+ </TR>
+ <TR>
+    <TD>CUST_ID_STATE:</TD>
+    <TD>
+        <input type="text" value="" name="CUST_ID_STATE" align="top" size="50"><br>
+        State of issuance of the customer's ID. (16 Characters)
+    </TD>
+ </TR>
+ <TR>
+    <TD>DO_AUTOCAP:</TD>
+    <TD>
+        <input type="text" value="" name="DO_AUTOCAP" align="top" size="50"><br>
+        '1' or '0'
+    </TD>
+ </TR>
+ <TR>
+    <TD>AVS_ALLOWED:</TD>
+    <TD>
+        <input type="text" value="" name="AVS_ALLOWED" align="top" size="50"><br>
+        A string containing all the acceptable AVS responses.
+    </TD>
+ </TR>
+ <TR>
+    <TD>CVV2_ALLOWED:</TD>
+    <TD>
+        <input type="text" value="" name="CVV2_ALLOWED" align="top" size="50"><br>
+        A string containing all the acceptable CVV2 responses.
+    </TD>
+ </TR>
+  <TR>
+    <TD colspan=2><CENTER><input type="submit" value="Submit" align="middle"></CENTER></TD>
+  </TR>
+</TABLE>
+</form>
+
+</BODY>
+</HTML>

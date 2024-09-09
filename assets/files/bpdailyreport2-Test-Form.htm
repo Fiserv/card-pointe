@@ -1,0 +1,127 @@
+<HTML>
+<HEAD>
+<TITLE>bpdailyreport2 Test Form</TITLE>
+<script src="sha512.hmac.min.js" type="text/javascript"></script>
+</HEAD>
+<BODY>
+
+<table border=1>
+ <TR><TD colspan=2><CENTER><B>bpdailyreport2</B></CENTER></TD></TR>
+ <TR><TD colspan=2><B>Step 1 - Fill In Data</B></TD></TR>
+<form name="TPS">
+ <TR>
+    <TD>SECRET_KEY:</TD>
+    <TD><input type="text" value="" name="SECRET_KEY" align="top" size="50"> <font size="-2" color="RED">TPS1</font></TD>
+ </TR>
+</form>
+<form action="https://secure.bluepay.com/interfaces/bpdailyreport2" target="bpdailyreport2_results" name="main" method="get">
+ <TR>
+    <TD>ACCOUNT_ID:</TD>
+    <TD>
+        <input type="text" value="" name="ACCOUNT_ID" align="top" size="50"> <font size="-2" color="RED">TPS2</font><br>
+        12-digit Bluepay 2.0 Gateway Account ID
+    </TD>
+ </TR>
+ <TR>
+    <TD>REPORT_START_DATE:</TD>
+    <TD>
+        <input type="text" value="" name="REPORT_START_DATE" align="top" size="50"> YYYY-MM-DD HH:MM:SS<font size="-2" color="RED">TPS3</font></TD>
+    </TD>
+ </TR>
+ <TR>
+    <TD>REPORT_END_DATE:</TD>
+    <TD>
+        <input type="text" value="" name="REPORT_END_DATE" align="top" size="50"> YYYY-MM-DD HH:MM:SS<font size="-2" color="RED">TPS4</font></TD>
+    </TD>
+ </TR>
+ <TR>
+    <TD>RESPONSEVERSION:</TD>
+    <TD>
+        <input type="text" value="" name="RESPONSEVERSION" align="top" size="50"><br>
+        Optional. 1 or 2 (Defaults to 1)<br>
+        1 or not set = Version 1 result fields retruned.<br>
+        2 = All version 1 result fields returned plus addtional version 2 result fields.<br>
+		3 = All version 2 result fields returned plus addtional version 3 result fields.<br>
+		4 = All version 3 result fields returned plus addtional version 4 result fields.<br>
+    </TD>
+ </TR>
+ <TR>
+    <TD>DO_NOT_ESCAPE:</TD>
+    <TD>
+        <input type="text" value="" name="DO_NOT_ESCAPE" align="top" size="50"><br>
+        Optional. 0 or 1 (Defaults to 0)<br>
+        0 or not set = values are quoted.<br>
+        1 = The output will have all commas and quotes removed from the data and to be simply comma-separated.
+    </TD>
+ </TR>
+ <TR>
+    <TD>QUERY_BY_SETTLEMENT:</TD>
+    <TD>
+        <input type="text" value="" name="QUERY_BY_SETTLEMENT" align="top" size="50"><br>
+        Optional. 0 or 1 (Defaults to 0)<br>
+        0 or not set = Query by transaction date<br>
+        1 = Query by settlement date
+    </TD>
+ </TR>
+ <TR>
+    <TD>EXCLUDE_ERRORS:</TD>
+    <TD>
+        <input type="text" value="" name="EXCLUDE_ERRORS" align="top" size="50"><br>
+        Optional. 0 or 1 (Defaults to 0)<br>
+        0 or not set = Include errors<br>
+        1 = Exclude errors
+    </TD>
+ </TR>
+ <TR>
+    <TD>QUERY_BY_HIERARCHY:</TD>
+    <TD>
+        <input type="text" value="" name="QUERY_BY_HIERARCHY" align="top" size="50"><br>
+        Optional. 0 or 1 (Defaults to 0)<br>
+        0 or not set = Do not include transaction data from child accounts<br>
+        1 = Include transaction data from child accounts
+    </TD>
+ </TR>
+ <TR>
+    <TD>MODE:</TD>
+    <TD>
+        <input type="text" value="" name="MODE" align="top" size="50"><br>
+        Optional. TEST or LIVE (Defaults to LIVE)
+    </TD>
+ </TR>
+ <TR>
+    <TD>PAYMENT_TYPE:</TD>
+    <TD>
+        <input type="text" value="" name="PAYMENT_TYPE" align="top" size="50"><br>
+        Optional. Valid values CREDIT, ACH or SEPA
+    </TD>
+ </TR>
+ <TR>
+    <TD>ORIGIN:</TD>
+    <TD>
+        <input type="text" value="" name="ORIGIN" align="top" size="50"><br>
+        Optional.
+	</TD>
+ </TR>
+  <TR>
+    <TD>TPS_HASH_TYPE:</TD>
+    <TD>
+        <input type="text" value="HMAC_SHA512" name="TPS_HASH_TYPE" align="top" size="50"><br>
+       The algorithm used to compute the TAMPER_PROOF_SEAL. Accepted values are 'MD5', 'SHA256', 'HMAC_SHA256', 'SHA512' or 'HMAC_SHA512'(preferred).
+    </TD>
+ </TR>
+ <TR>
+    <TD>TAMPER_PROOF_SEAL:</TD>
+    <TD>
+        <input type="text" value="" name="TAMPER_PROOF_SEAL" align="top" size="50"><br>
+        <input type="button" onclick="TAMPER_PROOF_SEAL.value = sha512.hmac(TPS.SECRET_KEY.value, ACCOUNT_ID.value + REPORT_START_DATE.value + REPORT_END_DATE.value)" value="Step 2 - Generate HMAC_SHA512 Tamperproof Seal"><br>
+        MD5 hash of Secret Key and transaction parameters
+    </TD>
+ </TR>
+  <TR>
+    <TD colspan=2><CENTER><input type="submit" value="Step 3 - Submit Form" align="middle"></CENTER></TD>
+  </TR>
+</TABLE>
+</form>
+
+</BODY>
+</HTML>
