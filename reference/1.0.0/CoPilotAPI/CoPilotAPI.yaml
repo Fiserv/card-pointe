@@ -3861,6 +3861,7 @@ components:
       maxLength: 19
       example: 999
     merchant:
+      x-model-version: 1.0
       items:
         properties:
           salesCodes:
