@@ -144,9 +144,9 @@ Our primary transaction processing API. Name/value pairs are posted to the gatew
 
 **Samples**: [PHP](https://github.com/BluePay/BluePay-Sample-Code/tree/master/PHP), [Perl](https://github.com/BluePay/BluePay-Sample-Code/tree/master/Perl), [Ruby](https://github.com/BluePay/BluePay-Sample-Code/tree/master/Ruby), [Java](https://github.com/BluePay/BluePay-Sample-Code/tree/master/Java), [Python](https://github.com/BluePay/BluePay-Sample-Code/tree/master/Python), [C#](https://github.com/BluePay/BluePay-Sample-Code/tree/master/C%23), [C++](https://github.com/BluePay/BluePay-Sample-Code/tree/master/C%2B%2B), [Visual Basic.net](https://github.com/BluePay/BluePay-Sample-Code/tree/master/VB), [Classic ASP](https://www.bluepay.com/sites/default/files/documentation/BluePay_bp10emu-ASP-WinHTTP%20+%20ACH.zip), [Cold Fusion](https://www.bluepay.com/sites/default/files/documentation/BluePay_bp10emu-Cold_Fusion.zip)
 
-> [BluePay Post (bp10emu)](?path=assets/files/BluePay_Post_bp10emu.txt)
+> [BluePay Post (bp10emu)](https://raw.githubcontent.com/Fiserv/card-pointe/assets/files/BluePay_Post_bp10emu.txt)
 
-> [BluePay 10emu Test Form](?path=assets/files/bp10emu-Test-Form.htm)
+> [BluePay 10emu Test Form](https://raw.githubcontent.com/Fiserv/card-pointe/assets/files/bp10emu-Test-Form.htm)
 
 ### BluePay Redirect (bp10emu) 
 
