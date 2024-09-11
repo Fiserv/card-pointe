@@ -3862,6 +3862,7 @@ components:
       example: 999
     merchant:
       x-model-version: 1.0
+      type: object
       items:
         properties:
           salesCodes:
