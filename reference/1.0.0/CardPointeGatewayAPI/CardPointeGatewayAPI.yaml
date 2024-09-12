@@ -97,7 +97,7 @@ paths:
         schema:
           $ref: '#/components/schemas/postal'
           description: The cardholder's postal code used to verify that hte cardholder's state supports surcharging. Optional if token is specified.
-     - in: query
+      - in: query
         name: amount
         required: false
         schema:
