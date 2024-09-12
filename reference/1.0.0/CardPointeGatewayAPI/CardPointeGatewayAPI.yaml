@@ -96,7 +96,7 @@ paths:
         required: false
         schema:
           $ref: '#/components/schemas/postal'
-          description: The cardholder's postal code used to verify that hte cardholder's state supports surcharging. Optional if token is specified.
+          description: The cardholder's postal code used to verify that the cardholder's state supports surcharging. Optional if token is specified.
       - in: query
         name: amount
         required: false
@@ -2910,9 +2910,11 @@ components:
       maxLength: 9
       type: string
       description: | 
-        The cardholder's postal code used to verify that the cardholder's state supports surcharging.
-
-        Optional if token is specified.
+        The account holder's postal code. 
+        
+        If country is "US", must be 5 or 9 digits. Otherwise any alphanumeric string is accepted. Defaults to"55555" if not included in the request or stored profile. 
+        
+        It is strongly recommended that your application prompts for postal code for card-not-present transactions, to prevent fraud and downgrades, and to avoid declines on the CardPointe Gateway if the AVS verification option is enabled for your merchant account.
       example: 19355
     profileid:
       maxLength: 20
