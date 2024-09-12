@@ -81,7 +81,7 @@ paths:
       x-default-example: PaymentCard
       summary: The surcharge endpoint is used to determine whether a surcharge fee will be applied to a transaction, based on the cardholder's postal code and payment method.
       description: |+ 
-        The surcharge endpoint is used to determine whether or not a surcharge fee will be   applied to a transaction, based on the cardholder's postal code and payment method. This allows your application to notify the cardholder of the potential credit card surcharge prior to completing a transaction.
+        The surcharge endpoint is used to determine whether or not a surcharge fee will be applied to a transaction, based on the cardholder's postal code and payment method. This allows your application to notify the cardholder of the potential credit card surcharge prior to completing a transaction. Optionally, include the subtotal amount to return the calculated surcharge amount, if applicable.
         
         This request does not effect whether a surcharge is applied to a transaction; the CardPointe Gateway automatically applies a surcharge depending on the merchant configuration and the eligibility of the payment account. This request is used only for informational purposes.
       parameters:
@@ -97,6 +97,12 @@ paths:
         schema:
           $ref: '#/components/schemas/postal'
           description: The cardholder's postal code used to verify that hte cardholder's state supports surcharging. Optional if token is specified.
+      - in: query
+        name: amount
+        required: false
+        schema:
+          $ref: '#/components/schemas/amount'
+          description: The subtotal amount used to calculate the surcharge fee amount.
       - in: query
         name: token
         required: false
@@ -1101,11 +1107,14 @@ components:
           $ref: '#/components/schemas/token'
         postal:
           $ref: '#/components/schemas/postal'
+        fee_amount:
+          $ref: '#/components/schemas/fee_amount'
         messages:
           $ref: '#/components/schemas/messages'
       example:
         token: CREDIT,
         postal: NOT_RESTRICTED,
+        fee_amount: 3.00,
         messages: []
     messages:
       type: array
@@ -2153,7 +2162,7 @@ components:
           Application Label:
             example: VISA CREDIT
             type: string
-            description: Mnemonic associated with the AID according to ISO/IEC 7816-5. If unavailable Application Preferred Name displayed.   
+            description: Mnemonic associated with the AID according to ISO/IEC 7816-5. If unavailable, Application Preferred Name displayed.   
     enabled:
       type: boolean
       example: true
@@ -2185,11 +2194,11 @@ components:
     fee_authcode:
       maxLength: 6
       type: integer
-      description: Duplicate of the <code>authcode</code> field included if the transaction included a fee (for example, a credit card surcharge).
+      description: Duplicate of the <code>authcode</code> field included if the transaction included a fee (for example, a credit card surcharge). 
     fee_amount:
       maxLength: 14
       example: 1402
-      description: The fee amount (for example a credit card surcharge amount) applied to the transaction in dollars and cents.
+      description: The fee amount (for example, a credit card surcharge amount) applied to the transaction in dollars and cents. The fee value calculation is rounded at the second decimal place, where the value is rounded down from a third decimal value of 4 or less, and up from 5 and greater. For example, for a 3% fee applied to a $24.99 sale amount, the calculated fee value is $.749, rounded and applied as $.75. 
       type: number
     fee_format:
       type: string
