@@ -201,67 +201,6 @@ See the [DPT Request Syntax](#dpt-request-syntax) for detailed information on th
 
 **5.** Your application can use the token to make a payment request or create a customer profile using the [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md).
 
-## Handling Offline Payments
-
-The CardPointe Unattended device requires a persistent network connection in order to send and receive transaction data. If the device loses its network connection, it can temporarily operate in Offline Mode. In Offline Mode, the device forms and securely stores payment requests, then forwards the transactions to the web payment application for processing, once the network connection is successfully re-established. 
-
-<!-- theme: danger -->
-> Accepting payments in Offline Mode can help to prevent customer-facing business disruptions; however these payments are **not** authorized and processed until the device is reconnected. Therefore, you may incur the risk of receiving payment declines after you have provided goods or services.
-
-### Configuring Offline Mode
-
-Offline Mode is disabled by default, and must be individually configured for each device. Additionally, the following settings must be configured:
-
-- **Maximum Amount** - The maximum amount threshold for each offline transaction (in pennies). 
-- **Maximum Time** - The maximum amount of time for which offline transactions will be permitted (in hours).
-
-If your application sends a DPT request with an amount that exceeds the configured maximum, or after the configured offline timeframe has expired, the DPT response returns an error.
-
-<!-- theme: warning -->
-> Additionally, it is strongly recommended that you include a unique `orderId` value in every [DPT](#dpt-do-payment-transaction) request. You can use the `orderId` to reconcile offline transactions using the CardPointe Gateway API. See [Reconciling Offline Transactions](#reconciling-offline-transactions) for more information.
-
-> Contact isvsupport@cardconnect.com for assistance configuring these settings.
-
-### Processing Offline Transactions
-
-When your application sends a DPT command while the device is in Offline Mode, the payment is automatically approved, and returns DPT response code `020D` as well as an offline receipt payload. Because offline transactions are not authorized until they are processed, this offline receipt includes fewer details than a normal receipt.
-
-When the device is in Offline Mode, your application can send the GOT (Get Offline Transactions) command to check for any currently stored transactions (identified by timestamps) and the total amount of all stored transactions. See the [GOT](#got-get-offline-transactions) description for more information.
-
-Additionally, the GCS (Get Current Status) command provides information on currently stored transactions, and identifies when the device is actively processing offline transactions. See the [GCS](#gcs-get-current-status) description for more information.
-
-When the unattended device re-establishes the network connection, the device temporarily remains in Offline Mode while it creates an offline batch and transmits the offline transactions to the web payment application for processing. Once all stored transactions are processed, the device exits Offline Mode and resumes normal operation.
-
-> It can take up to five (5) minutes for the device to begin transmitting offline transactions once the network connection is restored.
-
-### Reconciling Offline Transactions
-
-To reconcile offline transactions, you can use either of the following CardPointe Gateway API requests:
-
-- Use the `inquireByOrderid` request to retrieve a transaction's status by its unique `orderId`, if specified in the DPT command.
-- Use the `settlestatByBatchSource` request to retrieve the entire batch of offline transactions for a given day.
-
-#### Using inquireByOrderid to Retrieve A Single Offline Transaction
-
-To reconcile individual offline transactions, you can use the CardPointe Gateway APIs `inquireByOrderid` endpoint to retrieve transaction status and retrieval reference number (retref). See the [Inquire By Order ID](../api/?type=get&path=/cardconnect/rest/inquireByOrderdid) description in the CardPointe Gateway API for additional information on the inquireByOrderid request and response.
-
-<!-- theme: warning -->
-> In order to use the `inquireByOrderid` request, you must specify a unique `orderId` value in each [DPT](#dpt-do-payment-transaction) payment request. 
-
-#### Using settlestatByBatchSource to Retrieve Offline Batches
-
-To reconcile offline batches, you can use the CardPointe Gateway API's `settlestatByBatchSource` endpoint to retrieve the settlement status and retrieval reference number (`retref`) for all offline transactions in a given day's offline batch.
-
-> You can only use the `settlestatByBatchSource` request to retrieve the batch details after the batch has closed, typically at the end of the business day.
-
-When the network connection is restored, the device makes a request to the CardPointe Gateway to create a new batch with a unique `batchsource` identifier in the format `<hsn>-<yyyymmdd>` (for example, `103T662929-20210224`). This batch remains open for the remainder of the business day, and is used to capture all offline transactions for that day.
-
-The `settlestatByBatchSource` request requires the `merchid` and unique `batchsource`. The response returns the total number of sales and refunds, the total amount, and a `txns` array, with the details for each transaction in the batch. 
-
-The `salesdoc` field in the response is populated by the `orderId` sent in the initial [DPT](#dpt-do-payment-transaction) request, which can be useful in reconciling 
-
-See [Using the settlestatByBatchSource Endpoint](?path=docs/documentation/CardPointeGatewayDeveloperGuides.md#using-the-settlestatbybatchsource-endpoint) in the [?path=docs/documentation/CardPointe Gateway Developer Guides](CardPointeGatewayDeveloperGuides.md) for more information.
-
 # CardPointe Unattended API
 
 The CardPointe Unattended API provides a simple ASCII messaging format for communicating with the device over the serial/USB connection.
@@ -451,19 +390,28 @@ Upon successful completion of a transaction, the response includes the authoriza
 
 | Field	| paymentType | Description |
 | --- | --- | --- |
-| amountAuth | 1, 3, 6 | The `amount` authorized. |
+| amountAuthorized | 1, 3, 6 | The `amount` authorized. |
 | authorization	| 1, 3, 6 | The `authcode` returned to the CardPointe Gateway by the card issuer. |
 | bininfo | 1, 3, 6	| The card's BIN (bank identification number) information returned by the CardPointe Gateway. See the [BIN response description](../api/?type=get&path=/cardconnect/rest/bin/{merchid}/{token}) in the CardPointe Gateway API for detailed information. |
 | cardToken	| 1, 3, 5, 6 | The CardSecure `token`, returned by the CardPointe Gateway. |
-| emvTags | 1, 3, 6	| The `emvTagData` array of receipt and EMV tag data (when applicable) returned from the processor. <br> <br> This data returned should be presented on a receipt if applicable, and recorded with the transaction details for future reference. <br> <br> See [Printing Receipts Using Authorization Data](?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md#printing-receipts-using-authorization-data) in the [CardPointe Integrated Terminal Developer Guides](?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md) for detailed information. |
+| emvTags | 1, 3, 6	| The `emvTagData` array of receipt and EMV tag data (when applicable) returned from the processor. <br> <br>This data returned should be presented on a receipt if applicable, and recorded with the transaction details for future reference. <br> <br> See [Printing Receipts Using Authorization Data](?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md#printing-receipts-using-authorization-data) in the [CardPointe Integrated Terminal Developer Guides](?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md) for detailed information. |
 | expiry | 1, 3, 6 | The card's expiration date in the format `MMYY`. |
 | externalTransactionID	| 1, 3, 5, 6 | The `orderID` included in the payment request. |
+| fee_amount | 1, 3, 6 | If applicable, the surcharge amount applied to the transaction, in dollars and cents. `0.00` if thesurcharge was waived, bypassed, or not applicable. |
+| fee_authcode | 1, 3, 6 | Duplicate of the `authcode` field. |
+| fee_format | 1, 3, 6 | If applicable, the surcharge format configured for the merchant account. Always `percent` when asurcharge is successfully applied to the transaction. Empty if the surcharge was waived, bypassed, or not applicable. |
+| fee_merchid | 1, 3, 6 | Returns an empty value. |
+| fee_retref | 1, 3, 6 | Returns an empty value. |
+| fee_type | 1, 3, 6 | If applicable, the type of fee applied to the transaction. Returns `SURCHRG` when a surcharge is successfully applied or `SURCHRG_WAIVED` if the surcharge was waived or bypassed. |
+| fee_value | 1, 3, 6 | If applicable, the surcharge rate applied to the transaction. Returns `300` when a surcharge is successfully applied and `0` if the surcharge was waived, bypassed, or not applicable. |
 | merchantID | 1, 3, 6 | The CardPointe merchant ID (MID) used in the request. |
 | paymentID	| 1, 3, 5, 6 | A unique, alphanumeric payment identifier generated by the unattended device. |
+| processorAVS | 1, 3, 6 | The `avsresp` (address verification service) response value returned to the CardPointe Gateway by the processor. An alphanumeric code that identifies the AVS verification response. <br> <br>See [AVS Response Codes](?path=docs/documentation/GatewayResponseCodes.md#avs-response-codes-for-first-data-platforms) for more information. <br> <br>This value is typically only returned for approved authorizations; however, this value can be returned in the response for declined authorizations if enabled for the merchant account.
 | processorCode	| 1, 3, 6 | The `respcode` returned to the CardPointe Gateway by the processor. An alphanumeric code that identifies the authorization response. |
+| processorCVV | 1, 3, 6 | The `cvvresp` (card verification value) response value returned to the CardPointe Gateway by the processor. An alphanumeric code that identifies the CVV verification response. <br> <br>One of the following values:<br> <br> `M` - Valid CVV Match.<br> `N` - Invalid CVV.<br> `P` - CVV not processed.<br> `S` - Merchant indicated that the CVV is not present on the card.<br> `U` - Card issuer is not certified and/or has not provided Visa Encryption keys.<br> `X` (or blank) - No response.<br> <br> This value is typically only returned for approved authorizations; however, this value can be returned in the response for a decline authorization if enabled for the merchant account. |
 | processorMsg | 1, 3, 5, 6	| The `resptext` returned to the CardPointe Gateway by the processor. A text description of the authorization response. |
 | processorReference | 1, 3, 6 | The `retref` generated by the CardPointe Gateway, and used to inquire on and manage transactions. |
-| receiptData | 1, 3, 6	| The `receiptData` object provides additional merchant and authorization details for use in printing receipts. The receipt data array includes merchant account information, populated using the merchant properties configured for the MID, as well as additional transaction details from the authorization response. <br> <br> See the Receipt Data Fields description in the CardPointe Gateway API for more information. |
+| receiptData | 1, 3, 6	| The `receiptData` object provides additional merchant and authorization details for use in printing receipts. The receipt data array includes merchant account information, populated using the merchant properties configured for the MID, as well as additional transaction details from the authorization response. <br> <br> See [Printing Receipts Using Authorization Data](?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md#printing-receipts-using-authorization-data) in the [CardPointe Integrated Terminal Developer Guides](?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md) for detailed information. |
 | transactionID	| 1, 3, 5, 6 | A unique, alphanumeric transaction identifier generated by the unattended device. |
 
 ## GCS (Get Current Status)
@@ -502,83 +450,15 @@ The GCS response returns the device and application status in the following form
 
 | Parameter | Type | Description |
 | --- | --- | --- |
-| AppLoaderStatus | string | The status of the AppLoader update process. One of the following values: <br> <br> **Startup** - Starting up and waiting for PAE to initialize. <br> **Contacting Cloud** - Attempting to contact the update server. <br> **Downloading** - Downloading data from the update server. <br> **Reconnect Delay** - Waiting during the delay between attempts to connect to the update server. <br> **Validating** - Validating the downloaded update against the apps and SDKs already loaded on the device. <br> **Install Pending** - An update to the app or SDK is pending, allowing the POS application time to detect the pending update prior to installation. <br> **Installing** - App or SDK installation is starting.  <br> **Idle** - The update check is completed and AppLoader is in an idle state until the next device reboot/restart (typically the 24-hour self-check).
-| CardInReader | numeral | Indicates whether or not a card is currently inserted into the device. <br> <br> One of the following values: <br> <br> **0** - No card inserted <br> **1** - Card inserted
-| Connected	| numeral | Indicates whether or not the device is connected to the web payment application. <br> <br> One of the following values: <br> <br> **0** - Disconnected <br> **1** - Connected
-| Encryption | numeral | Indicates whether or not the encryption key is installed and enabled on the device <br> <br> One of the following values: <br> <br> **0** - Not enabled <br> **1** - Enabled |
-| InPayment	| numeral | Indicates whether or not the payment application is currently processing a payment. <br> <br> One of the following values: <br> <br> **0** - Ready <br> **1** - Processing a payment |
-| OfflineRecovery | numeral	| Indicates whether or not the payment application is currently processing one or more offline payments. <br> <br> One of the following values: <br> <br> **0** - Not processing offline payments <br> **1** - Currently processing offline payments |
+| AppLoaderStatus | string | The status of the AppLoader update process. One of the following values: <br> <br> `Startup` - Starting up and waiting for PAE to initialize. <br> `Contacting Cloud` - Attempting to contact the update server. <br> `Downloading` - Downloading data from the update server. <br> `Reconnect Delay` - Waiting during the delay between attempts to connect to the update server. <br> `Validating` - Validating the downloaded update against the apps and SDKs already loaded on the device. <br> `Install Pending` - An update to the app or SDK is pending, allowing the POS application time to detect the pending update prior to installation. <br> `Installing` - App or SDK installation is starting.  <br> `Idle` - The update check is completed and AppLoader is in an idle state until the next device reboot/restart (typically the 24-hour self-check). <br> `Reboot Pending` - The device will reboot within the next 5 minutes. |
+| CardInReader | numeral | Indicates whether or not a card is currently inserted into the device. <br> <br> One of the following values: <br> <br> `0` - No card inserted <br> `1` - Card inserted |
+| Connected	| numeral | Indicates whether or not the device is connected to the web payment application. <br> <br> One of the following values: <br> <br> `0` - Disconnected <br> `1` - Connected |
+| Encryption | numeral | Indicates whether or not the encryption key is installed and enabled on the device <br> <br> One of the following values: <br> <br> `0` - Not enabled <br> `1` - Enabled |
+| InPayment	| numeral | Indicates whether or not the payment application is currently processing a payment. <br> <br> One of the following values: <br> <br> `0` - Ready <br> `1` - Processing a payment |
+| OfflineRecovery | numeral	| Indicates whether or not the payment application is currently processing one or more offline payments. <br> <br> One of the following values: <br> <br> `0` - Not processing offline payments <br> `1` - Currently processing offline payments |
 | ~OfflineTxnsAvail	| numeral | Indicates the approximate number of offline transactions that can be stored on the device's remaining available storage. |
-| Registered | numeral | Indicates whether or not the device successfully registered with the web payment application. <br> <br> One of the following values: <br> <br> **0** - Not registered <br> **1** - Registered |
-| Started | numeral | Indicates whether or not the payment application successfully started. <br> <br> One of the following values: <br> <br> **0** - Not started <br> **1** - Running |
-
-## GOT (Get Offline Transactions)
-
-The GOT request returns information on transactions that are currently stored while the unattended device is in [Offline Mode](#handling-offline-payments).
-
-### GOT Request Syntax
-
-```
-*PAE|GOT|CMD|1|{optional parameters}|<checksum>|*!PAE!*
-```
-
-> Fields 4 and 5 might not contain values, but **must** be present to preserve the expected message format.
-
-#### Sample GOT Request (all offline transactions)
-
-```json
-*PAE|GOT|CMD|||01197|*!PAE!*
-```
-
-#### Sample GOT Request (filtered)
-
-```json
-*PAE|GOT|CMD|1|{"page":2,"paymentType":"emv"}|64046|*!PAE!*
-```
-
-Optionally, you can use the following parameters to filter the results:
-
-| Parameter | Type | Description |
-| --- | --- | --- |
-| page | numeral | Indicates the page number to return from the response payload (for example, `2` to return page 2 of 4). <br> <br> Each page includes a maximum of 400 offline transactions. |
-| paymentType | string | Indicates the type of offline payments to return, either `EMV` or `MSR`. <br> <br> **Required** when a page is specified. |
-
-### GOT Response Syntax
-
-The GOT response returns the stored offline transaction details in the following format:
-
-```
-*PAE|GOT|RESP|<response code>|{JSON response object}|<checksum>|*!PAE!*
-```
-
-#### Sample GOT Response (No Stored Transactions)
-
-```json
-*PAE|GOT|RESP|00000000|{"OfflineTxnsStored":0,"Total$":0,"EMVPayments":"","MSRPayments":""}|55587|*!PAE!*
-```
-
-#### Sample GOT Response (Pending Stored Transactions)
-
-```json
-*PAE|GOT|RESP|00000000|{"OfflineTxnsStored":"2","Total$":"600","EMVPayments":2,"MSRPayments":0}|20242|*!PAE!*
-```
-
-#### Sample GOT Response (Filtered Results - "page":2,"paymentType":"emv")
-
-```json
-*PAE|GOT|RESP|00000000|{"EMVPayments":"2021-10-22T19:24:28,2021-10-22T19:25:05,2021-10-22T19:27:22,2021-10-22T19:27:45,2021-10-22T19:28:27"}|54967|*!PAE!*
-```
-
-The `<response code>` is `00000000` for a successful response, or one or more error codes if the command failed. See [Response Codes](#response-codes) for more information.
-
-The `{JSON response object}` includes the following fields:
-
-| Field | Description | 
-| --- | --- |
-| OfflineTxnsStored | The number of stored offline transactions. <br> <br> Only returned for _unfiltered_ GOT requests.
-| Total$ | The total amount (in pennies) of currently stored transactions. <br> <br> Only returned for _unfiltered_ GOT requests.
-| EMVPayments | For _filtered_ requests (`"paymentType":"emv"`),a comma-separated list of timestamps for all stored EMV transactions, in the format `<YY>-<MM>-<DD>T<HH>:<MM>:<SS>`. <br> <br> for _unfiltered_ requests, the number of stored EMV transactions. |
-| MSRPayments | For _filtered_ requests (`"paymentType":"msr"`), a comma-separated list of timestamps for all stored MSR transactions, in the format `<YY>-<MM>-<DD>T<HH>:<MM>:<SS>`. <br> <br> For _unfiltered_ requests, the number of stored MSR transactions. |
+| Registered | numeral | Indicates whether or not the device successfully registered with the web payment application. <br> <br> One of the following values: <br> <br> `0` - Not registered <br> `1` - Registered |
+| Started | numeral | Indicates whether or not the payment application successfully started. <br> <br> One of the following values: <br> <br> `0` - Not started <br> `1` - Running |
 
 ## GTI (Get Terminal Info)
 
@@ -617,15 +497,19 @@ The `<response code>` is `00000000` for a successful response, or one or more er
 
 The `{JSON response object}` includes the following fields:
 
-| Field	| Description
-| --- | ---
-| PAE_Version | The Payment Application Engine (PAE) version running on the device.
-| AppLoader_Version	| The AppLoader version running on the device.
-| FW_Version | The current firmware version running on the device.
-| HW_Version | The current hardware revision of the device.
-| SerialNum	| The hardware serial number (HSN) for the device, used to identify the device to the CardPointe Gateway.
-| CompanyId	| A GUID, used by the web payments application, to identify the merchant associated with the device.
-| ApplicationID	| A GUID, used by the web payments application, to identify the application running on the device.
+| Field	| Description |
+| --- | --- |
+| ApplicationID	| A GUID, used by the web payments application, to identify the application running on the device. |
+| AppLoader_Version	| The AppLoader version running on the device. |
+| CompanyId	| A GUID, used by the web payments application, to identify the merchant associated with the device. |
+| FW_Version | The current firmware version running on the device. |
+| GatewayName | The name of the payment gateway used to process transactions. |
+| HW_Version | The current hardware revision of the device. |
+| PAE_Version | The Payment Application Engine (PAE) version running on the device. |
+| SDK_Version | The SDK version running on the device. |
+| SerialNum	| The hardware serial number (HSN) for the device, used to identify the device to the CardPointe Gateway. |
+
+
 
 ## RBT (Reboot Terminal)
 
