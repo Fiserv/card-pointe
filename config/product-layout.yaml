@@ -41,25 +41,14 @@ getStarted: docs/get-started.md
 featuredFeatures:
   - title: Tokenization
     groupName: Ecommerce
-    description:  Use the Cardsecure API to build a custom tokenizer to securely accept payment account details in your application.
+    description:  Use the Hosted iFrame Tokenizer to securely accept and tokenize payment account details and reduce your scope of PCI compliance.
     featured: true
     tags: ["PCI", "tokenization", "security", "payments"]
     relatedDocs:
       - relatedDoc: 
-        title: CardSecure Developer Guide
-        description: The CardSecure Developer Guide provides helpful information for integrating the CardSecure API.
-        link: /docs/documentation/CardSecure.md
-    relatedAPIs:
-      - relatedAPI: 
-        title: tokenize
-        description: Tokenize a payment card or electronic bank account number.
-        type: "post"        
-        path: "/cardsecure/api/v1/ccn/tokenize"
-      - relatedAPI: 
-        title: echo
-        description: Verify your application's connection to CardSecure.
-        type: "post"        
-        path: "/cardsecure/api/v1/echo"
+        title: Hosted iFrame Tokenizer Developer Guide
+        description: The Hosted iFrame Tokenizer Developer Guide provides helpful information for integrating and customizing the iFrame Tokenizer.
+        link: /docs/documentation/HostediFrameTokenizer.md
   - title: Customer Profiles
     groupName: Omnicommerce
     description:  Use the CardPointe Gateway API to create and manage secure customer profiles for a seamless omnichannel payment experience.
@@ -75,17 +64,17 @@ featuredFeatures:
         title: profile
         description: Create or update a stored customer profile.
         type: "put"        
-        path: "/v1/profile"
+        path: "api/?type=post&path=/cardconnect/rest/profile/"
       - relatedAPI: 
         title: profile
         description: Retrieve a stored customer profile.
         type: "get"        
-        path: "/v1/profile"
+        path: "api/?type=get&path=/cardconnect/rest/profile/{profileid}/{merchid}"
       - relatedAPI: 
         title: profile
         description: Delete a stored customer profile.
         type: "delete"        
-        path: "/v1/profile"
+        path: "/api/?type=delete&path=/cardconnect/rest/profile/{profileid}/{merchid}"
   - title: Semi-Integrated Terminals
     groupName: Card-Present
     description: Use the CardPointe Integrated Terminal API to integrate P2PE-validated, card-present payments to your point-of-sale (POS) application.
