@@ -2243,83 +2243,82 @@ components:
     fundingResponse:
       x-model-version: 1.0
       description: funding endpoint Response
-      items:
-        properties:
-          fundings:
-            $ref: '#/components/schemas/fundings'
-          txns:
-            type: array
-            items:
-              properties:
-                fundingtxnid:
-                  $ref: '#/components/schemas/fundingtxnid'
-                retref:
-                  $ref: '#/components/schemas/retref'
-                authcode:
-                  $ref: '#/components/schemas/authcode'
-                authdate:
-                  $ref: '#/components/schemas/authdate'
-                respcode:
-                  $ref: '#/components/schemas/respcode'
-                batchid:
-                  $ref: '#/components/schemas/batchid'
-                cardproc:
-                  $ref: '#/components/schemas/cardproc'
-                interchangeunitfee:
-                  $ref: '#/components/schemas/interchangeunitfee'
-                interchangepercentfee:
-                  $ref: '#/components/schemas/interchangepercentfee'
-                date:
-                  $ref: '#/components/schemas/date'
-                cardnumber:
-                  $ref: '#/components/schemas/cardnumber'
-                cardtype:
-                  $ref: '#/components/schemas/cardtype'
-                cardbrand:
-                  $ref: '#/components/schemas/cardbrand'
-                amount:
-                  $ref: '#/components/schemas/amount'
-                currency:
-                  $ref: '#/components/schemas/currency'
-                type:
-                  $ref: '#/components/schemas/type'
-                status:
-                  $ref: '#/components/schemas/status'
-                userfieldn:
-                  $ref: '#/components/schemas/userfieldn'
-                fundingid:
-                  $ref: '#/components/schemas/fundingid'
-                plancode:
-                  $ref: '#/components/schemas/plancode'
-                downgradereasoncodes:
-                  $ref: '#/components/schemas/downgradereasoncodes'
-                invoicenumber:
-                  $ref: '#/components/schemas/invoicenumber'
-                sourcetransactionid:
-                  $ref: '#/components/schemas/sourcetransactionid'
-                terminalnumber:
-                  $ref: '#/components/schemas/terminalnumber'
-                achreturncode:
-                  $ref: '#/components/schemas/achreturncode'
-                parentretref:
-                  $ref: '#/components/schemas/parentretref'
-          adjustments:
-            $ref: '#/components/schemas/adjustments'
-          chargebacks:
-            $ref: '#/components/schemas/chargebacks'
-          fundingdate:
-            $ref: '#/components/schemas/fundingdate'
-          merchid:
-            $ref: '#/components/schemas/merchid'
-          datechanged:
-            $ref: '#/components/schemas/datechanged'
-          fundingmasterid:
-            $ref: '#/components/schemas/fundingmasterid'
+      properties:
+        fundings:
+          $ref: '#/components/schemas/fundings'
+        txns:
+          $ref: '#/components/schemas/fundingtxns'
+        adjustments:
+          $ref: '#/components/schemas/adjustments'
+        chargebacks:
+          $ref: '#/components/schemas/chargebacks'
+        fundingdate:
+          $ref: '#/components/schemas/fundingdate'
+        merchid:
+          $ref: '#/components/schemas/merchid'
+        datechanged:
+          $ref: '#/components/schemas/datechanged'
+        fundingmasterid:
+          $ref: '#/components/schemas/fundingmasterid'
+    fundingtxns:
+      x-model-version: 1.0
+      properties:
+        fundingtxnid:
+          $ref: '#/components/schemas/fundingtxnid'
+        retref:
+          $ref: '#/components/schemas/retref'
+        authcode:
+          $ref: '#/components/schemas/authcode'
+        authdate:
+          $ref: '#/components/schemas/authdate'
+        respcode:
+          $ref: '#/components/schemas/respcode'
+        batchid:
+          $ref: '#/components/schemas/batchid'
+        cardproc:
+          $ref: '#/components/schemas/cardproc'
+        interchangeunitfee:
+          $ref: '#/components/schemas/interchangeunitfee'
+        interchangepercentfee:
+          $ref: '#/components/schemas/interchangepercentfee'
+        date:
+          $ref: '#/components/schemas/date'
+        cardnumber:
+          $ref: '#/components/schemas/cardnumber'
+        cardtype:
+          $ref: '#/components/schemas/cardtype'
+        cardbrand:
+          $ref: '#/components/schemas/cardbrand'
+        amount:
+          $ref: '#/components/schemas/amount'
+        currency:
+          $ref: '#/components/schemas/currency'
+        type:
+          $ref: '#/components/schemas/type'
+        status:
+          $ref: '#/components/schemas/status'
+        userfieldn:
+          $ref: '#/components/schemas/userfieldn'
+        fundingid:
+          $ref: '#/components/schemas/fundingid'
+        plancode:
+          $ref: '#/components/schemas/plancode'
+        downgradereasoncodes:
+          $ref: '#/components/schemas/downgradereasoncodes'
+        invoicenumber:
+          $ref: '#/components/schemas/invoicenumber'
+        sourcetransactionid:
+          $ref: '#/components/schemas/sourcetransactionid'
+        terminalnumber:
+          $ref: '#/components/schemas/terminalnumber'
+        achreturncode:
+          $ref: '#/components/schemas/achreturncode'
+        parentretref:
+          $ref: '#/components/schemas/parentretref'
     chargebacks: 
-      type: array
+      x-model-version: 1.0
       description: Chargeback data is only applicable to specific clients that have been configured appropriately. This node is only returned if chargeback records are present for the given date.
-      items:
-        properties:
+      properties:
           depositdate:
             $ref: '#/components/schemas/depositdate'
           amount:
@@ -2416,53 +2415,51 @@ components:
       type: number
       example: 55500807123206000059099
     fundings:
-      type: array
-      items:
-        properties:
-          fundingmasterid:
-            $ref: '#/components/schemas/fundingmasterid'
-          merchid:
-            $ref: '#/components/schemas/merchid'
-          netsales:
-            $ref: '#/components/schemas/netsales'
-          thirdparty:
-            $ref: '#/components/schemas/thirdparty'
-          adjustment:
-            $ref: '#/components/schemas/adjustment'
-          interchangefee:
-            $ref: '#/components/schemas/interchangefee'
-          servicecharge:
-            $ref: '#/components/schemas/servicecharge'
-          fee:
-            $ref: '#/components/schemas/fee'
-          reversal:
-            $ref: '#/components/schemas/reversal'
-          otheradjustment:
-            $ref: '#/components/schemas/otheradjustment'
-          totalfunding:
-            $ref: '#/components/schemas/totalfunding'
-          fundingdate:
-            $ref: '#/components/schemas/fundingdate'
-          currency:
-            $ref: '#/components/schemas/currency'
-          ddanumber:
-            $ref: '#/components/schemas/ddanumber'
-          abanumber:
-            $ref: '#/components/schemas/abanumber'
-          fundingid:
-            $ref: '#/components/schemas/fundingid'
-          datechanged:
-            $ref: '#/components/schemas/datechanged'
-          dateadded:
-            $ref: '#/components/schemas/dateadded'
-          deposittrancode:
-            $ref: '#/components/schemas/deposittrancode'
-          depositachtracenumber:
-            $ref: '#/components/schemas/depositachtracenumber'
+      x-model-version: 1.0
+      properties:
+        fundingmasterid:
+          $ref: '#/components/schemas/fundingmasterid'
+        merchid:
+          $ref: '#/components/schemas/merchid'
+        netsales:
+          $ref: '#/components/schemas/netsales'
+        thirdparty:
+          $ref: '#/components/schemas/thirdparty'
+        adjustment:
+          $ref: '#/components/schemas/adjustment'
+        interchangefee:
+          $ref: '#/components/schemas/interchangefee'
+        servicecharge:
+          $ref: '#/components/schemas/servicecharge'
+        fee:
+          $ref: '#/components/schemas/fee'
+        reversal:
+          $ref: '#/components/schemas/reversal'
+        otheradjustment:
+          $ref: '#/components/schemas/otheradjustment'
+        totalfunding:
+          $ref: '#/components/schemas/totalfunding'
+        fundingdate:
+          $ref: '#/components/schemas/fundingdate'
+        currency:
+          $ref: '#/components/schemas/currency'
+        ddanumber:
+          $ref: '#/components/schemas/ddanumber'
+        abanumber:
+          $ref: '#/components/schemas/abanumber'
+        fundingid:
+          $ref: '#/components/schemas/fundingid'
+        datechanged:
+          $ref: '#/components/schemas/datechanged'
+        dateadded:
+          $ref: '#/components/schemas/dateadded'
+        deposittrancode:
+          $ref: '#/components/schemas/deposittrancode'
+        depositachtracenumber:
+          $ref: '#/components/schemas/depositachtracenumber'
     adjustments:
-      type: array
-      items:
-        properties:
+      x-model-version: 1.0
+      properties:
           fundingtxnid:
             $ref: '#/components/schemas/fundingtxnid'
           retref:
