@@ -3862,49 +3862,48 @@ components:
       example: 999
     merchant:
       x-model-version: 1.0
-      type: object
-      items:
-        properties:
-          salesCodes:
-            $ref: '#/components/schemas/salesCode'
-          akaBusinessName:
-            $ref: '#/components/schemas/akaBusinessName'
-          dbaName:
-            $ref: '#/components/schemas/dbaName'
-          legalBusinessName:
-            $ref: '#/components/schemas/legalBusinessName'
-          taxFilingName:
-            $ref: '#/components/schemas/taxFilingName'
-          taxFilingMethod:
-            $ref: '#/components/schemas/taxFilingMethod'
-          businessStartDate:
-            $ref: '#/components/schemas/businessStartDate'
-          businessIdTypeCd:
-            $ref: '#/components/schemas/businessIdTypeCd'
-          custPrimaryAcctFlg:
-            $ref: '#/components/schemas/custPrimaryAcctFlg'
-          webLeadFlg:
-            $ref: '#/components/schemas/webLeadFlg'
-          hierarchy:
-            $ref: '#/components/schemas/hierarchy'
-          demographic:
-            $ref: '#/components/schemas/demographic'
-          ownership:
-            $ref: '#/components/schemas/ownership'
-          bankDetail:
-            $ref: '#/components/schemas/bankDetail'
-          merchantContactInfo:
-            $ref: '#/components/schemas/merchantContactInfo'
-          processing:
-            $ref: '#/components/schemas/processing'
-          pricing:
-            $ref: '#/components/schemas/pricing'
-          fees:
-            $ref: '#/components/schemas/fees'
-          cloverSecurityAndTransarmor:
-            $ref: '#/components/schemas/cloverSecurityAndTransarmor'
-          customFields:
-            $ref: '#/components/schemas/customFields'
+      description: A collection of Merchant information.
+      properties:
+        salesCodes:
+          $ref: '#/components/schemas/salesCode'
+        akaBusinessName:
+          $ref: '#/components/schemas/akaBusinessName'
+        dbaName:
+          $ref: '#/components/schemas/dbaName'
+        legalBusinessName:
+          $ref: '#/components/schemas/legalBusinessName'
+        taxFilingName:
+          $ref: '#/components/schemas/taxFilingName'
+        taxFilingMethod:
+          $ref: '#/components/schemas/taxFilingMethod'
+        businessStartDate:
+          $ref: '#/components/schemas/businessStartDate'
+        businessIdTypeCd:
+          $ref: '#/components/schemas/businessIdTypeCd'
+        custPrimaryAcctFlg:
+          $ref: '#/components/schemas/custPrimaryAcctFlg'
+        webLeadFlg:
+          $ref: '#/components/schemas/webLeadFlg'
+        hierarchy:
+          $ref: '#/components/schemas/hierarchy'
+        demographic:
+          $ref: '#/components/schemas/demographic'
+        ownership:
+          $ref: '#/components/schemas/ownership'
+        bankDetail:
+          $ref: '#/components/schemas/bankDetail'
+        merchantContactInfo:
+          $ref: '#/components/schemas/merchantContactInfo'
+        processing:
+          $ref: '#/components/schemas/processing'
+        pricing:
+          $ref: '#/components/schemas/pricing'
+        fees:
+          $ref: '#/components/schemas/fees'
+        cloverSecurityAndTransarmor:
+          $ref: '#/components/schemas/cloverSecurityAndTransarmor'
+        customFields:
+          $ref: '#/components/schemas/customFields'
     cloverSecurityAndTransarmor:
       type: array
       items:
