@@ -410,24 +410,23 @@ paths:
         
         If you have multiple MIDs and do not know which MID was used in the original transaction, you can omit the set parameter from the end of the request to optionally inquire on the order ID across all MIDs on the site.
       parameters:
-      - in: query
+      - in: path
         name: merchid
         required: true
         schema:
           $ref: '#/components/schemas/merchid'
           description: The MID from the original authorization.
-      - in: query
+      - in: path
         name: orderid
         required: true
         schema:
           $ref: '#/components/schemas/orderId'
           description: The Order ID from the original authorization.
-      - in: query
+      - in: path
         name: set
         required: false
         schema:
           description: Set this field to 1 to restrict the inquiry to the merchant ID (MID) specified in the request. If you have multiple MIDs and want to search for the order ID across all MIDs, omit this parameter.
-          example: " "
           type: string
           maxLength: 1
       - in: header
