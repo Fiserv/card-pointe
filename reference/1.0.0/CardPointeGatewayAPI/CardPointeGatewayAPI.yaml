@@ -391,7 +391,7 @@ paths:
           content:  
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
-  /cardconnect/rest/inquireByOrderid:
+  /cardconnect/rest/inquireByOrderid/{merchid}/{orderid}/{set}:
     get:
       tags:
         - inquireByOrderid Endpoint Definition
@@ -410,21 +410,21 @@ paths:
         
         If you have multiple MIDs and do not know which MID was used in the original transaction, you can omit the set parameter from the end of the request to optionally inquire on the order ID across all MIDs on the site.
       parameters:
-      - in: query
+      - in: path
         name: merchid
         required: true
         schema:
           $ref: '#/components/schemas/merchid'
           description: The MID from the original authorization.
-      - in: query
+      - in: path
         name: orderid
         required: true
         schema:
           $ref: '#/components/schemas/orderId'
           description: The Order ID from the original authorization.
-      - in: query
+      - in: path
         name: set
-        required: false
+        required: true
         schema:
           description: Set this field to 1 to restrict the inquiry to the merchant ID (MID) specified in the request. If you have multiple MIDs and want to search for the order ID across all MIDs, omit this parameter.
           example: " "
@@ -450,7 +450,7 @@ paths:
           content:  
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
-  /cardconnect/rest/voidByOrderId:
+  /cardconnect/rest/voidByOrderId/{merchid}/{orderid}/{amount}:
     get:
       tags:
         - voidByOrderId Endpoint Definition
@@ -467,21 +467,21 @@ paths:
         
         It is strongly recommended that you use a unique order ID for every transaction, if you are using order IDs. Doing so allows you to more easily and accurately retrieve data on all transactions.
       parameters:
-      - in: query
+      - in: path
         name: merchid
         required: true
         schema:
           $ref: '#/components/schemas/merchid'
           description: The MID from the original authorization.
-      - in: query
+      - in: path
         name: orderid
         required: true
         schema:
           $ref: '#/components/schemas/orderId'
           description: The Order ID from the original authorization.
-      - in: query
+      - in: path
         name: amount
-        required: false
+        required: true
         schema:
           description: |
             Optional. If omitted or equal to $0, the full amount is voided.
