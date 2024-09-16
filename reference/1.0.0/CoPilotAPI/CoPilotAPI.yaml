@@ -1733,15 +1733,14 @@ components:
         amexProgramAssetCodes:
           $ref: '#/components/schemas/amexProgramCodes'
     amexProgramCodes:
-      type: array
-      items: 
-        properties:
-          code:
-            type: string
-            description: The associated code
-          name:
-            type: string
-            description: The code name
+      x-model-version: 1.0
+      properties:
+        code:
+          type: string
+          description: The associated code
+        name:
+          type: string
+          description: The code name
       example: 
         - code: OPTBLUE
           name: American Express(AMEX) OptBlue
@@ -1753,15 +1752,14 @@ components:
         attachmentTypeCodes:
           $ref: "#/components/schemas/attachmentTypeCodes"
     attachmentTypeCodes:
-      type: array
-      items:
-        properties:
-          code:
-            type: string
-            description: The associated code
-          name:
-            type: string
-            description: The code name
+      x-model-version: 1.0
+      properties:
+        code:
+          type: string
+          description: The associated code
+        name:
+          type: string
+          description: The code name
       example:
             - code: 501C
               name: 501C Form
@@ -1827,15 +1825,14 @@ components:
         backEndPlatformCodes:
           $ref: "#/components/schemas/backEndPlatformCodes"
     backEndPlatformCodes:
-      type: array
-      items:
-        properties:
-          code:
-            type: string
-            description: The associated code
-          name:
-            type: string
-            description: The code name
+      x-model-version: 1.0
+      properties:
+        code:
+          type: string
+          description: The associated code
+        name:
+          type: string
+          description: The code name
       example:
             - code: AMEX
               name: American Express Pltfrm
@@ -1881,15 +1878,14 @@ components:
         bankAcctTypes:
           $ref: "#/components/schemas/bankAcctTypes"
     bankAcctTypes:
-      type: array
-      items:
-        properties:
-          code:
-            type: string
-            description: The associated code
-          name:
-            type: string
-            description: The code name
+      x-model-version: 1.0
+      properties:
+        code:
+          type: string
+          description: The associated code
+        name:
+          type: string
+          description: The code name
       example: 
           - code: BIZ
             name: Business Checking
@@ -1903,15 +1899,14 @@ components:
         billToCodes:
           $ref: "#/components/schemas/billToCodes"
     billToCodes:
-      type: array
-      items:
-        properties:
-          code:
-            type: string
-            description: The associated code
-          name:
-            type: string
-            description: The code name
+      x-model-version: 1.0
+      properties:
+        code:
+          type: string
+          description: The associated code
+        name:
+          type: string
+          description: The code name
       example:
             - code: PARTNER
               name: Partner Residuals
@@ -1925,15 +1920,14 @@ components:
         billToDetailCodes:
           $ref: "#/components/schemas/billToDetailCodes"
     billToDetailCodes:
-      type: array
-      items:
-        properties:
-          code:
-            type: string
-            description: The associated code
-          name:
-            type: string
-            description: The code name
+      x-mdoel-version: 1.0
+      properties:
+        code:
+          type: string
+          description: The associated code
+        name:
+          type: string
+          description: The code name
       example: 
             - code: CC
               name: CardConnect
@@ -1951,15 +1945,14 @@ components:
         billingFrequencyCodes:
           $ref: "#/components/schemas/billingFrequencyCodes"
     billingFrequencyCodes:
-      type: array
-      items:
-        properties:
-          code:
-            type: string
-            description: The associated code
-          name:
-            type: string
-            description: The code name
+      x-model-version: 1.0
+      properties:
+        code:
+          type: string
+          description: The associated code
+        name:
+          type: string
+          description: The code name
       example: 
             - code: ONETIME
               name: One Time
@@ -1971,15 +1964,14 @@ components:
         cloverSecurityBundleCodes:
           $ref: "#/components/schemas/cloverSecurityBundleCodes"
     cloverSecurityBundleCodes:
-      type: array
-      items:
-        properties:
-          code:
-            type: string
-            description: The associated code
-          name:
-            type: string
-            description: The code name
+      x-model-version: 1.0
+      properties:
+        code:
+          type: string
+          description: The associated code
+        name:
+          type: string
+          description: The code name
       example: 
             - code: CSPFB
               name: Clover Security Plus - Full Bundle (01)
@@ -1997,15 +1989,14 @@ components:
         countryCodes:
           $ref: "#/components/schemas/countryCodes"
     countryCodes:
-      type: array
-      items:
-        properties:
-          code:
-            type: string
-            description: The associated code
-          name:
-            type: string
-            description: The code name
+      x-model-version: 1.0 
+      properties:
+        code:
+          type: string
+          description: The associated code
+        name:
+          type: string
+          description: The code name
       example: 
             - code: US
               name: United States of America
@@ -2511,15 +2502,14 @@ components:
         discoverProgramCodes:
           $ref: "#/components/schemas/discoverProgramCodes"
     discoverProgramCodes:
-      type: array
-      items:
-        properties:
-          code:
-            type: string
-            description: The associated code
-          name:
-            type: string
-            description: The code name
+      x-model-version: 1.0 
+      properties:
+        code:
+          type: string
+          description: The associated code
+        name:
+          type: string
+          description: The code name
       example: 
             - code: EASI
               name: External Agent Sales Incentive
@@ -2531,15 +2521,14 @@ components:
         equipmentSupplierCodes:
           $ref: "#/components/schemas/equipmentSupplierCodes"
     equipmentSupplierCodes:
-      type: array
-      items:
-        properties:
-          code:
-            type: string
-            description: The associated code
-          name:
-            type: string
-            description: The code name
+      x-model-version: 1.0 
+      properties:
+        code:
+          type: string
+          description: The associated code
+        name:
+          type: string
+          description: The code name
       example: 
             - code: FDMP
               name: First Data Marketplace
@@ -2555,15 +2544,14 @@ components:
         equipmentTypeCodes:
           $ref: "#/components/schemas/equipmentTypeCodes"
     equipmentTypeCodes:
-      type: array
-      items:
-        properties:
-          code:
-            type: string
-            description: The associated code
-          name:
-            type: string
-            description: The code name
+      x-model-version: 1.0 
+      properties:
+        code:
+          type: string
+          description: The associated code
+        name:
+          type: string
+          description: The code name
       example: 
             - code: TERMINAL
               name: Terminal
@@ -2577,15 +2565,14 @@ components:
         frontEndPlatformCodes:
           $ref: '#/components/schemas/frontEndPlatformCodes'
     frontEndPlatformCodes:
-      type: array
-      items:
-        properties:
-          code:
-            type: string
-            description: The associated code
-          name:
-            type: string
-            description: The code name
+      x-model-version: 1.0 
+      properties:
+        code:
+          type: string
+          description: The associated code
+        name:
+          type: string
+          description: The code name
       example: 
             - code: AMEX
               name: American Express Pltfrm
@@ -2663,15 +2650,14 @@ components:
         interchangeTypeCodes:
           $ref: '#/components/schemas/interchangeTypeCodes'
     interchangeTypeCodes:
-      type: array
-      items:
-        properties:
-          code:
-            type: string
-            description: The associated code
-          name:
-            type: string
-            description: The code name
+      x-model-version: 1.0 
+      properties:
+        code:
+          type: string
+          description: The associated code
+        name:
+          type: string
+          description: The code name
       example:
             - code: GROSS
               name: Gross
@@ -2683,15 +2669,14 @@ components:
         orderStatusCodes:
           $ref: '#/components/schemas/orderStatusCodes'
     orderStatusCodes:
-      type: array
-      items:
-        properties:
-          code:
-            type: string
-            description: The associated code
-          name:
-            type: string
-            description: The code name
+      x-model-version: 1.0 
+      properties:
+        code:
+          type: string
+          description: The associated code
+        name:
+          type: string
+          description: The code name
       example:
             - code: NEW
               name: New
@@ -2711,15 +2696,14 @@ components:
         ownershipTypes:
           $ref: "#/components/schemas/ownershipTypes"
     ownershipTypes:
-      type: array
-      items:
-        properties:
-          code:
-            type: string
-            description: The associated code
-          name:
-            type: string
-            description: The code name
+      x-model-version: 1.0 
+      properties:
+        code:
+          type: string
+          description: The associated code
+        name:
+          type: string
+          description: The code name
       example:
           - code: GOVT
             name: Government
@@ -2743,15 +2727,14 @@ components:
         pciProgramCodes:
           $ref: "#/components/schemas/pciProgramCodes"
     pciProgramCodes:
-      type: array
-      items:
-        properties:
-          code:
-            type: string
-            description: The associated code
-          name:
-            type: string
-            description: The code name
+      x-model-version: 1.0 
+      properties:
+        code:
+          type: string
+          description: The associated code
+        name:
+          type: string
+          description: The code name
       example:
           - code: ANNUAL
             name: PCI Annual Program
@@ -2763,15 +2746,14 @@ components:
         refundPolicyCodes:
           $ref: "#/components/schemas/refundPolicyCodes"
     refundPolicyCodes:
-      type: array
-      items:
-        properties:
-          code:
-            type: string
-            description: The associated code
-          name:
-            type: string
-            description: The code name
+      x-model-version: 1.0 
+      properties:
+        code:
+          type: string
+          description: The associated code
+        name:
+          type: string
+          description: The code name
       example:
           - code: EXCHONLY
             name: Exchange Only
@@ -2787,15 +2769,14 @@ components:
         serviceProvidedCodes:
           $ref: "#/components/schemas/serviceProvidedCodes"
     serviceProvidedCodes:
-      type: array
-      items:
-        properties:
-          code:
-            type: string
-            description: The associated code
-          name:
-            type: string
-            description: The code name
+      x-model-version: 1.0 
+      properties:
+        code:
+          type: string
+          description: The associated code
+        name:
+          type: string
+          description: The code name
       example:
           - code: 30LESS
             name: 30 Days or Less
@@ -2809,15 +2790,14 @@ components:
         shippingCarrierCodes:
           $ref: "#/components/schemas/shippingCarrierCodes"
     shippingCarrierCodes:
-      type: array
-      items:
-        properties:
-          code:
-            type: string
-            description: The associated code
-          name:
-            type: string
-            description: The code name
+      x-model-version: 1.0 
+      properties:
+        code:
+          type: string
+          description: The associated code
+        name:
+          type: string
+          description: The code name
       example:
           - code: FEDEX
             name: FedEx
@@ -2829,15 +2809,14 @@ components:
         shippingMethodCodes:
           $ref: "#/components/schemas/shippingMethodCodes"
     shippingMethodCodes:
-      type: array
-      items:
-        properties:
-          code:
-            type: string
-            description: The associated code
-          name:
-            type: string
-            description: The code name
+      x-model-version: 1.0 
+      properties:
+        code:
+          type: string
+          description: The associated code
+        name:
+          type: string
+          description: The code name
       example:
           - code: EXPEDITED
             name: Expedited
@@ -2849,15 +2828,14 @@ components:
         stateCodes:
           $ref: "#/components/schemas/stateCodes"
     stateCodes:
-      type: array
-      items:
-        properties:
-          code:
-            type: string
-            description: The associated code
-          name:
-            type: string
-            description: The code name
+      x-model-version: 1.0 
+      properties:
+        code:
+          type: string
+          description: The associated code
+        name:
+          type: string
+          description: The code name
       example:
           - code: AL
             name: Alabama
@@ -2967,15 +2945,14 @@ components:
         transArmorTokenTypeCodes:
           $ref: '#/components/schemas/transArmorTokenTypeCodes'
     transArmorTokenTypeCodes:
-      type: array
-      items:
-        properties:
-          code:
-            type: string
-            description: The associated code
-          name:
-            type: string
-            description: The code name
+      x-model-version: 1.0 
+      properties:
+        code:
+          type: string
+          description: The associated code
+        name:
+          type: string
+          description: The code name
       example:
           - code: SINGLE
             name: Single Pay
@@ -2987,15 +2964,14 @@ components:
         whenCustomerChargedCodes:
           $ref: '#/components/schemas/whenCustomerChargedCodes'
     whenCustomerChargedCodes:
-      type: array
-      items:
-        properties:
-          code:
-            type: string
-            description: The associated code
-          name:
-            type: string
-            description: The code name
+      x-model-version: 1.0 
+      properties:
+        code:
+          type: string
+          description: The associated code
+        name:
+          type: string
+          description: The code name
       example:
           - code: INADVANCE
             name: In Advance
@@ -3234,9 +3210,8 @@ components:
       description: The account ID of the card within the CardPointe Gateway profile to charge for this order. Required only when billToCd is PARTNERCC.
       example: 1
     shippingDetails:
-      type: array
-      items:
-        properties:
+      x-model-version: 1.0
+      properties:
           shippingAddress:  
             $ref: '#/components/schemas/shippingAddress'
           shipToAttn:
@@ -3260,9 +3235,8 @@ components:
           poNumber:
             $ref: '#/components/schemas/poNumber'
     shippingAddress:
-      type: array
-      items:
-        properties:
+      x-model-version: 1.0
+      properties:
           address1:
             $ref: '#/components/schemas/address1'
           address2:
@@ -3372,9 +3346,8 @@ components:
       example: 
       description: For internal use only
     rows:
-      type: array
-      items:
-        properties:
+      x-model-version: 1.0
+      properties:
           equipmentId:
             $ref: '#/components/schemas/equipmentId'
           equipmentName:
@@ -3597,9 +3570,8 @@ components:
         ownerSiteUser:
           $ref: '#/components/schemas/ownerSiteUser'
     merchantStatus:
-      type: array
-      items:
-        properties:
+      x-model-version: 1.0
+      properties:
           approvedDatetime:
             $ref: '#/components/schemas/approvedDatetime'
           boardedDatetime:
@@ -3648,9 +3620,8 @@ components:
       type: string
       example: BOARDED
     signatureStatus:
-      type: array
-      items: 
-        properties:
+      x-model-version: 1.0
+      properties:
           signedSiteUserId:
             $ref: '#/components/schemas/signedSiteUserId'
           signedDateTime: 
@@ -3681,9 +3652,8 @@ components:
           * PENDING - The URL for the digital application exists and is pending completion by the merchant.
           * SIGNED - The digital application has been completed and signed.
     signer:
-      type: array
-      items: 
-        properties:
+      x-model-version: 1.0
+      properties:
           email:
             $ref: '#/components/schemas/emailSigner'
           firstName:
@@ -3703,9 +3673,8 @@ components:
       description: True when the owner selected the Personal Guarantee option.
       example: true
     GetResponsemerchant:
-      type: array
-      items:
-        properties:
+      x-model-version: 1.0
+      properties:
           merchantStatus:
             $ref: '#/components/schemas/merchantStatus'
           signatureStatus:
@@ -3773,9 +3742,8 @@ components:
       description: The merchant ID used to identify the account within CoPilot.
     errors:
       description: The errors array containing one or more errors if there was a problem creating the merchant.
-      type: array
-      items:
-        properties: 
+      x-model-version: 1.0
+      properties: 
           code:
             $ref: '#/components/schemas/code'
           message:
@@ -3812,9 +3780,8 @@ components:
         ownerSiteUser:
           $ref: '#/components/schemas/ownerSiteUser'
     ownerSiteUser:
-      type: array
-      items:
-        properties:
+      x-model-version: 1.0
+      properties:
           firstName:
             $ref: '#/components/schemas/firstName'
           lastName:
@@ -3862,7 +3829,7 @@ components:
       example: 999
     merchant:
       x-model-version: 1.0
-      description: A collection of Merchant information.
+      description: A collection of merchant information.
       properties:
         salesCodes:
           $ref: '#/components/schemas/salesCode'
@@ -3905,9 +3872,8 @@ components:
         customFields:
           $ref: '#/components/schemas/customFields'
     cloverSecurityAndTransarmor:
-      type: array
-      items:
-        properties:
+      x-model-version: 1.0
+      properties:
           transarmorDataProtectionFlg:
             $ref: '#/components/schemas/transarmorDataProtectionFlg'
           transarmorTokenTypeCd:
@@ -3985,9 +3951,8 @@ components:
         
         Required when pciComplianceServiceFeeFrequency = ANNUAL.
     fees:
-      type: array
-      items: 
-        properties:
+      x-model-version: 1.0
+      properties:
           achBatchFee:
             $ref: '#/components/schemas/achBatchFee'
           addressVerifFee:
@@ -4148,69 +4113,71 @@ components:
       description: Returned only for accounts created prior to the introduction of the <code>interchangeTypeCode</code> field in the 5/5/20 update. True when the account using the IC Plus Pricing model.
       example: true
     pricing:
-      type: array
-      items:
-        properties:
+      x-model-version: 1.0
+      properties:
           flatPricing:
             $ref: '#/components/schemas/flatPricing'
           icPlusPricing:
             $ref: '#/components/schemas/icPlusPricing'
     icPlusPricing:
-      type: array
-      items:
-        properties:
+      x-model-version: 1.0
+      properties:
           interchangeTypeCode:
             $ref: '#/components/schemas/interchangeTypeCode'
           amex:
-            type: array
-            items:
-              properties:
-                optBlueQualDiscountPct:
-                  $ref: '#/components/schemas/optBlueQualDiscountPct'
+            $ref: '#/components/schemas/amex'
           discover:
-            type: array
-            items:
-              properties:
-                qualCreditDiscountPct:
-                  type: number
-                  maxLength: 10
-                  description: The percentage used to calculate the Discover Qualified Credit Discount Fees. Required when Discover entitlement is enabled.
-                  example: 1.00
+            $ref: '#/components/schemas/discover'
           mastercard:
-            type: array
-            items:
-              properties:
-                qualCreditDiscountPct:
-                  type: number
-                  maxLength: 10
-                  description:   The percentage used to calculate the Mastercard Qualified Credit Discount Fees.
+            $ref: '#/components/schemas/mastercard'
           visa:
-            type: array
-            items:
-              properties:
-                qualCreditDiscountPct:
-                  type: number
-                  maxLength: 10
-                  description:   The percentage used to calculate the Visa Qualified Credit Discount Fees.
-                  example: 1.00
+            $ref: '#/components/schemas/visa'
+    amex:
+      x-model-version: 1.0
+      properties:
+        optBlueQualDiscountPct:
+            $ref: '#/components/schemas/optBlueQualDiscountPct'
+    discover:
+      x-model-version: 1.0
+      properties:
+        qualCreditDiscountPct:
+          type: number
+          maxLength: 10
+          description: The percentage used to calculate the Discover Qualified Credit Discount Fees. Required when Discover entitlement is enabled.
+          example: 1.00
+    mastercard:
+      x-model-version: 1.0
+      properties:
+        qualCreditDiscountPct:
+          type: number
+          maxLength: 10
+          description:   The percentage used to calculate the Mastercard Qualified Credit Discount Fees.
+    visa:
+      x-model-version: 1.0
+      properties:
+        qualCreditDiscountPct:
+          type: number
+          maxLength: 10
+          description:   The percentage used to calculate the Visa Qualified Credit Discount Fees.
+          example: 1.00
     interchangeTypeCode:
       description: The interchange type code that represents the Passthrough Interchange Costs calculation used.
       example: GROSS
       type: string
       maxLength: 5
+    flatpriceamex:
+      x-model-version: 1.0
+      properties:
+          esaQualDiscountPct:
+            $ref: '#/components/schemas/esaQualDiscountPct'
+          optBlueQualDiscountPct:
+            $ref: '#/components/schemas/optBlueQualDiscountPct'
     flatPricing:
-      type: array
-      items:
-        properties:
-          amex:
-            type: array
-            items:
-              properties:
-                esaQualDiscountPct:
-                  $ref: '#/components/schemas/esaQualDiscountPct'
-                optBlueQualDiscountPct:
-                  $ref: '#/components/schemas/optBlueQualDiscountPct'
-          discover:
+      x-model-version: 1.0
+      properties:
+        amex:
+          $ref: '#/components/schemas/flatpriceamex'
+        discover:
             type: array
             items:
               properties:
@@ -4219,7 +4186,7 @@ components:
                   maxLength: 10
                   description: The percentage used to calculate the Discover Qualified Credit Discount Fees. Required when Discover entitlement is enabled.
                   example: 1.00
-          mastercard:
+        mastercard:
             type: array
             items:
               properties:
@@ -4227,7 +4194,7 @@ components:
                   type: number
                   maxLength: 10
                   description:   The percentage used to calculate the Mastercard Qualified Credit Discount Fees.
-          visa:
+        visa:
             type: array
             items:
               properties:
@@ -4700,47 +4667,45 @@ components:
       type: string
       example: 123-456-7890
     bankDetail:
-      type: array
-      items:
-        properties:
-          depositBank:
-            $ref: '#/components/schemas/depositBank'
-          withdrawalBank:
-            type: array
-            items:
-              properties:
-                bankAcctNum:
-                  description: The bank account number.
-                  type: string
-                  maxLength: 25
-                  example: 987654321
-                bankRoutingNum:
-                  description: The bank account's routing number.
-                  type: string
-                  maxLength: 25
-                  example: 213456789
-                bankAcctTypeCd:
-                  description: The bank account type code that represents the type of bank account.
-                  type: string
-                  maxLength: 10
-                  example: BIZ
-                bankName:
-                  maxLength: 200
-                  type: string
-                  example: Bank of Withdrawals
-                  description: The name of the bank that holds the account.
+      x-model-version: 1.0
+      properties:
+        depositBank:
+          $ref: '#/components/schemas/depositBank'
+        withdrawalBank:
+          type: array
+          items:
+            properties:
+              bankAcctNum:
+                description: The bank account number.
+                type: string
+                maxLength: 25
+                example: 987654321
+              bankRoutingNum:
+                description: The bank account's routing number.
+                type: string
+                maxLength: 25
+                example: 213456789
+              bankAcctTypeCd:
+                description: The bank account type code that represents the type of bank account.
+                type: string
+                maxLength: 10
+                example: BIZ
+              bankName:
+                maxLength: 200
+                type: string
+                example: Bank of Withdrawals
+                description: The name of the bank that holds the account.
     depositBank:
-      type: array
-      items:
-        properties:
-          bankAcctNum:
-            $ref: '#/components/schemas/bankAcctNum'
-          bankRoutingNum:
-            $ref: '#/components/schemas/bankRoutingNum'
-          bankAcctTypeCd:
-            $ref: '#/components/schemas/bankAcctTypeCd'
-          bankName:
-            $ref: '#/components/schemas/bankName'
+      x-model-version: 1.0
+      properties:
+        bankAcctNum:
+          $ref: '#/components/schemas/bankAcctNum'
+        bankRoutingNum:
+          $ref: '#/components/schemas/bankRoutingNum'
+        bankAcctTypeCd:
+          $ref: '#/components/schemas/bankAcctTypeCd'
+        bankName:
+          $ref: '#/components/schemas/bankName'
     bankAcctNum:
       description: The bank account number.
       type: string
@@ -4762,23 +4727,22 @@ components:
       example: Bank of Deposits
       description: The name of the bank that holds the account.
     ownership:
-      type: array 
-      items:
-        properties:
-          owner:
-            $ref: '#/components/schemas/owner'
-          additionalOwners:
-            $ref: '#/components/schemas/additionalOwners'
-          ownershipTypeCd:
-            $ref: '#/components/schemas/ownershipTypeCd'
-          publiclyTradedFlag:
-            $ref: '#/components/schemas/publiclyTradedFlag'
-          stockSymbol:
-            $ref: '#/components/schemas/stockSymbol'
-          driversLicenseNumber:
-            $ref: '#/components/schemas/driversLicenseNumber'
-          ownerOwnershipPct:
-            $ref: '#/components/schemas/ownerOwnershipPct'
+      x-model-version: 1.0
+      properties:
+        owner:
+          $ref: '#/components/schemas/owner'
+        additionalOwners:
+          $ref: '#/components/schemas/additionalOwners'
+        ownershipTypeCd:
+          $ref: '#/components/schemas/ownershipTypeCd'
+        publiclyTradedFlag:
+          $ref: '#/components/schemas/publiclyTradedFlag'
+        stockSymbol:
+          $ref: '#/components/schemas/stockSymbol'
+        driversLicenseNumber:
+          $ref: '#/components/schemas/driversLicenseNumber'
+        ownerOwnershipPct:
+          $ref: '#/components/schemas/ownerOwnershipPct'
     ownershipTypeCd:
       description: The ownership type code that represents the business entity.
       type: string
@@ -4809,22 +4773,21 @@ components:
       maxLength: 3
       example: 100
     additionalOwners:
+      x-model-version: 1.0
       description:   An array of additional owner objects containing one object for each additional owner.
-      type: array
-      items:
-        properties:
-          ownerFirstName:
-            $ref: '#/components/schemas/ownerFirstName'
-          ownerLastName:
-            $ref: '#/components/schemas/ownerLastName'
-          ownerPhone:
-            $ref: '#/components/schemas/ownerPhone'
-          ownerAddress:
-            $ref: '#/components/schemas/ownerAddress'
-          ownerSSN:
-            $ref: '#/components/schemas/ownerSSN'
-          ownershipPct:
-            $ref: '#/components/schemas/ownershipPct'
+      properties:
+        ownerFirstName:
+          $ref: '#/components/schemas/ownerFirstName'
+        ownerLastName:
+          $ref: '#/components/schemas/ownerLastName'
+        ownerPhone:
+          $ref: '#/components/schemas/ownerPhone'
+        ownerAddress:
+          $ref: '#/components/schemas/ownerAddress'
+        ownerSSN:
+          $ref: '#/components/schemas/ownerSSN'
+        ownershipPct:
+          $ref: '#/components/schemas/ownershipPct'
     ownerFirstName:
       description: The owner's first name.
       type: string
@@ -4841,25 +4804,24 @@ components:
       maxLength: 3
       example: 25
     owner:
-      type: array
-      items:
-        properties:
-          ownerAddress:
-            $ref: '#/components/schemas/ownerAddress'
-          ownerEmail:
-            $ref: '#/components/schemas/ownerEmail'
-          ownerName:
-            $ref: '#/components/schemas/ownerName'
-          ownerDob:
-            $ref: '#/components/schemas/ownerDob'
-          ownerPhone:
-            $ref: '#/components/schemas/ownerPhone'
-          ownerMobilePhone:
-            $ref: '#/components/schemas/ownerMobilePhone'
-          ownerSSN:
-            $ref: '#/components/schemas/ownerSSN'
-          ownerTitle:
-            $ref: '#/components/schemas/ownerTitle'
+      x-model-version: 1.0
+      properties:
+        ownerAddress:
+          $ref: '#/components/schemas/ownerAddress'
+        ownerEmail:
+          $ref: '#/components/schemas/ownerEmail'
+        ownerName:
+          $ref: '#/components/schemas/ownerName'
+        ownerDob:
+          $ref: '#/components/schemas/ownerDob'
+        ownerPhone:
+          $ref: '#/components/schemas/ownerPhone'
+        ownerMobilePhone:
+          $ref: '#/components/schemas/ownerMobilePhone'
+        ownerSSN:
+          $ref: '#/components/schemas/ownerSSN'
+        ownerTitle:
+          $ref: '#/components/schemas/ownerTitle'
     ownerAddress:
       $ref: '#/components/schemas/address'
     ownerEmail:
@@ -4949,16 +4911,15 @@ components:
       description: True when this merchant account is created as the result of an unsolicited merchant inquiry using a hosted web form or a similar lead generation strategy.
       example: true
     hierarchy:
-      type: array
+      x-model-version: 1.0
       description: The hierarchy object, containing custom hierarchy information for this merchant.
-      items:
-        properties:
-          corpLevel:
-            $ref: '#/components/schemas/corpLevel'
-          chainLevel:
-            $ref: '#/components/schemas/chainLevel'
-          sponsorBankCd:
-            $ref: '#/components/schemas/sponsorBankCd'
+      properties:
+        corpLevel:
+          $ref: '#/components/schemas/corpLevel'
+        chainLevel:
+          $ref: '#/components/schemas/chainLevel'
+        sponsorBankCd:
+          $ref: '#/components/schemas/sponsorBankCd'
     corpLevel:
       maxLength: 12
       type: string
@@ -4975,24 +4936,23 @@ components:
       description: The Sponsor Bank code for merchant accounts using the FD North backend. Enter WELLS for Wells Fargo or BBVA for BBVA.
       example: WELLS
     demographic: 
-      type: array
+      x-model-version: 1.0
       description: The demographic object, containing business information.
-      items:
-        properties:
-          businessIncorporatedStateCd:
-            $ref: '#/components/schemas/businessIncorporatedStateCd'
-          merchantTimeZone:
-            $ref: '#/components/schemas/merchantTimeZone'
-          websiteAddress:
-            $ref: '#/components/schemas/websiteAddress'
-          businessPhone:
-            $ref: '#/components/schemas/businessPhone'
-          businessFax:
-            $ref: '#/components/schemas/businessFax'
-          businessAddress:
-            $ref: '#/components/schemas/businessAddress'
-          mailingAddress:
-            $ref: '#/components/schemas/mailingAddress'
+      properties:
+        businessIncorporatedStateCd:
+          $ref: '#/components/schemas/businessIncorporatedStateCd'
+        merchantTimeZone:
+          $ref: '#/components/schemas/merchantTimeZone'
+        websiteAddress:
+          $ref: '#/components/schemas/websiteAddress'
+        businessPhone:
+          $ref: '#/components/schemas/businessPhone'
+        businessFax:
+          $ref: '#/components/schemas/businessFax'
+        businessAddress:
+          $ref: '#/components/schemas/businessAddress'
+        mailingAddress:
+          $ref: '#/components/schemas/mailingAddress'
     businessIncorporatedStateCd:
       maxLength: 2
       type: string
@@ -5025,21 +4985,20 @@ components:
       description: The address object containing the business mailing address
       $ref: '#/components/schemas/address'
     address:
-      type: array
-      items:
-        properties:
-          address1:
-            $ref: '#/components/schemas/address1'
-          address2:
-            $ref: '#/components/schemas/address2'
-          city: 
-            $ref: '#/components/schemas/city'
-          stateCd:
-            $ref: '#/components/schemas/stateCd'
-          zip:
-            $ref: '#/components/schemas/zip'
-          countryCd:
-            $ref: '#/components/schemas/countryCd'
+      x-model-version: 1.0
+      properties:
+        address1:
+          $ref: '#/components/schemas/address1'
+        address2:
+          $ref: '#/components/schemas/address2'
+        city: 
+          $ref: '#/components/schemas/city'
+        stateCd:
+          $ref: '#/components/schemas/stateCd'
+        zip:
+          $ref: '#/components/schemas/zip'
+        countryCd:
+          $ref: '#/components/schemas/countryCd'
     address1:
       type: string
       maxLength: 200
