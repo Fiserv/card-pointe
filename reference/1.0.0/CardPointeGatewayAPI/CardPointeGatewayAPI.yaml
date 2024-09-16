@@ -391,7 +391,7 @@ paths:
           content:  
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
-  /cardconnect/rest/inquireByOrderdid:
+  /cardconnect/rest/inquireByOrderid:
     get:
       tags:
         - inquireByOrderid Endpoint Definition
@@ -450,12 +450,12 @@ paths:
           content:  
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
-  /cardconnect/rest/voidByOrderdid:
+  /cardconnect/rest/voidByOrderId:
     get:
       tags:
-        - voidByOrderid Endpoint Definition
+        - voidByOrderId Endpoint Definition
       x-group-name: CardPointe Gateway API
-      x-proxy-name: voidByOrderid
+      x-proxy-name: voidByOrderId
       x-default-example: PaymentCard
       summary: The voidByOrderId endpoint is used to look up and void a transaction record using the order ID supplied in the original authorization request. If the order ID supplied in a voidByOrderId request matches a transaction record for the specified merchant, the authorization is voided and a response is returned.
       description: | 
