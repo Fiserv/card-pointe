@@ -597,8 +597,10 @@ paths:
         name: merchid
         required: true
         schema:
-          $ref: '#/components/schemas/merchid'
-          description: The MID from the original authorization.
+          maxLength: 16
+          type: string
+          example: 123456789012
+          description: The specific Merchant ID for the funding data you want returned.
       - in: query
         name: date
         required: false
