@@ -63,18 +63,8 @@ featuredFeatures:
       - relatedAPI: 
         title: profile
         description: Create or update a stored customer profile.
-        type: "put"        
+        type: "post"        
         path: "api/?type=post&path=/cardconnect/rest/profile/"
-      - relatedAPI: 
-        title: profile
-        description: Retrieve a stored customer profile.
-        type: "get"        
-        path: "api/?type=get&path=/cardconnect/rest/profile/{profileid}/{merchid}"
-      - relatedAPI: 
-        title: profile
-        description: Delete a stored customer profile.
-        type: "delete"        
-        path: "/api/?type=delete&path=/cardconnect/rest/profile/{profileid}/{merchid}"
   - title: Semi-Integrated Terminals
     groupName: Card-Present
     description: Use the CardPointe Integrated Terminal API to integrate P2PE-validated, card-present payments to your point-of-sale (POS) application.
@@ -91,8 +81,3 @@ featuredFeatures:
         description: Tokenize and authorize a payment card in a single operation.
         type: "post"        
         path: "/api/v3/authCard"
-      - relatedAPI: 
-        title: readCard
-        description: Tokenize a payment card to use for a future payment or store in a customer profile.
-        type: "post"        
-        path: "/api/v2/readCard"
