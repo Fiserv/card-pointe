@@ -974,7 +974,7 @@ components:
       schema: {type: integer, format: int64}
       in: header
       required: true
-      description: The Terminal API Authorization Key
+      description: The Basic Authorization Key
     TimestampHeader:
       x-model-version: 1.0
       name: Timestamp
