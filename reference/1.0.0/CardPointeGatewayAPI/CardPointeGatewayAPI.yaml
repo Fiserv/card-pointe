@@ -1119,9 +1119,8 @@ components:
         fee_amount: 3.00,
         messages: []
     messages:
-      type: array
-      items:
-        properties:
+      x-model-version: 1.0 
+      properties:
           message:
             $ref: '#/components/schemas/message'
     message:
@@ -1823,9 +1822,8 @@ components:
         * Purchase
       example: ""
     binInfo:
-      type: array
-      items:
-        properties:
+      x-mdoel-version: 1.0
+      properties:
           country:
             type: string
             description: Issuer country of origin
@@ -2085,7 +2083,7 @@ components:
       example: 20240104
       description: Date of the authorization in YYYYMMDD.
     emvTagData:
-      type: array
+      x-model-version: 1.0
       description: The emvTagData field contains an array of objects indicating the returned results of EMV Tag information from their sources.
       items:
         properties:
@@ -2568,6 +2566,7 @@ components:
       type: string
       example: Settled
     userfieldn:
+      x-model-version: 1.0
       description: |
         A value passed by the merchant with the original authorization to further identify the transaction (see <code>userfields</code> within the Authorization Service).
   
@@ -2575,9 +2574,7 @@ components:
         
         
         Currently, the userfieldn is not supported in UAT for testing.
-      type: array 
-      items: 
-        properties:
+      properties:
           name:
             type: string
             description: The name of the created field.
@@ -2961,10 +2958,8 @@ components:
       type: string
       example: 19000941820
     txns:
-      type: array
-      description: Array of transactions
-      items:
-        properties:
+      x-model-version: 1.0
+      properties:
           authcode:
             $ref: '#/components/schemas/authcode'
           cardtype:
@@ -3169,10 +3164,9 @@ components:
           Defualts to **N** if not provided.
       example: N
     receiptdata:
-          type: array
+          x-model-version: 1.0
           description: The receipt and receiptObj data fields provide additional merchant and authorization details for use in printing receipts. The receipt data includes merchant account information, populated using the merchant properties configured for the MID, as well as additional transaction details from the authorization response. You can optionally include a custom order note (orderNote) and item details (items), by including a userFields object in the authorization request. 
-          items:
-            properties:
+          properties:
               address1:
                 type: string 
                 description: First line of the merchant's address.
@@ -3214,10 +3208,9 @@ components:
                 description: The merchant's phone number.
                 example: 123-456-7890
     receiptObj:
-      type: array 
+      x-model-version: 1.0 
       description: The receipt and receiptObj data fields provide additional merchant and authorization details for use in printing receipts. The receipt data includes merchant account information, populated using the merchant properties configured for the MID, as well as additional transaction details from the authorization response. You can optionally include a custom order note (orderNote) and item details (items), by including a userFields object in the authorization request. 
-      items:
-        properties:
+      properties:
           address1:
             type: string 
             description: First line of the merchant's address.
@@ -3239,9 +3232,8 @@ components:
             description: The merchant's Doing Business As (DBA) name. 
             example: Dyl's Deals
           emv:
-            type: array
-            items:
-              properties:
+            x-model-version: 1.0 
+            properties:
                 TVR:
                   description: |
                     Terminal Verification Results displays the status of the different functions as seen from the terminal.
@@ -3370,7 +3362,7 @@ components:
 
         Optional if postal is specified.
     userfields: 
-      type: array 
+      x-model-version: 1.0
       description: |+
         You can include additional data in the authorization request for future retrieval by using optional userfields. The value of the userfields object is a series of name-value pairs that are meaningful to the merchant. 
 
@@ -3381,8 +3373,7 @@ components:
         If you use the CardPointe web application for transaction reporting, you must ensure that you pass your custom fields in an array, in the order that they are configured in the CardPointe application to ensure that the fields are populated correctly in the Transactions table. If there is no value for a field, you must include the field with an empty value (for example, "udf1":"") to preserve the expected order of the fields. If you pass the fields in an object, the order will not be preserved.
         
         While the example is a JSON array, a JSON object version of userfields is also available.
-      items: 
-        properties:
+      properties:
           name:
             type: string
             description: The name of the created field.
