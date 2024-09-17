@@ -110,6 +110,8 @@ paths:
           $ref: '#/components/schemas/token'
       - in: header
         $ref: '#/components/parameters/ContentTypeHeader'
+      - in: header
+        $ref: '#/components/parameters/Authorization'
       responses:
         200: 
           description: Success
@@ -150,6 +152,9 @@ paths:
         * A - Approved
         * B - Retry
         * C - Declined
+      parameters:
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/Authorization'}
       requestBody:
         content:
           application/json:
