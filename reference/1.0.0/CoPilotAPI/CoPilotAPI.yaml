@@ -117,7 +117,12 @@ paths:
             schema:
               $ref: '#/components/schemas/merchantCreateRequest'
       parameters:
-        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - in: header
+          $ref: '#/components/parameters/ContentTypeHeader'
+        - in: header
+          $ref: '#/components/parameters/X-CopilotAPI-Version'
+        - in: header
+          $ref: '#/components/parameters/Authorization'
       responses:
         200: 
           description: Success
@@ -165,6 +170,10 @@ paths:
             $ref: '#/components/schemas/merchantId'
         - in: header
           $ref: '#/components/parameters/ContentTypeHeader'
+        - in: header
+          $ref: '#/components/parameters/X-CopilotAPI-Version'
+        - in: header
+          $ref: '#/components/parameters/Authorization'
       responses:
         200: 
           description: Success
@@ -210,6 +219,10 @@ paths:
             $ref: '#/components/schemas/merchantId'
         - in: header
           $ref: '#/components/parameters/ContentTypeHeader'
+        - in: header
+          $ref: '#/components/parameters/X-CopilotAPI-Version'
+        - in: header
+          $ref: '#/components/parameters/Authorization'
       responses:
         200: 
           description: Success
@@ -246,6 +259,10 @@ paths:
             $ref: '#/components/schemas/merchantId'
         - in: header
           $ref: '#/components/parameters/ContentTypeHeader'
+        - in: header
+          $ref: '#/components/parameters/X-CopilotAPI-Version'
+        - in: header
+          $ref: '#/components/parameters/Authorization'
       responses:
         200: 
           description: Success
