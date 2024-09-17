@@ -3160,9 +3160,8 @@ components:
         order:
           $ref: '#/components/schemas/order'
     order:
-      type: array
-      items:
-        properties:
+      x-model-version: 1.0
+      properties:
           merchantId:
             $ref: '#/components/schemas/merchantId'
           equipmentId:
@@ -4178,26 +4177,23 @@ components:
         amex:
           $ref: '#/components/schemas/flatpriceamex'
         discover:
-            type: array
-            items:
-              properties:
+            x-model-version: 1.0
+            properties:
                 qualCreditDiscountPct:
                   type: number
                   maxLength: 10
                   description: The percentage used to calculate the Discover Qualified Credit Discount Fees. Required when Discover entitlement is enabled.
                   example: 1.00
         mastercard:
-            type: array
-            items:
-              properties:
+            x-model-version: 1.0
+            properties:
                 qualCreditDiscountPct:
                   type: number
                   maxLength: 10
                   description:   The percentage used to calculate the Mastercard Qualified Credit Discount Fees.
         visa:
-            type: array
-            items:
-              properties:
+            x-model-version: 1.0
+            properties:
                 qualCreditDiscountPct:
                   type: number
                   maxLength: 10
@@ -4214,9 +4210,8 @@ components:
       description: The percentage used to calculate the Amex OptBlue Qualified Credit Discount Fees. Required when amexProgramAssetCd = OPTBLUE.
       example: 11.00
     customFields:
-      type: array
-      items: 
-        properties:
+      x-model-version: 1.0
+      properties:
           userFieldNumber:
             $ref: '#/components/schemas/userFieldNumber'
           customFieldValue:
@@ -4239,9 +4234,8 @@ components:
       type: string
       description:   Required when the userFieldNumber is marked as required in the CoPilot web interface.
     processing:
-      type: array
-      items:
-        properties:
+      x-model-version: 1.0
+      properties:
           platformDetails:
             $ref: '#/components/schemas/platformDetails'
           businessDetails:
@@ -4257,9 +4251,8 @@ components:
           blueChexSecOptions:
             $ref: '#/components/schemas/blueChexSecOptions'
     blueChexSecOptions: 
-      type: array
-      items:
-        properties:
+      x-model-version: 1.0
+      properties:
           telSecOptionFlg:
             $ref: '#/components/schemas/telSecOptionFlg'
           ccdSecOptionFlg:
@@ -4297,9 +4290,8 @@ components:
 
         Note: At least one SEC Option required for applications that include the ACH from Fiserv add-on for manual signature.
     blueChexVolume:
-      type: array
-      items:
-        properties:
+      x-model-version: 1.0
+      properties:
           averagePerTransactionSalesAmount:
             $ref: '#/components/schemas/averagePerTransactionSalesAmount'
           maxPerTransactionSalesAmount:
@@ -4357,9 +4349,8 @@ components:
       description: The maximum monthly credit (refund) amount for all ACH transactions.
       example: 1000.00
     modeOfTransaction:
-      type: array
-      items:
-        properties:
+      x-model-version: 1.0
+      properties:
           eCommercePct:
             $ref: '#/components/schemas/eCommercePct'
           keyedPct:
@@ -4389,9 +4380,8 @@ components:
       example: 50
       description: The percentage of card-present transactions accepted via hardware terminals, represented as a whole number.
     deliveryPercentages:
-      type: array
-      items:
-        properties:
+      x-model-version: 1.0
+      properties:
           dlvrySameDayPct:
             $ref: '#/components/schemas/dlvrySameDayPct'
           dlvry0To7DaysPct:
@@ -4428,9 +4418,8 @@ components:
       description: The percentage of products or services delivered more than 30 days after purchase, represented as a whole number.
       example: 1
     volumeDetails:
-      type: array
-      items:
-        properties:
+      x-model-version: 1.0
+      properties:
           averageMonthlyVolume:
             $ref: '#/components/schemas/averageMonthlyVolume'
           highTicketAmount:
@@ -4453,9 +4442,8 @@ components:
       example: 9.99
       description: The average transaction total per sale for this merchant.
     businessDetails:
-      type: array
-      items:
-        properties:
+      x-model-version: 1.0
+      properties:
           customerBillPriorToShipFlg:
             $ref: '#/components/schemas/customerBillPriorToShipFlg'
           depositreqForFulfillFlg:
@@ -4490,9 +4478,8 @@ components:
       description: The service provided in code that represents the typical timeframe between purchase and delivery.
       example: 30LESS
     platformDetails:
-      type: array
-      items:
-        properties:
+      x-model-version: 1.0
+      properties:
           backEndMid:
             $ref: '#/components/schemas/backEndMid'
           frontEndMid:
@@ -4642,9 +4629,8 @@ components:
       description: True for accounts that accept Quasi Cash transactions.
       example: false
     merchantContactInfo:
-      type: array
-      items:
-        properties:
+      x-model-version: 1.0
+      properties:
           contactName:
             $ref: '#/components/schemas/contactName'
           contactEmail:
@@ -4672,9 +4658,8 @@ components:
         depositBank:
           $ref: '#/components/schemas/depositBank'
         withdrawalBank:
-          type: array
-          items:
-            properties:
+          x-model-version: 1.0
+          properties:
               bankAcctNum:
                 description: The bank account number.
                 type: string
