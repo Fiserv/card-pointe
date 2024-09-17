@@ -599,22 +599,9 @@ paths:
         <code>{"errormsg":"No deposits match your request"}</code>.
       parameters:
       - in: query
-        name: merchid
-        required: true
-        schema:
-          maxLength: 16
-          type: string
-          example: 123456789012
-          description: The specific Merchant ID for the funding data you want returned.
+        $ref: '#/components/parameters/date'
       - in: query
-        name: date
-        required: false
-        schema:
-          description: |
-            Queries by date given in MMDD or YYYYMMDD. date is optional, and can be specified in the format MMDD to specify a day within the current calendar year, or YYYYMMDD to specify a date in a previous calendar year. If no date is specified, the service checks for any funding data that has not already been retrieved.
-          example: "20180518"
-          type: integer
-          maxLength: 8
+        $ref: '#/components/parameters/merchantIDHeader'
       - in: header
         $ref: '#/components/parameters/ContentTypeHeader'
       - in: header
@@ -969,12 +956,26 @@ paths:
 components:
   parameters:
     Authorization:
-      x-model-version: 1.0 
       name: Authorization
       schema: {type: integer, format: int64}
       in: header
       required: true
-      description: The Basic Authorization Key
+      description: Basic
+    date:
+      in: query
+      name: date
+      required: false
+      schema: {type: integer,
+          maxLength: 8}
+      description: |
+            Queries by date given in MMDD or YYYYMMDD. date is optional, and can be specified in the format MMDD to specify a day within the current calendar year, or YYYYMMDD to specify a date in a previous calendar year. If no date is specified, the service checks for any funding data that has not already been retrieved.
+      example: "20180518"
+    merchantIDHeader:
+      name: merchid
+      schema: {type: string, maxLength: 16}
+      in: header
+      required: true
+      description: The specific Merchant ID for the funding data you want returned.
     TimestampHeader:
       x-model-version: 1.0
       name: Timestamp
@@ -1017,7 +1018,6 @@ components:
       required: true
       description: API key provided to the merchant associating the requests with the appropriate app in the Developer Portal.
     ContentTypeHeader:
-      x-model-version: 1.0
       name: Content-Type
       schema:
         type: string
@@ -1025,7 +1025,7 @@ components:
         default: application/json
       in: header
       required: true
-      description: The content type. Valid value (application/json).
+      description: application/json
     AccountParam:
       x-model-version: 1.0
       name: account
