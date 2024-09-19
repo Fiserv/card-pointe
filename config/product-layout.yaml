@@ -57,13 +57,13 @@ featuredFeatures:
     relatedDocs:
       - relatedDoc: 
         title: CardPointe Gateway Developer Guide
-        description: The CardSPointe Gateway Developer Guide provides helpful information for integrating the CardPointe Gateway API.
+        description: The CardPointe Gateway Developer Guide provides helpful information for integrating the CardPointe Gateway API.
         link: /docs/documentation/CardPointeGatewayDeveloperGuides.md
     relatedAPIs:
       - relatedAPI: 
         title: profile
         description: Create or update a stored customer profile.
-        path: /api/?type=post&path=/cardconnect/rest/profile/&branch=main&version=1.0.0
+        path: /product/CardPointe/api/?type=post&path=/cardconnect/rest/profile&version=1.0.0
   - title: Semi-Integrated Terminals
     groupName: Card-Present
     description: Use the CardPointe Integrated Terminal API to integrate P2PE-validated, card-present payments to your point-of-sale (POS) application.
