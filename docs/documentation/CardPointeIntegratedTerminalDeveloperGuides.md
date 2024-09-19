@@ -833,12 +833,3 @@ The following example illustrates a receipt template (left) and a receipt popula
 
 <!-- align: center -->
 ![Clover Mini Receipt Sample](../../assets/images/Clover_Mini_Receipt_Sample.png)
-
-# Accepting a Credit Card Surcharge
-
-Surcharging allows merchants to add a "% checkout fee" to a credit card transaction, paid by the cardholder, to help cover the merchant’s credit card processing fees.
-
-The [Merchant Surcharge Program](https://support.cardpointe.com/compliance/surcharging) allows eligible merchants to add a surcharge on applicable credit card transactions. This guide provides an overview of the integration requirements for surcharging card-present credit card transactions using a CardPointe Integrated Terminal.
-
-<!-- theme: warning -->
-> See the Merchant Surcharge Program overview for information on enrolling in the Merchant Surcharge Program
