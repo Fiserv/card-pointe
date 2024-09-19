@@ -296,6 +296,7 @@ The following topics provide information for testing specific features to obtain
 
 > This feature is available for the following emulators:
 >
+> - First Data Nashville (NASH) - Auth and Refund
 > - First Data North (FNOR) - Auth and Refund
 > - First Data Rapid Connect (RPCT) - Auth and Refund
 > - Chase Paymentech (PMT) - Auth and Refund
@@ -701,7 +702,7 @@ This configuration allows you to dedicate separate merchant accounts to processi
 
 This guide provides information for extending your existing [CardPointe Gateway API](?path=docs/APIs/CardPointeGatewayAPI.md) integration to add recurring billing to your payment methods.
 
-To do this, you can use an application scheduler, like Cron, to create a schedule to run recurring transactions. The scheduled job can initiate an authorization request to the CardPointe Gateway using tokenized payment data or a stored [profile](../api/?type=post&path=/cardconnect/rest/profile/&branch=main&version=1.0.0).
+To do this, you can use an application scheduler, like Cron, to create a schedule to run recurring transactions. The scheduled job can initiate an authorization request to the CardPointe Gateway using tokenized payment data or a stored [profile](https://developer.fiserv.com/product/CardPointe/api/?type=post&path=/cardconnect/rest/profile/&branch=main&version=1.0.0).
 
 This method gives you complete control over your recurring payment schedule with a simple API integration.
 
@@ -734,7 +735,7 @@ For example, you can:
 
 **2.** Store the token for reuse.
 
-- You can either store tokens and customer data in your own database, or you can use the CardPointe Gateway API’s [profile service endpoint](../api/?type=post&path=/cardconnect/rest/profile/&branch=main&version=1.0.0) to create and store customer profiles in the CardPointe Gateway's secure vault. You can skip this step if you created a profile in step 1.
+- You can either store tokens and customer data in your own database, or you can use the CardPointe Gateway API’s [profile service endpoint](https://developer.fiserv.com/product/CardPointe/api/?type=post&path=/cardconnect/rest/profile/&branch=main&version=1.0.0) to create and store customer profiles in the CardPointe Gateway's secure vault. You can skip this step if you created a profile in step 1.
    
 **3.** Gather your billing requirements.
 
