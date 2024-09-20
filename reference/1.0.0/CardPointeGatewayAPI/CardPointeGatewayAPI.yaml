@@ -2968,7 +2968,6 @@ components:
     merchid:
       maxLength: 16
       type: string
-      required: true
       description: CardPointe merchant ID, required for all requests.
       example: 123456789012
     name:
