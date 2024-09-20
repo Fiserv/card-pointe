@@ -31,13 +31,13 @@
 openapi: 3.0.2
 info:
   title: CardPointe Gateway API Service Endpoints
-  description: This API documentation provides technical guidance when utilizing CardPointe Gateway.
+  description: This API documentation provides technical guidance for integrating the CardPointe Gateway API with your application.
   version: 1.0.0
 servers:
- - {url: 'DNE', description: Production}
- - {url: 'DNE', description: Sandbox}
+ - url: https://<site>-uat.cardconnect.com/, 
+   description: UAT Environment
 paths:
-  /cardconnect/rest/inquireMerchant:
+  /cardconnect/rest/inquireMerchant/{merchid}:
     get:
       tags:
         - inquireMerchant Endpoint Definition
@@ -48,14 +48,14 @@ paths:
       description: |+
         A GET request to the inquireMerchant endpoint returns information on the merchant account configuration. This can be helpful for partners who need to validate their CardPointe merchant IDs or for businesses with merchants operating in multiple locations, to ensure that the merchant ID is boarded to the correct site.
       parameters:
-      - in: query
+      - {$ref: '#/components/parameters/ContentTypeHeader'}
+      - in: path
         name: merchid
-        required: true
         schema:
-          $ref: '#/components/schemas/merchid'
-          description: The MID to validate against the site specified in the request URL.
-      - in: header
-        $ref: '#/components/parameters/ContentTypeHeader'
+          type: integer
+          maximum: 16
+        required: true
+        description: The merchant ID to inquire on.
       responses:
         200: 
           description: Success
@@ -85,33 +85,38 @@ paths:
         
         This request does not effect whether a surcharge is applied to a transaction; the CardPointe Gateway automatically applies a surcharge depending on the merchant configuration and the eligibility of the payment account. This request is used only for informational purposes.
       parameters:
-      - in: query
-        name: merchid
-        required: true
-        schema:
-          $ref: '#/components/schemas/merchid'
-          description: The MID to validate against the site specified in the request URL.
-      - in: query
-        name: postal
-        required: false
-        schema:
-          $ref: '#/components/schemas/postal'
-          description: The cardholder's postal code used to verify that the cardholder's state supports surcharging. Optional if token is specified.
-      - in: query
-        name: amount
-        required: false
-        schema:
-          $ref: '#/components/schemas/amount'
-          description: The subtotal amount used to calculate the surcharge fee amount.
-      - in: query
-        name: token
-        required: false
-        schema:
-          $ref: '#/components/schemas/token'
       - in: header
         $ref: '#/components/parameters/ContentTypeHeader'
       - in: header
         $ref: '#/components/parameters/Authorization'
+      - in: query
+        name: merchid
+        required: true
+        schema:
+          type: integer
+          maximum: 16
+        description: The MID to validate against the site specified in the request URL.
+      - in: query
+        name: postal
+        required: false
+        schema:
+          type: integer
+          maximum: 9
+        description: The cardholder's postal code used to verify that the cardholder's state supports surcharging. Optional if token is specified.
+      - in: query
+        name: amount
+        required: false
+        schema:
+          type: integer
+          maximum: 14
+        description: The subtotal amount used to calculate the surcharge fee amount.
+      - in: query
+        name: token
+        required: false
+        schema:
+          type: integer
+          maximum: 19
+        description: The tokenized account, used to determine surcharge eligibility.
       responses:
         200: 
           description: Success
@@ -957,7 +962,7 @@ components:
   parameters:
     Authorization:
       name: Authorization
-      schema: {type: integer, format: int64}
+      schema: {type: string, format: Base64}
       in: header
       required: true
       description: Basic
@@ -1021,8 +1026,6 @@ components:
       name: Content-Type
       schema:
         type: string
-        enum: [application/json]
-        default: application/json
       in: header
       required: true
       description: application/json
@@ -1325,30 +1328,114 @@ components:
       example: 046221
     authRequest:
       x-model-version:
-      description: auth Request
       properties:
         merchid:
-          $ref: '#/components/schemas/merchid'
-        amount:
-          $ref: '#/components/schemas/amount'
-        expiry:
-          $ref: '#/components/schemas/expiry'
+         maxLength: 16
+         type: string
+         description: |
+          *Required*
+          
+          CardPointe merchant ID, required for all requests.
+         example: "123456789012"
         account:
-          $ref: '#/components/schemas/account'
+          maxLength: 19
+          type: string
+          example: "4111111111111111"
+          description: |
+           *Required*
+           
+           The payment account to process the transaction. Can be one of the following:
+          
+           - CardSecure Token - A token representing the payment account number. See the CardSecure Developer Guide for more information.
+           
+           - Clear text card number - Only PCI Level 1 and Level 2 compliant merchants should handle clear text card numbers in authorization requests. It is *strongly recommended* that you tokenize the clear text card data before passing it in an authorization request.
+           
+           - Bank Account Number - For merchants configured to process electronic checking (ACH) transactions. Also requires <code>bankaba</code>. 
+           
+           See Processing ACH Payments for more information.
+        amount:
+          maxLength: 14
+          type: string
+          example: "100.00"
+          description: |
+           *Required*
+           
+           Amount with decimal or without decimal in currency minor units (for example, USD Pennies or EUR Cents).
+           
+           The value can be a positive or negative amount or 0, and is used to identify the type of authorization, as follows:
+           
+           - Positive - Authorization request.
+           - Zero - Account Verification request. Not supported for eCheck (ACH) authorizations.
+           - Negative - Refund without reference (Forced Credit). Merchants must be configured to process forced credit transactions. To refund anexisting authorization, use Refund.
+        authcode:
+          maxLength: 6
+          type: string
+          description: For voice authorizations only, the authorization code provided by the issuer.
+        capture:
+          $ref: '#/components/schemas/capture'  
+        tokenize:
+          $ref: '#/components/schemas/tokenize'  
+        expiry:
+          maxLength: 8
+          type: string
+          example: "0928"
+          description: | 
+           The payment card expiration date when the account is provided. Not needed when account is track data, digital wallet, ACH, or a stored profile.
+           
+           Must use one of the following formats:
+           - MMYY
+           - YYYYM (for single-digit months)
+           - YYYYMM
+           - YYYYMMDD
+        orderid:
+         type: string
+         maxLength: 50
+         example: "A1B2C3D4"
+         description: |
+            An optional, unique order ID for the transaction, generated by the source system.  
+            
+            Order IDs must be unique; using duplicate order IDs can lead to the wrong transaction being voided in the event of a timeout.
+            
+            The order ID must not include any portion of a payment account number (PAN), and no portion of the order ID should be mistaken for a PAN. If the order ID passes the Luhn check performed by the CardPointe Gateway, the value will be masked in the database, and attempts to use the order ID in an inquire, void, or refund request will fail.
         postal:
-          $ref: '#/components/schemas/postal'
+         maxLength: 9
+         type: string
+         example: "19046"
+         description: | 
+          The account holder's postal code for address verification service (AVS) verification. Also used to determine surcharge eligibility for merchants configured for surcharging. 
+        
+          If country is "US", must be 5 or 9 digits. Otherwise any alphanumeric string is accepted. Defaults to"55555" if not included in the request or stored profile. 
+        
+          It is strongly recommended that your application prompts for postal code for card-not-present transactions, to prevent fraud and downgrades, and to avoid declines on the CardPointe Gateway if the AVS verification option is enabled for your merchant account.
         cvv2:
           $ref: '#/components/schemas/cvv2'
         ecomind:
           $ref: '#/components/schemas/ecomind'
         cof:
-          $ref: '#/components/schemas/cof'
+          maxLength: 1
+          type: string
+          example: C
+          description: |
+           Identifies the transaction as a card on file (COF) or stored credential transaction, where the merchant has obtained the cardholder's permission to store the card account in a secure vault or within a CardPointe profile.
+           
+           One of the following values:
+           - C - Customer-initiated Transaction (CIT), used when the transaction is initiated by the cardholder from a web site or over the phone.
+           
+           - M - Merchant-Initiated Transaction (MIT), used when the transaction is initiated by the merchant for a recurring payment.
+           
+           See [Visa and Mastercard Stored Credential Transaction Framework Mandate](https://support.cardpointe.com/compliance/visa-stored-credential-transaction-framework-mandate/) for more information.
         cofpermission:
           $ref: '#/components/schemas/cofpermission'
         cofscheduled:
           $ref: '#/components/schemas/cofscheduled'
         currency:
-          $ref: '#/components/schemas/currency'
+          maxLength: 3
+          type: string
+          example: USD
+          description: |
+           Used to specify the currency for the authorization when different from the merchant's default currency (for example, <code>USD</code> for US dollars or <code>CAD</code> for Canadian Dollars).
+           
+           If specified in the auth request, the <code>currency</code> value must match the currency that the MID isconfi gured for. Specifying the incorrect currency will result in a <code>"Wrong currency for merch"</code> error response.
         bankaba:
           $ref: '#/components/schemas/bankaba'
         track:
@@ -1361,10 +1448,6 @@ components:
           $ref: '#/components/schemas/profile'
         auoptout:
           $ref: '#/components/schemas/auoptout'
-        capture:
-          $ref: '#/components/schemas/capture'
-        tokenize:
-          $ref: '#/components/schemas/tokenize'
         signature:
           $ref: '#/components/schemas/signature'
         name:
@@ -1385,10 +1468,6 @@ components:
           $ref: '#/components/schemas/phone'
         email:
           $ref: '#/components/schemas/email'
-        orderid:
-          $ref: '#/components/schemas/orderid'
-        authcode:
-          $ref: '#/components/schemas/authcode'
         taxexempt:
           $ref: '#/components/schemas/taxexempt'
         taxamnt:
@@ -1430,8 +1509,7 @@ components:
     track:
       maxLength: 76
       type: string
-      description: Payment card track data captured using a supported card reader device (for example, a desktop card reader device). Can be unencrypted Track 1 or Track 2 data, or encrypted swipe data (containing Track 1 and/or Track 2) data. 
-      example: " "
+      description: Payment card track data captured using a supported card reader device. Can be unencrypted Track 1 or Track 2 data, or encrypted swipe data (containing Track 1 and/or Track 2) data. 
     bin:
       maxLength: 1
       type: string
@@ -1563,7 +1641,10 @@ components:
     tokenize: 
       maxLength: 1
       type: string
-      description: Optional, specify N or omit to return an account token in the account field in the response. If tokenize is Y the masked card or ACH account number is returned in the response.
+      description: |
+       Optionally, specify Y to return the tokenized card account or ACH account number in the <code>token</code> field in the response and the masked card or ACH account number in the <code>account</code> field.
+       
+       Specify N, or omit, to return only the token in the <code>token</code> and <code>account</code> fields.
       example: Y
     sigcapResponse:
       x-model-version: 1.0
@@ -1672,8 +1753,6 @@ components:
         Optional, specify Y to capture the transaction for settlement if approved.
 
         Defaults to N if not provided.
-        
-        Note: When "capture":"y", you can optionally include Level 2 and Level 3 transaction details in the authorization request. 
     profile:
       maxLength: 24
       type: string
@@ -1791,14 +1870,9 @@ components:
       maxLength: 9
       type: string
       description: |
-        Optionally, when "profile":"y" to create a stored profile, include "cofpermission":"y" to indicate that you obtained the cardholder's permission to store their payment data. This field is only used for reporting purposes, via the get profile response.
-
-        Specify one of the following values:
+        Bank routing (ABA) number, required for eCheck (ACH) authorizations when a bank account number is provided in the <code>account</code> field. 
         
-        * Y - The cardholder provided their consent to store and reuse their payment details.
-        * N - The cardholder did not provide their consent.
-        
-        Defaults to N if not provided.
+        <code>bankaba</code> is not required if a CardSecure token (generated from the <code>account</code>/<code>bankaba</code> pair) is provided in the <code>account</code> field.
       example: Y
     bintype:
       maxLength: 16
@@ -1957,28 +2031,30 @@ components:
     cofpermission:
       maxLength: 1
       type: string
+      example: Y
       description: |
-        Optionally, when "profile":"y" to create a stored profile, include "cofpermission":"y" to indicate that you obtained the cardholder's permission to store their payment data. This field is only used for reporting purposes, via the get profile response.
+        Optionally, when <code>"profile":"y"</code> to create a stored profile, include <code>"cofpermission":"y"</code> to indicate that you obtained the cardholder's permission to store their payment data. This field is only used for reporting purposes, via the GET profile response.
 
         Specify one of the following values:
         
-        * Y - The cardholder provided their consent to store and reuse their payment details.
-        * N - The cardholder did not provide their consent.
+        - Y - The cardholder provided their consent to store and reuse their payment details.
+        - N - The cardholder did not provide their consent.
         
         Defaults to N if not provided.
-      example: N
+        
+        See  [Visa and Mastercard Stored Credental Transaction Framework](https://support.cardpointe.com/compliance/visa-stored-credential-transaction-framework-mandate/) for more information.
     cofscheduled:
       maxLength: 1
       type: string
       description: |
-        Optionally, when "profile":"y" to create a stored profile, include "cofpermission":"y" to indicate that you obtained the cardholder's permission to store their payment data. This field is only used for reporting purposes, via the get profile response.
+        Required for transactions using stored cardholder payment information. For a merchant-initiated transaction (MIT), the <code>cofscheduled</code> parameter specifies whether the transaction is a one-time payment or a scheduled, recurring payment.
 
         Specify one of the following values:
         
-        * Y - The cardholder provided their consent to store and reuse their payment details.
-        * N - The cardholder did not provide their consent.
+        - Y - The transaction is a scheduled (automated) payment.
+        - N - The transaction is a one-time payment.
         
-        Defaults to N if not provided.
+        See  [Visa and Mastercard Stored Credental Transaction Framework](https://support.cardpointe.com/compliance/visa-stored-credential-transaction-framework-mandate/) for more information.
       example: N
     commcard:
       maxLength: 1
@@ -2010,7 +2086,7 @@ components:
       description: |
         The 3 or 4-digit cardholder verification value (CVV2/CVC/CID) value present on the card.
         
-        **Note**: It is strongly recommended that your application prompts for CVV for card-not-present transactions for fraud prevention and to avoid declines on the CardPointe Gateway if the CVV verification option is enabled for your merchant account.
+        It is *strongly recommended* that your application prompts for CVV for card-not-present transactions for fraud prevention and to avoid declines on the CardPointe Gateway if the CVV verification option is enabled for your merchant account.
       example: 3124
     cvvresp:
       maxLength: 1
@@ -2043,21 +2119,24 @@ components:
       maxLength: 1
       type: string
       description: |
-        A transaction origin indicator, for card-not-present and eCheck (ACH) transactions only.
+        A transaction origin indicator used to override the merchant configuration, for card-not-present and eCheck (ACH) transactions only.
 
         For ProfitStars ACH transactions, see Making an ACH Authorization Request for more information.
         
         For card-not-present transactions, one of the following values:
         
-        * T - telephone or mail payment
-        * R - recurring billing
-        * E - e-commerce web or mobile application
-        **Note**: You should include the appropriate ecomind value for all card-not-present transactions, to ensure that the transaction processes at the appropriate interchange level. Do not include ecomind for card-present transactions, in which the payment card data is obtained using a POS device.
+        * T - Telephone or mail payment
+        * R - Recurring billing, ignored for processors that support credential on file (COF) transactions
+        * E - E-commerce web or mobile application
+        
+        Include the appropriate ecomind value for all card-not-present transactions, to ensure that the transaction processes at the appropriate interchange level. Do not include ecomind for card-present transactions, in which the payment card data is obtained using a POS device.
+        
+        For recurring payments, use <code>cof</code> and <code>cofscheduled</code> when supported by the processor. See  [Visa and Mastercard Stored Credental Transaction Framework](https://support.cardpointe.com/compliance/visa-stored-credential-transaction-framework-mandate/) for more information.
       example: E
     acctid:
       maxLength: 3
       type: string
-      description: Account identifier within a profile. Present if transaction utilized a stored profileid. 
+      description: Identifies an individual account within a stored profile. 
       example: 321
     acctupdater:
       maxLength: 1
@@ -2889,6 +2968,7 @@ components:
     merchid:
       maxLength: 16
       type: string
+      description: CardPointe merchant ID, required for all requests.
       example: 123456789012
     name:
       maxLength: 30
@@ -2919,10 +2999,6 @@ components:
         The <code>orderId</code> is returned in the response when the request includes an <code>orderId</code> and <code>"receipt":"y"</code>.
 
         If no <code>orderId</code> was passed and <code>"receipt":"json"</code>, <code>"n"</code>, or omitted the <code>orderId</code> field is omitted from the response.
-        
-        The order ID must be a unique value. Using duplicate order IDs can lead to the wrong transaction being voided in the event of a timeout.
-        
-        The order ID must not include any portion of a payment account number (PAN), and no portion of the order ID should be mistaken for a PAN. If the order ID passes the Luhn check performed by the CardPointe Gateway, the value will be masked in the database, and attempts to use the order ID in an inquire, void, or refund request will fail.
       example: "7372819823727189E76"
     settlestatResponse:
       x-model-version: 1.0
@@ -3150,11 +3226,14 @@ components:
       type: string
       maxLength: 1
       description: |
-          Optional to return <codereceipt data fields</code> in the response.
+          Optional to return additional merchant and transaction data in the authorization response, to print on a receipt.
           
-          Specify **Y** to return additional merchant and transaction data to print on a receipt.
+          Specify one of the following values:
+          - Y - Specify <code>Y</code> to return the <code>receipt</code> data array.
+          - json - Specify <code>json</code> to return the <code>receiptObj</code> string.
+          - N - Specify <code>N</code> to exclude the receipt data from the response.
           
-          Defualts to **N** if not provided.
+          Defualts to N if not provided.
       example: N
     receiptdata:
           x-model-version: 1.0
@@ -3325,9 +3404,9 @@ components:
       description: CardPointe retrieval reference number from authorization response
       example: 123456789012
     signature:
+      type: string
+      maxLength: 6144     
       description: JSON-escaped, Base64-encoded, Gzipped, BMP of signature data (from a signature-capable terminal). Returned if the authorization used a token that had associated signature data or track data with embedded signature data.
-      maxLength: 6144
-      example: ""
     settledate:
       maxLength: 14
       type: string
