@@ -62,8 +62,9 @@ featuredFeatures:
     relatedAPIs:
       - relatedAPI: 
         title: profile
+        type: post
         description: Create or update a stored customer profile.
-        link: /product/CardPointe/api/?type=post&path=/cardconnect/rest/profile&version=1.0.0
+        path: /cardconnect/rest/profile
   - title: Semi-Integrated Terminals
     groupName: Card-Present
     description: Use the CardPointe Integrated Terminal API to integrate P2PE-validated, card-present payments to your point-of-sale (POS) application.
