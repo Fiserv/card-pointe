@@ -85,7 +85,7 @@ paths:
         
         This request does not effect whether a surcharge is applied to a transaction; the CardPointe Gateway automatically applies a surcharge depending on the merchant configuration and the eligibility of the payment account. This request is used only for informational purposes.
         
-        The surcharge endpoint requires a query string formatted as <code>https://{site}.cardconnect.com/rest/surcharge?amount={amount}&merchid={merchid}&token={token}&postal={postal}&amount={amount}</code>.
+        The surcharge endpoint requires a query string formatted as <code>https://{site}.cardconnect.com/cardconnect/rest/surcharge?amount={amount}&merchid={merchid}&token={token}&postal={postal}&amount={amount}</code>.
       parameters:
       - $ref: '#/components/parameters/ContentTypeHeader'
       - $ref: '#/components/parameters/Authorization'
@@ -522,7 +522,7 @@ paths:
 
         The settlement status service returns the status of transactions which have been submitted to the processor for settlement. The transaction’s setlstatus is updated appropriately when the CardPointe Gateway receives a response from the processor. You can either specify a <code>batchid</code> to return a specific batch of transactions, or use a <code>date</code> to return all transactions settled for that date. 
         
-        The settlestat endpoint requires a query string formatted as <code>https://{site}.cardconnect.com/rest/settlestat?merchid={merchid}&date={MMDD}</code> to return all settled transactions by date or <code>https://{site}.cardconnect.com/rest/settlestat?merchid={merchid}&batchid={batchid}</code> to return all settled transactions within a given batch.
+        The settlestat endpoint requires a query string formatted as <code>https://{site}.cardconnect.com/cardconnect/rest/settlestat?merchid={merchid}&date={MMDD}</code> to return all settled transactions by date or <code>https://{site}.cardconnect.com/cardconnect/rest/settlestat?merchid={merchid}&batchid={batchid}</code> to return all settled transactions within a given batch.
                 
         "Null Batches" is returned when no data is available for display. When passing the <code>merchid</code> as the only parameter, only batches not previously requested are shown. If the <code>merchid</code> has previously been queried for batches, responses will contain only batches not previously returned.
       parameters:
@@ -577,7 +577,7 @@ paths:
       description: | 
         The funding endpoint provides merchant funding information and supplemental transaction and funding adjustment details. This information is provided by the host payment processing platform (for example, First Data Omaha). 
         
-        The funding endpoint requires a query string formatted as <code>https://{site}.cardconnect.com/rest/funding?merchid={merchid}&date={MMDD}</code>or<code>{YYYYMMDD}</code>, where <code>merchid</code> is the merchant account for which you want to retrieve funding data.
+        The funding endpoint requires a query string formatted as <code>https://{site}.cardconnect.com/cardconnect/rest/funding?merchid={merchid}&date={MMDD}</code>or<code>{YYYYMMDD}</code>, where <code>merchid</code> is the merchant account for which you want to retrieve funding data.
          
         Funding data is only available for merchants with the funding service configured and enabled in the production environment.
         
