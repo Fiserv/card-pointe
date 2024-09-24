@@ -13,8 +13,4010 @@
 # or its affiliates, and their designated agents
 # or employees responsible for installation or
 # operation of the products. Any other use,
+# duplication, or dissemination without the################################################################################
+# Copyrights © 2021-2022 Fiserv, Inc. or its affiliates.
+# Fiserv is a trademark of Fiserv, Inc.,
+# registered or used in the United States and foreign countries,
+# and may or may not be registered in your country.
+# All trademarks, service marks,
+# and trade names referenced in this
+# material are the property of their
+# respective owners. This work, including its contents
+# and programming, is confidential and its use
+# is strictly limited. This work is furnished only
+# for use by duly authorized licensees of Fiserv, Inc.
+# or its affiliates, and their designated agents
+# or employees responsible for installation or
+# operation of the products. Any other use,
 # duplication, or dissemination without the
 # prior written consent of Fiserv, Inc.
+# or its affiliates is strictly prohibited.
+# Except as specified by the agreement under
+# which the materials are furnished, Fiserv, Inc.
+# and its affiliates do not accept any liabilities
+# with respect to the information contained herein
+# and are not responsible for any direct, indirect,
+# special, consequential or exemplary damages
+# resulting from the use of this information.
+# No warranties, either express or implied,
+# are granted or extended by this work or
+# the delivery of this work
+################################################################################
+
+openapi: 3.0.2
+info:
+  title: CardPointe Gateway API Service Endpoints
+  description: This API documentation provides technical guidance for integrating the CardPointe Gateway API with your application.
+  version: 1.0.0
+servers:
+ - url: https://<site>-uat.cardconnect.com/ 
+   description: UAT Environment
+paths:
+  /cardconnect/rest/inquireMerchant/{merchid}:
+    get:
+      tags:
+        - inquireMerchant Endpoint Definition
+      x-group-name: CardPointe Gateway API
+      x-proxy-name: inquireMerchant
+      x-default-example: PaymentCard
+      summary: A GET request to the inquireMerchant endpoint returns information on the merchant account configuration.
+      description: |+
+        A GET request to the inquireMerchant endpoint returns information on the merchant account configuration. This can be helpful for partners who need to validate their CardPointe merchant IDs or for businesses with merchants operating in multiple locations, to ensure that the merchant ID is boarded to the correct site.
+      parameters:
+      - {$ref: '#/components/parameters/ContentTypeHeader'}
+      - in: path
+        name: merchid
+        schema:
+          type: integer
+          maximum: 16
+        required: true
+        description: The merchant ID to inquire on.
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/inquireMerchantSuccess'}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /cardconnect/rest/surcharge:
+    get:
+      tags:
+        - surcharge Endpoint Definition
+      x-group-name: CardPointe Gateway API
+      x-proxy-name: surcharge
+      x-default-example: PaymentCard
+      summary: The surcharge endpoint is used to determine whether a surcharge fee will be applied to a transaction, based on the cardholder's postal code and payment method.
+      description: |+ 
+        The surcharge endpoint is used to determine whether or not a surcharge fee will be applied to a transaction, based on the cardholder's postal code and payment method. This allows your application to notify the cardholder of the potential credit card surcharge prior to completing a transaction. Optionally, include the subtotal amount to return the calculated surcharge amount, if applicable.
+        
+        This request does not effect whether a surcharge is applied to a transaction; the CardPointe Gateway automatically applies a surcharge depending on the merchant configuration and the eligibility of the payment account. This request is used only for informational purposes.
+      parameters:
+      - $ref: '#/components/parameters/ContentTypeHeader'
+      - $ref: '#/components/parameters/Authorization'
+      - in: query
+        name: merchid
+        required: true
+        schema:
+          type: integer
+          maximum: 16
+        description: The MID to validate against the site specified in the request URL.
+      - in: query
+        name: postal
+        required: false
+        schema:
+          type: integer
+          maximum: 9
+        description: The cardholder's postal code used to verify that the cardholder's state supports surcharging. Optional if token is specified.
+      - in: query
+        name: amount
+        required: false
+        schema:
+          type: integer
+          maximum: 14
+        description: The subtotal amount used to calculate the surcharge fee amount.
+      - in: query
+        name: token
+        required: false
+        schema:
+          type: integer
+          maximum: 19
+        description: The tokenized account, used to determine surcharge eligibility.
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/approvedSurchargeResponse'}
+              examples:
+                Debit Card not Elligible:
+                  $ref: '#/components/examples/debitcardnotelligible'
+                Missing Postal and Token:
+                  $ref: '#/components/examples/missingpostalandtoken'
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /cardconnect/rest/auth:
+   post:
+      tags:
+        - auth endpoint Definition
+      x-group-name: CardPointe Gateway API
+      x-proxy-name: auth
+      x-default-example: PaymentCard
+      summary: |
+        Authorization is the initial step in accepting payment from a cardholder. This action "authorizes" or requests permission from the bank to transfer money from the cardholder to the merchant.
+      description: |
+        Authorization is the initial step in accepting payment from a cardholder. This action "authorizes" or requests permission from the bank to transfer money from the cardholder to the merchant.
+
+        The authorization service supports a <code>PUT</code> or <code>POST</code> request that includes a JSON encoded list of fields defined for the service. The service responds with either an HTTP Exception, if there are errors, or a JSON-encoded response, if the request was successful.
+
+        Within the response, the status of the transaction is described in the respstat value:
+
+        * A - Approved
+        * B - Retry
+        * C - Declined
+      parameters:
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/Authorization'}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/authRequest'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/authResponse'}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+##   put:
+##      tags:
+  ##      - auth PUT Endpoint Definition
+   ##   x-group-name: CardPointe Gateway API
+    ##  x-proxy-name: auth PUT
+  ##    x-default-example: PaymentCard
+   ##   summary: A GET request to the inquireMerchant endpoint returns information on the merchant account configuration.
+    ##  description: |
+     ##   Authorization is the initial step in accepting payment from a cardholder. This action "authorizes" or requests permission from the bank to transfer money from the cardholder to the merchant.
+
+   ##     The authorization service supports a PUT or POST request that includes a JSON encoded list of fields defined for the service. The service responds with either an HTTP Exception, if there are errors, or a JSON-encoded response, if the request was successful.
+
+     ##   Within the response, the status of the transaction is described in the respstat value:
+
+##        * A - Approved
+##        * B - Retry
+##        * C - Declined
+##      parameters:
+##      - in: query
+##        name: merchid
+##        required: true
+####        schema:
+ ##         $ref: '#/components/schemas/merchid'
+ ##         description: The MID to validate against the site specified in the request URL.
+ ##     - in: header
+ ##       $ref: '#/components/parameters/ContentTypeHeader'
+  ##    responses:
+##        200: 
+##          description: Success
+##          content:
+ ##           application/json:
+ ##             schema: {$ref: '#/components/schemas/inquireMerchantSuccess'}
+ ##       400:
+ ##         description: Not Found
+ ##         content:
+  ##          application/json:
+  ##            schema: {$ref: '#/components/schemas/NotFoundError'}
+   ##     404:
+ ## ##        description: Bad Request
+ ##         content:  
+##           application/json:
+##              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /cardconnect/rest/capture:
+    post:
+      tags:
+        - capture Endpoint Definition
+      x-group-name: CardPointe Gateway API
+      x-proxy-name: capture
+      x-default-example: PaymentCard
+      summary: The capture service queues the transaction amount for settlement. Capture can occur within the authorization request or subsequently.
+      description: | 
+        The capture service uses a <code>PUT</code> or <code>POST</code> method queues the transaction amount for settlement. Capture can occur within the authorization request or subsequently.
+        
+        Both <code>merchid</code> and <code>retref</code> are required fields.
+
+        If the amount to be captured is more than the authorized amount (such as a tip adjustment), ensure that the merchant is appropriately entitled with this capability.
+
+        The service responds with either a JSON-encoded response or an HTTP error code. 
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/captureRequest'
+      parameters:
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/Authorization'}
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/captureSuccess'}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /cardconnect/rest/void:
+    post:
+      tags:
+        - void Endpoint Definition
+      x-group-name: CardPointe Gateway API
+      x-proxy-name: void
+      x-default-example: PaymentCard
+      summary: The void service cancels a transaction that is in either "Authorized" or "Queued for Capture" status.
+      description: | 
+        The void service cancels a transaction that is in either <code>"Authorized"</code> or <code>"Queued for Capture"</code> status.
+
+        Partial voids are not supported for debit transactions. If you specify a partial void amount for a debit transaction, the entire amount is voided. Omit the amount or specify the full amount for a debit void.
+
+        You can retrieve the status of a transaction using the [inquire](../api/?type=get&path=/cardconnect/rest/inquire) or [inquireByOrderid](../api/?type=get&path=/cardconnect/rest/inquireByOrderid/{merchid}/{orderid}/{set}) endpoint. 
+
+        The response includes a <code>voidable</code> field, which indicates whether or not the transaction can be voided.
+
+        Additionally, the <code>setlstat</code> field determines the amount that can be voided, where:
+
+        <code>"setlstat" : "Authorized"</code> indicates the transaction has been authorized but not queued for capture. The entire amount or a partial amount can be voided.
+        <code>"setlstat" : "Queued for Capture"</code>
+        Only the entire amount can be voided.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/voidRequest'
+      parameters:
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/Authorization'}
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/voidResponse'}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /cardconnect/rest/refund:
+    post:
+      tags:
+        - refund Endpoint Definition
+      x-group-name: CardPointe Gateway API
+      x-proxy-name: refund
+      x-default-example: PaymentCard
+      summary: The refund service is used for transactions that are in a settled status.
+      description: | 
+        The refund service is used for transactions that are in a settled status.
+        
+        <code>merchid</code> and <code>retref</code> are required fields.
+
+        You can refund a specific transaction using the retrieval reference number <code>retref</code> provided in the authorization response. 
+        
+        You can retrieve the status of a transaction using the <code>inquire</code> or <code>inquireByOrderid</code> endpoint.
+
+        The response includes a <code>refundable</code> field, which indicates whether or not the transaction can be refunded.
+
+        The specific transaction status is recorded in the <code>setlstat</code> field.
+        
+        Some banks impose maximum time limits (for example, 6 months) to perform a refund using a retref. 
+
+        If you do not have a retref for the transaction, you can return funds to an account by passing a negative <code>amount</code> (forced credit) in an authorization and subsequent capture request. 
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/refundRequest'
+      parameters:
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/Authorization'}
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/refundResponse'}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /cardconnect/rest/inquire:
+    get:
+      tags:
+        - inquire Endpoint Definition
+      x-group-name: CardPointe Gateway API
+      x-proxy-name: inquire
+      x-default-example: PaymentCard
+      summary: The inquire service returns information for an individual transaction, including its settlement status (setlstat) and the response codes from the initial authorization. 
+      description: | 
+        The inquire service returns information for an individual transaction, including its settlement status (<code/>setlstat</code>) and the response codes from the initial authorization. 
+      parameters:
+      - in: query
+        name: merchid
+        required: true
+        schema:
+          $ref: '#/components/schemas/merchid'
+      - in: query
+        name: retref
+        required: true
+        schema:
+          $ref: '#/components/schemas/retref'
+      - $ref: '#/components/parameters/ContentTypeHeader'
+      - $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/inquireResponse'}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /cardconnect/rest/inquireByOrderid/{merchid}/{orderid}/{set}:
+    get:
+      tags:
+        - inquireByOrderid Endpoint Definition
+      x-group-name: CardPointe Gateway API
+      x-proxy-name: inquireByOrderid
+      x-default-example: PaymentCard
+      summary: Similar to the inquire endpoint, requests to the inquireByOrderid endpoint return information for an authorization; however, inquireByOrderid references the Order ID associated with the transaction instead of the retrieval reference number (retref). 
+      description: | 
+        Similar to the inquire endpoint, requests to the inquireByOrderid endpoint return information for an authorization; however, inquireByOrderid references the Order ID associated with the transaction instead of the retrieval reference number (<code>retref</code>). 
+        
+        This allows you to get information about a transaction if the original authorization was interrupted and no response was returned, including the retref (if one was generated).
+        
+        This request returns all transactions for the specified merchant ID (MID), using the specified Order ID. 
+
+        Specify **1** for the <code>set</code> parameter to restrict the inquiry to the specified MID. 
+        
+        If you have multiple MIDs and do not know which MID was used in the original transaction, you can omit the set parameter from the end of the request to optionally inquire on the order ID across all MIDs on the site.
+      parameters:
+      - in: path
+        name: merchid
+        required: true
+        schema:
+          $ref: '#/components/schemas/merchid'
+      - in: path
+        name: orderid
+        required: true
+        schema:
+          $ref: '#/components/schemas/orderId'
+      - in: path
+        name: set
+        required: true
+        schema:
+          description: Set this field to 1 to restrict the inquiry to the merchant ID (MID) specified in the request. If you have multiple MIDs and want to search for the order ID across all MIDs, omit this parameter.
+          example: " "
+          type: string
+          maxLength: 1
+      - $ref: '#/components/parameters/ContentTypeHeader'
+      - $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/inquireByOrderIDResponse'}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /cardconnect/rest/voidByOrderId/{merchid}/{orderid}/{amount}:
+    get:
+      tags:
+        - voidByOrderId Endpoint Definition
+      x-group-name: CardPointe Gateway API
+      x-proxy-name: voidByOrderId
+      x-default-example: PaymentCard
+      summary: The voidByOrderId endpoint is used to look up and void a transaction record using the order ID supplied in the original authorization request. If the order ID supplied in a voidByOrderId request matches a transaction record for the specified merchant, the authorization is voided and a response is returned.
+      description: | 
+        The voidByOrderId endpoint is used to look up and void a transaction record using the order ID supplied in the original authorization request. If the order ID supplied in a voidByOrderId request matches a transaction record for the specified merchant, the authorization is voided and a response is returned.
+
+        voidByOrderId can be used in the event that no response is returned by an inquireByOrderId request, when you are unsure of a transaction's status. It's recommended to call voidByOrderId three times (3x) if no response was returned by either an inquireByOrderid request or the initial auth request.
+        
+        Partial voids are not supported for debit transactions. If you specify a partial void amount for a debit transaction, the entire amount is voided. Omit the amount or specify the full amount for a debit void.
+        
+        It is strongly recommended that you use a unique order ID for every transaction, if you are using order IDs. Doing so allows you to more easily and accurately retrieve data on all transactions.
+      parameters:
+      - in: path
+        name: merchid
+        required: true
+        schema:
+          $ref: '#/components/schemas/merchidResp'
+      - in: path
+        name: orderid
+        required: true
+        schema:
+          $ref: '#/components/schemas/orderId'
+      - in: path
+        name: amount
+        required: true
+        schema:
+          description: |
+            Optional. If omitted or equal to $0, the full amount is voided.
+
+            If no capture has taken place (setlstat:Authorized), you can specify a partial amount to void to reduce the amount of the authorization.
+            
+            Note: Partial voids are not supported for debit transactions. If you specify a partial void amount for a debit transaction, the entire amount is voided. Omit the amount or specify the full amount for a debit void.
+          example: " "
+          type: integer
+          maxLength: 12
+      - in: header
+        $ref: '#/components/parameters/ContentTypeHeader'
+      - in: header
+        $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/voidByOrderIdResponse'} 
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /cardconnect/rest/settlestat:
+    get:
+      tags:
+        - settlestat Endpoint Definition
+      x-group-name: CardPointe Gateway API
+      x-proxy-name: settlestat
+      x-default-example: PaymentCard
+      summary: The settlement status service returns the status of transactions which have been submitted to the processor for settlement. The transaction’s setlstatus is updated appropriately when the CardPointe Gateway receives a response from the processor. You can either specify a batchid to return a specific batch of transactions, or use a date to return all transactions settled for that date. 
+      description: | 
+        For the settlement status of an individual transaction that has not been settled, use the inquire service. 
+
+        The settlement status service returns the status of transactions which have been submitted to the processor for settlement. The transaction’s setlstatus is updated appropriately when the CardPointe Gateway receives a response from the processor. You can either specify a batchid to return a specific batch of transactions, or use a date to return all transactions settled for that date. 
+        
+        "Null Batches" is returned when no data is available for display. When passing the merchid as the only parameter,  only batches not previously requested are shown. If the merchid has previously been queried for batches, responses will contain only batches not previously returned.
+      parameters:
+      - in: query
+        name: merchid
+        required: true
+        schema:
+          $ref: '#/components/schemas/merchid'
+          description: The MID from the original authorization.
+      - in: query
+        name: batchid
+        required: true
+        schema:
+          $ref: '#/components/schemas/batchid'
+          description: The Batch ID from the original authorization. Required if date is not provided. Queries all settled transactions by Batch ID. 
+      - in: query
+        name: date
+        required: false
+        schema:
+          description: |
+            Required if Batch ID is not provided. Queries all settled transactions by date given in MMDD.
+          example: " "
+          type: integer
+          maxLength: 4
+      - in: header
+        $ref: '#/components/parameters/ContentTypeHeader'
+      - in: header
+        $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/settlestatResponse'} 
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /cardconnect/rest/funding:
+    get:
+      tags:
+        - funding Endpoint Definition
+      x-group-name: CardPointe Gateway API
+      x-proxy-name: funding
+      x-default-example: PaymentCard
+      summary: The funding endpoint provides merchant funding information and supplemental transaction and funding adjustment details. This information is provided by the host payment processing platform (for example, First Data Omaha). 
+      description: | 
+        The funding endpoint provides merchant funding information and supplemental transaction and funding adjustment details. This information is provided by the host payment processing platform (for example, First Data Omaha). 
+         
+        Funding data is only available for merchants with the funding service configured and enabled in the production environment.
+        
+        For merchants with next day funding, funding data is typically available between 1PM and 6PM ET on the day following settlement. 
+        
+        For merchants without next day funding, funding data is typically available within 1-2 business days between 1PM and 6PM ET.
+        
+        Profitstars ACH funding data is typically available within 72 hours.
+        
+        A request to the funding endpoint returns all available funding data for the merchant on the date specified, in an array of fundings, txns (transactions), adjustments, and chargebacks records. If no adjustment or chargeback data is present for the date specified, these arrays are not returned.
+        
+        If no batches are found or are ready to return, the service returns
+
+        <code>{"errormsg":"No deposits match your request"}</code>.
+      parameters:
+      - in: query
+        $ref: '#/components/parameters/date'
+      - in: query
+        $ref: '#/components/parameters/merchantIDHeader'
+      - in: header
+        $ref: '#/components/parameters/ContentTypeHeader'
+      - in: header
+        $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/fundingResponse'} 
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /cardconnect/rest/sigcap:
+    post:
+      tags:
+        - sigcap Endpoint Definition
+      x-group-name: CardPointe Gateway API
+      x-proxy-name: sigcap
+      x-default-example: PaymentCard
+      summary: This signature capture service augments an existing authorization record with the provided signature data. The signature can then be retrieved by an inquire request.
+
+      description: | 
+        This signature capture service augments an existing authorization record with the provided signature data. The signature can then be retrieved by an inquire request. This endpoint can handle either PUT or POST methods.
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/sigcapRequest'
+      parameters:
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/Authorization'}
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/sigcapResponse'} 
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /cardconnect/rest/bin/{merchid}/{token}:
+    get:
+      tags:
+        - bin Endpoint Definition
+      x-group-name: CardPointe Gateway API
+      x-proxy-name: bin
+      x-default-example: PaymentCard
+      summary: The BIN service allows you to use a CardSecure token to determine what type of payment card is being used. The first six (6) digits of a credit card are known as the Bank Identifier Number (BIN), also known as an Issuer Identification Number (IIN). 
+
+      description: | 
+        The BIN service allows you to use a CardSecure token to determine what type of payment card is being used. The first six (6) digits of a credit card are known as the Bank Identifier Number (BIN), also known as an Issuer Identification Number (IIN). 
+
+        The BIN service supports the Visa, Mastercard, Amex, Discover, Diners, and JCB card brands.  
+        
+        Visa and Mastercard return all parameters described in the BIN response. For other card brands, only the country, product, and bin parameters are relevant.
+
+      parameters:
+      - name: merchid
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/merchid'
+          description: The MID from the original authorization.
+      - name: token
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/token'
+          description: The token associated with the transaction.
+      - in: header
+        $ref: '#/components/parameters/ContentTypeHeader'
+      - in: header
+        $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/binResponse'}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /cardconnect/rest/profile:
+    put:
+      tags:
+        - profile (UPDATE) Endpoint Definition
+      x-group-name: CardPointe Gateway API
+      x-proxy-name: profile (UPDATE)
+      summary: A profile can consist of multiple sets of profile account data. Each set is assigned an account ID, which can be used in conjunction with the profile ID to access a specific account. The format is <profile ID>/<account ID> for use in each request’s profile field. One account in each profile will be marked as the default account and will be referenced when no account ID is supplied.
+      description: |
+        A profile can consist of multiple sets of profile account data. Each set is assigned an account ID, which can be used in conjunction with the profile ID to access a specific account. The format is <profile ID>/<account ID> for use in each request’s profile field. One account in each profile will be marked as the default account and will be referenced when no account ID is supplied.
+        
+        **merchid**, **account**, and **expiry** are required fields.
+
+        In addition to the profile create and use features of the authorization service, the Profile services provides an independent method to create, update/replace, retrieve and delete a profile.
+        
+        A create or update request is made including the fields below (the same fields marked with asterisk in the authorization request). The service tokenizes the account property and creates the profile with a token and profile ID and optional account ID. One account ID in each profile can be marked as the default account. The default account will be used for all authorization requests when only the profile ID is supplied. If an account ID is present the service retrieves the existing profile and updates it, or returns profile not found.
+      
+        A PUT or POST call to the profile endpoint creates a new profile or adds a new account to an existing profile. 
+
+        The service tokenizes the account property and creates the profile with a token and profile ID and optional account ID. If the profile includes multiple accounts, one account ID in the profile can be marked as the default account by setting the defaultacct parameter to "Y." The default account will be used for all authorization requests when only the profile ID is supplied. 
+        
+        In addition to creating a new profile, you can use this service to do the following:
+        
+        To update a profile, include an existing profile ID in the request. The service retrieves the existing profile and updates it with the values in the request. 
+        To update an account, include an existing profile ID and account ID pair in the request. The service retrieves the existing account data and updates it with the values in the request.
+        To add an account to an existing profile, include an existing profile ID and the new payment account data in the request. The service retrieves the existing profile and adds a new acctid containing the values in the request.
+        
+        If you attempt to create a new profile that exactly matches an existing profile, the new profile will not be created; instead the response includes the profileid and acctid for the existing profile.
+
+        The following fields are checked for matches, and if all of the following fields match an existing profile, the new profile is not created:
+        
+        * merchid
+        * token
+        * accttype
+        * expiry
+        * name
+        * address
+        * city
+        * state
+        * country
+        * postal
+        * phone
+        * email
+        * auoptout
+        If the request includes "defaultacct":"Y", the CardPointe Gateway will update the existing profile to set it as the default, and will return the existing profileid and acctid info in the response.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/putpostprofileRequest'
+      parameters:
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/Authorization'}
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/putpostprofileResponse'}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+    post:
+      tags:
+        - profile (CREATE) Endpoint Definition
+      x-group-name: CardPointe Gateway API
+      x-proxy-name: profile (CREATE)
+      summary: A profile can consist of multiple sets of profile account data. Each set is assigned an account ID, which can be used in conjunction with the profile ID to access a specific account. The format is <profile ID>/<account ID> for use in each request’s profile field. One account in each profile will be marked as the default account and will be referenced when no account ID is supplied.
+      description: |
+        A profile can consist of multiple sets of profile account data. Each set is assigned an account ID, which can be used in conjunction with the profile ID to access a specific account. The format is <profile ID>/<account ID> for use in each request’s profile field. One account in each profile will be marked as the default account and will be referenced when no account ID is supplied.
+        
+        **merchid**, **account**, and **expiry** are required fields.
+
+        In addition to the profile create and use features of the authorization service, the Profile services provides an independent method to create, update/replace, retrieve and delete a profile.
+        
+        A create or update request is made including the fields below (the same fields marked with asterisk in the authorization request). The service tokenizes the account property and creates the profile with a token and profile ID and optional account ID. One account ID in each profile can be marked as the default account. The default account will be used for all authorization requests when only the profile ID is supplied. If an account ID is present the service retrieves the existing profile and updates it, or returns profile not found.
+      
+        A PUT or POST call to the profile endpoint creates a new profile or adds a new account to an existing profile. 
+
+        The service tokenizes the account property and creates the profile with a token and profile ID and optional account ID. If the profile includes multiple accounts, one account ID in the profile can be marked as the default account by setting the defaultacct parameter to "Y." The default account will be used for all authorization requests when only the profile ID is supplied. 
+        
+        In addition to creating a new profile, you can use this service to do the following:
+        
+        To update a profile, include an existing profile ID in the request. The service retrieves the existing profile and updates it with the values in the request. 
+        To update an account, include an existing profile ID and account ID pair in the request. The service retrieves the existing account data and updates it with the values in the request.
+        To add an account to an existing profile, include an existing profile ID and the new payment account data in the request. The service retrieves the existing profile and adds a new acctid containing the values in the request.
+        
+        If you attempt to create a new profile that exactly matches an existing profile, the new profile will not be created; instead the response includes the profileid and acctid for the existing profile.
+
+        The following fields are checked for matches, and if all of the following fields match an existing profile, the new profile is not created:
+        
+        * merchid
+        * token
+        * accttype
+        * expiry
+        * name
+        * address
+        * city
+        * state
+        * country
+        * postal
+        * phone
+        * email
+        * auoptout
+        If the request includes "defaultacct":"Y", the CardPointe Gateway will update the existing profile to set it as the default, and will return the existing profileid and acctid info in the response.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/putpostprofileRequest'
+      parameters:
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/Authorization'}
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/putpostprofileResponse'}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+  /cardconnect/rest/profile/{profileid}/{merchid}:
+    delete:
+      tags:
+        - profile (DELETE) Endpoint Definition
+      x-group-name: CardPointe Gateway API
+      x-proxy-name: profile (DELETE)
+      x-default-example: PaymentCard
+      summary: A DELETE request to the profile endpoint deletes the stored data for the specified profile ID. 
+      description: | 
+        A DELETE request to the profile endpoint deletes the stored data for the specified profile ID. 
+
+        If the profile includes more than one account, you can specify an account ID to delete data for a specific account. If you do not include an account ID, then data for all accounts in the profile is deleted.
+        
+        If a profile or an account within a profile is associated with a CardPointe Billing Plan, then deleting the account or profile also cancels and deletes the billing plan.
+      parameters:
+      - name: merchid
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/merchid'
+          description: The MID from the original authorization.
+      - name: profileid
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/profileid'
+          description: Primary identifier to access profiles
+      - name: accountid
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/accountid'
+          description: The token associated with the transaction.
+      - in: header
+        $ref: '#/components/parameters/ContentTypeHeader'
+      - in: header
+        $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/deleteprofileResponse'}
+              example:
+                resptext: Profile Deleted
+                respcode: 08
+                respproc: PPS
+                respstat: A
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+    get:
+      tags:
+        - profile GET Endpoint Definition
+      x-group-name: CardPointe Gateway API
+      x-proxy-name: profile (GET) 
+      x-default-example: PaymentCard
+      summary: The BIN service allows you to use a CardSecure token to determine what type of payment card is being used. The first six (6) digits of a credit card are known as the Bank Identifier Number (BIN), also known as an Issuer Identification Number (IIN). 
+
+      description: | 
+        The BIN service allows you to use a CardSecure token to determine what type of payment card is being used. The first six (6) digits of a credit card are known as the Bank Identifier Number (BIN), also known as an Issuer Identification Number (IIN). 
+
+        The BIN service supports the Visa, Mastercard, Amex, Discover, Diners, and JCB card brands.  
+        
+        Visa and Mastercard return all parameters described in the BIN response. For other card brands, only the country, product, and bin parameters are relevant.
+      parameters:
+      - name: merchid
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/merchid'
+          description: The MID from the original authorization.
+      - name: profileid
+        in: path
+        required: true
+        schema:
+          $ref: '#/components/schemas/profileid'
+          description: Primary identifier to access profiles
+      - name: accountid
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/accountid'
+          description: The token associated with the transaction.
+      - in: header
+        $ref: '#/components/parameters/ContentTypeHeader'
+      - in: header
+        $ref: '#/components/parameters/Authorization'
+      responses:
+        200: 
+          description: Success
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/getprofileResponse'}
+        400:
+          description: Not Found
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/NotFoundError'}
+        404:
+          description: Bad Request
+          content:  
+            application/json:
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+components:
+  parameters:
+    Authorization:
+      name: Authorization
+      schema: {type: string, format: Base64}
+      in: header
+      required: true
+      description: Basic
+    date:
+      in: query
+      name: date
+      required: false
+      schema: {type: integer,
+          maxLength: 8}
+      description: |
+            Queries by date given in MMDD or YYYYMMDD. date is optional, and can be specified in the format MMDD to specify a day within the current calendar year, or YYYYMMDD to specify a date in a previous calendar year. If no date is specified, the service checks for any funding data that has not already been retrieved.
+      example: "20180518"
+    merchantIDHeader:
+      name: merchid
+      schema: {type: string, maxLength: 16}
+      in: header
+      required: true
+      description: The specific Merchant ID for the funding data you want returned.
+    TimestampHeader:
+      x-model-version: 1.0
+      name: Timestamp
+      schema: {type: integer, format: int64}
+      in: header
+      required: true
+      description: Epoch timestamp in milliseconds in the request from a client system.
+        Used for authorization header generation and time limit (5 minutes).
+    MessageDigestHeader:
+      x-model-version: 1.0
+      name: Message-Digest
+      schema: {
+        type: string,
+        default: "Message-Digest"
+       }
+      in: header
+      required: false
+      description: Needed only from customer browser or app to the API in Hosted Payment
+        Page requests.
+    AcceptLanguageHeader:
+      x-model-version: 1.0
+      name: Accept-Language
+      schema: {
+        type: string,
+        default: "Accept-Language"
+       }
+      in: header
+      required: false
+      description: The Accept Language header contains information about the language
+        preference of a user. This HTTP header is useful to multilingual sites for
+        deciding the best language to serve to the client. For example en-US or fr-CA.
+    ApiKeyHeader:
+      x-model-version: 1.0
+      name: Api-Key
+      schema: {
+        type: string,
+        default: "Api-Key"
+       }
+      in: header
+      required: true
+      description: API key provided to the merchant associating the requests with the appropriate app in the Developer Portal.
+    ContentTypeHeader:
+      name: Content-Type
+      schema:
+        type: string
+      in: header
+      required: true
+      description: application/json
+    AccountParam:
+      x-model-version: 1.0
+      name: account
+      schema: {
+          type: string,
+          default: 4444333322221111
+        }
+      in: header
+      required: false
+      description: This field is required only if devicedata is absent. It must contain either a clear or encrypted payment account number (PAN) or an ACH routing and account number string in the format <routing>/<account> for eCheck transactions.
+                    If encryptionhandler is provided, the account is treated as an encrypted PAN.
+    DeviceDataParam:
+      x-model-version: 1.0
+      name: devicedata
+      schema: {
+          type: string
+          }
+      in: header
+      description: This field is required only if account is absent.
+    CVVParam:
+      x-model-version: 1.0
+      name: cvv
+      schema: {
+          type: number,
+        }
+      in: header
+      description: Card Verification Value (CVV)
+    ExpiryParam:
+      x-model-version: 1.0
+      name: expiry
+      schema:
+        {
+          type: number,
+        }
+      in: header
+      description: Expiration date
+    SigParam:
+      x-model-version: 1.0
+      name: signature
+      schema:
+        {
+          type: string,
+        }
+      in: header
+      description: Signature data is the form of a Base64-encoded, Gzipped bitmap (BMP)
+    EncryptHandleParam:
+      x-model-version: 1.0
+      name: encryptionhandler
+      schema:
+        {
+          type: string,
+        }
+      in: header
+      description: Encryption Handler. Either RSA, EX_APPLE_PAY, EX_GOOGLE_PAY
+    UniqueParam:
+      x-model-version: 1.0
+      name: unique
+      schema:
+        {
+          type: boolean,
+        }
+      in: header
+      description: Specifies whether a unique token should be generated. Defaults to false.
+    ErrorCode:
+      x-model-version: 1.0
+      name: errorcode
+      schema:
+        type: integer
+      in: header
+      description: An error code that displays signifying the importance of error codes.
+    MessageParam:
+      x-model-version: 1.0
+      name: message
+      schema:
+        {
+          type: string,
+        }
+      in: header
+      description: A message to send in the ping request and receive in the response. The value can be blank, however the message field must be included in the request.
+  schemas:
+    securedstid:
+      type: string
+      maxLength: 36
+      description: |
+        Required for Mastercard Identity Check transactions.
+       
+        Unique Directory Server Transaction ID (dsTransID) used by Mastercard to identify a single transaction.
+      
+        See [3-D Secure 2.0](https://support.cardpointe.com/compliance/3-d-secure-2-0/) for more information.
+      example: "05"   
+    secureexemption:
+      type: string
+      maxLength: 8
+      description: |
+        Required for European web transactions if the transaction meets the criteria for exemption from the Strong Customer Authentication (SCA) mandate.
+       
+        One of the following values, if applicable:
+       
+        - <code>ivr</code> - The transaction is authorized using a secure IVR system between the merchant and cardholder.
+        - <code>lowrisk</code> - The transaction is considered low-risk. Requires an agreement between the merchant and issuer. 
+        - <code>lowvalue</code> - The transaction amount is less than 30 euros (€30) .
+        - <code>trusted</code> - For Visa only, if the merchant has a trusted agreement with the issuer.
+       
+        **Do not include secureexemption for other transactions that do not meet the above criteria; passing this field when not needed or applicable will cause declines. Contact your 3-D Secure provider and integration support for more information.**
+        
+        See [3-D Secure 2.0](https://support.cardpointe.com/compliance/3-d-secure-2-0/) for more information.
+      example: "ivr"
+    secureflag:
+      type: string
+      maxLength: 2
+      description: |
+        Required for 3DS 2.0 transactions.
+       
+        An Electronic Commerce Indicator (ECI) flag returned from your 3DS provider. 
+       
+        One of the following values:
+       
+        - <code>05</code> - Fully-authenticated transaction.
+        - <code>06</code> - Attempted authenticated transaction
+       
+        See [3-D Secure 2.0](https://support.cardpointe.com/compliance/3-d-secure-2-0/) for more information.
+      example: "05"
+    securevalue:
+      type: string
+      maxLength: 32
+      description: |
+        Required for 3DS 2.0 transactions. 
+       
+        A Base-64 encoded Cardholder Authentication Verification Value (CAVV), returned from your 3DS provider.
+      example: "=asju1ljfl86bAAAAAACm9zU6aqY="     
+    ponumber:
+      type: string
+      maxLength: 36
+      description: |
+        Purchase order number.
+        
+        Many Level 2 protocols require a "Customer Code," which is described as "an identifier the customer would recognize."
+        
+        The CardPointe Gateway populates this field with the <code>ponumber</code>. If the <code>ponumber</code> is not provided, then the <code>orderid</code> from the authorization request is used. If neither the ponumber or the orderid is available, the Retrieval Reference Number (<code>retref</code>) is used.
+      example: "A1B2C3D4"
+    dutyamnt:
+      type: string
+      maxLength: 12
+      description: |
+        The total duty amount for the order.
+        
+        Defaults to <code>"0.00"</code> if not specified.
+      example: "300.00"
+    frtamnt:
+      type: string
+      maxLength: 12
+      description: | 
+        The total freight amount for the order.
+        
+        Defaults to <code>"0.00"</code> if not specified.
+      example: "500.00"
+    taxamnt:
+      maxLength: 12
+      type: string
+      description: | 
+        Tax amount for the order, either decimal or in currency minor units (for example, USD Pennies or MXN Centavos).
+        
+        If <code>"taxexempt":"Y"</code>, then <code>taxamnt</code> must be zero or omitted. 
+        
+        If <code>"taxexempt":"N"</code>, then <code>taxamnt</code> must be a positive, non-zero value.      
+      example: "6.00"
+    orderdate:
+      type: string
+      maxLength: 8
+      description: |
+        For most industries this is the delivery date for the order in the format YYYYMMDD.
+        
+        Defaults to System Date when the transaction is captured.
+      example: "20240930"
+    approvedSurchargeResponse:
+      description: Approved for Surcharge
+      x-model-version: 1.0 
+      properties:
+        token:
+          $ref: '#/components/schemas/token'
+        postal:
+          $ref: '#/components/schemas/postal'
+        fee_amount:
+          $ref: '#/components/schemas/fee_amount'
+        messages:
+          $ref: '#/components/schemas/messages'
+      example:
+        token: CREDIT,
+        postal: NOT_RESTRICTED,
+        fee_amount: 3.00,
+        messages: []
+    messages:
+      x-model-version: 1.0 
+      properties:
+          message:
+            $ref: '#/components/schemas/message'
+    message:
+      type: string
+      description: |+
+        Empty ([]) for a successful request.
+
+        Otherwise, an array with one or more of the following objects:
+        
+        * "field":"merchid", "message":"Invalid merchid"
+        * "field":"postal", "message":"postal is missing or empty"
+        * "field":"token", "message":"Bin info not found for token"
+        * "field":"token", "message":"Invalid Token"
+        * "field":"token", "message":"token is missing or empty"
+      maxLength: 28
+    account:
+      maxLength: 19
+      type: string
+      description: Masked account number
+      example: 9441149619831111
+    avs:
+      maxLength: 1
+      type: string
+      description: | 
+        Specifies whether or not AVS validation is enabled for the MID. 
+        
+        Possible values are:
+        * Y
+        * N
+        
+        If Y, the MID can perform $0 authorizations to validate the postal and address values in the auth request.
+      example: Y
+    avsresp:
+      maxLength: 2
+      type: string
+      description: |
+          Alpha-numeric AVS (zip code) verification response code.
+
+          Note: <code>avsresp</code> is typically only returned for approved authorizations, however this field can be returned in the response for a declined authorization if this setting is enabled for the merchant account.
+    deleteprofileResponse:
+      x-model-version: 1.0
+      description: profile DELETE Response
+      properties:
+        resptext:
+          $ref: '#/components/schemas/resptext'
+        respcode:
+          $ref: '#/components/schemas/respcode'
+        respproc:
+          $ref: '#/components/schemas/respproc'
+        respstat:
+          $ref: '#/components/schemas/respstat'
+    getprofileResponse:
+      x-model-version: 1.0
+      description: profile GET Response
+      properties:
+        profileid:
+          $ref: '#/components/schemas/profileid'
+        acctid:
+          $ref: '#/components/schemas/acctid'
+        accttype:
+          $ref: '#/components/schemas/accttype'
+        token:
+          $ref: '#/components/schemas/token'
+        expiry:
+          $ref: '#/components/schemas/expiry'
+        name:
+          $ref: '#/components/schemas/name'
+        address:
+          $ref: '#/components/schemas/address'
+        city:
+          $ref: '#/components/schemas/city'
+        region:
+          $ref: '#/components/schemas/region'
+        country:
+          $ref: '#/components/schemas/country'
+        postal:
+          $ref: '#/components/schemas/postal'
+        company:
+          $ref: '#/components/schemas/company'
+        defaultacct:
+          $ref: '#/components/schemas/defaultacct'
+        auoptout:
+          $ref: '#/components/schemas/auoptout'
+        cofpermission:
+          $ref: '#/components/schemas/cofpermission'
+        gsacard:
+          $ref: '#/components/schemas/gsacard'
+    putpostprofileRequest:
+      x-model-version: 1.0
+      description: profile PUT and POST Request
+      properties:
+        profile:
+          $ref: '#/components/schemas/profile'
+        deafultacct:
+          $ref: '#/components/schemas/defaultacct'
+        profileupdate:
+          $ref: '#/components/schemas/profileupdate'
+        cofpermission:
+          $ref: '#/components/schemas/cofpermission'
+        auoptout:
+          $ref: '#/components/schemas/auoptout'
+        accttype:
+          $ref: '#/components/schemas/accttype'
+        merchid:
+          $ref: '#/components/schemas/merchid'
+        account:
+          $ref: '#/components/schemas/account'
+        bankaba:
+          $ref: '#/components/schemas/bankaba'
+        expiry:
+          $ref: '#/components/schemas/expiry'
+        name:
+          $ref: '#/components/schemas/name'
+        address:
+          $ref: '#/components/schemas/address'
+        city:
+          $ref: '#/components/schemas/city'
+        region:
+          $ref: '#/components/schemas/region'
+        country:
+          $ref: '#/components/schemas/country'
+        phone:
+          $ref: '#/components/schemas/phone'
+        postal:
+          $ref: '#/components/schemas/postal'
+        company:
+          $ref: '#/components/schemas/company'
+        email:
+          $ref: '#/components/schemas/email'
+    putpostprofileResponse:
+      x-model-version: 1.0
+      description: profile PUT and POST Response
+      properties:
+        profileid:
+          $ref: '#/components/schemas/profileid'
+        acctid:
+          $ref: '#/components/schemas/acctid'
+        respstat:
+          $ref: '#/components/schemas/respstat'
+        token:
+          $ref: '#/components/schemas/token'
+        respcode:
+          $ref: '#/components/schemas/respcode'
+        resptext:
+          $ref: '#/components/schemas/resptext'
+        respproc:
+          $ref: '#/components/schemas/respproc'
+        accttype:
+          $ref: '#/components/schemas/accttype'
+        expiry:
+          $ref: '#/components/schemas/expiry'
+        name:
+          $ref: '#/components/schemas/name'
+        address:
+          $ref: '#/components/schemas/address'
+        city:
+          $ref: '#/components/schemas/city'
+        region:
+          $ref: '#/components/schemas/region'
+        country:
+          $ref: '#/components/schemas/country'
+        phone:
+          $ref: '#/components/schemas/phone'
+        postal:
+          $ref: '#/components/schemas/postal'
+        email:
+          $ref: '#/components/schemas/email'
+        company:
+          $ref: '#/components/schemas/company'
+        defaultacct:
+          $ref: '#/components/schemas/defaultacct'
+        gsacard:
+          $ref: '#/components/schemas/gsacard'
+        auoptout:
+          $ref: '#/components/schemas/auoptout'
+        cofpermission:
+          $ref: '#/components/schemas/cofpermission'
+    gsacard:
+      maxLength: 1
+      type: string
+      description: Identifies if the card is a government issued card.
+      example: N
+    defaultacct:
+      maxLength: 1
+      type: string
+      description: <code>Y</code> to assign as default account.
+      example: Y
+    profileupdate:
+      maxLength: 1
+      type: string
+      description:   <code>Y</code> to update profile data with non-empty request data only as opposed to full profile replacement including empty values
+      example: N
+    authcode:
+      maxLength: 16
+      type: string
+      description: Authorization code from original authorization request
+      example: 046221
+    authRequest:
+      x-model-version:
+      properties:
+        merchid:
+         maxLength: 16
+         type: string
+         description: |
+          *Required*
+          
+          CardPointe merchant ID, required for all requests.
+         example: "123456789012"
+        account:
+          maxLength: 19
+          type: string
+          example: "4111111111111111"
+          description: |
+           *Required*
+           
+           The payment account to process the transaction. Can be one of the following:
+          
+           - CardSecure Token - A token representing the payment account number. See the CardSecure Developer Guide for more information.
+           
+           - Clear text card number - Only PCI Level 1 and Level 2 compliant merchants should handle clear text card numbers in authorization requests. It is *strongly recommended* that you tokenize the clear text card data before passing it in an authorization request.
+           
+           - Bank Account Number - For merchants configured to process electronic checking (ACH) transactions. Also requires <code>bankaba</code>. 
+           
+           See Processing ACH Payments for more information.
+        amount:
+          maxLength: 14
+          type: string
+          example: "106.00"
+          description: |
+           *Required*
+           
+           Amount with decimal or without decimal in currency minor units (for example, USD Pennies or EUR Cents).
+           
+           The value can be a positive or negative amount or 0, and is used to identify the type of authorization, as follows:
+           
+           - Positive - Authorization request.
+           - Zero - Account Verification request. Not supported for eCheck (ACH) authorizations.
+           - Negative - Refund without reference (Forced Credit). Merchants must be configured to process forced credit transactions. To refund anexisting authorization, use Refund.
+        authcode:
+          maxLength: 6
+          type: string
+          description: For voice authorizations only, the authorization code provided by the issuer.
+        capture:
+          $ref: '#/components/schemas/capture'  
+        tokenize:
+          $ref: '#/components/schemas/tokenize'  
+        expiry:
+          maxLength: 8
+          type: string
+          example: "0928"
+          description: | 
+           The payment card expiration date when the account is provided. Not needed when account is track data, digital wallet, ACH, or a stored profile.
+           
+           Must use one of the following formats:
+           - MMYY
+           - YYYYM (for single-digit months)
+           - YYYYMM
+           - YYYYMMDD
+        orderid:
+         type: string
+         maxLength: 50
+         example: "A1B2C3D4"
+         description: |
+            An optional, unique order ID for the transaction, generated by the source system.  
+            
+            Order IDs must be unique; using duplicate order IDs can lead to the wrong transaction being voided in the event of a timeout.
+            
+            The order ID must not include any portion of a payment account number (PAN), and no portion of the order ID should be mistaken for a PAN. If the order ID passes the Luhn check performed by the CardPointe Gateway, the value will be masked in the database, and attempts to use the order ID in an inquire, void, or refund request will fail.
+        postal:
+         maxLength: 9
+         type: string
+         example: "19046"
+         description: | 
+          The account holder's postal code for address verification service (AVS) verification. Also used to determine surcharge eligibility for merchants configured for surcharging. 
+        
+          If country is "US", must be 5 or 9 digits. Otherwise any alphanumeric string is accepted. Defaults to"55555" if not included in the request or stored profile. 
+        
+          It is strongly recommended that your application prompts for postal code for card-not-present transactions, to prevent fraud and downgrades, and to avoid declines on the CardPointe Gateway if the AVS verification option is enabled for your merchant account.
+        cvv2:
+          $ref: '#/components/schemas/cvv2'
+        ecomind:
+          $ref: '#/components/schemas/ecomind'
+        cof:
+          maxLength: 1
+          type: string
+          example: C
+          description: |
+           Identifies the transaction as a card on file (COF) or stored credential transaction, where the merchant has obtained the cardholder's permission to store the card account in a secure vault or within a CardPointe profile.
+           
+           One of the following values:
+           - C - Customer-initiated Transaction (CIT), used when the transaction is initiated by the cardholder from a web site or over the phone.
+           
+           - M - Merchant-Initiated Transaction (MIT), used when the transaction is initiated by the merchant for a recurring payment.
+           
+           See [Visa and Mastercard Stored Credential Transaction Framework Mandate](https://support.cardpointe.com/compliance/visa-stored-credential-transaction-framework-mandate/) for more information.
+        cofpermission:
+          $ref: '#/components/schemas/cofpermission'
+        cofscheduled:
+          $ref: '#/components/schemas/cofscheduled'
+        currency:
+          maxLength: 3
+          type: string
+          example: USD
+          description: |
+           Used to specify the currency for the authorization when different from the merchant's default currency (for example, <code>USD</code> for US dollars or <code>CAD</code> for Canadian Dollars).
+           
+           If specified in the auth request, the <code>currency</code> value must match the currency that the MID isconfi gured for. Specifying the incorrect currency will result in a <code>"Wrong currency for merch"</code> error response.
+        bankaba:
+          $ref: '#/components/schemas/bankaba'
+        track:
+          $ref: '#/components/schemas/track'
+        receipt:
+          $ref: '#/components/schemas/receipt'
+        bin:
+          $ref: '#/components/schemas/bin'
+        profile:
+          $ref: '#/components/schemas/profile'
+        auoptout:
+          $ref: '#/components/schemas/auoptout'
+        signature:
+          $ref: '#/components/schemas/signature'
+        name:
+          $ref: '#/components/schemas/name'
+        company:
+          $ref: '#/components/schemas/company'
+        address:
+          $ref: '#/components/schemas/address'
+        address2:
+          $ref: '#/components/schemas/address2'
+        city:
+          $ref: '#/components/schemas/city'
+        region:
+          $ref: '#/components/schemas/region'
+        country:
+          $ref: '#/components/schemas/country'
+        phone:
+          $ref: '#/components/schemas/phone'
+        email:
+          $ref: '#/components/schemas/email'
+        taxexempt:
+          $ref: '#/components/schemas/taxexempt'
+        taxamnt:
+          $ref: '#/components/schemas/taxamnt'
+        termid:
+          $ref: '#/components/schemas/termid'
+        accttype:
+          $ref: '#/components/schemas/accttype'
+        userfields:
+          $ref: "#/components/schemas/userfields"
+    custommerchant:
+      type: string
+      description: |+
+        Custom merchant name field
+        
+        You can provide custom identifying information about a merchant (for example, business name or phone number) or a custom product name in an authorization request, which appears on buyers’ credit/debit card statements. 
+
+        See your sales person for feature availability and merchant configuration. Once configured add UserField entries for each piece of custom data to be replaced.
+      maxLength: 12
+      example: John Smith
+    customproduct:
+      type: string
+      description: |+
+        You can provide custom identifying information about a merchant (for example, business name or phone number) or a custom product name in an authorization request, which appears on buyers’ credit/debit card statements. 
+
+        See your sales person for feature availability and merchant configuration. Once configured add UserField entries for each piece of custom data to be replaced.
+      maxLength: 12
+      example: John Smith's Shoes
+    customphone:
+      type: string
+      description: |+
+        Custom phone number where format must be ##########
+        
+        You can provide custom identifying information about a merchant (for example, business name or phone number) or a custom product name in an authorization request, which appears on buyers’ credit/debit card statements. 
+
+        See your sales person for feature availability and merchant configuration. Once configured add UserField entries for each piece of custom data to be replaced.
+      maxLength: 12
+      example: 7777777777
+    track:
+      maxLength: 76
+      type: string
+      description: Payment card track data captured using a supported card reader device. Can be unencrypted Track 1 or Track 2 data, or encrypted swipe data (containing Track 1 and/or Track 2) data. 
+    bin:
+      maxLength: 1
+      type: string
+      example: Y
+      description: |
+        Optional, to return BIN lookup fields in the authorization response.
+
+        Specify Y to retrieve the BIN data for the card. 
+        
+        Defaults to N if not provided.
+    binMissingorErrorResponse:
+      x-model-version:
+      description: BIN Missing or Error Response
+      properties:
+        success:
+          $ref: '#/components/schemas/success'
+        errormsg:
+          $ref: '#/components/schemas/errormsg'
+    success:
+      type: boolean
+      example: true
+      description: |
+        True = successful request, but no BIN information available.
+        False = an error occurred during the request
+    errormsg:
+      type: string
+      description: Reason for error
+      example: No bin information found.
+    accountid:
+      maxLength: 3
+      type: string
+      example: 1
+      description: Account identifier within a profile.
+    binResponse:
+      x-model-version: 1.0
+      description: bin Response
+      properties:
+        country:
+          $ref: '#/components/schemas/country'
+        product:
+          $ref: '#/components/schemas/product'
+        bin:
+          $ref: '#/components/schemas/bin'
+        cardusestring:
+          $ref: '#/components/schemas/cardusestring'
+        gsa:
+          $ref: '#/components/schemas/gsa'
+        corporate:
+          $ref: '#/components/schemas/corporate'
+        fsa:
+          $ref: '#/components/schemas/fsa'
+        subtype:
+          $ref: '#/components/schemas/subtype'
+        purchase:
+          $ref: '#/components/schemas/purchase'
+        prerpaid:
+          $ref: '#/components/schemas/prepaid'
+        issuer:
+          $ref: '#/components/schemas/issuer'
+        binlo:
+          $ref: '#/components/schemas/binlo'
+        binhi:
+          $ref: '#/components/schemas/binhi'
+    product:
+      type: string
+      example: V
+      description: |
+        Card type, one of the following:
+        A = Amex
+        D = Discover
+        M = Mastercard
+        N = Non-co-branded debit card
+        V = Visa
+    gsa:
+      type: string
+      example: false
+      description: Indicates if a GSA card was used.
+    corporate:
+      type: boolean
+      example: false
+      description: Indicates if a Corporate card was used. 
+    fsa:
+      type: boolean
+      example: false
+      description: Indicates if a FSA card was used.
+    subtype:
+      type: string
+      description: Detailed subtype of card, blank if not available.
+      example: Consumer Credit - Rewards
+    purchase:
+      type: boolean
+      description: Indicates if a Purchase card was used.
+      example: false
+    prepaid:
+      type: boolean
+      description: Indicates if a Prepaid card was used.
+      example: false
+    issuer:
+      description: Card issuing bank/institution
+      type: string
+      example: 
+    binlo:
+      description: The low end of the BIN range that includes the card’s BIN value. Masked after the first six (6) digits.
+      type: string
+      example: 601100XXX
+    binhi:
+      description: The high end of the BIN range that includes the card’s BIN value. Masked after the first six (6) digits.
+      type: string
+      example: 601102XXX
+    cardusestring:
+      type: string
+      example: True credit, No PIN/Signature capability
+      description: |
+        General usage type, one of the following:
+        
+        * Credit Hybrid (PIN and Signature)
+        * PIN Only Debit with Electronic Benefit Transfer
+        * Debit Hybrid (PIN and Signature)
+        * USA Commercial Debit, Signature Only, No PIN Access
+        * USA Commercial Debit, PIN Capable
+        * Non USA Consumer Debit, No PIN Access
+        * Non USA Commercial Debit, No PIN Access
+        * Non USA Consumer Debit, PIN Capable
+        * Non USA Commercial Debit, PIN Capable
+        * PIN Only Debit without Electronic Benefit Transfer
+        * Private Label Credit (MasterCard)
+        * Signature only Debit, No PIN Access
+        * True credit, No PIN/Signature capability
+    tokenize: 
+      maxLength: 1
+      type: string
+      description: |
+       Optionally, specify Y to return the tokenized card account or ACH account number in the <code>token</code> field in the response and the masked card or ACH account number in the <code>account</code> field.
+       
+       Specify N, or omit, to return only the token in the <code>token</code> and <code>account</code> fields.
+      example: Y
+    sigcapResponse:
+      x-model-version: 1.0
+      description: sigcap Response
+      properties:
+        resptext:
+          $ref: '#/components/schemas/resptext'
+        respcode:
+          $ref: '#/components/schemas/respcode'
+        retref:
+          $ref: '#/components/schemas/retref'
+        merchid:
+          $ref: '#/components/schemas/merchid'
+    termid:
+      maxLength: 8
+      type: string
+      example: "21341324"
+      description: |
+        The Terminal Device ID, required when the "Send Terminal ID for Reporting" feature is enabled for First Data ClientLine Reporting.
+
+        <code>termid</code> must be exactly 8 characters long, and the last 5 characters (used to display on the report)  must be numbers.
+        
+        Note: This field is not used for CardPointe transaction reporting.
+    accttype:
+      maxLength: 6
+      type: string
+      example: " "
+      description: |
+        The account type, not required unless one of the following:
+        
+        ECHK - Electronic checking account, for ACH transactions.
+        ESAV - Electronic savings account, for ACH transactions.
+        PDEBIT - For PINless Debit transactions. Must be enabled for the merchant account.
+    orderid:
+      maxLength: 50
+      type: string
+      description: |
+        Source system order number.
+        
+        Note: If you include an order ID it must meet the following requirements:
+        
+        * The order ID must be a unique value. Using duplicate order IDs can lead to the wrong transaction being voided in the event of a timeout.
+        * The order ID must not include any portion of a payment account number (PAN), and no portion of the order ID should be mistaken for a PAN. If the order ID passes the Luhn check performed by the CardPointe Gateway, the value will be masked in the database, and attempts to use the order ID in an inquire, void, or refund request will fail.
+      example: "14038635721239"
+    taxexempt:
+      maxLength: 1
+      type: string
+      example: "N"
+      description:   If taxexempt is set to N for the transaction and a tax is not passed, the default configuration data is used. If taxexempt is set to Y, the taxamnt is $0.00. 
+    company:
+      maxLength: 128
+      type: string
+      example: "Express Services"
+      description: Account holder's company name
+    address:
+      maxLength: 30
+      type: string
+      example: "1000 Continental Dr., King of Prussia, PA. 19355"
+      description: Account holder's street address required for AVS verification. 
+    address2:
+      maxLength: 30
+      type: string
+      description: Second address line (for example, apartment or suite number)
+      example: "Suite 300"
+    city: 
+      maxLength: 30
+      type: string
+      description: Account holder's ciy
+      example: "King of Prussia"
+    region: 
+      maxLength: 20
+      type: string
+      description: Account holder's region, US State, Mexican State, Canadian Province
+      example: "PA"
+    country:
+      maxLength: 2
+      type: string
+      description: |
+        Account holder's country (2-character country code), defaults to "US". 
+
+        Required for all non-US addresses
+      example: "US"
+    phone:
+      maxLength: 15
+      type: string
+      description: Account holder's phone number.
+      example: "777-777-7777"
+    email: 
+      type: string
+      maxLength: 128
+      description: Account holder's email address
+      example: "johndoe@johndoe.com"
+    capture:
+      maxLength: 1
+      type: string
+      example: "Y"
+      description: |
+        Optional, specify Y to capture the transaction for settlement, if approved.
+
+        Defaults to N if not provided.
+    profile:
+      maxLength: 24
+      type: string
+      description: |
+        Optional, to create a stored customer profile or to use an existing profile.
+
+        To create a profile using the account holder data provided in the request, specify Y.
+        
+        Note: If the authorization request fails or is declined, the profile is not created.
+        
+        To use an existing profile for this authorization, omit the account parameter and instead use the profile parameter to supply the 20-digit <code>profileid</code> and 1-3-digit <code>accountid</code> string in the format <code><profileid>/<acctid></code>. See Profiles for more information.
+        
+        Note: You can submit a $0 authorization, including CVV and AVS verification, to validate the customer's information before creating a profile.
+      example: "Y"
+    auoptout:
+      maxLength: 1
+      type: string
+      description: |
+        Optional, when creating a profile, to specify whether or not the profile is set to opt out of the Card Account Updater service. Requires the merchant account to be enrolled in the Card Account Updater add-on.
+        Specify one of the following values:
+        
+        * Y - Yes; updates are not retrieved for this profile.
+        * N - No; updates are retrieved for this profile.
+        
+        Defaults to N if not provided.
+      example: "Y"
+    sigcapRequest:
+      x-model-version: 1.0
+      description: sigcap Request
+      properties:
+        merchid:
+          $ref: '#/components/schemas/merchid'
+        retref:
+          $ref: '#/components/schemas/retref'
+        signature:
+          $ref: '#/components/schemas/signature'
+    authResponse: 
+      x-model-version: 1.0
+      description: auth Response
+      properties:
+        respstat:
+          $ref: '#/components/schemas/respstat'
+        retref:
+          $ref: '#/components/schemas/retref'
+        account:
+          $ref: '#/components/schemas/account'
+        expiry:
+          $ref: '#/components/schemas/expiry'
+        token:
+          $ref: '#/components/schemas/token'
+        amount:
+          $ref: '#/components/schemas/amount'
+        orderId:
+          $ref: '#/components/schemas/orderId'
+        merchid:
+          $ref: '#/components/schemas/merchidResp'
+        respcode:
+          $ref: '#/components/schemas/respcode'
+        resptext:
+          $ref: '#/components/schemas/resptext'
+        respproc:
+          $ref: '#/components/schemas/respproc'
+        cof:
+          $ref: '#/components/schemas/cof'
+        avsresp:
+          $ref: '#/components/schemas/avsresp'
+        cvvresp:
+          $ref: '#/components/schemas/cvvresp'
+        binInfo:
+          $ref: '#/components/schemas/binInfo'
+        bintype:
+          $ref: '#/components/schemas/bintype'
+        entrymode:
+          $ref: '#/components/schemas/entrymode'
+        fee_amount:
+          $ref: '#/components/schemas/fee_amount'
+        fee_authcode:
+          $ref: '#/components/schemas/fee_authcode'
+        fee_format:
+          $ref: '#/components/schemas/fee_format'
+        fee_merchid:
+          $ref: '#/components/schemas/fee_merchid'
+        fee_retref:
+          $ref: '#/components/schemas/fee_retref'
+        fee_type:
+          $ref: '#/components/schemas/fee_type'
+        fee_value:
+          $ref: '#/components/schemas/fee_value'
+        declineCategory:
+          $ref: '#/components/schemas/declineCategory'
+        declineCategoryText:
+          $ref: '#/components/schemas/declineCategoryText'
+        authcode:
+          $ref: '#/components/schemas/authcode'
+        signature:
+          $ref: '#/components/schemas/signature'
+        commcard:
+          $ref: '#/components/schemas/commcard'
+        emv:
+          $ref: '#/components/schemas/emv'
+        emvTagData:
+          $ref: '#/components/schemas/emvTagData'
+        receipt:
+          $ref: '#/components/schemas/receiptdata'
+        receiptObj:
+          $ref: '#/components/schemas/receiptObj'
+        userfields:
+          $ref: "#/components/schemas/userfields"
+    amount:
+      maxLength: 12
+      type: string
+      description: Capture amount in decimal or in currency minor units (for example, USD Pennies or MXN centavos)
+      example: "106.00"
+    bankaba:
+      maxLength: 9
+      type: string
+      description: |
+        Bank routing (ABA) number, required for eCheck (ACH) authorizations when a bank account number is provided in the <code>account</code> field. 
+        
+        <code>bankaba</code> is not required if a CardSecure token (generated from the <code>account</code>/<code>bankaba</code> pair) is provided in the <code>account</code> field.
+      example: "036001808"
+    bintype:
+      maxLength: 16
+      description: |
+        The type of card, based on the BIN.
+
+        Possible values:
+        * Corp
+        * FSA+Prepaid
+        * GSA+Purchase
+        * Prepaid
+        * Prepaid+Corp
+        * Prepaid+Purchase
+        * Purchase
+      example: "Corp"
+    binInfo:
+      x-mdoel-version: 1.0
+      properties:
+          country:
+            type: string
+            description: Issuer country of origin
+            example: "USA"
+          product:
+            type: string
+            example: "D"
+            description: |
+              Card type, one of the following:
+                * A = Amex
+                * D = Discover
+                * M = Mastercard
+                * N = Non-co-branded debit card
+                * V = Visa
+          bin:
+            type: string
+            example: "601101"
+            description: The bank identification number (BIN) of the card used.
+          cardusestring:
+            type: string
+            example: "True credit, No PIN/Signature capability"
+            description: |
+              General usage type, one of the following:
+                * Credit Hybrid (PIN and Signature)
+                * PIN Only Debit with Electronic Benefit Transfer
+                * Debit Hybrid (PIN and Signature)
+                * USA Commercial Debit, Signature Only, No PIN Access
+                * USA Commercial Debit, PIN Capable
+                * Non USA Consumer Debit, No PIN Access
+                * Non USA Commercial Debit, No PIN Access
+                * Non USA Consumer Debit, PIN Capable
+                * Non USA Commercial Debit, PIN Capable
+                * PIN Only Debit without Electronic Benefit Transfer
+                * Private Label Credit (MasterCard)
+                * Signature only Debit, No PIN Access
+                * True credit, No PIN/Signature capability
+          gsa:
+            type: boolean
+            example: false
+            description: Indicates if card used is a GSA card.
+          corporate:
+            type: boolean
+            example: false
+            description: Indicates if card used is a corporate card.
+          fsa:
+            type: boolean
+            example: false
+            description: Indicates if card used is an FSA card. 
+          subtype:
+            type: string
+            example: Consumer Credit - Rewards
+            description: Detailed subtype of card, blank if not available.
+          purchase:
+            type: boolean
+            example: false
+            description: Indicates if card used is a purchase card.
+          prepaid:
+            type: boolean
+            example: false
+            description: Indicates if card used is a prepaid card.
+          issuer:
+            type: string
+            example: " "
+            description: Card issuing bank/institution 
+          binlo:
+            type: string
+            example: "601100XXX"
+            description: The low end of the BIN range that includes the card's BIN value. Masked after the first six digits.
+          binhi:
+            type: string
+            example: "601102XXX"
+            description: The high end of the BIN range that includes the card's BIN value. Masked after the first six digits.
+    batchid:
+      maxLength: 12
+      type: string
+      description: The Batch ID automatically created and assigned to transaction unless specified otherwise.
+      example: "1900941262"
+    captureRequest:
+      x-model-version: 1.0
+      description: captureRequest
+      properties:
+        merchid:
+          $ref: '#/components/schemas/merchid'
+        retref:
+          $ref: '#/components/schemas/retref'
+        authcode:
+          $ref: "#/components/schemas/authcode"
+        amount:
+          $ref: '#/components/schemas/amount'
+        invoiceid:
+          $ref: '#/components/schemas/invoiceid'
+        receipt:
+          $ref: '#/components/schemas/receipt'
+    captureSuccess:
+      x-model-version: 1.0
+      description: captureSuccess
+      properties:
+        merchid:
+          $ref: '#/components/schemas/merchid'
+        account: 
+          $ref: '#/components/schemas/account'
+        authcode:
+          $ref: "#/components/schemas/authcode"
+        orderid:
+          $ref: '#/components/schemas/orderId'
+        amount:
+          $ref: '#/components/schemas/amount'
+        retref:
+          $ref: '#/components/schemas/retref'
+        batchid:
+          $ref: '#/components/schemas/batchid'
+        commcard:
+          $ref: '#/components/schemas/commcard'
+        setlstat:
+          $ref: '#/components/schemas/setlstat'
+        receipt:
+          $ref: '#/components/schemas/receipt'
+    capturedate:
+      maxLength: 14
+      type: string
+      description: The date the transaction was captured in YYYYMMDDHHMMSS.
+      example: "20240101142832"
+    cardproc:
+      maxLength: 4
+      type: string
+      description: The card processor that the merchant is configured to use.
+      example: "RPCT"
+    cof:
+      maxLength: 1
+      type: string
+      description: | 
+        Returns the <code>cof</code> value, if included in the authorization request. 
+
+        One for the following values:
+          * C - Customer-Initiated Transaction (CIT)
+          * M - Merchant-Initiated Transaction (MIT)
+      example: "C"
+    cofpermission:
+      maxLength: 1
+      type: string
+      example: "Y"
+      description: |
+        Optionally, when <code>"profile":"y"</code> to create a stored profile, include <code>"cofpermission":"y"</code> to indicate that you obtained the cardholder's permission to store their payment data. This field is only used for reporting purposes, via the GET profile response.
+
+        Specify one of the following values:
+        
+        - Y - The cardholder provided their consent to store and reuse their payment details.
+        - N - The cardholder did not provide their consent.
+        
+        Defaults to N if not provided.
+        
+        See  [Visa and Mastercard Stored Credental Transaction Framework](https://support.cardpointe.com/compliance/visa-stored-credential-transaction-framework-mandate/) for more information.
+    cofscheduled:
+      maxLength: 1
+      type: string
+      description: |
+        Required for transactions using stored cardholder payment information. For a merchant-initiated transaction (MIT), the <code>cofscheduled</code> parameter specifies whether the transaction is a one-time payment or a scheduled, recurring payment.
+
+        Specify one of the following values:
+        
+        - Y - The transaction is a recurring payment billed on a regular schedule.
+        - N - The transaction is a one-time payment.
+        
+        See  [Visa and Mastercard Stored Credental Transaction Framework](https://support.cardpointe.com/compliance/visa-stored-credential-transaction-framework-mandate/) for more information.
+      example: "N"
+    commcard:
+      maxLength: 1
+      type: string
+      description: |
+        **Y** if corporate card
+      example: "N"
+    currency:
+      maxLength: 3
+      type: string
+      description: Currency type taken from the original authorization request.
+      example: "USD"
+    cvv:
+      maxLength: 1
+      type: string
+      description: |
+        Specifies whether or not CVV validation is enabled for the MID.
+        
+        Possible values are:
+
+        * Y
+        * N
+  
+        If Y, the MID can perform $0 authorizations to validate the cvv2 value in the auth request.
+      example: "Y"
+    cvv2:
+      maxLength: 4
+      type: string
+      description: |
+        The 3 or 4-digit cardholder verification value (CVV2/CVC/CID) value present on the card.
+        
+        It is *strongly recommended* that your application prompts for CVV for card-not-present transactions for fraud prevention and to avoid declines on the CardPointe Gateway if the CVV verification option is enabled for your merchant account.
+      example: "3124"
+    cvvresp:
+      maxLength: 1
+      type: string
+      description: |
+        Alpha-numeric CVV (card verification value) verification response code, if returned by the processor.
+
+        One of the following values:
+          * M - Valid CVV Match.
+          * N - Invalid CVV.
+          * P - CVV Not Processed.
+          * S - Merchant indicated that the CVV is not present on the card.
+          * U - Card issuer is not certified and/or has not provided Visa encryption keys.
+          * X or blank - No response. 
+        Note: <code>cvvresp</code> is typically only returned for approved authorizations, however this field can be returned in the response for a declined authorization if this setting is enabled for the merchant account.
+      example: "M"
+    echeck:
+      maxLength: 1
+      type: string
+      description: | 
+        Specifies whether or not the MID is configured to process eCheck/ACH transactions.
+
+        Possible values are:
+
+        * Y
+        * N
+
+        If Y, the MID can perform ACH transactions.
+      example: "N"
+    ecomind:
+      maxLength: 1
+      type: string
+      description: |
+        A transaction origin indicator used to override the merchant configuration, for card-not-present and eCheck (ACH) transactions only.
+
+        For ProfitStars ACH transactions, see Making an ACH Authorization Request for more information.
+        
+        For card-not-present transactions, one of the following values:
+        
+        * T - Telephone or mail payment
+        * R - Recurring billing, ignored for processors that support credential on file (COF) transactions
+        * E - E-commerce web or mobile application
+        
+        Include the appropriate ecomind value for all card-not-present transactions, to ensure that the transaction processes at the appropriate interchange level. Do not include ecomind for card-present transactions, in which the payment card data is obtained using a POS device.
+        
+        For recurring payments, use <code>cof</code> and <code>cofscheduled</code> when supported by the processor. See  [Visa and Mastercard Stored Credental Transaction Framework](https://support.cardpointe.com/compliance/visa-stored-credential-transaction-framework-mandate/) for more information.
+      example: "E"
+    acctid:
+      maxLength: 3
+      type: string
+      description: Identifies an individual account within a stored profile. 
+      example: "321"
+    acctupdater:
+      maxLength: 1
+      type: string
+      description: |
+
+        Specifies whether or not the MID is enrolled in the Card Account Updater service.
+        
+        Possible values are:
+        * Y
+        * N
+      example: "N"
+    authdate:
+      maxLength: 14
+      type: string
+      example: "20240104"
+      description: Date of the authorization in YYYYMMDD.
+    emvTagData:
+      x-model-version: 1.0
+      description: The emvTagData field contains an array of objects indicating the returned results of EMV Tag information from their sources.
+      properties:
+          TVR:
+            description: |
+              Terminal Verification Results displays the status of the different functions as seen from the terminal.
+              
+              Tag: 95
+            type: string
+            example: "0001100129"
+          ARC:
+            description: |
+              The Authorization Response Code indicates the transaction disposition of the transaction received from the issuer for theonline authorization.
+              
+              Tag: 8A
+            type: string
+            example: "00"
+          PIN:
+            type: string
+            example: "Verified by PIN"
+            description: | 
+              Indicates the results of the last CVM performed. If PIN was entered, then "Verified by PIN"  
+              
+              Tag: 9F34
+          Signature:
+            description: |
+              Indicates the results of the last CVM performed. If "true" then CVM supports signature and signature line may be applicable. However, card brands have moved away from requiring signature.
+
+              Returns "unknown" if the signature requirement could not be determined.
+              
+              Tag: 9F34
+            type: string
+            example: "unknown"
+          Mode:
+            description: |
+              Identifies the mode used to authorize (or decline) the transaction. Always <code>Issuer</code>. 
+            type: string
+            maxLength: 6
+            example: "Issuer"
+          TSI:
+            description: |
+              The Transaction Status Information field indicates the functions performed in a transaction. 
+              
+              Tag: 9B
+            type: string
+            example: "6800"
+          Application Preferred Name:
+            description: |
+              Preferred mnemonic associated with the AID. If unabailable Application Label provided.
+            
+              Tag: 9F12
+            example: "Visa Credit"
+            type: string
+          AID:
+            example: A0000000031010
+            type: string
+            description: The Application Identified Data identifies the application as described in ISO/IEC 7816-5.
+          IAD: 
+            example: "06010A03A0B800"
+            type: string
+            description: The Issuer Application Data contains proprietary application data for transmission to the issuer in an online transaction.
+          Entry Method:
+            example: "Chip Read"
+            type: string
+            description: |
+              Indicator identifying how the card information was obtained.
+
+              One of the following values:
+                * Manual
+                * Chip Read
+                * Contactless Chip
+                * Contactless Fallback Swipe
+                * Fallback Keyed
+                * Fallback Swipe
+                * Swipe
+          Application Label:
+            example: "VISA CREDIT"
+            type: string
+            description: Mnemonic associated with the AID according to ISO/IEC 7816-5. If unavailable, Application Preferred Name displayed. 
+    enabled:
+      type: boolean
+      example: true
+      description: Specifies whether the MID is currently enabled for use. 
+    expiry:
+      type: string
+      example: "1228"
+      description: The account's expiration date in MMYY.
+    emv:
+      description: Authorization Response Cryptogram (ARPC). This is returned only when EMV data is present within the Track Parameter.
+      type: string
+      example: " "
+    entrymode:
+      maxLength: 25
+      example: "Digital Wallet"
+      type: string
+      description: |
+        Possible Values:
+          * Keyed
+          * Moto
+          * ECommerce
+          * Recurring
+          * Swipe (Non EMV)
+          * DigitalWallet
+          * EMVContact
+          * Contactless
+          * Fallback to Track
+          * Fallback to Keyed
+    fee_authcode:
+      maxLength: 6
+      type: string
+      description: Duplicate of the <code>authcode</code> field included if the transaction included a fee (for example, a credit card surcharge).
+      example: "46221"
+    fee_amount:
+      maxLength: 14
+      example: "1402"
+      description: The fee amount (for example, a credit card surcharge amount) applied to the transaction in dollars and cents. The fee value calculation is rounded at the second decimal place, where the value is rounded down from a third decimal value of 4 or less, and up from 5 and greater. For example, for a 3% fee applied to a $24.99 sale amount, the calculated fee value is $.749, rounded and applied as $.75. 
+      type: string
+    fee_format:
+      type: string
+      description: | 
+        Specifies the surcharge fee format.
+          
+        Possible values are:
+        
+        * <code>flat</code>
+        * <code>percent</code>
+      example: "percent"
+      maxLength: 7
+    fee_merchid:
+      type: string
+      maxLength: 16
+      example: "55555666959"
+      description: |
+        Specifies the linked MID used for processing transactions with surcharge enabled.
+
+        If not applicable, this field is returned as an empty string.
+    fee_type: 
+      type: string
+      example: "S"
+      description: |
+        Specifies whether the merchant has convenience or surcharge fees enabled.
+        
+        Possible values are:
+        
+        * C - convenience fee
+        * F - service fee
+        * S - surcharge fee
+        * N - none
+    fee_value:
+      type: string
+      example: "3"
+      description: |
+        Specifies the fee value configured for the merchant, where the value is either a percentage or flat amount, used to calculate the fee for each transaction.
+    fee_retref:
+      type: string
+      example: ""
+      description: The unique retrieval reference number for a fee. If not applicable or the same as the transaction retref, returns an empty value ("").
+    fundingResponse:
+      x-model-version: 1.0
+      description: funding endpoint Response
+      properties:
+        fundings:
+          $ref: '#/components/schemas/fundings'
+        txns:
+          $ref: '#/components/schemas/fundingtxns'
+        adjustments:
+          $ref: '#/components/schemas/adjustments'
+        chargebacks:
+          $ref: '#/components/schemas/chargebacks'
+        fundingdate:
+          $ref: '#/components/schemas/fundingdate'
+        merchid:
+          $ref: '#/components/schemas/merchid'
+        datechanged:
+          $ref: '#/components/schemas/datechanged'
+        fundingmasterid:
+          $ref: '#/components/schemas/fundingmasterid'
+    fundingtxns:
+      x-model-version: 1.0
+      properties:
+        fundingtxnid:
+          $ref: '#/components/schemas/fundingtxnid'
+        retref:
+          $ref: '#/components/schemas/retref'
+        authcode:
+          $ref: '#/components/schemas/authcode'
+        authdate:
+          $ref: '#/components/schemas/authdate'
+        respcode:
+          $ref: '#/components/schemas/respcode'
+        batchid:
+          $ref: '#/components/schemas/batchid'
+        cardproc:
+          $ref: '#/components/schemas/cardproc'
+        interchangeunitfee:
+          $ref: '#/components/schemas/interchangeunitfee'
+        interchangepercentfee:
+          $ref: '#/components/schemas/interchangepercentfee'
+        date:
+          $ref: '#/components/schemas/date'
+        cardnumber:
+          $ref: '#/components/schemas/cardnumber'
+        cardtype:
+          $ref: '#/components/schemas/cardtype'
+        cardbrand:
+          $ref: '#/components/schemas/cardbrand'
+        amount:
+          $ref: '#/components/schemas/amount'
+        currency:
+          $ref: '#/components/schemas/currency'
+        type:
+          $ref: '#/components/schemas/type'
+        status:
+          $ref: '#/components/schemas/status'
+        userfieldn:
+          $ref: '#/components/schemas/userfieldn'
+        fundingid:
+          $ref: '#/components/schemas/fundingid'
+        plancode:
+          $ref: '#/components/schemas/plancode'
+        downgradereasoncodes:
+          $ref: '#/components/schemas/downgradereasoncodes'
+        invoicenumber:
+          $ref: '#/components/schemas/invoicenumber'
+        sourcetransactionid:
+          $ref: '#/components/schemas/sourcetransactionid'
+        terminalnumber:
+          $ref: '#/components/schemas/terminalnumber'
+        achreturncode:
+          $ref: '#/components/schemas/achreturncode'
+        parentretref:
+          $ref: '#/components/schemas/parentretref'
+    chargebacks: 
+      x-model-version: 1.0
+      description: Chargeback data is only applicable to specific clients that have been configured appropriately. This node is only returned if chargeback records are present for the given date.
+      properties:
+          depositdate:
+            $ref: '#/components/schemas/depositdate'
+          amount:
+            $ref: '#/components/schemas/amount'
+          transactiondate:
+            $ref: '#/components/schemas/transactiondate'
+          reasondescription:
+            $ref: '#/components/schemas/reasondescription'
+          reasoncode:
+            $ref: '#/components/schemas/reasoncode'
+          datechanged:
+            $ref: '#/components/schemas/datechanged'
+          sourcetransactionid:
+            $ref: '#/components/schemas/sourcetransactionid'
+          transactionamount:
+            $ref: '#/components/schemas/transactionamount'
+          chargebackdate:
+            $ref: '#/components/schemas/chargebackdate'
+          sequencenumber:
+            $ref: '#/components/schemas/sequencenumber'
+          dateadded:
+            $ref: '#/components/schemas/dateadded'
+          merchid:
+            $ref: '#/components/schemas/merchid'
+          authcode:
+            $ref: '#/components/schemas/authcode'
+          fundingmasterid:
+            $ref: '#/components/schemas/fundingmasterid'
+          fundingchargebackid: 
+            $ref: '#/components/schemas/fundingchargebackid'
+          casenumber:
+            $ref: '#/components/schemas/casenumber'
+          acquirereferencenumber:
+            $ref: '#/components/schemas/acquirereferencenumber'
+          cardnumber:
+            $ref: '#/components/schemas/cardnumber'
+          retref:
+            $ref: '#/components/schemas/retref'
+          invoicenumber:
+            $ref: '#/components/schemas/invoicenumber'
+    depositdate:
+      type: string
+      maxLength: 10
+      example: "2024-10-05"
+      description: The merchant's deposit date associated with the chargeback record, in the format <code>YYYY-MM-DD</code>.
+    transactiondate:
+      type: string
+      maxLength: 10
+      example: "2024-10-05"
+      description: The date of the original transaction, in the format <code>YYYY-MM-DD</code>.
+    reasondescription: 
+      type: string
+      maxLength: 200
+      example: "Duplicate Processing"
+      description: |
+        A description of the chargeback reason, useful in understanding or disputing the chargeback.
+        
+        See Chargeback Reason Codes and Descriptions in the Response Appendix for more information.
+    reasoncode: 
+      description: | 
+        An alphanumeric code returned by the issuer, that provides the reason for the chargeback. 
+        
+        See Chargeback Reason Codes and Descriptions in the Response Appendix for more information.
+      type: string
+      maxLength: 10
+      example: "32"
+    transactionamount:
+      maxLength: 22
+      type: string
+      description: The amount of the original transaction associated with the chargeback.
+      example: "92.15"
+    chargebackdate:
+      description: The date that the chargeback event occurred, in the format <code>YYYY-MM-DD</code>.
+      type: string
+      example: "2024-10-5"
+      maxLength: 10
+    sequencenumber: 
+      description: The chargeback sequence number, returned by the processor.
+      maxLength: 30
+      type: string
+      example: "82390482309"
+    fundingchargebackid:
+      description: The unique ID for the chargeback record within the parent funding record.
+      type: string
+      example: "5"
+    casenumber:
+      description: A unique case number returned by the processor.
+      type: string
+      maxLength: 30
+      example: "771886445001"
+    acquirereferencenumber:
+      description: A unique reference number for the chargeback record, returned by the acquirer/issuer.
+      maxLength: 30
+      type: string
+      example: "55500807123206000059099"
+    fundings:
+      x-model-version: 1.0
+      properties:
+        fundingmasterid:
+          $ref: '#/components/schemas/fundingmasterid'
+        merchid:
+          $ref: '#/components/schemas/merchid'
+        netsales:
+          $ref: '#/components/schemas/netsales'
+        thirdparty:
+          $ref: '#/components/schemas/thirdparty'
+        adjustment:
+          $ref: '#/components/schemas/adjustment'
+        interchangefee:
+          $ref: '#/components/schemas/interchangefee'
+        servicecharge:
+          $ref: '#/components/schemas/servicecharge'
+        fee:
+          $ref: '#/components/schemas/fee'
+        reversal:
+          $ref: '#/components/schemas/reversal'
+        otheradjustment:
+          $ref: '#/components/schemas/otheradjustment'
+        totalfunding:
+          $ref: '#/components/schemas/totalfunding'
+        fundingdate:
+          $ref: '#/components/schemas/fundingdate'
+        currency:
+          $ref: '#/components/schemas/currency'
+        ddanumber:
+          $ref: '#/components/schemas/ddanumber'
+        abanumber:
+          $ref: '#/components/schemas/abanumber'
+        fundingid:
+          $ref: '#/components/schemas/fundingid'
+        datechanged:
+          $ref: '#/components/schemas/datechanged'
+        dateadded:
+          $ref: '#/components/schemas/dateadded'
+        deposittrancode:
+          $ref: '#/components/schemas/deposittrancode'
+        depositachtracenumber:
+          $ref: '#/components/schemas/depositachtracenumber'
+    adjustments:
+      x-model-version: 1.0
+      properties:
+          fundingtxnid:
+            $ref: '#/components/schemas/fundingtxnid'
+          retref:
+            $ref: '#/components/schemas/retref'
+          autchode:
+            $ref: '#/components/schemas/authcode'
+          authdate:
+            $ref: '#/components/schemas/authdate'
+          respcode:
+            $ref: '#/components/schemas/respcode'
+          batchid:
+            $ref: '#/components/schemas/batchid'
+          cardproc:
+            $ref: '#/components/schemas/cardproc'
+          interchangeunitfee:
+            $ref: '#/components/schemas/interchangeunitfee'
+          interchangepercentfee:
+            $ref: '#/components/schemas/interchangepercentfee'
+          date:
+            $ref: '#/components/schemas/date'
+          cardnumber:
+            $ref: '#/components/schemas/cardnumber'
+          cardtype:
+            $ref: '#/components/schemas/cardtype'
+          cardbrand:
+            $ref: '#/components/schemas/cardbrand'
+          amount:
+            $ref: '#/components/schemas/amount'
+          currency:
+            $ref: '#/components/schemas/currency'
+          type:
+            $ref: '#/components/schemas/type'
+          status:
+            $ref: '#/components/schemas/status'
+          userfieldn:
+            $ref: '#/components/schemas/userfieldn'
+          fundingid:
+            $ref: '#/components/schemas/fundingid'
+          plancode:
+            $ref: '#/components/schemas/plancode'
+          downgradereasoncodes:
+            $ref: '#/components/schemas/downgradereasoncodes'
+          invoicenumber:
+            $ref: '#/components/schemas/invoicenumber'
+          sourcetransactionid:
+            $ref: '#/components/schemas/sourcetransactionid'
+          terminalnumber:
+            $ref: '#/components/schemas/terminalnumber'
+          achreturncode:
+            $ref: '#/components/schemas/achreturncode'
+          parentretref:
+            $ref: '#/components/schemas/parentretref'
+    cardbrand:
+      description: The brand associated with the card.
+      type: string
+      maxLength: 30
+      example: "MC"
+    plancode:
+      description: An alpha-numeric value representing the applicable interchange rate.
+      type: string
+      maxLength: 10
+      example: "" 
+    downgradereasoncodes:
+      description: The downgrade reason codes associated with the transaction, if applicable.
+      type: string
+      maxLength: 100
+      example: ""
+    terminalnumber:
+      description: The Terminal Number
+      type: string
+      maxLength: 10
+      example: ""
+    achreturncode:
+      example: ""
+      description: |
+        Alpha-numeric code that provides additional information for rejected ACH transactions.
+
+        See [Processing ACH Transactions](?path=docs/documentation/CardPointeGatewayDeveloperGuides.md#processing-ach-payments) for possible field values. 
+      type: string
+      maxLength: 5
+    parentretref:
+      example: ""
+      description: The original (or prior) transaction associated with a refund or ACH Return.
+      maxLength: 30
+      type: string
+    invoicenumber:
+      description: The invoice number from the original transaction, if applicable.
+      maxLength: 100
+      type: string
+      example: ""
+    sourcetransactionid:
+      description: The source transaction ID, (either the CardPointe Gateway transaction GUID or the BluePay Gateway source transaction ID) for the transaction.
+      maxLength: 100
+      type: string
+      example: ""
+    type:
+      description: Type of transaction processed.
+      type: string
+      example: "SALE"
+      maxLength: 25
+    status:
+      description: Status of transaction funding
+      maxLength: 100
+      type: string
+      example: "Settled"
+    userfieldn:
+      x-model-version: 1.0
+      description: |
+        A value passed by the merchant with the original authorization to further identify the transaction. See userfields [authorization request](../api/?type=post&path=/cardconnect/rest/auth).
+  
+        The response can include up to 10 custom userfields, labeled <code>userfield0</code> through <code>userfield9</code>.
+        
+        
+        Currently, the userfieldn is not supported in UAT for testing.
+      properties:
+          name:
+            type: string
+            description: The name of the created field.
+          value:
+            type: string
+            description: The value of the field.
+      example:
+        "userfields":
+          [
+            {"udf0": "value0"},
+            {"udf1": "value1"},
+            {"udf2": "value2"}, 
+            {"custommerchant": "ABC Company"},
+            {"customphone": "888-888-8888"}
+          ]
+    fundingtxnid:
+      description: The <code>fundingmasterid</code> associated with the transaction.
+      maxLength: 22
+      type: string
+      example: "15200231146336"
+    interchangeunitfee:
+      description: Unit-based fee charged for acceptance of card transaction.
+      maxLength: 12
+      type: string
+      example: "0"
+    interchangepercentfee:
+      description: Percentage-based fee charged for acceptance of card transaction.
+      maxLength: 12
+      type: string
+      example: "0"
+    date:
+      description: Date the transaction occurred
+      maxLength: 8
+      type: string
+      example: "20190810"
+    cardnumber: 
+      description: Masked card number used for transaction
+      type: string
+      maxLength: 25
+      example: "21XXXXXXXXXXXX9999"
+    fundingmasterid:
+      description: Unique key for an aggregated merchant's daily funding.
+      maxLength: 22
+      type: string
+      example: "15200186146335"
+    netsales: 
+      description: Total sales processed by merchant.
+      maxLength: 25
+      type: string
+      example: "10.03"
+    thirdparty:
+      description: Transactions that are passed directly to a third party service provider for processing and/or funding.
+      maxLength: 12
+      type: string
+      example: "-5.49"
+    adjustment:
+      description: Amounts credited to or deducted from account to resolve processing or billing discrepancies.
+      maxLength: 12
+      type: string
+      example: "0"
+    interchangefee:
+      description: Variable amounts established by the card associations for processing transactions.
+      maxLength: 12
+      type: string
+      example: "0"
+    servicecharge:
+      description: Amounts charged to authorize, process, and settle card transactions.
+      maxLength: 12
+      type: string 
+      example: "0"
+    fee:
+      description: A range of transaction-based and/or fixed amounts for specific card processing services.
+      maxLength: 12
+      type: string
+      example: "0"
+    reversal: 
+      description: Transactions that are challenged or disputed by a cardholder or card-issuing bank.
+      maxLength: 12
+      type: string
+      example: "-31.72"
+    otheradjustment:
+      description: General adjustment classification given when no adjustment type is provided by the host.
+      maxLength: 12
+      type: string
+      example: "0"
+    totalfunding: 
+      description: Total amount of merchant debit or credit event.
+      maxLength: 12
+      type: string
+      example: "-21.07"
+    fundingdate:
+      description: The date of the bank funding event.
+      maxLength: 8 
+      type: string
+      example: "20190815"
+    ddanumber:
+      description: Maked demand deposit account number
+      type: string
+      maxLength: 20
+      example: "3XXXXX0540"
+    abanumber: 
+      description: American Bankers Association (ABA) number that identifies the bank.
+      type: string
+      maxLength: 20
+      example: "121140399"
+    fundingid:
+      description: Unique key identifier for merchants with daily funding activity.
+      maxLength: 22
+      type: string
+      example: "15200208146336"
+    datechanged:
+      description: The date when the record was last updated.
+      maxLength: 8
+      type: string
+      example: "2019-08-10"
+    dateadded:
+      description: The date when the transaction was created.
+      maxLength: 8
+      type: string
+      example: "2019-08-09"
+    deposittrancode:
+      description: The Deposit Transaction Code
+      maxLength: 10
+      type: string
+      example: "22"
+    depositachtracenumber:
+      description: The Deposit ACH Trace Number
+      maxLength: 20
+      type: string
+      example: "12000240002309"
+    declineCategory:
+      type: string
+      maxLength: 1
+      description: |
+        A numeric decline category code, only returned for declined transactions using Visa accounts.
+
+        Review the Visa Decline Rules and Responses for detailed information on handling Visa declines.
+
+        One of the following values:
+
+        * 1 - Issuer Will Never Approve.
+
+        In this case, the merchant should never reattempt to authorize the transaction, and the cardholder must provide an alternate payment method. This code can be returned for accounts that are blocked, never existed, or are otherwise flagged as invalid by the issuer.
+
+        * 2 - Issuer Cannot Approve at this Time.
+
+        In this case, the merchant may reattempt the authorization at a later time. Reasons for this decline can include velocity controls, credit risk holds, or system errors.
+
+        Note: You may reattempt this transaction a maximum of 15 times in a 30-day period before incurring excessive reattempt fees, unless you receive an updated declineCategory of 1, in which case you should no longer reattempt this transaction.
+
+        * 3 - Issuer Cannot Approve Based on Details Provided.
+
+        In this case, the card has been declined due to incorrect data, such as the CVV, expiry, or PIN. The merchant may attempt the authorization, after obtaining the corrected data.
+
+        Note: You may reattempt this transaction a maximum of 15 times in a 30-day period before incurring excessive reattempt fees, unless you receive an updated declineCategory of 1, in which case you should no longer reattempt this transaction.
+    declineCategoryText:
+      type: string
+      maxLength: 25
+      description: |
+        A text description of the declineCategory value.
+
+        One of the following:
+
+        * <code>Do not retry</code> - Returned for declineCategory 1.
+        * <code>Wait to retry</code> - Returned for declineCategory 2.
+        * <code>Fix the request and retry</code> - Returned for declineCategory 3. 
+    inquireResponse:
+      x-model-version: 1.0
+      description: inquire Response
+      properties:
+        merchid:
+          $ref: '#/components/schemas/merchid'
+        orderid:
+          $ref: '#/components/schemas/orderId'
+        expiry:
+          $ref: '#/components/schemas/expiry'
+        amount:
+          $ref: '#/components/schemas/amount'
+        currency:
+          $ref: '#/components/schemas/currency'
+        retref:
+          $ref: '#/components/schemas/retref'
+        respcode:
+          $ref: "#/components/schemas/respcode"
+        respproc:
+          $ref: '#/components/schemas/respproc'
+        respstat:
+          $ref: '#/components/schemas/respstat'
+        resptext:
+          $ref: '#/components/schemas/resptext'
+        batchid:
+          $ref: '#/components/schemas/batchid'
+        setlstat:
+          $ref: '#/components/schemas/setlstat'
+        capturedate:
+          $ref: '#/components/schemas/capturedate'
+        settledate:
+          $ref: '#/components/schemas/settledate'
+        signature:
+          $ref: '#/components/schemas/signature'
+        token:
+          $ref: '#/components/schemas/token'
+        profileid:
+          $ref: '#/components/schemas/profileid'
+        acctid:
+          $ref: '#/components/schemas/acctid'
+        authdate:
+          $ref: '#/components/schemas/authdate'
+        lastfour:
+          $ref: '#/components/schemas/lastfour'
+        name:
+          $ref: '#/components/schemas/name'
+        bintype:
+          $ref: '#/components/schemas/bintype'
+        entrymode:
+          $ref: '#/components/schemas/entrymode'
+        fee_authcode:
+          $ref: '#/components/schemas/fee_authcode'
+        fee_format:
+          $ref: '#/components/schemas/fee_format'
+        fee_merchid:
+          $ref: '#/components/schemas/fee_merchid'
+        fee_retref:
+          $ref: '#/components/schemas/fee_retref'
+        fee_type:
+          $ref: '#/components/schemas/fee_type'
+        fee_value:
+          $ref: '#/components/schemas/fee_value'
+        emvTagData:
+          $ref: '#/components/schemas/emvTagData'
+        receipt:
+          $ref: '#/components/schemas/receipt'
+        userfields:
+          $ref: '#/components/schemas/userfields'
+        voidable:
+          $ref: '#/components/schemas/voidable'
+        refundable:
+          $ref: '#/components/schemas/refundable'
+        declineCategory:
+          $ref: '#/components/schemas/declineCategory'
+        declineCategoryText:
+          $ref: '#/components/schemas/declineCategoryText'
+    inquireByOrderIDResponse:
+      x-model-version: 1.0
+      description: inquireByOrderID Response
+      properties:
+        amount:
+          $ref: '#/components/schemas/amount'
+        orderId:
+          $ref: '#/components/schemas/orderId'
+        resptext:
+          $ref: '#/components/schemas/resptext'
+        setlstat:
+          $ref: '#/components/schemas/setlstat'
+        respcode:
+          $ref: '#/components/schemas/respcode'
+        merchid:
+          $ref: '#/components/schemas/merchid'
+        token:
+          $ref: '#/components/schemas/token'
+        respproc:
+          $ref: '#/components/schemas/respproc'
+        authdate:
+          $ref: '#/components/schemas/authdate'
+        lastfour:
+          $ref: '#/components/schemas/lastfour'
+        name:
+          $ref: '#/components/schemas/name'
+        expiry:
+          $ref: '#/components/schemas/expiry'
+        currency:
+          $ref: '#/components/schemas/currency'
+        retref:
+          $ref: '#/components/schemas/retref'
+        respstat:
+          $ref: '#/components/schemas/respstat'
+        account:
+          $ref: '#/components/schemas/account'
+        bintype:
+          $ref: '#/components/schemas/bintype'
+        entrymode:
+          $ref: '#/components/schemas/entrymode'
+        fee_authcode:
+          $ref: '#/components/schemas/fee_authcode'
+        fee_format:
+          $ref: '#/components/schemas/fee_format'
+        fee_merchid:
+          $ref: '#/components/schemas/fee_merchid'
+        fee_retref:
+          $ref: '#/components/schemas/fee_retref'
+        fee_type:
+          $ref: '#/components/schemas/fee_type'
+        fee_value:
+          $ref: '#/components/schemas/fee_value'
+        emvTagData:
+          $ref: '#/components/schemas/emvTagData'
+        receipt:
+          $ref: '#/components/schemas/receiptdata'
+        userfields:
+          $ref: '#/components/schemas/userfields'
+        voidable:
+          $ref: '#/components/schemas/voidable'
+        refundable:
+          $ref: '#/components/schemas/refundable'
+        declineCategory:
+          $ref: '#/components/schemas/declineCategory'
+        declineCategoryText:
+          $ref: '#/components/schemas/declineCategoryText'
+    invoiceid:
+      maxLength: 12
+      type: string
+      description: An optional invoice ID
+      example: "120393822"
+    lastfour:
+      maxLength: 4
+      type: string
+      description: Last 4 digits of the token or card number. 
+      example: "1111"
+    merchid:
+      maxLength: 16
+      type: string
+      description: CardPointe merchant ID, required for all requests.
+      example: "123456789012"
+    merchidResp:
+      maxLength: 16
+      type: string
+      description: CardPointe merchant ID copied from request.
+      example: "123456789012"
+    orderIdResp:
+      maxLength: 50
+      type: string
+      description: The order ID copied from original authorization.
+      example: "A1B2C3D4"
+    name:
+      maxLength: 30
+      type: string
+      description: The account name, if returned in the track data.
+      example: "Joe Cardholder"
+    postal:
+      maxLength: 9
+      type: string
+      description: | 
+        The account holder's postal code. 
+        
+        If country is "US", must be 5 or 9 digits. Otherwise any alphanumeric string is accepted. Defaults to"55555" if not included in the request or stored profile. 
+        
+        It is strongly recommended that your application prompts for postal code for card-not-present transactions, to prevent fraud and downgrades, and to avoid declines on the CardPointe Gateway if the AVS verification option is enabled for your merchant account.
+      example: "19355"
+    profileid:
+      maxLength: 20
+      type: string
+      description: Primary identifier to access profiles. Present if transaction utilized a stored profileid. 
+      example: "11700182899933000746"
+    orderId:
+      maxLength: 50
+      type: string
+      description: |
+        The <code>orderId</code>, copied from the authorization request.
+
+        The <code>orderId</code> is returned in the response when the request includes an <code>orderId</code> and <code>"receipt":"y"</code>.
+
+        If no <code>orderId</code> was passed and <code>"receipt":"json"</code>, <code>"n"</code>, or omitted the <code>orderId</code> field is omitted from the response.
+      example: "7372819823727189E76"
+    settlestatResponse:
+      x-model-version: 1.0
+      description: settlestatResponse
+      properties: 
+        batchid:
+          $ref: '#/components/schemas/batchid'
+        hoststat:
+          $ref: '#/components/schemas/hoststat'
+        hostbatch:
+          $ref: '#/components/schemas/hostbatch'
+        merchid:
+          $ref: '#/components/schemas/merchid'
+        respproc:
+          $ref: '#/components/schemas/respproc'
+        txns:
+          $ref: '#/components/schemas/txns'
+    hoststat:
+      type: string
+      maxLength: 12
+      description: Copied from the capture request.
+      example: "GB"
+    hostbatch:
+      description: The batch identifier assigned by the payment processor.
+      maxLength: 16
+      type: string
+      example: "19000941820"
+    txns:
+      x-model-version: 1.0
+      properties:
+          authcode:
+            $ref: '#/components/schemas/authcode'
+          cardtype:
+            $ref: '#/components/schemas/cardtype'
+          retref:
+            $ref: '#/components/schemas/retref'
+          setlamount:
+            $ref: '#/components/schemas/setlamount'
+          salesdoc:
+            $ref: '#/components/schemas/salesdoc'
+          setlstat:
+            type: string
+            maxLength: 1
+            example: Y
+            description: |
+              The current settlement status. The settlement status changes throughout the transaction lifecycle, from authorization to settlement. The following values can be returned in the settlestat response:
+              
+              * F - Format Error - The order did not transmit for settlement due to unexpected or invalid order or item data. Contact Support if you encounter this status.
+              * N - Rejected - The batch was sent for settlement, but the transaction was rejected for funding. Contact Support if you encounter this status.
+              * P - Pin Debit - Vantiv only. PIN debit transactions are settled by Vantiv, and are not submitted with the batch for settlement.
+              * T - Token Decrypt - The transaction was not settled due to a token decryption error. Contact Support if you encounter this status.
+              * W - Amount under review - First Data North and Rapid Connect only. The batch for this transaction was transmitted for settlement, and the transaction was placed under review because the amount exceeded a configured threshold. The transaction should be accepted or rejected for funding the next day; however, the setlstat field may not be updated. Check CardPointe for the current status.
+              * Y - Accepted - The batch for this transaction was transmitted and accepted for funding.
+      example: 
+        "txns": 
+          [
+           {
+              "authcode": "PPS930",
+              "setlamount": "53.43",
+              "setlstat": "Y",
+              "salesdoc": "MPIP10001589",
+              "cardtype":"VISA",               
+              "retref": "200081244288"
+           },
+           {
+              "authcode":"PPS961",
+              "setlamount": "200.00",
+              "setlstat": "Y",
+              "salesdoc": "423625",
+              "cardtype":"VISA",            
+              "retref": "224604245655"
+           }
+          ]
+    cardtype:
+      type: string
+      maxLength: 4
+      description: The card brand or account type returned by the processor.
+      example: VISA
+    setlamount:
+      type: string
+      maxLength: 12
+      description: The transaction amount settled for the authorization.
+      example: "200.00"
+    salesdoc:
+      type: string
+      maxLength: 50
+      example: "423625"
+      description: |
+        Optional additional field for Order ID or similar identifier.
+  
+        The <code>orderId</code> associated with the authorization, if present.
+          
+        <code>orderId</code> is returned in the salesdoc field when the corresponding authorization request included an <code>orderid</code> and <code>"receipt":"y"</code>.
+          
+        If no <code>orderid</code> was passed, but <code>"receipt":"y"</code>, the <code>orderId</code> field is returned with no value (<code>"orderId":""</code>); however, if no <code>orderid</code> was passed and <code>"receipt":"json", "n"</code>, or omitted, the <code>orderId</code> field is omitted.
+    site: 
+      type: string
+      example: <mid site>
+      description: The site that the MID is configured to use.
+      maxLength: 12
+    voidRequest:
+      x-model-version: 1.0
+      description: voidRequest
+      properties:
+        merchid:
+          $ref: '#/components/schemas/merchid'
+        retref:
+          $ref: '#/components/schemas/retref'
+        amount:
+          $ref: '#/components/schemas/amount'
+    voidResponse:
+      x-model-version: 1.0
+      description: voidResponse
+      properties:
+        merchid:
+          $ref: '#/components/schemas/merchid'
+        orderId:
+          $ref: '#/components/schemas/orderId'
+        amount:
+          $ref: '#/components/schemas/amount'
+        currency:
+          $ref: '#/components/schemas/currency'
+        retref:
+          $ref: '#/components/schemas/retref'
+        respcode:
+          $ref: '#/components/schemas/respcode'
+        respproc:
+          $ref: '#/components/schemas/respproc'
+        respstat:
+          $ref: '#/components/schemas/respstat'
+        resptext:
+          $ref: '#/components/schemas/resptext'
+        receipt:
+          $ref: '#/components/schemas/receipt'
+    voidByOrderIdResponse:
+      x-model-version: 1.0
+      description: voidByOrderIdResponse
+      properties:
+        merchid:
+          $ref: '#/components/schemas/merchid'
+        orderId:
+          $ref: '#/components/schemas/orderId'
+        amount:
+          $ref: '#/components/schemas/amount'
+        currency:
+          $ref: '#/components/schemas/currency'
+        retref:
+          $ref: '#/components/schemas/retref'
+        authcode:
+          $ref: '#/components/schemas/authcode'
+        respcode:
+          $ref: '#/components/schemas/respcode'
+        respproc:
+          $ref: '#/components/schemas/respproc'
+        respstat:
+          $ref: '#/components/schemas/respstat'
+        resptext:
+          $ref: '#/components/schemas/resptext'
+        receipt:
+          $ref: '#/components/schemas/receipt'
+    refundRequest:
+      x-model-version: 1.0
+      description: refundRequest
+      properties:
+        merchid:
+          $ref: '#/components/schemas/merchid'
+        retref:
+          $ref: '#/components/schemas/retref'
+        amount:
+          $ref: '#/components/schemas/amount'
+        orderid:
+          $ref: '#/components/schemas/orderId'
+    refundResponse:
+      x-model-version: 1.0
+      description: refundResponse
+      properties: 
+        merchid:
+          $ref: '#/components/schemas/merchid'
+        retref:
+          $ref: '#/components/schemas/retref'
+        amount:
+          $ref: '#/components/schemas/amount'
+        orderid:
+          $ref: '#/components/schemas/orderId'
+        respcode:
+          $ref: '#/components/schemas/respcode'
+        respproc:
+          $ref: '#/components/schemas/respproc'
+        respstat:
+          $ref: '#/components/schemas/respstat'
+        resptext:
+          $ref: '#/components/schemas/resptext'
+        receipt:
+          $ref: '#/components/schemas/receipt'
+        declineCategory:  
+          $ref: '#/components/schemas/declineCategory'
+        declineCategoryText:
+          $ref: '#/components/schemas/declineCategoryText'
+    respstat:
+      example: A
+      maxLength: 1
+      type: string
+      description: |
+        Indicates the status of the request. Can be one of the following values:
+          
+        * A - Approved
+        * B - Retry
+        * C - Declined
+    respcode:
+      maxLength: 3
+      type: string
+      description: Alpha-numeric response code that represents the description of the response. See [Response Codes](?path=/docs/documentation/GatewayResponseCodes.md) for detailed information.
+      example: "00"
+    respproc: 
+      type: string
+      maxLength: 4
+      description: Abbreviation that reprersents the platform and the processor for the trransaction. See [Response Codes](?path=/docs/documentation/GatewayResponseCodes.md) for detailed information.
+      example: "FNOR"
+    resptext:
+      type: string
+      maxLength: 40
+      description: Text description of the response. See [Response Codes](?path=/docs/documentation/GatewayResponseCodes.md) for detailed information.
+      example: "Approval"
+    receipt:
+      type: string
+      maxLength: 1
+      description: |
+          Optional to return additional merchant and transaction data in the authorization response, to print on a receipt.
+          
+          Specify one of the following values:
+          - Y - Specify <code>Y</code> to return the <code>receipt</code> data array.
+          - json - Specify <code>json</code> to return the <code>receiptObj</code> string.
+          - N - Specify <code>N</code> to exclude the receipt data from the response.
+          
+          Defualts to N if not provided.
+      example: N
+    receiptdata:
+          x-model-version: 1.0
+          description: The receipt and receiptObj data fields provide additional merchant and authorization details for use in printing receipts. The receipt data includes merchant account information, populated using the merchant properties configured for the MID, as well as additional transaction details from the authorization response. You can optionally include a custom order note (orderNote) and item details (items), by including a userFields object in the authorization request. 
+          properties:
+              address1:
+                type: string 
+                description: First line of the merchant's address.
+                example: 1000 Continental Dr., King of Prussia, PA. 19355
+              address2:
+                type: string
+                description: Second line of merchant's address.
+                example: " "
+              dateTime:
+                type: string
+                description: The date and time of the transaction (YYYYMMDDHHMMSS).
+                example: 202408020322
+              dba:
+                type: string
+                description: The merchant's Doing Business As (DBA) name. 
+                example: Dyl's Deals
+              footer:
+                type: string
+                description: A customizable field to display an alphanumeric message. For example, a specific terms, disclosure, or cardholder agreement statement.
+                example: " "
+              header: 
+                type: string
+                description: A customizable field to display an alphanumeric message. For example, a specific terms, disclosure, or cardholder agreement statement.
+                example: " "
+              items: 
+                type: string
+                description: A custom item descriptor, if included in the userFields in the authorization request.
+                example: " "
+              nameOnCard:
+                type: string
+                description: The Cardholder's name, if included in the authorization request.
+                example: Dylan Wolf
+              orderNote:
+                type: string
+                description: A custom order note, if included in the userFields in the authorization request.
+                example: " "
+              phone:
+                type: string
+                description: The merchant's phone number.
+                example: 123-456-7890
+    receiptObj:
+      x-model-version: 1.0 
+      description: The receipt and receiptObj data fields provide additional merchant and authorization details for use in printing receipts. The receipt data includes merchant account information, populated using the merchant properties configured for the MID, as well as additional transaction details from the authorization response. You can optionally include a custom order note (orderNote) and item details (items), by including a userFields object in the authorization request. 
+      properties:
+          address1:
+            type: string 
+            description: First line of the merchant's address.
+            example: "1000 Continental Dr., King of Prussia, PA. 19355"
+          address2:
+            type: string
+            description: Second line of merchant's address.
+            example: "Suite 300 "
+          Application Label:
+            type: string
+            description: Duplicated from the <code>emvTagData</code> object. Mnemonic associated with the AID according to ISO/IEC 7816-5. 
+            example: VISA CREDIT
+          dateTime:
+            type: string
+            description: The date and time of the transaction (YYYYMMDDHHMMSS).
+            example: "202408020322"
+          dba:
+            type: string
+            description: The merchant's Doing Business As (DBA) name. 
+            example: Express Services
+          emv:
+            x-model-version: 1.0 
+            properties:
+                TVR:
+                  description: |
+                    Terminal Verification Results displays the status of the different functions as seen from the terminal.
+                    
+                    Tag: 95
+                  type: string
+                  example: "0001100129"
+                ARC:
+                  description: |
+                    The Authorization Response Code indicates the transaction disposition of the transaction received from the issuer for theonline authorization.
+                    
+                    Tag: 8A
+                  type: string
+                  example: "00"
+                TSI:
+                  description: |
+                    The Transaction Status Information field indicates the functions performed in a transaction. 
+                    
+                    Tag: 9B
+                  type: string
+                  example: "6800"
+                AID:
+                  example: "A0000000031010"
+                  type: string
+                  description: The Application Identified Data identifies the application as described in ISO/IEC 7816-5.
+                IAD: 
+                  example: "06010A03A0B800"
+                  type: string
+                  description: The Issuer Application Data contains proprietary application data for transmission to the issuer in an online transaction.
+          Entry Method:
+            type: string
+            description: |
+              Duplicated from the emvTagData object. 
+              Indicator identifying how the card information was obtained.
+              
+              One of the following values:
+              
+              * Manual
+              * Chip Read
+              * Contactless Chip
+              * Fallback Keyed
+            example: "Chip Read"
+          footer:
+            type: string
+            description: A customizable field to display an alphanumeric message. For example, a specific terms, disclosure, or cardholder agreement statement.
+            example: " "
+          header: 
+            type: string
+            description: A customizable field to display an alphanumeric message. For example, a specific terms, disclosure, or cardholder agreement statement.
+            example: " "
+          items: 
+            type: string
+            description: A custom item descriptor, if included in the userFields in the authorization request.
+            example: " "
+          Mode: 
+            type: string
+            description: Duplicated from the <code>emvTagData</code> object. Identifies the mode used to authorize (or decline) the transaction. Always Issuer.
+            example: "Issuer"
+          nameOnCard:
+            type: string
+            description: The Cardholder's name, if included in the authorization request.
+            example: "Joe Cardholder"
+          orderNote:
+            type: string
+            description: A custom order note, if included in the userFields in the authorization request.
+            example: " "
+          phone:
+            type: string
+            description: The merchant's phone number.
+            example: "123-456-7890"
+          PIN: 
+            type: string
+            description:  Duplicated from the <code>emvTagData</code> object. Indicates the results of the last CVM performed. If PIN was entered, then "Verified by PIN"
+            example: "Verified by PIN"
+          Signature:
+            type: string
+            description: |
+              Duplicated from the <code>emvTagData</code> object. Indicates the results of the last CVM performed. If "true" then CVM supports signature and signature line may be applicable. However, card brands have moved away from requiring signature.
+  
+              Returns "unknown" if the signature requirement could not be determined.
+    refundable:
+      type: string
+      description: |
+        Indicates whether the transaction can be refunded in its current state.
+
+        The refundable value is determined by the status of the batch at the time of inquiry, as well as the MID configuration. If the MID is enabled to refund for unsettled authorizations, then refundable always returns Y.
+
+        If Y, the transaction can be refunded.
+
+        If N, the transaction cannot be refunded.
+      maxLength: 1
+      example: Y
+    retref:
+      type: string
+      maxLength: 14
+      description: CardPointe retrieval reference number from authorization response. Required for subsequent capture, void, refund, and inquire requests.
+      example: "123456789012"
+    signature:
+      type: string
+      maxLength: 6144     
+      description: JSON-escaped, Base64-encoded, Gzipped, BMP of signature data (from a signature-capable terminal). Returned if the authorization used a token that had associated signature data or track data with embedded signature data.
+    settledate:
+      maxLength: 14
+      type: string
+      example: "20240103142834"
+      description: The date the transaction was settled in YYYYMMDDHHMMSS.
+    setlstat:
+      maxLength: 40
+      type: string
+      description: |
+        The current settlement status. The settlement status changes throughout the transaction lifecycle, from authorization to settlement. The following values can be returned in the capture response:
+
+        ***Note: See Settlement Status Response Values for a complete list of setlstat values.***
+
+        * Authorized - The authorization was approved, but the transaction has not yet been captured. 
+        * Declined - The authorization was declined; therefore, the transaction can not be captured.
+        * Queued for Capture - The authorization was approved and captured but has not yet been sent for settlement.
+        * Voided - The authorization was voided; therefore, the transaction cannot be captured.
+        * Zero Amount - The authorization was a $0 auth for account validation, which cannot be captured. 
+      example: "Authorized"
+    token: 
+      maxLength: 19
+      type: string
+      description: | 
+        The tokenized account number used to verify that the card type is eligible for surcharging.
+
+        Optional if postal is specified.
+      example: "9601616143390000"
+    userfields: 
+      type: array
+      description: |+
+        You can include additional data in the authorization request for future retrieval by using optional userfields. The value of the userfields object is a series of name-value pairs that are meaningful to the merchant. 
+
+        You can use an array or an object.
+        
+        The name and value fields can include any string value, and you can include as many fields as necessary; however, the total length of user defined fields, URL/JSON encoded, is limited to 4000 bytes, where 1 character is equal to 1 byte. 
+        
+        If you use the CardPointe web application for transaction reporting, you must ensure that you pass your custom fields in an array, in the order that they are configured in the CardPointe application to ensure that the fields are populated correctly in the Transactions table. If there is no value for a field, you must include the field with an empty value (for example, "udf1":"") to preserve the expected order of the fields. If you pass the fields in an object, the order will not be preserved.
+        
+        While the example is a JSON array, a JSON object version of userfields is also available.
+      items:
+        properties:
+          name:
+            type: string
+            description: The name of the field.
+          value:
+            type: string
+            description: The value of the field.
+          custommerchant:
+            $ref: '#/components/schemas/custommerchant'
+          customphone:
+            $ref: '#/components/schemas/customphone'
+          customproduct:
+            $ref: '#/components/schemas/customproduct'
+      example:
+          [
+            {"udf0": "value0"},
+            {"udf1": "value1"},
+            {"udf2": "value2"}, 
+            {"custommerchant": "C Company"},
+            {"customphone": "888-888-8888"},
+            {"customproduct": "John Smith's Shoes" }
+          ]
+    voidable:
+      type: string
+      maxLength: 1
+      example: "Y"
+      description: |
+        Indicates whether the transaction can be voided in its current state.
+
+        The <code>voidable</code> value is determined by the status of the batch at the time of inquiry.
+        
+        If <code>Y</code>, the transaction can be voided.
+        
+        If <code>N</code>, the transaction cannot be voided.
+    inquireMerchantSuccess:
+      x-model-version:
+      description: inquireMerchant Response
+      properties:
+        acctupdater:
+          $ref: "#/components/schemas/acctupdater"
+        avs:
+          $ref: "#/components/schemas/avs"
+        cardproc:
+          $ref: '#/components/schemas/cardproc'
+        cvv:
+          $ref: '#/components/schemas/cvv'
+        echeck:
+          $ref: '#/components/schemas/echeck'
+        enabled:
+          $ref: '#/components/schemas/enabled'
+        fee_format:
+          $ref: '#/components/schemas/fee_format'
+        fee_merchid:
+          $ref: '#/components/schemas/fee_merchid'
+        fee_type:
+          $ref: '#/components/schemas/fee_type'
+        fee_value:
+          $ref: '#/components/schemas/fee_value'
+        merchid:
+          description: The CardPointe merchant ID.
+          example: "496082673999"
+          $ref: '#/components/schemas/merchid'
+        site:
+          $ref: '#/components/schemas/site'
+    NotFoundError:
+      x-model-version: 1.0
+      description: Error information
+      properties:
+        message: {
+          description: 'Information specific to a propery or attribute.',
+          type: string,
+          example: Data not found
+        }
+        errorcode: {
+          description: 'Error response code from the gateway',
+          type: integer,
+          example: 49
+        }
+    BadRequestError:
+      x-model-version: 1.0
+      description: Error information
+      properties:
+        message: {
+          description: 'Information specific to a propery or attribute.',
+          type: string,
+          example: Keystore invalid processor
+        }
+        errorcode: {
+          description: 'Error response code from the gateway',
+          type: integer,
+          example: 65
+        }
+    ErrorCode: 
+      description: An error code. Returns "00" if successful. All error codes contain four digits. Two zeros precede the codes.
+      properties:
+        code:
+          description: An error code that shows the importance of error codes.
+          type: integer
+    Error:
+      x-model-version: 1.0
+      description: Error information
+      properties:
+        type:
+          description: 'The type of response either from the HOST, GATEWAY, NETWORK, or APIM.'
+          type: string
+        code: {
+          description: 'Error response code from the host, gateway, or network',
+          type: string
+        }
+        message: {
+          description: 'Information specific to a propery or attribute.',
+          type: string
+        }
+  responses:
+    WrongVersion:
+      x-model-version: 1.0
+      description: Wrong version number
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InvalidAction:
+      x-model-version: 1.0
+      description: Invalid action
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    DataNotDecimal:
+      x-model-version: 1.0
+      description: Data is not decimal digits
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    KeyIDNotFound:
+      x-model-version: 1.0
+      description: Key ID is not found
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    DataTooLong:
+      x-model-version: 1.0
+      description: Data is too long
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    DataEmpty:
+      x-model-version: 1.0
+      description: Data is empty
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnknownAlgo:
+      x-model-version: 1.0
+      description: Unknown Algorithm
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    EncryptionFailure:
+      x-model-version: 1.0
+      description: Encryption Failure
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Base64Failure:
+      x-model-version: 1.0
+      description: Base 64 decode failure
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    CryptoWrongLength:
+      x-model-version: 1.0
+      description: Crypto data is the wrong length
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    DataTooShort:
+      x-model-version: 1.0
+      description: Data is too short
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    CCNWrongLength:
+      x-model-version: 1.0
+      description: CCN wrong length on decryption
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    DecryptionFailure:
+      x-model-version: 1.0
+      description: Decryption Failure
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadPadding:
+      x-model-version: 1.0
+      description: Bad PKCS 5 padding
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadDecrypt:
+      description: Bad decryption length field
+    KeystoreNotInit:
+      description: Keystore not initialized
+    ApplicationNotInit:
+      x-model-version: 1.0
+      description: Application not initialized
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BufferTooShort:
+      x-model-version: 1.0
+      description: Buffer too short
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    IllegalCharacter:
+      x-model-version: 1.0
+      description: Illegal characters
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    WrongLength:
+      x-model-version: 1.0
+      description: Wrong message length
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ServerFailed:
+      x-model-version: 1.0
+      description: Server failed
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ConfigItemBad:
+      x-model-version: 1.0
+      description: Config item is bad
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TokenDataProb:
+      x-model-version: 1.0
+      description: Token database problem
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnAuthHost:
+      x-model-version: 1.0
+      description: Unauthorized host
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TokenPurged:
+      x-model-version: 1.0
+      description: Token Purged
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    DataNotFound:
+      x-model-version: 1.0
+      description: Data not found
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ErrorHashing:
+      x-model-version: 1.0
+      description: Error hashing the value
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TokenDuplicate:
+      x-model-version: 1.0
+      description: Token or data duplicate
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    LuhnFailure:
+      x-model-version: 1.0
+      description: Card number check (Luhn formula) failed
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    MissingSiteName:
+      x-model-version: 1.0
+      description: Missing or unknown site name
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    RequestSignatureInvalid:
+      x-model-version: 1.0
+      description: Request signature is bad
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    RequestSignatureExpired:
+      x-model-version: 1.0
+      description: Request signature timestamp expired
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    RequestSignatureMismatch:
+      x-model-version: 1.0
+      description: Request signature mismatch
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    RequestSignatureFailure:
+      x-model-version: 1.0
+      description: Request signature failure
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    PINTranslationFail:
+      x-model-version: 1.0
+      description: PIN translation fail
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    KeystoreImportFail:
+      x-model-version: 1.0
+      description: Keystore import failure
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    KeystoreUserstoreFail:
+      x-model-version: 1.0
+      description: Keystore userstore failure
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    KeystoreInvalidProc:
+      x-model-version: 1.0
+      description: Keystore invalid processor
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnauthTerminal:
+      x-model-version: 1.0
+      description: Unauthorized terminal
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    KeystoreRollbackFail:
+      x-model-version: 1.0
+      description: Keystore rollback failure
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnauthDecrypt:
+      x-model-version: 1.0
+      description: Unauthorized decrypt
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InvalidEMVData:
+      x-model-version: 1.0
+      description: Invalid EMV tag data
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    EMVDataEmpty:
+      x-model-version: 1.0
+      description: EMV tag data empty
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    MissingReqParam:
+      x-model-version: 1.0
+      description: Missing required parameter
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InvalidEllipticParam:
+      x-model-version: 1.0
+      description: Invalid elliptic curve type parameter
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    JSONSerializationError:
+      x-model-version: 1.0
+      description: JSON serialization error
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    JSONDeserializationError:
+      x-model-version: 1.0
+      description: JSON deserialization error
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InvalidSwipeData:
+      x-model-version: 1.0
+      description: Invalid swipe data
+      content:
+        application/JSON:
+          schema:
+            $ref: '#/components/schemas/Error'
+  examples:
+    approvedsurchargeExample:
+      value:
+        token: CREDIT,
+        postal: NOT_RESTRICTED,
+        messages: []
+    debitcardnotelligible:
+      value:
+        token: DEBIT,
+        postal: UNKNOWN,
+        messages: [{"field": "postal", "message": "postal is missing or empty"}]
+    missingpostalandtoken:
+      value:
+        token: UNKNOWN
+        postal: UNKNOWN
+        messages: [
+          {"field": "token", "message": "token is missing or empty"},
+          {"field":"postal", "message": "postal is missing or empty"}]
+    Successful:
+      value:
+        errorcode: 0,
+        data: "AAdoWZghKq4An1Pl0PJKDQfTQ"
+        message: "No error"
+    WrongVersion:
+      value:
+        type: 'integer'
+        code: '003'
+        message: 'Message'
+    PaymentCardRequestExample:
+      value:
+        account: 4444333322221111# prior written consent of Fiserv, Inc.
 # or its affiliates is strictly prohibited.
 # Except as specified by the agreement under
 # which the materials are furnished, Fiserv, Inc.
