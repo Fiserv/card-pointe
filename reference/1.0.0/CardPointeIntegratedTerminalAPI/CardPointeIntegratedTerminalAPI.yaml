@@ -554,7 +554,7 @@ paths:
       description: |
         A call to the cancel endpoint sends a cancel command from the POS software to terminate any in-flight operations. 
         
-        If you use the cancel command to allow a merchant or cardholder to attempt to cancel a transaction in progress, you should also use the CardPointe Gateway API's <code>InquireByorderId</code> request to verify the status of the transaction. A transaction cannot be canceled if the terminal service has already initiated the authorization request to the CardPointe Gateway; however, you can use the <code>InquireByorderId</code> request to check the status of the transaction and void if necessary.
+        If you use the cancel command to allow a merchant or cardholder to attempt to cancel a transaction in progress, you should also use the CardPointe Gateway API's <code>inquireByOrderid</code> request to verify the status of the transaction. A transaction cannot be canceled if the terminal service has already initiated the authorization request to the CardPointe Gateway; however, you can use the <code>inquireByOrderid</code> request to check the status of the transaction and void if necessary.
       requestBody:
         required: true
         content:
@@ -1380,9 +1380,9 @@ components:
           description: |
             A unique order ID used to identify the transaction. This value is an alphanumeric string with a maximum of 50 characters. If no order ID is specified in the request, the terminal automatically generates a unique order ID in the format <HSN-timestamp> and amends it to the transaction record.
 
-            You can use the order ID to get information on a transaction using the CardPointe Gateway API inquireByorderId endpoint.
+            You can use the order ID to get information on a transaction using the CardPointe Gateway API inquireByOrderid endpoint.
 
-            Additionally, when an authorization attempt times out and the terminal service does not receive a response from the CardPointe Gateway, the terminal service uses the order ID to make an <code>inquireByorderId</code> request to check the status of the transaction. If the transaction status cannot be determined, the terminal service makes three <code>voidByorderId</code> requests to void the transaction. Review the Handling Timeouts section in the <a href="../docs/?path=docs/APIs/CardPointeIntegratedTerminalAPI.md&branch=develop">CardPointe Integrated Terminal Developer Guides</a> for more information.
+            Additionally, when an authorization attempt times out and the terminal service does not receive a response from the CardPointe Gateway, the terminal service uses the order ID to make an <code>inquireByOrderid</code> request to check the status of the transaction. If the transaction status cannot be determined, the terminal service makes three <code>voidByorderId</code> requests to void the transaction. Review the Handling Timeouts section in the <a href="../docs/?path=docs/APIs/CardPointeIntegratedTerminalAPI.md&branch=develop">CardPointe Integrated Terminal Developer Guides</a> for more information.
 
             **Note**: If you include an order ID it must meet the following requirements: 
 
@@ -1804,9 +1804,9 @@ components:
           description: |
             A unique order ID used to identify the transaction. This value is an alphanumeric string with a maximum of 50 characters. If no order ID is specified in the request, the terminal automatically generates a unique order ID in the format <HSN-timestamp> and amends it to the transaction record.
 
-            You can use the order ID to get information on a transaction using the CardPointe Gateway API inquireByorderId endpoint.
+            You can use the order ID to get information on a transaction using the CardPointe Gateway API inquireByOrderid endpoint.
 
-            Additionally, when an authorization attempt times out and the terminal service does not receive a response from the CardPointe Gateway, the terminal service uses the order ID to make an <code>inquireByorderId</code> request to check the status of the transaction. If the transaction status cannot be determined, the terminal service makes three <code>voidByorderId</code> requests to void the transaction. Review the Handling Timeouts section in the <a href="https://qa-developerstudio.fiserv.com/product/CardPointe/docs/?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md&branch=develop">CardPointe Integrated Terminal Developer Guides</a> for more information.
+            Additionally, when an authorization attempt times out and the terminal service does not receive a response from the CardPointe Gateway, the terminal service uses the order ID to make an <code>inquireByOrderid</code> request to check the status of the transaction. If the transaction status cannot be determined, the terminal service makes three <code>voidByorderId</code> requests to void the transaction. Review the Handling Timeouts section in the <a href="https://qa-developerstudio.fiserv.com/product/CardPointe/docs/?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md&branch=develop">CardPointe Integrated Terminal Developer Guides</a> for more information.
 
             **Note**: If you include an order ID it must meet the following requirements: 
 
