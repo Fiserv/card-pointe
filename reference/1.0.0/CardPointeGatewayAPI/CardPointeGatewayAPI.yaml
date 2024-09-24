@@ -1341,7 +1341,7 @@ components:
     account:
       maxLength: 19
       type: string
-      description: Masked account number
+      description: Masked account number or token.
       example: "9441149619831111"
     avs:
       maxLength: 1
@@ -1704,7 +1704,7 @@ components:
 
         See your sales person for feature availability and merchant configuration. Once configured add <code>UserField</code> entries for each piece of custom data to be replaced.
       maxLength: 12
-      example: "John's Shoes"
+      example: "John's Office Supplies"
     customphone:
       type: string
       description: |+
@@ -2065,7 +2065,7 @@ components:
     amount:
       maxLength: 12
       type: string
-      description: Capture amount in decimal or in currency minor units (for example, USD Pennies or MXN centavos)
+      description: Authorized or captured amount in decimal or in currency minor units (for example, USD Pennies or MXN centavos).
       example: "106.00"
     bankaba:
       maxLength: 9
@@ -2989,16 +2989,19 @@ components:
 
         One of the following values:
 
+        
         * 1 - Issuer Will Never Approve.
 
         In this case, the merchant should never reattempt to authorize the transaction, and the cardholder must provide an alternate payment method. This code can be returned for accounts that are blocked, never existed, or are otherwise flagged as invalid by the issuer.
 
+        
         * 2 - Issuer Cannot Approve at this Time.
 
         In this case, the merchant may reattempt the authorization at a later time. Reasons for this decline can include velocity controls, credit risk holds, or system errors.
 
         Note: You may reattempt this transaction a maximum of 15 times in a 30-day period before incurring excessive reattempt fees, unless you receive an updated declineCategory of 1, in which case you should no longer reattempt this transaction.
 
+       
         * 3 - Issuer Cannot Approve Based on Details Provided.
 
         In this case, the card has been declined due to incorrect data, such as the CVV, expiry, or PIN. The merchant may attempt the authorization, after obtaining the corrected data.
@@ -3680,7 +3683,7 @@ components:
               "udf2": "value2", 
               "custommerchant": "C Company",
               "customphone": "888-888-8888",
-              "customproduct": "John Smith's Shoes"
+              "customproduct": "John's Office Supplies"
             }
           ]
     voidable:
