@@ -1270,9 +1270,9 @@ components:
           description: An authorization code returned by the issuer, when voice authorization is required to complete a transaction.
           type: string
           example: 100
-        authmerchantId: 
+        authMerchantId: 
           description: |
-            This value is only used if you have multiple merchant IDs, and want to process the transaction using a different merchant ID that is not associated with this terminal. The <code>authmerchantId</code> and <code>merchantId</code> must belong to the same customer account.
+            This value is only used if you have multiple merchant IDs, and want to process the transaction using a different merchant ID that is not associated with this terminal. The <code>authMerchantId</code> and <code>merchantId</code> must belong to the same customer account.
 
             This setting must be enabled for your merchant account.
 
@@ -1683,9 +1683,9 @@ components:
           description: An authorization code returned by the issuer, when voice authorization is required to complete a transaction.
           type: string
           example: 100
-        authmerchantId: 
+        authMerchantId: 
           description: |
-            This value is only used if you have multiple merchant IDs, and want to process the transaction using a different merchant ID that is not associated with this terminal. The <code>authmerchantId</code> and <code>merchantId</code> must belong to the same customer account.
+            This value is only used if you have multiple merchant IDs, and want to process the transaction using a different merchant ID that is not associated with this terminal. The <code>authMerchantId</code> and <code>merchantId</code> must belong to the same customer account.
 
             This setting must be enabled for your merchant account.
 
