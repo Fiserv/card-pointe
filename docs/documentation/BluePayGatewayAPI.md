@@ -146,7 +146,7 @@ Our primary transaction processing API. Name/value pairs are posted to the gatew
 
 > [BluePay Post (bp10emu)](https://raw.githubusercontent.com/Fiserv/card-pointe/main/assets/files/BluePay_Post_bp10emu.txt)
 
-> [BluePay 10emu Test Form](https://raw.githubusercontent.com/Fiserv/card-pointe/main/assets/files/bp10emu-Test-Form.htm)
+> [BluePay 10emu Test Form](https://secure.bluepay.com/interfaces/shpf?SHPF_FORM_ID=bp10emuTest))
 
 ### BluePay Redirect (bp10emu) 
 
@@ -226,7 +226,7 @@ A new version of the reporting interface for the retrieval of transaction data.
 
 > [BluePay Daily Report 2 (bpdailyreport2)](https://raw.githubusercontent.com/Fiserv/card-pointe/main/assets/files/BluePay_Daily_Report_2_bpdailyreport2.pdf)
 
-> [BluePay Daily Report 2 (bpdailyreport2) Test Form](https://raw.githubusercontent.com/Fiserv/card-pointe/main/assets/files/bpdailyreport2-Test-Form.htm)
+> [BluePay Daily Report 2 (bpdailyreport2) Test Form](https://secure.bluepay.com/interfaces/shpf?SHPF_FORM_ID=bpdailyreport2)
 
 ### BluePay Single Transaction Query (stq) 
 
@@ -236,7 +236,7 @@ Interface that can retrieve information of a single transaction using the transa
 
 > [BluePay Single Transaction Query (stq)](https://raw.githubusercontent.com/Fiserv/card-pointe/main/assets/files/BluePay_Single_Transaction_Query_stq.txt)
 
-> [BluePay Single Transaction Query (stq) Test Form](https://raw.githubusercontent.com/Fiserv/card-pointe/main/assets/files/stq-Test-Form.htm)
+> [BluePay Single Transaction Query (stq) Test Form](https://secure.bluepay.com/interfaces/shpf?SHPF_FORM_ID=bpstqtest)
 
 ### BluePay Reserve Query (reserveq) 
 
@@ -244,7 +244,7 @@ Interface that can retrieve information on ACH reserve payments using a date ran
 
 > [BluePay Reserve Query (reserveq)](https://raw.githubusercontent.com/Fiserv/card-pointe/main/assets/files/BluePay_Reserve_Query_reserveq.txt)
 
-> [BluePay Reserve Query (reserveq) Test Form](https://raw.githubusercontent.com/Fiserv/card-pointe/main/assets/files/reserveq-Test-Form.htm)
+> [BluePay Reserve Query (reserveq) Test Form](https://secure.bluepay.com/interfaces/shpf?SHPF_FORM_ID=bpreserveqtest)
 
 ### BluePay Manager CSV Export 
 
@@ -276,7 +276,7 @@ Name/value pairs are posted to the gateway which returns results as name/value p
 
 > [BluePay 2.0 Post (bp20post)](https://raw.githubusercontent.com/Fiserv/card-pointe/main/assets/files/BluePay_2.0_Post_bp20post.txt)
 
-> [BluePay 2.0 Post (bp20post) Test Form](https://raw.githubusercontent.com/Fiserv/card-pointe/main/assets/files/bp20post-Test-Form.htm)
+> [BluePay 2.0 Post (bp20post) Test Form](https://secure.bluepay.com/interfaces/shpf?SHPF_FORM_ID=bp20postTest)
 
 ### BluePay XML Post (asby)
 
@@ -292,7 +292,7 @@ A reporting interface for the retrieval of transaction data.
 
 > [BluePay Daily Report (bpdailyreport) Documentation](https://raw.githubusercontent.com/Fiserv/card-pointe/main/assets/files/dailyreport.txt)
 
-> [BluePay Daily Report (bpdailyreport) Test Form](https://raw.githubusercontent.com/Fiserv/card-pointe/main/assets/files/bpdailyreport-Test-Form.htm)
+> [BluePay Daily Report (bpdailyreport) Test Form](https://secure.bluepay.com/interfaces/shpf?SHPF_FORM_ID=bpdailyreport)
 
 # Code Samples
 
