@@ -1021,7 +1021,7 @@ components:
       name: account
       schema: {
           type: string,
-          default: 4444333322221111
+          default: "4444333322221111"
         }
       in: header
       required: false
@@ -1150,16 +1150,32 @@ components:
       type: string
       maxLength: 36
       description: |
+        Level 2 trasaction data.
+        
         Purchase order number.
         
         Many Level 2 protocols require a "Customer Code," which is described as "an identifier the customer would recognize."
         
         The CardPointe Gateway populates this field with the <code>ponumber</code>. If the <code>ponumber</code> is not provided, then the <code>orderid</code> from the authorization request is used. If neither the ponumber or the orderid is available, the Retrieval Reference Number (<code>retref</code>) is used.
       example: "A1B2C3D4"
+    taxamnt:
+      maxLength: 12
+      type: string
+      description: | 
+        Level 2 transaction data.
+        
+        Tax amount for the order, either decimal or in currency minor units (for example, USD Pennies or MXN Centavos).
+        
+        If <code>"taxexempt":"Y"</code>, then <code>taxamnt</code> must be zero or omitted. 
+        
+        If <code>"taxexempt":"N"</code>, then <code>taxamnt</code> must be a positive, non-zero value.      
+      example: "6.00"
     dutyamnt:
       type: string
       maxLength: 12
       description: |
+        Level 3 transaction data.
+        
         The total duty amount for the order.
         
         Defaults to <code>"0.00"</code> if not specified.
@@ -1168,28 +1184,135 @@ components:
       type: string
       maxLength: 12
       description: | 
+        Level 3 transaction data.
+        
         The total freight amount for the order.
         
         Defaults to <code>"0.00"</code> if not specified.
       example: "500.00"
-    taxamnt:
-      maxLength: 12
-      type: string
-      description: | 
-        Tax amount for the order, either decimal or in currency minor units (for example, USD Pennies or MXN Centavos).
-        
-        If <code>"taxexempt":"Y"</code>, then <code>taxamnt</code> must be zero or omitted. 
-        
-        If <code>"taxexempt":"N"</code>, then <code>taxamnt</code> must be a positive, non-zero value.      
-      example: "6.00"
     orderdate:
       type: string
       maxLength: 8
       description: |
+        Level 3 Transaction data.
+        
         For most industries this is the delivery date for the order in the format YYYYMMDD.
         
         Defaults to System Date when the transaction is captured.
       example: "20240930"
+    shipfromzip:
+      type: string
+      maxLength: 12
+      example: "19406"
+      description: |
+        Level 3 transaction data.
+        
+        The merchant/sender's postal code for the order.
+        
+        Must be 5 or 9 digits if merchant's country is US; otherwise, any alphanumeric string is accepted.
+    shiptozip:
+      type: string
+      maxLength: 12
+      example: "19355"
+      description: |
+        Level 3 transaction data.
+        
+        The customer/recipient's postal code. 
+        
+        Must be 5 or 9 digits if <code>"shiptocountry":"US"</code>; otherwise, any alphanumeric string is accepted.
+    shiptocountry: 
+      type: string
+      maxLength: 2
+      example: "US"
+      description: |
+        The customer/recipient's country.
+        
+        Defaults to <code>"US"</code> if not specified.
+    items:
+      type: array
+      description: |+
+        Level 3 transaction data.
+        
+        An array including one or more <code>items</code>, used to provide line item details for each item.
+      items:
+        properties: 
+          description:
+            type: string
+            maxLength: 26
+            example: "Ergonomic Office Chair"
+            description: |
+              Required, a description of the item.
+          discamnt:
+            type: string
+            maxLength: 12
+            example: "0.00"
+            description: |
+              Optional, the discount amount for the item, as a decimal amount or in currency minor units.
+          lineno:
+            type: string
+            maxLength: 4
+            example: "1"
+            description: | 
+              Optional, a line number for the item.
+               
+              Line numbers do not need to be specified sequentially; however, if <code>lineno</code> is not included, then items are assigned sequential line numbers.
+          material:
+            type: string
+            maxLength: 12
+            example: "43211508"
+            description: |
+              Optional, a material code (also referred to as a Commodity Code) for the item.
+          netamnt:
+            type: string
+            maxLength: 12
+            example: "500.00"
+            description: |
+              Optional, the item's net total cost (<code>unitcost</code>*<code>quantity</code>), excluding <code>taxamnt</code> and <code> discamnt</code>, as a decimal amount or in currency minor units.
+                
+              <code>netamnt</code> is always a positive value, even for refunds. 
+                
+              Zero amounts are allowed for no-charge items, for example a manual, that are included in the order.
+          quantity:
+            type: string
+            maxLength: 12
+            example: "5"
+            description: |
+              Optional, the quantity of the item purchased.
+              
+              Can be a whole amount or amount with up to three decimal places.
+          taxamnt:
+            $ref: '#/components/schemas/taxamnt'
+          taxexempt:
+            $ref: '#/components/schemas/taxexempt'
+          unitcost:
+            type: string
+            maxLength: 12
+            example: "$100.00"
+            description: |
+              Optional, the item cost excluding <code>taxamnt</code> as a decimal amount or in currency minor units (for example, USD Pennies or MXN Centavos) formatted as 1.23 or 123 for $1.23.
+                
+              <code>unitcost</code> for an item should not be greater than the <code>amount</code> for the order.
+                
+              If not specified, <code>unitcost</code> is calculated as <code>netamnt</code>/<code>quantity</code>.
+          uom:
+            type: string
+            maxLength: 8
+            example: "each"
+            description: | 
+              Optional, a unit of measure (for example, "each" or "ton").
+                
+              Some processors limit this value to 4 digits.
+          upc: 
+            type: string
+            maxLength: 14
+            example: "036000291452"
+            description: |
+              Optional, a Universal Product Code (UPC) for the item.
+                
+              If <code>upc</code> is included, it cannot be all zeros (0).
+                
+              Some processors limit this value to 12 characters.
+        
     approvedSurchargeResponse:
       description: Approved for Surcharge
       x-model-version: 1.0 
@@ -1229,7 +1352,7 @@ components:
       maxLength: 19
       type: string
       description: Masked account number
-      example: 9441149619831111
+      example: "9441149619831111"
     avs:
       maxLength: 1
       type: string
@@ -1551,14 +1674,30 @@ components:
           $ref: '#/components/schemas/email'
         taxexempt:
           $ref: '#/components/schemas/taxexempt'
-        taxamnt:
-          $ref: '#/components/schemas/taxamnt'
         termid:
           $ref: '#/components/schemas/termid'
         accttype:
           $ref: '#/components/schemas/accttype'
         userfields:
           $ref: "#/components/schemas/userfields"
+        ponumber:
+          $ref: '#/components/schemas/ponumber'
+        taxamnt:
+          $ref: '#/components/schemas/taxamnt'
+        frtamnt:
+          $ref: '#/components/schemas/frtamnt'
+        dutyamnt:
+          $ref: '#/components/schemas/dutyamnt'
+        orderdate:
+          $ref: '#/components/schemas/orderdate'
+        shiptozip:
+          $ref: '#/components/schemas/shiptozip'
+        shipfromzip:
+          $ref: '#/components/schemas/shipfromzip'
+        shiptocountry:
+          $ref: '#/components/schemas/shiptocountry'
+        items:
+          $ref: '#/components/schemas/items'
     custommerchant:
       type: string
       description: |+
@@ -1568,15 +1707,15 @@ components:
 
         See your sales person for feature availability and merchant configuration. Once configured add UserField entries for each piece of custom data to be replaced.
       maxLength: 12
-      example: John Smith
+      example: "John Smith"
     customproduct:
       type: string
       description: |+
         You can provide custom identifying information about a merchant (for example, business name or phone number) or a custom product name in an authorization request, which appears on buyers’ credit/debit card statements. 
 
-        See your sales person for feature availability and merchant configuration. Once configured add UserField entries for each piece of custom data to be replaced.
+        See your sales person for feature availability and merchant configuration. Once configured add <code>UserField</code> entries for each piece of custom data to be replaced.
       maxLength: 12
-      example: John Smith's Shoes
+      example: "John's Shoes"
     customphone:
       type: string
       description: |+
@@ -1586,7 +1725,7 @@ components:
 
         See your sales person for feature availability and merchant configuration. Once configured add UserField entries for each piece of custom data to be replaced.
       maxLength: 12
-      example: 7777777777
+      example: "7777777777"
     track:
       maxLength: 76
       type: string
@@ -1594,7 +1733,7 @@ components:
     bin:
       maxLength: 1
       type: string
-      example: Y
+      example: "Y"
       description: |
         Optional, to return BIN lookup fields in the authorization response.
 
@@ -1622,7 +1761,7 @@ components:
     accountid:
       maxLength: 3
       type: string
-      example: 1
+      example: "1"
       description: Account identifier within a profile.
     binResponse:
       x-model-version: 1.0
@@ -1656,14 +1795,14 @@ components:
           $ref: '#/components/schemas/binhi'
     product:
       type: string
-      example: V
+      example: "V"
       description: |
         Card type, one of the following:
-        A = Amex
-        D = Discover
-        M = Mastercard
-        N = Non-co-branded debit card
-        V = Visa
+        - A - Amex
+        - D - Discover
+        - M - Mastercard
+        - N - Non-co-branded debit card
+        - V - Visa
     gsa:
       type: string
       example: false
@@ -3546,12 +3685,14 @@ components:
             $ref: '#/components/schemas/customproduct'
       example:
           [
-            {"udf0": "value0"},
-            {"udf1": "value1"},
-            {"udf2": "value2"}, 
-            {"custommerchant": "C Company"},
-            {"customphone": "888-888-8888"},
-            {"customproduct": "John Smith's Shoes" }
+            {
+              "udf0": "value0",
+              "udf1": "value1",
+              "udf2": "value2", 
+              "custommerchant": "C Company",
+              "customphone": "888-888-8888",
+              "customproduct": "John Smith's Shoes"
+            }
           ]
     voidable:
       type: string
