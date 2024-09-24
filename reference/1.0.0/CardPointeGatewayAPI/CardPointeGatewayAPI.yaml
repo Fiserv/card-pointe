@@ -84,6 +84,8 @@ paths:
         The surcharge endpoint is used to determine whether or not a surcharge fee will be applied to a transaction, based on the cardholder's postal code and payment method. This allows your application to notify the cardholder of the potential credit card surcharge prior to completing a transaction. Optionally, include the subtotal amount to return the calculated surcharge amount, if applicable.
         
         This request does not effect whether a surcharge is applied to a transaction; the CardPointe Gateway automatically applies a surcharge depending on the merchant configuration and the eligibility of the payment account. This request is used only for informational purposes.
+        
+        The surcharge endpoint requires a query string formatted as <code>https://{site}.cardconnect.com/rest/surcharge?amount={amount}&merchid={merchid}&token={token}&postal={postal}&amount={amount}</code>.
       parameters:
       - $ref: '#/components/parameters/ContentTypeHeader'
       - $ref: '#/components/parameters/Authorization'
@@ -228,15 +230,13 @@ paths:
       x-group-name: CardPointe Gateway API
       x-proxy-name: capture
       x-default-example: PaymentCard
-      summary: The capture service queues the transaction amount for settlement. Capture can occur within the authorization request or subsequently.
+      summary: The capture endpoint queues the transaction amount for settlement. Capture can occur within the authorization request or subsequently.
       description: | 
-        The capture service uses a <code>PUT</code> or <code>POST</code> method queues the transaction amount for settlement. Capture can occur within the authorization request or subsequently.
+        The capture endpoint uses either a <code>PUT</code> or <code>POST</code> method to queue the transaction amount for settlement. Capture can occur within the authorization request (by specifying <code>"capture":"Y"</code>) or subsequently.
         
         Both <code>merchid</code> and <code>retref</code> are required fields.
 
         If the amount to be captured is more than the authorized amount (such as a tip adjustment), ensure that the merchant is appropriately entitled with this capability.
-
-        The service responds with either a JSON-encoded response or an HTTP error code. 
       requestBody:
         content:
           application/json:
@@ -268,9 +268,9 @@ paths:
       x-group-name: CardPointe Gateway API
       x-proxy-name: void
       x-default-example: PaymentCard
-      summary: The void service cancels a transaction that is in either "Authorized" or "Queued for Capture" status.
+      summary: The void endpoint cancels a transaction that is in either "Authorized" or "Queued for Capture" status.
       description: | 
-        The void service cancels a transaction that is in either <code>"Authorized"</code> or <code>"Queued for Capture"</code> status.
+        The void endpoint cancels a transaction that is in either <code>"Authorized"</code> or <code>"Queued for Capture"</code> status.
 
         Partial voids are not supported for debit transactions. If you specify a partial void amount for a debit transaction, the entire amount is voided. Omit the amount or specify the full amount for a debit void.
 
@@ -314,9 +314,9 @@ paths:
       x-group-name: CardPointe Gateway API
       x-proxy-name: refund
       x-default-example: PaymentCard
-      summary: The refund service is used for transactions that are in a settled status.
+      summary: The refund endpoint is used to refund transactions that are in a settled status.
       description: | 
-        The refund service is used for transactions that are in a settled status.
+        The refund endpoint is used to refund transactions that are in a settled status.
         
         <code>merchid</code> and <code>retref</code> are required fields.
 
@@ -355,23 +355,23 @@ paths:
           content:  
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
-  /cardconnect/rest/inquire:
+  /cardconnect/rest/inquire/{merchid}/{retref}:
     get:
       tags:
         - inquire Endpoint Definition
       x-group-name: CardPointe Gateway API
       x-proxy-name: inquire
       x-default-example: PaymentCard
-      summary: The inquire service returns information for an individual transaction, including its settlement status (setlstat) and the response codes from the initial authorization. 
+      summary: The inquire endpoint returns information for an individual transaction, including its settlement status (setlstat) and the response codes from the initial authorization. 
       description: | 
-        The inquire service returns information for an individual transaction, including its settlement status (<code/>setlstat</code>) and the response codes from the initial authorization. 
+        The inquire endpoint returns information for an individual transaction, including its settlement status (<code/>setlstat</code>) and the response codes from the initial authorization. 
       parameters:
-      - in: query
+      - in: path
         name: merchid
         required: true
         schema:
           $ref: '#/components/schemas/merchid'
-      - in: query
+      - in: path
         name: retref
         required: true
         schema:
@@ -520,16 +520,17 @@ paths:
       description: | 
         For the settlement status of an individual transaction that has not been settled, use the inquire service. 
 
-        The settlement status service returns the status of transactions which have been submitted to the processor for settlement. The transaction’s setlstatus is updated appropriately when the CardPointe Gateway receives a response from the processor. You can either specify a batchid to return a specific batch of transactions, or use a date to return all transactions settled for that date. 
+        The settlement status service returns the status of transactions which have been submitted to the processor for settlement. The transaction’s setlstatus is updated appropriately when the CardPointe Gateway receives a response from the processor. You can either specify a <code>batchid</code> to return a specific batch of transactions, or use a <code>date</code> to return all transactions settled for that date. 
         
-        "Null Batches" is returned when no data is available for display. When passing the merchid as the only parameter,  only batches not previously requested are shown. If the merchid has previously been queried for batches, responses will contain only batches not previously returned.
+        The settlestat endpoint requires a query string formatted as <code>https://{site}.cardconnect.com/rest/settlestat?merchid={merchid}&date={MMDD}</code> to return all settled transactions by date or <code>https://{site}.cardconnect.com/rest/settlestat?merchid={merchid}&batchid={batchid}</code> to return all settled transactions within a given batch.
+                
+        "Null Batches" is returned when no data is available for display. When passing the <code>merchid</code> as the only parameter, only batches not previously requested are shown. If the <code>merchid</code> has previously been queried for batches, responses will contain only batches not previously returned.
       parameters:
       - in: query
         name: merchid
         required: true
         schema:
           $ref: '#/components/schemas/merchid'
-          description: The MID from the original authorization.
       - in: query
         name: batchid
         required: true
@@ -575,6 +576,8 @@ paths:
       summary: The funding endpoint provides merchant funding information and supplemental transaction and funding adjustment details. This information is provided by the host payment processing platform (for example, First Data Omaha). 
       description: | 
         The funding endpoint provides merchant funding information and supplemental transaction and funding adjustment details. This information is provided by the host payment processing platform (for example, First Data Omaha). 
+        
+        The funding endpoint requires a query string formatted as <code>https://{site}.cardconnect.com/rest/funding?merchid={merchid}&date={MMDD}</code>or<code>{YYYYMMDD}</code>, where <code>merchid</code> is the merchant account for which you want to retrieve funding data.
          
         Funding data is only available for merchants with the funding service configured and enabled in the production environment.
         
@@ -834,14 +837,14 @@ paths:
           content:  
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
-  /cardconnect/rest/profile/{profileid}/{merchid}:
+  /cardconnect/rest/profile/{profileid}/{accountid}/{merchid}:
     delete:
       tags:
         - profile (DELETE) Endpoint Definition
       x-group-name: CardPointe Gateway API
       x-proxy-name: profile (DELETE)
       x-default-example: PaymentCard
-      summary: A DELETE request to the profile endpoint deletes the stored data for the specified profile ID. 
+      summary: A DELETE request to the profile endpoint deletes the stored data for the specified profile ID. Include an Account ID to delete a specific account within the profile, or omit to delete all accounts within the profile. 
       description: | 
         A DELETE request to the profile endpoint deletes the stored data for the specified profile ID. 
 
@@ -854,23 +857,18 @@ paths:
         required: true
         schema:
           $ref: '#/components/schemas/merchid'
-          description: The MID from the original authorization.
       - name: profileid
         in: path
         required: true
         schema:
           $ref: '#/components/schemas/profileid'
-          description: Primary identifier to access profiles
       - name: accountid
-        in: query
-        required: false
+        in: path
+        required: true
         schema:
           $ref: '#/components/schemas/accountid'
-          description: The token associated with the transaction.
-      - in: header
-        $ref: '#/components/parameters/ContentTypeHeader'
-      - in: header
-        $ref: '#/components/parameters/Authorization'
+      - $ref: '#/components/parameters/ContentTypeHeader'
+      - $ref: '#/components/parameters/Authorization'
       responses:
         200: 
           description: Success
@@ -898,37 +896,29 @@ paths:
       x-group-name: CardPointe Gateway API
       x-proxy-name: profile (GET) 
       x-default-example: PaymentCard
-      summary: The BIN service allows you to use a CardSecure token to determine what type of payment card is being used. The first six (6) digits of a credit card are known as the Bank Identifier Number (BIN), also known as an Issuer Identification Number (IIN). 
-
+      summary: A GET request to the profile endpoint retrieves the details of the specified profile ID. Include an Account ID to retrieve a specific account within the profile, or omit to retrieve all accounts within the profile. 
       description: | 
-        The BIN service allows you to use a CardSecure token to determine what type of payment card is being used. The first six (6) digits of a credit card are known as the Bank Identifier Number (BIN), also known as an Issuer Identification Number (IIN). 
-
-        The BIN service supports the Visa, Mastercard, Amex, Discover, Diners, and JCB card brands.  
+        A GET request to the profile endpoint retrieves the details of the specified profile ID. 
         
-        Visa and Mastercard return all parameters described in the BIN response. For other card brands, only the country, product, and bin parameters are relevant.
+        If the profile includes more than one account, you can specify an account ID to retrieve data for a specific account. If you do not include an account ID, then data for all accounts in the profile is returned.
       parameters:
       - name: merchid
         in: path
         required: true
         schema:
           $ref: '#/components/schemas/merchid'
-          description: The MID from the original authorization.
       - name: profileid
         in: path
         required: true
         schema:
           $ref: '#/components/schemas/profileid'
-          description: Primary identifier to access profiles
       - name: accountid
-        in: query
-        required: false
+        in: path
+        required: true
         schema:
           $ref: '#/components/schemas/accountid'
-          description: The token associated with the transaction.
-      - in: header
-        $ref: '#/components/parameters/ContentTypeHeader'
-      - in: header
-        $ref: '#/components/parameters/Authorization'
+      - $ref: '#/components/parameters/ContentTypeHeader'
+      - $ref: '#/components/parameters/Authorization'
       responses:
         200: 
           description: Success
@@ -1531,7 +1521,6 @@ components:
       description: Authorization code from original authorization request
       example: 046221
     authRequest:
-      x-model-version:
       properties:
         merchid:
          maxLength: 16
@@ -1895,9 +1884,9 @@ components:
       description: |
         The account type, not required unless one of the following:
         
-        ECHK - Electronic checking account, for ACH transactions.
-        ESAV - Electronic savings account, for ACH transactions.
-        PDEBIT - For PINless Debit transactions. Must be enabled for the merchant account.
+        - ECHK - Electronic checking account, for ACH transactions.
+        - ESAV - Electronic savings account, for ACH transactions.
+        - PDEBIT - For PINless Debit transactions. Must be enabled for the merchant account.
     orderid:
       maxLength: 50
       type: string
@@ -1906,8 +1895,8 @@ components:
         
         Note: If you include an order ID it must meet the following requirements:
         
-        * The order ID must be a unique value. Using duplicate order IDs can lead to the wrong transaction being voided in the event of a timeout.
-        * The order ID must not include any portion of a payment account number (PAN), and no portion of the order ID should be mistaken for a PAN. If the order ID passes the Luhn check performed by the CardPointe Gateway, the value will be masked in the database, and attempts to use the order ID in an inquire, void, or refund request will fail.
+        - The order ID must be a unique value. Using duplicate order IDs can lead to the wrong transaction being voided in the event of a timeout.
+        - The order ID must not include any portion of a payment account number (PAN), and no portion of the order ID should be mistaken for a PAN. If the order ID passes the Luhn check performed by the CardPointe Gateway, the value will be masked in the database, and attempts to use the order ID in an inquire, void, or refund request will fail.
       example: "14038635721239"
     taxexempt:
       maxLength: 1
