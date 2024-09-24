@@ -745,31 +745,31 @@ In general, a receipt must include:
 
 ## Authorization Response Data
 
-A successful authorization response includes the following fields. You should include the highlighted fields on your receipts.
+A successful authorization response includes the following fields. You should include the bolded fields on your receipts.
 
 | Field | Content | Max Length | Comments |
 | --- | --- | --- | --- |
-| respstat | Status | 1 | Indicates the status of the authorization request. Can be one of the following values: <br> <br> **A** - Approved <br> **B** - Retry <br> **C** - Declined |
-| retref | Retrieval reference number | 12 | CardPointe retrieval reference number from authorization response |
-| account | Account number | 19 | Copied from the authorization request, masked except for the last four digits. |
+| **respstat** | Status | 1 | Indicates the status of the authorization request. Can be one of the following values: <br> <br> **A** - Approved <br> **B** - Retry <br> **C** - Declined |
+| **retref** | Retrieval reference number | 12 | CardPointe retrieval reference number from authorization response |
+| **account** | Account number | 19 | Copied from the authorization request, masked except for the last four digits. |
 | token (if requested) | Token | 19 | A token that replaces the card number in capture and settlement requests if requested |
-| amount | Amount | 12 | Authorized amount. Same as the request amount for most approvals. <br> The amount remaining on the card for prepaid/gift cards if partial authorization is enabled. <br> Not relevant for declines. |
-| batchid | Batch ID | 12 | Automatically created and assigned unless otherwise specified. Returned for a successful authorization with capture. |
-| orderid | Order ID | 50 | Order ID copied from the authorization request. |
+| **amount** | Amount | 12 | Authorized amount. Same as the request amount for most approvals. <br> The amount remaining on the card for prepaid/gift cards if partial authorization is enabled. <br> Not relevant for declines. |
+| **batchid** | Batch ID | 12 | Automatically created and assigned unless otherwise specified. Returned for a successful authorization with capture. |
+| **orderid** | Order ID | 50 | Order ID copied from the authorization request. |
 | merchid | Merchant ID | 12 | Copied from the authorization request. <br> **Note**: _If you include the merchant ID on a receipt, mask this value, except the last four digits_. |
 | respcode | [Response code](?path=docs/documentation/GatewayResponseCodes.md) | - | Alpha-numeric response code that represents the description of the response |
-| resptext | Response text | - | Text description of response |
+| **resptext** | Response text | - | Text description of response |
 | respproc | Response processor | 4 | Abbreviation that represents the platform and the processor for the transaction |
 | bintype | Type of BIN | 16 | **Possible Values**: <br> <br> Corp <br> FSA+Prepaid <br> GSA+Purchase <br> Prepaid <br> Prepaid+Corp <br> Prepaid+Purchase <br> Purchase |
-| entrymode | POS Entry Mode | 25 | Only returned for merchants using the First Data North and RapidConnect front end platforms. <br> **Possible Values**: <br> <br> Keyed <br> Moto <br> ECommerce <br> Recurring <br> Swipe(Non EMV) <br> DigitalWallet <br> EMVContact <br> Contactless <br> Fallback to Swipe <br> Fallback to Keyed |
+| **entrymode** | POS Entry Mode | 25 | Only returned for merchants using the First Data North and RapidConnect front end platforms. <br> **Possible Values**: <br> <br> Keyed <br> Moto <br> ECommerce <br> Recurring <br> Swipe(Non EMV) <br> DigitalWallet <br> EMVContact <br> Contactless <br> Fallback to Swipe <br> Fallback to Keyed |
 | avsresp | AVS response code | 2 | Alpha-numeric AVS response. |
 | cvvresp | CVV response code | 1 | Alpha-numeric CVV response. |
-| authcode | Authorization code | 6 | Authorization Code from the Issuer |
+| **authcode** | Authorization code | 6 | Authorization Code from the Issuer |
 | signature | Signature Bitmap | 6144 | JSON escaped, Base64 encoded, Gzipped, BMP file representing the cardholder's signature. Returned if the authorization used a token that had associated signature data or track data with embedded signature data. <br> <br> If you are integrating a custom receipt solution, you can convert this image file and print it to the receipt, if required. |
 | commcard | Commercial card flag | 1 | **Y** if a Corporate or Purchase Card |
 | emv | Cryptogram | - | Authorization Response Cryptogram (ARPC). This is returned only when EMV data is present within the Track Parameter. |
-| emvTagData | EMV tag data | 2000 | A string of receipt and EMV tag data (when applicable) returned from the processor. <br> <br> This data returned should be presented on a receipt if applicable, and recorded with the transaction details for future reference. <br> <br> Refer to EMV Tag Data below for a list of the possible fields returned. |
-| receipt | receipt data | - | An object that includes additional fields to be printed on a receipt. <br> <br> Refer to Receipt Data below for a list of the fields returned. |
+| **emvTagData** | EMV tag data | 2000 | A string of receipt and EMV tag data (when applicable) returned from the processor. <br> <br> This data returned should be presented on a receipt if applicable, and recorded with the transaction details for future reference. <br> <br> Refer to EMV Tag Data below for a list of the possible fields returned. |
+| **receipt** | receipt data | - | An object that includes additional fields to be printed on a receipt. <br> <br> Refer to Receipt Data below for a list of the fields returned. |
 
 ## EMV Tag Data
 
@@ -779,15 +779,15 @@ If the card used in the authorization request was an EMV (chip or contactless) c
 | --- | --- | --- | --- | --- | --- |
 | TVR (Terminal Verification Results) | 95 | Status of the different functions as seen from the terminal | Terminal | Binary | 5 |
 | ARC (Authorization Response Code) | 8A | Indicates the transaction disposition of the transaction received from the issuer for online authorizations.	| Issuer/Terminal | String | 2 |
-| PIN (CVM Results) | 9F34 | Indicates the results of the last CVM performed. If PIN was entered, returns "Verified by PIN"	| Terminal | String | 15 |
-| Signature (CVM Results) | 9F34 | Indicates the results of the last CVM performed. If "true" then CVM supports signature and signature line may be applicable. However, card brands have moved away from requiring signature for EMV transactions. | Terminal | Boolean | 5 |
-| Mode | - | Identifies the mode used to authorize (or decline) the transaction. Always "Issuer" | CardPointe Gateway | String | 6 | 
+| **PIN (CVM Results)** | 9F34 | Indicates the results of the last CVM performed. If PIN was entered, returns "Verified by PIN"	| Terminal | String | 15 |
+| **Signature (CVM Results)** | 9F34 | Indicates the results of the last CVM performed. If "true" then CVM supports signature and signature line may be applicable. However, card brands have moved away from requiring signature for EMV transactions. | Terminal | Boolean | 5 |
+| **Mode** | - | Identifies the mode used to authorize (or decline) the transaction. Always "Issuer" | CardPointe Gateway | String | 6 | 
 | TSI (Transaction Status Information) | 9B | Indicates the functions performed in a transaction | Terminal | Binary | 2 |
-| Application Preferred Name | 9F12 | Preferred mnemonic associated with the AID. If unavailable, use Application Label. | Card | String | 16 |
-| AID (Application Identifier, Terminal) | 9F06 | Identifies the application as described in ISO/IEC 7816-5	| Terminal | Binary | 16 |
-| IAD (Issuer Application Data) | 9F10 | Contains proprietary application data for transmission to the issuer in an online transaction.	| Card | Binary | 32 |
-| Entry method | - | Indicator identifying how the card information was obtained.	| Terminal | String | 26 |
-| Application Label | 50 | Mnemonic associated with the AID according to ISO/IEC 7816-5. If unavailable, use the Application Preferred Name. | Card | String (with the special character limited to space) | 16 | 
+| **Application Preferred Name** | 9F12 | Preferred mnemonic associated with the AID. If unavailable, use Application Label. | Card | String | 16 |
+| **AID (Application Identifier, Terminal)** | 9F06 | Identifies the application as described in ISO/IEC 7816-5	| Terminal | Binary | 16 |
+| **IAD (Issuer Application Data)** | 9F10 | Contains proprietary application data for transmission to the issuer in an online transaction.	| Card | Binary | 32 |
+| **Entry method** | - | Indicator identifying how the card information was obtained.	| Terminal | String | 26 |
+| **Application Label** | 50 | Mnemonic associated with the AID according to ISO/IEC 7816-5. If unavailable, use the Application Preferred Name. | Card | String (with the special character limited to space) | 16 | 
 
 ## Receipt Data
 
@@ -799,11 +799,11 @@ You can specify the following fields in a userFields object to include an order 
 
 | Field | Description |
 | --- | --- |
-| receiptOrderNote	| Use this field to provide a custom note to include on the receipt. |
+| receiptOrderNote | Use this field to provide a custom note to include on the receipt. |
 | receiptItems	| Use this field to provide custom item descriptors to include on the receipt. |
-| receiptHeader	| Use this field to override the header configured for your MID. |
-| receiptFooter	| Use this field to override the footer configured for your MID. |
-| receiptDba	| Use this field to override the DBA name configured for your MID. |
+| receiptHeader | Use this field to override the header configured for your MID. |
+| receiptFooter | Use this field to override the footer configured for your MID. |
+| receiptDba | Use this field to override the DBA name configured for your MID. |
 | receiptPhone	| Use this field to override the phone number configured for your MID. |
 | receiptAddress1 |	Use this field to override the address (line 1) configured for your MID. |
 | receiptAddress2	| Use this field to override the address (line 1) configured for your MID. |
@@ -833,12 +833,3 @@ The following example illustrates a receipt template (left) and a receipt popula
 
 <!-- align: center -->
 ![Clover Mini Receipt Sample](../../assets/images/Clover_Mini_Receipt_Sample.png)
-
-# Accepting a Credit Card Surcharge
-
-Surcharging allows merchants to add a "% checkout fee" to a credit card transaction, paid by the cardholder, to help cover the merchant’s credit card processing fees.
-
-The [Merchant Surcharge Program](https://support.cardpointe.com/compliance/surcharging) allows eligible merchants to add a surcharge on applicable credit card transactions. This guide provides an overview of the integration requirements for surcharging card-present credit card transactions using a CardPointe Integrated Terminal.
-
-<!-- theme: warning -->
-> See the Merchant Surcharge Program overview for information on enrolling in the Merchant Surcharge Program
