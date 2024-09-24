@@ -2437,7 +2437,7 @@ components:
       x-model-version: 1.0
       description: List of terminal information
       properties:
-        terminals: {
+        terminalDetails: {
           description: "An array of Hardware Serial Numbers (HSNs) for each terminal for the specified merchant ID.",
           type: object,
           example:
@@ -2450,8 +2450,8 @@ components:
             "deviceType": "Mini 2",
             "environment": "UAT",
             "deviceCapabilities": {
-                "screenDimensionX": 1280,
-                "screenDimensionY": 800,
+                "screenDimensionX": "1280",
+                "screenDimensionY": "800",
                 "pinPad": true,
                 "msr": true,
                 "emv": true,
@@ -2469,8 +2469,8 @@ components:
              "environment":"UAT",
              "deviceCapabilities":
                { 
-                "screenDimensionX":480,
-                "screenDimensionY":272,
+                "screenDimensionX":"480",
+                "screenDimensionY":"272",
                 "pinPad":true,
                 "msr":true,
                 "emv":true,
