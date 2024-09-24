@@ -30,12 +30,12 @@
 
 openapi: 3.0.2
 info:
-  title: CardSecure API Service Endpoints
-  description: This API documentation provides technical guidance when utilizing CardSecure.
+  title: CardPointe Integrated Terminal API
+  description: This API documentation provides technical guidance for integrating the CardPointe Integrated Terminal solution with your application.
   version: 1.0.0
 servers:
- - {url: 'DNE', description: Production}
- - {url: 'DNE', description: Sandbox}
+ - url: https://<site>-uat.cardpointe.com/
+ - description: UAT Environment
 paths:
   /api/v2/listTerminals:
     post:
@@ -554,7 +554,7 @@ paths:
       description: |
         A call to the cancel endpoint sends a cancel command from the POS software to terminate any in-flight operations. 
         
-        If you use the cancel command to allow a merchant or cardholder to attempt to cancel a transaction in progress, you should also use the CardPointe Gateway API's <code>InquireByOrderid</code> request to verify the status of the transaction. A transaction cannot be canceled if the terminal service has already initiated the authorization request to the CardPointe Gateway; however, you can use the <code>InquireByOrderid</code> request to check the status of the transaction and void if necessary.
+        If you use the cancel command to allow a merchant or cardholder to attempt to cancel a transaction in progress, you should also use the CardPointe Gateway API's <code>InquireByorderId</code> request to verify the status of the transaction. A transaction cannot be canceled if the terminal service has already initiated the authorization request to the CardPointe Gateway; however, you can use the <code>InquireByorderId</code> request to check the status of the transaction and void if necessary.
       requestBody:
         required: true
         content:
@@ -988,7 +988,7 @@ components:
       x-model-version: 1.0
       description: printReceipt Request
       properties:
-        merchantID:
+        merchantId:
           description: |
             **Required Field**
             
@@ -1004,7 +1004,7 @@ components:
           type: string
           maxLength: 18
           example: 14012PP20131409
-        orderID:
+        orderId:
           description: |
             **Required Field**
             
@@ -1051,7 +1051,7 @@ components:
       x-model-version: 1.0
       description: tip Request
       properties: 
-        merchantID:
+        merchantId:
           description: |
             **Required Field**
             
@@ -1242,7 +1242,7 @@ components:
       x-model-version: 1.0
       description: authCard Request
       properties:
-        merchantID:
+        merchantId:
           description: |
             **Required Field**
             
@@ -1270,9 +1270,9 @@ components:
           description: An authorization code returned by the issuer, when voice authorization is required to complete a transaction.
           type: string
           example: 100
-        authMerchantId: 
+        authmerchantId: 
           description: |
-            This value is only used if you have multiple merchant IDs, and want to process the transaction using a different merchant ID that is not associated with this terminal. The <code>authMerchantId</code> and <code>merchantId</code> must belong to the same customer account.
+            This value is only used if you have multiple merchant IDs, and want to process the transaction using a different merchant ID that is not associated with this terminal. The <code>authmerchantId</code> and <code>merchantId</code> must belong to the same customer account.
 
             This setting must be enabled for your merchant account.
 
@@ -1371,18 +1371,18 @@ components:
             The format of the signature data returned depends on the following parameters.
           type: boolean
           example: 'false'
-        InvoiceId:
+        invoiceId:
           description: A unique invoice ID, used for ClientLine reporting. This value is an alphanumeric string with a maximum of 12 characters.
           type: string
           maxLength: 12
           example: 123456789012
-        orderID:
+        orderId:
           description: |
             A unique order ID used to identify the transaction. This value is an alphanumeric string with a maximum of 50 characters. If no order ID is specified in the request, the terminal automatically generates a unique order ID in the format <HSN-timestamp> and amends it to the transaction record.
 
-            You can use the order ID to get information on a transaction using the CardPointe Gateway API inquireByOrderid endpoint.
+            You can use the order ID to get information on a transaction using the CardPointe Gateway API inquireByorderId endpoint.
 
-            Additionally, when an authorization attempt times out and the terminal service does not receive a response from the CardPointe Gateway, the terminal service uses the order ID to make an <code>inquireByOrderid</code> request to check the status of the transaction. If the transaction status cannot be determined, the terminal service makes three <code>voidByOrderId</code> requests to void the transaction. Review the Handling Timeouts section in the <a href="../docs/?path=docs/APIs/CardPointeIntegratedTerminalAPI.md&branch=develop">CardPointe Integrated Terminal Developer Guides</a> for more information.
+            Additionally, when an authorization attempt times out and the terminal service does not receive a response from the CardPointe Gateway, the terminal service uses the order ID to make an <code>inquireByorderId</code> request to check the status of the transaction. If the transaction status cannot be determined, the terminal service makes three <code>voidByorderId</code> requests to void the transaction. Review the Handling Timeouts section in the <a href="../docs/?path=docs/APIs/CardPointeIntegratedTerminalAPI.md&branch=develop">CardPointe Integrated Terminal Developer Guides</a> for more information.
 
             **Note**: If you include an order ID it must meet the following requirements: 
 
@@ -1629,10 +1629,10 @@ components:
             * Prepaid+Corp
             * Prepaid+Purchase
             * Purchase
-        orderid:
+        orderId:
           example: 1233200399
           description: |
-            The unique order ID for this transaction. Returns the orderid specified in the request, otherwise returns the <code>orderid</code> generated by the terminal, in the format <code><HSN-timestamp></code>.
+            The unique order ID for this transaction. Returns the orderId specified in the request, otherwise returns the <code>orderId</code> generated by the terminal, in the format <code><HSN-timestamp></code>.
           type: string
         receiptData:
           {$ref: '#/components/schemas/receiptData'}
@@ -1640,7 +1640,7 @@ components:
       x-model-version: 1.0
       description: authCard Request
       properties:
-        merchantID:
+        merchantId:
           description: |
             **Required Field**
             
@@ -1683,9 +1683,9 @@ components:
           description: An authorization code returned by the issuer, when voice authorization is required to complete a transaction.
           type: string
           example: 100
-        authMerchantId: 
+        authmerchantId: 
           description: |
-            This value is only used if you have multiple merchant IDs, and want to process the transaction using a different merchant ID that is not associated with this terminal. The <code>authMerchantId</code> and <code>merchantId</code> must belong to the same customer account.
+            This value is only used if you have multiple merchant IDs, and want to process the transaction using a different merchant ID that is not associated with this terminal. The <code>authmerchantId</code> and <code>merchantId</code> must belong to the same customer account.
 
             This setting must be enabled for your merchant account.
 
@@ -1795,18 +1795,18 @@ components:
             The format of the signature data returned depends on the following parameters.
           type: boolean
           example: 'false'
-        InvoiceId:
+        invoiceId:
           description: A unique invoice ID, used for ClientLine reporting. This value is an alphanumeric string with a maximum of 12 characters.
           type: string
           maxLength: 12
           example: 123456789012
-        orderID:
+        orderId:
           description: |
             A unique order ID used to identify the transaction. This value is an alphanumeric string with a maximum of 50 characters. If no order ID is specified in the request, the terminal automatically generates a unique order ID in the format <HSN-timestamp> and amends it to the transaction record.
 
-            You can use the order ID to get information on a transaction using the CardPointe Gateway API inquireByOrderid endpoint.
+            You can use the order ID to get information on a transaction using the CardPointe Gateway API inquireByorderId endpoint.
 
-            Additionally, when an authorization attempt times out and the terminal service does not receive a response from the CardPointe Gateway, the terminal service uses the order ID to make an <code>inquireByOrderid</code> request to check the status of the transaction. If the transaction status cannot be determined, the terminal service makes three <code>voidByOrderId</code> requests to void the transaction. Review the Handling Timeouts section in the <a href="https://qa-developerstudio.fiserv.com/product/CardPointe/docs/?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md&branch=develop">CardPointe Integrated Terminal Developer Guides</a> for more information.
+            Additionally, when an authorization attempt times out and the terminal service does not receive a response from the CardPointe Gateway, the terminal service uses the order ID to make an <code>inquireByorderId</code> request to check the status of the transaction. If the transaction status cannot be determined, the terminal service makes three <code>voidByorderId</code> requests to void the transaction. Review the Handling Timeouts section in the <a href="https://qa-developerstudio.fiserv.com/product/CardPointe/docs/?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md&branch=develop">CardPointe Integrated Terminal Developer Guides</a> for more information.
 
             **Note**: If you include an order ID it must meet the following requirements: 
 
@@ -1900,7 +1900,7 @@ components:
       x-model-version: 1.0
       description: readSignature Request
       properties:
-        merchantID:
+        merchantId:
           description: |
             **Required Field**
             
@@ -2012,7 +2012,7 @@ components:
       x-model-version: 1.0
       description: readSignature Request
       properties:
-        merchantID:
+        merchantId:
           description: |
             Required Field
             
@@ -2176,7 +2176,7 @@ components:
       x-model-version: 1.0
       description: readSignature Request
       properties:
-        merchantID:
+        merchantId:
           description: Your Merchant ID, required for all requests.
           type: string
           maxLength: 16
@@ -2246,7 +2246,7 @@ components:
       x-model-version: 1.0
       description: display
       properties:
-        merchantID:
+        merchantId:
           description: Your Merchant ID, required for all requests.
           type: string
           maxLength: 16
@@ -2267,7 +2267,7 @@ components:
       x-model-version: 1.0
       description: connect
       properties:
-        merchantID:
+        merchantId:
           description: Your Merchant ID, required for all requests.
           type: string
           maxLength: 16
@@ -2286,7 +2286,7 @@ components:
           type: string
           maxLength: 18
           example: 14012PP20131409
-        merchantID:
+        merchantId:
           description: Your Merchant ID, required for all requests.
           type: string
           maxLength: 16
@@ -2318,7 +2318,7 @@ components:
           type: string
           maxLength: 18
           example: 14012PP20131409
-        merchantID:
+        merchantId:
           description: Your Merchant ID, required for all requests.
           type: string
           maxLength: 16
@@ -2355,7 +2355,7 @@ components:
           type: string
           maxLength: 18
           example: 14012PP20131409
-        merchantID:
+        merchantId:
           description: Your Merchant ID, required for all requests.
           type: string
           maxLength: 16
@@ -2399,7 +2399,7 @@ components:
           type: string
           maxLength: 18
           example: 14012PP20131409
-        merchantID:
+        merchantId:
           description: Your Merchant ID, required for all requests.
           type: string
           maxLength: 16
@@ -2529,7 +2529,7 @@ components:
           type: string
           maxLength: 18
           example: 14012PP20131409
-        merchantID:
+        merchantId:
           description: Your Merchant ID, required for all requests.
           type: string
           maxLength: 16
@@ -2537,7 +2537,7 @@ components:
     disconnectRequest:
       x-model-version: 1.0 
       properties:
-        merchantID:
+        merchantId:
           description: Your Merchant ID, required for all requests.
           type: string
           maxLength: 16
@@ -2575,7 +2575,7 @@ components:
           type: string
           maxLength: 18
           example: 14012PP20131409
-        merchantID:
+        merchantId:
           description: Your Merchant ID, required for all requests.
           type: string
           maxLength: 16
@@ -2584,7 +2584,7 @@ components:
       x-model-version: 1.0
       type: object
       properties:
-        merchantID:
+        merchantId:
           description: Your Merchant ID, required for all requests.
           type: string
           maxLength: 16
@@ -2598,7 +2598,7 @@ components:
       x-model-version: 1.0
       type: object
       properties:
-        merchantID:
+        merchantId:
           description: Your Merchant ID, required for all requests.
           type: string
           maxLength: 16
@@ -2607,7 +2607,7 @@ components:
       x-model-version: 1.0
       type: object
       properties:
-        merchantID:
+        merchantId:
           description: Your Merchant ID, required for all requests.
           type: string
           maxLength: 16
@@ -3014,17 +3014,17 @@ components:
   examples:
     displaySingleLineRequestExample:
       value:
-        merchantID: '1234'
+        merchantId: '1234'
         hsn: '14012PP20131409'
         text: 'Approved'
     displayLineBreakRequestExample:
       value:
-        merchantID: '1234'
+        merchantId: '1234'
         hsn: '14012PP20131409'
         text: Try \n Again
     displayClearRequestExample:
       value:
-        merchantID: '1234'
+        merchantId: '1234'
         hsn: '14012PP20131409'
         text: '' 
     Successful:
@@ -3039,7 +3039,7 @@ components:
         message: 'Message'
     listTerminalsExample:
       value:
-        merchantID: '1234'
+        merchantId: '1234'
     listTerminalsResponseExample:
       value:
         terminals: { 
@@ -3052,7 +3052,7 @@ components:
           }
     terminalDetailsExample:
       value:
-        merchantID: 1234
+        merchantId: 1234
     terminalDetailsResponseExample:
       value:
         terminals: { 
