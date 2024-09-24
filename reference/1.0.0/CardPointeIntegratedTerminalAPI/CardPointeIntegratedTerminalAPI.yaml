@@ -34,8 +34,8 @@ info:
   description: This API documentation provides technical guidance for integrating the CardPointe Integrated Terminal solution with your application.
   version: 1.0.0
 servers:
-  url: https://<site>-uat.cardpointe.com/
-  description: UAT Environment
+  - url: https://<site>-uat.cardpointe.com/
+    description: UAT Environment
 paths:
   /api/v2/listTerminals:
     post:
