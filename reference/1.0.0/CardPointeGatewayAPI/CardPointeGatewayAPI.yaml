@@ -699,7 +699,7 @@ paths:
           content:  
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
-  /cardconnect/rest/profile/:
+  /cardconnect/rest/profile:
     put:
       tags:
         - profile (UPDATE) Endpoint Definition
@@ -1096,6 +1096,100 @@ components:
       in: header
       description: A message to send in the ping request and receive in the response. The value can be blank, however the message field must be included in the request.
   schemas:
+    securedstid:
+      type: string
+      maxLength: 36
+      description: |
+        Required for Mastercard Identity Check transactions.
+       
+        Unique Directory Server Transaction ID (dsTransID) used by Mastercard to identify a single transaction.
+      
+        See [3-D Secure 2.0](https://support.cardpointe.com/compliance/3-d-secure-2-0/) for more information.
+      example: "05"   
+    secureexemption:
+      type: string
+      maxLength: 8
+      description: |
+        Required for European web transactions if the transaction meets the criteria for exemption from the Strong Customer Authentication (SCA) mandate.
+       
+        One of the following values, if applicable:
+       
+        - <code>ivr</code> - The transaction is authorized using a secure IVR system between the merchant and cardholder.
+        - <code>lowrisk</code> - The transaction is considered low-risk. Requires an agreement between the merchant and issuer. 
+        - <code>lowvalue</code> - The transaction amount is less than 30 euros (€30) .
+        - <code>trusted</code> - For Visa only, if the merchant has a trusted agreement with the issuer.
+       
+        **Do not include secureexemption for other transactions that do not meet the above criteria; passing this field when not needed or applicable will cause declines. Contact your 3-D Secure provider and integration support for more information.**
+        
+        See [3-D Secure 2.0](https://support.cardpointe.com/compliance/3-d-secure-2-0/) for more information.
+      example: "ivr"
+    secureflag:
+      type: string
+      maxLength: 2
+      description: |
+        Required for 3DS 2.0 transactions.
+       
+        An Electronic Commerce Indicator (ECI) flag returned from your 3DS provider. 
+       
+        One of the following values:
+       
+        - <code>05</code> - Fully-authenticated transaction.
+        - <code>06</code> - Attempted authenticated transaction
+       
+        See [3-D Secure 2.0](https://support.cardpointe.com/compliance/3-d-secure-2-0/) for more information.
+      example: "05"
+    securevalue:
+      type: string
+      maxLength: 32
+      description: |
+        Required for 3DS 2.0 transactions. 
+       
+        A Base-64 encoded Cardholder Authentication Verification Value (CAVV), returned from your 3DS provider.
+      example: "=asju1ljfl86bAAAAAACm9zU6aqY="     
+    ponumber:
+      type: string
+      maxLength: 36
+      description: |
+        Purchase order number.
+        
+        Many Level 2 protocols require a "Customer Code," which is described as "an identifier the customer would recognize."
+        
+        The CardPointe Gateway populates this field with the <code>ponumber</code>. If the <code>ponumber</code> is not provided, then the <code>orderid</code> from the authorization request is used. If neither the ponumber or the orderid is available, the Retrieval Reference Number (<code>retref</code>) is used.
+      example: "A1B2C3D4"
+    dutyamnt:
+      type: string
+      maxLength: 12
+      description: |
+        The total duty amount for the order.
+        
+        Defaults to <code>"0.00"</code> if not specified.
+      example: "300.00"
+    frtamnt:
+      type: string
+      maxLength: 12
+      description: | 
+        The total freight amount for the order.
+        
+        Defaults to <code>"0.00"</code> if not specified.
+      example: "500.00"
+    taxamnt:
+      maxLength: 12
+      type: string
+      description: | 
+        Tax amount for the order, either decimal or in currency minor units (for example, USD Pennies or MXN Centavos).
+        
+        If <code>"taxexempt":"Y"</code>, then <code>taxamnt</code> must be zero or omitted. 
+        
+        If <code>"taxexempt":"N"</code>, then <code>taxamnt</code> must be a positive, non-zero value.      
+      example: "6.00"
+    orderdate:
+      type: string
+      maxLength: 8
+      description: |
+        For most industries this is the delivery date for the order in the format YYYYMMDD.
+        
+        Defaults to System Date when the transaction is captured.
+      example: "20240930"
     approvedSurchargeResponse:
       description: Approved for Surcharge
       x-model-version: 1.0 
@@ -1676,14 +1770,6 @@ components:
         * The order ID must be a unique value. Using duplicate order IDs can lead to the wrong transaction being voided in the event of a timeout.
         * The order ID must not include any portion of a payment account number (PAN), and no portion of the order ID should be mistaken for a PAN. If the order ID passes the Luhn check performed by the CardPointe Gateway, the value will be masked in the database, and attempts to use the order ID in an inquire, void, or refund request will fail.
       example: "14038635721239"
-    taxamnt:
-      maxLength: 12
-      type: string
-      example: "6.00"
-      description: | 
-        Tax amount for the order, either decimal or in currency minor units (for example, USD Pennies or MXN Centavos).
-
-        If taxexempt is Y, taxamnt must be zero or omitted. If taxexempt is N, taxamnt must be a positive, non-zero value.
     taxexempt:
       maxLength: 1
       type: string
@@ -3504,7 +3590,7 @@ components:
         fee_value:
           $ref: '#/components/schemas/fee_value'
         merchid:
-          description: The CardPointe merchant ID..
+          description: The CardPointe merchant ID.
           example: "496082673999"
           $ref: '#/components/schemas/merchid'
         site:
