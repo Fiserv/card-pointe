@@ -333,11 +333,20 @@ The following examples illustrate some common LCD messages. See [LCD Codes and M
 ```json
 *PAE|DPT|RESP|02010000|{"LCD_Code":35,"LCD_Msg":"WELCOME"}|6741|*!PAE!*
 
-*PAE|DPT|RESP|02010000|{"LCD_Code":13,"LCD_Msg":"INSERT CARD"}|59993|*!PAE!*
+*PAE|DPT|RESP|02010000|{"LCD_Code":86,"LCD_Msg":"INSERT/PRESENT CARD"}|53726|*!PAE!*
 
-*PAE|DPT|RESP|02010000|{"LCD_Code":39,"LCD_Msg":"REMOVE CARD"}|57627|*!PAE!*
 
-*PAE|DPT|RESP|02010000|{"LCD_Code":26,"LCD_Msg":"PROCESSING..."}|9076|*!PAE!*
+*PAE|DPT|RESP|02010000|{"LCD_Code":39,"LCD_Msg":"REMOVE CARD"}|23809|*!PAE!*
+
+*PAE|DPT|RESP|02010000|{"LCD_Code":26,"LCD_Msg":"PROCESSING..."}|21106|*!PAE!*
+
+*PAE|DPT|RESP|02010000|{"LCD_Code":17,"LCD_Msg":"PLEASE WAIT..."}|59054|*!PAE!*
+
+*PAE|DPT|RESP|02010000|{"LCD_Code":21,"LCD_Msg":"AUTHORIZING..."}|35991|*!PAE!*
+
+*PAE|DPT|RESP|02010000|{"LCD_Code":3,"LCD_Msg":"APPROVED"}|10801|*!PAE!*
+
+*PAE|DPT|RESP|01F402FE|DPT finished|65074|*!PAE!*
 ```
 
 While response code `02010000` is used to pass along the LCD message for EMV transactions, the DPT  `<response code>` field can also return the following values:
@@ -374,7 +383,7 @@ Upon successful completion of a transaction, the response includes the authoriza
 #### Sample DPT Successful Payment Response
 
 ```json
-*PAE|DPT|RESP|01F40000|{"transactionID":"a32e49b4-eef1-48a1-841e-2575ddb5f91d","externalTransactionID":"Payment Test 1","paymentID":"3dcbc0dc-8674-4201-b2fc-3d499d00f747","cardToken":"9473656277440119","authorization":"080642","amountAuth":"150","processorMsg":"Approve","processorCode":"000","processorReference":"315074250123","receiptData":"{\"dateTime\":\"20201110135523\",\"dba\":\"CE RPCT Diner\",\"address2\":\"Pittsburgh, PA\",\"phone\":\"8778280720\",\"footer\":\"\",\"nameOnCard\":\"\",\"address1\":\"353 Test Lane\",\"orderNote\":\"\",\"header\":\"\",\"items\":\"\"}","expiry":"1222","bininfo":"{\"country\":\"USA\",\"product\":\"V\",\"bin\":\"476173\",\"cardusestring\":\"True credit, No PIN/Signature capability\",\"gsa\":false,\"corporate\":false,\"fsa\":false,\"subtype\":\"Visa Traditional\",\"purchase\":false,\"prepaid\":false,\"issuer\":\"B 2 16Test Visa\",\"binlo\":\"476173\",\"binhi\":\"476173\",\"success\":false,\"errormsg\":null}","emvTags":"{\"TVR\":\"0000000000\",\"ARC\":\"00\",\"PIN\":\"None\",\"Signature\":\"false\",\"Mode\":\"Issuer\",\"Network Label\":\"VISA\",\"TSI\":\"0000\",\"AID\":\"A0000000031010\",\"IAD\":\"06010A03A00000\",\"Entry method\":\"Contactless Chip\",\"Application Label\":\"VISA CREDIT\"}","merchantID":"177203351990"}|23862|*!PAE!*
+PAE|DPT|RESP|01F40000|{"transactionID":"40d9352a-22fc-49dd-9254-88afce7c767d","externalTransactionID":"TEST01","paymentID":"09487418-836d-4d3a-8de3-17734e642d09","cardToken":"9375158583121003","authorization":"PPS313","amountAuthorized":"515","processorMsg":"Approval","processorCode":"000","processorReference":"268529151768","receiptData":"{\"dateTime\":\"20240924142248\",\"dba\":\"MM-RPCT with Surcharge\",\"address2\":\"Atlanta, GA\",\"phone\":\"6101234567\",\"footer\":\"\",\"nameOnCard\":\"UAT CAN\\/Test Card 13\",\"address1\":\"232 Forsyth Street Southwest\",\"orderNote\":\"\",\"header\":\"\",\"items\":\"\"}","expiry":"1224","bininfo":"{\"country\":\"   \",\"product\":\"A\",\"bin\":\"374245\",\"cardusestring\":\"True credit, No PIN/Signature capability\",\"gsa\":false,\"corporate\":false,\"fsa\":false,\"subtype\":\"\",\"purchase\":false,\"prepaid\":false,\"issuer\":\"\",\"binlo\":\"373795\",\"binhi\":\"374325\"}","emvTags":"{\"TVR\":\"8000008000\",\"PIN\":\"None\",\"Signature\":\"false\",\"Mode\":\"Issuer\",\"Network Label\":\"AMEX\",\"TSI\":\"6800\",\"Application Preferred Name\":\"American Express\",\"AID\":\"A000000025010402\",\"IAD\":\"06020103A0A000\",\"Entry method\":\"Chip Read\",\"ARC\":\"Z3\",\"Application Label\":\"AMERICAN EXPRESS\"}","merchantID":"496590513883","processorAVS":"Y","processorCVV":"P","fee_value":"300","fee_type":"SURCHRG","fee_merchid":"","fee_authcode":"PPS313","fee_amount":"0.15","fee_format":"percent","fee_retref":""}|8823|*!PAE!*
 ```
 
 #### Sample DPT Successful Tokenization Response
