@@ -79,6 +79,36 @@ For smoke testing, you must direct traffic to a valid MID with production creden
 <!-- theme: danger -->
 > Tokens generated in one environment (UAT or PROD) can not be used to make authorization requests in the other environment. For example, an authorization request in the PROD environment using a token generated in the UAT environment will fail with the error "invalid token."
 
+# IP Addresses and Domains
+
+If your application is running in a highly-restricted network environment, you might need to allow outbound traffic between your network and the CardPointe servers to to allow your terminals or application to connect to the necessary services.
+
+<!-- theme: warning -->
+> As a best practice, all application configurations should only reference the fully-qualified domain name (FQDN) of the CardPointe Integrated Terminal or CardPointe Gateway services, instead of hard-coding IP addresses. This approach mitigates the need for changes when services migrate between data center locations, and preserves backwards compatibility during future updates.
+
+## IP Addresses
+
+All CardPointe applications and services use the following IP address ranges:
+
+- 167.16.248.0/24
+- 167.16.249.0/24
+- 198.62.138.0/24
+- 206.201.63.0/24
+
+## Domains
+
+The following table provides more details on the domains used for each CardPointe application or service: 
+
+| Destination Name | Destination Address | Port | Description | Environment | Protocol |
+| --- | --- | --- | --- | --- | --- |
+| `<sitename>-uat.cardconnect.com` | *   167.16.248.0/24<br>*   167.16.249.0/24<br>*   198.62.138.0/24<br>*   206.201.63.0/24 | 443 | CardPointe Gateway | UAT | TCP |
+| `<sitename>.cardconnect.com` | *   167.16.248.0/24<br>*   167.16.249.0/24<br>*   198.62.138.0/24<br>*   206.201.63.0/24 | 443 | CardPointe Gateway | PROD | TCP |
+| `bolt.cardpointe.com` | *   167.16.248.0/24<br>*   167.16.249.0/24<br>*   198.62.138.0/24<br>*   206.201.63.0/24 | 443 | CardPointe Integrated Terminal API Connection | PROD | TCP |
+| `bolt-terminal.cardpointe.com` | *   167.16.248.0/24<br>*   167.16.249.0/24<br>*   198.62.138.0/24<br>*   206.201.63.0/24 | 443 | CardPointe Integrated Terminal Gateway Connection | PROD | TCP |
+| `bolt-uat.cardpointe.com` | *   167.16.248.0/24<br>*   167.16.249.0/24<br>*   198.62.138.0/24<br>*   206.201.63.0/24 | 443 | CardPointe Integrated Terminal API Connection | UAT | TCP |
+| `bolt-terminal-uat.cardpointe.com` | *   167.16.248.0/24<br>*   167.16.249.0/24<br>*   198.62.138.0/24<br>*   206.201.63.0/24 | 443 | CardPointe Integrated Terminal Gateway Connection | UAT | TCP |
+| `tms.cardconnect.com` | *   167.16.248.0/24<br>*   167.16.249.0/24<br>*   198.62.138.0/24<br>*   206.201.63.0/24 | 443 | Terminal Management Service (TMS) | PROD | TCP |
+
 # Web Service URLs
 
 Each service has one or more URLs that your application uses to connect and send requests to the service.
