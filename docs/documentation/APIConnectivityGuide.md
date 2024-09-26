@@ -103,11 +103,11 @@ The following table provides more details on the domains used for each CardPoint
 
 | Destination Name | Port | Description | Environment | Protocol |
 | --- | --- | --- | --- | --- |
-| `<sitename>-uat.cardconnect.com` | 443 | CardPointe Gateway | UAT | TCP |
 | `<sitename>.cardconnect.com` | 443 | CardPointe Gateway | PROD | TCP |
+| `<sitename>-uat.cardconnect.com` | 443 | CardPointe Gateway | UAT | TCP |
 | `bolt.cardpointe.com` | 443 | CardPointe Integrated Terminal API Connection | PROD | TCP |
-| `bolt-terminal.cardpointe.com` | 443 | CardPointe Integrated Terminal Gateway Connection | PROD | TCP |
 | `bolt-uat.cardpointe.com` | 443 | CardPointe Integrated Terminal API Connection | UAT | TCP |
+| `bolt-terminal.cardpointe.com` | 443 | CardPointe Integrated Terminal Gateway Connection | PROD | TCP |
 | `bolt-terminal-uat.cardpointe.com` | 443 | CardPointe Integrated Terminal Gateway Connection | UAT | TCP |
 | `tms.cardconnect.com` | 443 | Terminal Management Service (TMS) | PROD | TCP |
 
