@@ -92,22 +92,24 @@ All CardPointe applications and services use the following IP address ranges:
 
 - 167.16.248.0/24
 - 167.16.249.0/24
+- 198.62.137.0/24
 - 198.62.138.0/24
+- 206.201.62.0/24
 - 206.201.63.0/24
 
 ## Domains
 
 The following table provides more details on the domains used for each CardPointe application or service: 
 
-| Destination Name | Destination Address | Port | Description | Environment | Protocol |
-| --- | --- | --- | --- | --- | --- |
-| `<sitename>-uat.cardconnect.com` | *   167.16.248.0/24<br>*   167.16.249.0/24<br>*   198.62.138.0/24<br>*   206.201.63.0/24 | 443 | CardPointe Gateway | UAT | TCP |
-| `<sitename>.cardconnect.com` | *   167.16.248.0/24<br>*   167.16.249.0/24<br>*   198.62.138.0/24<br>*   206.201.63.0/24 | 443 | CardPointe Gateway | PROD | TCP |
-| `bolt.cardpointe.com` | *   167.16.248.0/24<br>*   167.16.249.0/24<br>*   198.62.138.0/24<br>*   206.201.63.0/24 | 443 | CardPointe Integrated Terminal API Connection | PROD | TCP |
-| `bolt-terminal.cardpointe.com` | *   167.16.248.0/24<br>*   167.16.249.0/24<br>*   198.62.138.0/24<br>*   206.201.63.0/24 | 443 | CardPointe Integrated Terminal Gateway Connection | PROD | TCP |
-| `bolt-uat.cardpointe.com` | *   167.16.248.0/24<br>*   167.16.249.0/24<br>*   198.62.138.0/24<br>*   206.201.63.0/24 | 443 | CardPointe Integrated Terminal API Connection | UAT | TCP |
-| `bolt-terminal-uat.cardpointe.com` | *   167.16.248.0/24<br>*   167.16.249.0/24<br>*   198.62.138.0/24<br>*   206.201.63.0/24 | 443 | CardPointe Integrated Terminal Gateway Connection | UAT | TCP |
-| `tms.cardconnect.com` | *   167.16.248.0/24<br>*   167.16.249.0/24<br>*   198.62.138.0/24<br>*   206.201.63.0/24 | 443 | Terminal Management Service (TMS) | PROD | TCP |
+| Destination Name | Port | Description | Environment | Protocol |
+| --- | --- | --- | --- | --- |
+| `<sitename>-uat.cardconnect.com` | 443 | CardPointe Gateway | UAT | TCP |
+| `<sitename>.cardconnect.com` | 443 | CardPointe Gateway | PROD | TCP |
+| `bolt.cardpointe.com` | 443 | CardPointe Integrated Terminal API Connection | PROD | TCP |
+| `bolt-terminal.cardpointe.com` | 443 | CardPointe Integrated Terminal Gateway Connection | PROD | TCP |
+| `bolt-uat.cardpointe.com` | 443 | CardPointe Integrated Terminal API Connection | UAT | TCP |
+| `bolt-terminal-uat.cardpointe.com` | 443 | CardPointe Integrated Terminal Gateway Connection | UAT | TCP |
+| `tms.cardconnect.com` | 443 | Terminal Management Service (TMS) | PROD | TCP |
 
 # Web Service URLs
 
