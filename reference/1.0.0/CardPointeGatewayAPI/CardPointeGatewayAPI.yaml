@@ -85,7 +85,7 @@ paths:
         
         This request does not effect whether a surcharge is applied to a transaction; the CardPointe Gateway automatically applies a surcharge depending on the merchant configuration and the eligibility of the payment account. This request is used only for informational purposes.
         
-        The surcharge endpoint requires a query string formatted as <code>https://{site}.cardconnect.com/cardconnect/rest/surcharge?amount={amount}&merchid={merchid}&token={token}&postal={postal}&amount={amount}</code>.
+        The surcharge endpoint requires a query string formatted as <code>https://{site}.cardconnect.com/cardconnect/rest/surcharge?merchid={merchid}&token={token}&postal={postal}&amount={amount}</code>.
       parameters:
       - $ref: '#/components/parameters/ContentTypeHeader'
       - $ref: '#/components/parameters/Authorization'
