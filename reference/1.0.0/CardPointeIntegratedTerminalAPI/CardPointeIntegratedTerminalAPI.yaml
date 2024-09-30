@@ -70,11 +70,6 @@ paths:
           content:
             application/json:
               schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /api/v3/terminalDetails:
     post:
       tags:
@@ -108,11 +103,6 @@ paths:
           content:
             application/json:
               schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /api/v2/dateTime:
     post:
       tags:
@@ -141,11 +131,6 @@ paths:
           content:
             application/json:
               schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}  
   /api/v2/getPanPadVersion:
     post:
       tags:
@@ -176,11 +161,6 @@ paths:
           content:
             application/json:
               schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /api/v2/ping:
     post:
       tags:
@@ -212,11 +192,6 @@ paths:
           content:
             application/json:
               schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /api/v2/preconnect:
     post:
       tags:
@@ -252,11 +227,6 @@ paths:
           content:
             application/json:
               schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /api/v2/connect:
     post:
       tags:
@@ -305,11 +275,6 @@ paths:
           content:
             application/json:
               schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /api/v2/disconnect:
     post:
       tags:
@@ -341,11 +306,6 @@ paths:
           content:
             application/json:
               schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /api/v2/display:
     post:
       tags:
@@ -397,11 +357,6 @@ paths:
           content:
             application/json:
               schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /api/v3/clearDisplay:
     post:
       tags:
@@ -429,11 +384,6 @@ paths:
           content:
             application/json:
               schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'} 
   /api/v3/readConfirmation:
     post:
       tags:
@@ -465,11 +415,6 @@ paths:
           content:
             application/json:
               schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}  
   /api/v2/readInput: 
     post:
       tags:
@@ -500,12 +445,7 @@ paths:
           description: Not Found
           content:
             application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}  
+              schema: {$ref: '#/components/schemas/NotFoundError'} 
   /api/v2/readSignature:
     post:
       tags:
@@ -539,11 +479,6 @@ paths:
           content:
             application/json:
               schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /api/v2/cancel:
     post:
       tags:
@@ -573,11 +508,6 @@ paths:
           content:
             application/json:
               schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /api/v2/readCard:
     post:
       tags:
@@ -612,11 +542,6 @@ paths:
           content:
             application/json:
               schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /api/v2/readManual:
     post:
       tags:
@@ -651,11 +576,6 @@ paths:
           content:
             application/json:
               schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /api/v3/authCard:
     post:
       tags:
@@ -688,11 +608,6 @@ paths:
           content:
             application/json:
               schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /api/v3/authManual:
     post:
       tags:
@@ -727,11 +642,6 @@ paths:
           content:
             application/json:
               schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /api/v3/tip:
     post:
       tags:
@@ -766,11 +676,6 @@ paths:
           content:
             application/json:
               schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /api/v3/printReceipt:
     post:
       tags:
@@ -803,11 +708,6 @@ paths:
           content:
             application/json:
               schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
 components:
   parameters:
     Authorization:
@@ -2486,19 +2386,29 @@ components:
       x-model-version: 1.0
       description: Error information
       properties:
-        message: {
+        errorMessage: {
           description: 'Information specific to a propery or attribute.',
           type: string,
-          example: Data not found
+          example: Missing Required Parameters
+        }
+        errorCode: {
+          description: 'Associated Error Code',
+          type: string,
+          example: 4
         }
     BadRequestError:
       x-model-version: 1.0
       description: Error information
       properties:
-        message: {
+        errorMessage: {
           description: 'Information specific to a propery or attribute.',
           type: string,
-          example: Keystore invalid processor
+          example: Missing Required Parameters
+        }
+        errorCode: {
+          description: 'Associated Error Code',
+          type: string,
+          example: 4
         }
     ErrorCode: 
       description: An error code. Returns "00" if successful. All error codes contain four digits. Two zeros precede the codes.
@@ -2513,11 +2423,11 @@ components:
         type:
           description: 'The type of response either from the HOST, GATEWAY, NETWORK, or APIM.'
           type: string
-        code: {
+        errorCode: {
           description: 'Error response code from the host, gateway, or network',
           type: string
         }
-        message: {
+        errorMessage: {
           description: 'Information specific to a propery or attribute.',
           type: string
         }
