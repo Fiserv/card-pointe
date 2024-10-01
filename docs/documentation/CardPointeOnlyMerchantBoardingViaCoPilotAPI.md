@@ -120,7 +120,7 @@ The following fields are uniquely required for a successful API call to create a
 | **Method** | <code>POST</code> |
 | -- | -- |
 |**Host** | https://api-uat.cardconnect.com |
-| **Path** | /merchantt | 
+| **Path** | /merchant | 
 | **Headers** | Authorization: Bearer <br> X-CoPilotAPI-Version: 1.0 <br> Content-Type: application/json|
 | **Consumes** | application/json | 
 | **Produces** | application/json |
@@ -262,7 +262,11 @@ While custom fields must be included, values do not have to be passed if they ar
         },
         "processing": {
             "platformDetails": {
+		"frontEndMid": "23123123231",
 		"backEndMid": "418493849598",
+		"processorReportingMid": "12324214314",
+		"backEndPlatformCd": "FDNOB",
+        	"frontEndPlatformCd": "FDNOF",
                 "discoverProgramCd": "MAP",
                 "acquiringFlg": false,
                 "taxId": "999999999",
@@ -293,7 +297,7 @@ While custom fields must be included, values do not have to be passed if they ar
 
 | Method   | PUT                                                                            |
 |----------|--------------------------------------------------------------------------------|
-| **Host**     | https://accountsuat.cardconnect.com                                            |   
+| **Host**     | https://api-uat.cardconnect.com                                            |   
 | **Path**     | /merchant/{merchant-Id}/submit                                                 |   
 | **Headers**  | Authorization: Bearer Content-Type: application/json X-CopilotAPI-Version: 1.0 |   
 | **Consumes** | n/a                                                                            |   
