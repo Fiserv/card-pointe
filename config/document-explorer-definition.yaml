@@ -52,6 +52,9 @@
     - title: Developer Guide
       link: docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md
 - sections:
+  - title: CardPointe Unattended
+    link: CardPointeUnattendedDeveloperGuide.md
+- sections:
   - title: CardSecure
     sections:
     - title: API Overview
