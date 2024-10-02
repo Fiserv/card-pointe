@@ -66,10 +66,15 @@ paths:
             application/json:
               schema: {$ref: '#/components/schemas/listTerminalsSuccess'}
         400:
-          description: Not Found
+          description: Bad Request
           content:
             application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+        500:
+          description: Client or Server Error
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ClientServerError'}
   /api/v3/terminalDetails:
     post:
       tags:
@@ -99,10 +104,15 @@ paths:
             application/json:
               schema: {$ref: '#/components/schemas/terminalDetailsSuccess'}
         400:
-          description: Not Found
+          description: Bad Request
           content:
             application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+        500:
+          description: Client or Server Error
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ClientServerError'}
   /api/v2/dateTime:
     post:
       tags:
@@ -127,10 +137,15 @@ paths:
         200: 
           description: Success
         400:
-          description: Not Found
+          description: Bad Request
           content:
             application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+        500:
+          description: Client or Server Error
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ClientServerError'}
   /api/v2/getPanPadVersion:
     post:
       tags:
@@ -157,10 +172,15 @@ paths:
             application/json:
               schema: {$ref: '#/components/schemas/getPanPadVersionSuccess'}
         400:
-          description: Not Found
+          description: Bad Request
           content:
             application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+        500:
+          description: Client or Server Error
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ClientServerError'}
   /api/v2/ping:
     post:
       tags:
@@ -188,10 +208,15 @@ paths:
             application/json:
               schema: {$ref: '#/components/schemas/pingSuccess'}
         400:
-          description: Not Found
+          description: Bad Request
           content:
             application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+        500:
+          description: Client or Server Error
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ClientServerError'}
   /api/v2/preconnect:
     post:
       tags:
@@ -223,10 +248,15 @@ paths:
             application/json:
               schema: {$ref: '#/components/schemas/preconnectSuccess'}
         400:
-          description: Not Found
+          description: Bad Request
           content:
             application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+        500:
+          description: Client or Server Error
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ClientServerError'}
   /api/v2/connect:
     post:
       tags:
@@ -271,10 +301,15 @@ paths:
                 example: →f4fb39ff5c9c4299b3d7b34ca7ce2348;expires=2018-09-25T16:26:48.482Z
               description: The session key for the established connection.
         400:
-          description: Not Found
+          description: Bad Request
           content:
             application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+        500:
+          description: Client or Server Error
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ClientServerError'}
   /api/v2/disconnect:
     post:
       tags:
@@ -302,10 +337,15 @@ paths:
         200: 
           description: Success
         400:
-          description: Not Found
+          description: Bad Request
           content:
             application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+        500:
+          description: Client or Server Error
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ClientServerError'}
   /api/v2/display:
     post:
       tags:
@@ -353,10 +393,15 @@ paths:
         200: 
           description: Success
         400:
-          description: Not Found
+          description: Bad Request
           content:
             application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+        500:
+          description: Client or Server Error
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ClientServerError'}
   /api/v3/clearDisplay:
     post:
       tags:
@@ -380,10 +425,15 @@ paths:
         200: 
           description: Success
         400:
-          description: Not Found
+          description: Bad Request
           content:
             application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+        500:
+          description: Client or Server Error
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ClientServerError'}
   /api/v3/readConfirmation:
     post:
       tags:
@@ -411,10 +461,15 @@ paths:
             application/json:
               schema: {$ref: '#/components/schemas/readConfirmationSuccess'}
         400:
-          description: Not Found
+          description: Bad Request
           content:
             application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+        500:
+          description: Client or Server Error
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ClientServerError'}
   /api/v2/readInput: 
     post:
       tags:
@@ -442,10 +497,15 @@ paths:
             application/json:
               schema: {$ref: '#/components/schemas/readInputSuccess'}
         400:
-          description: Not Found
+          description: Bad Request
           content:
             application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'} 
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+        500:
+          description: Client or Server Error
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ClientServerError'}
   /api/v2/readSignature:
     post:
       tags:
@@ -475,10 +535,15 @@ paths:
               schema: 
                 $ref: '#/components/schemas/readSignatureSuccess'
         400:
-          description: Not Found
+          description: Bad Request
           content:
             application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+        500:
+          description: Client or Server Error
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ClientServerError'}
   /api/v2/cancel:
     post:
       tags:
@@ -504,10 +569,15 @@ paths:
         200: 
           description: Success
         400:
-          description: Not Found
+          description: Bad Request
           content:
             application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+        500:
+          description: Client or Server Error
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ClientServerError'}
   /api/v2/readCard:
     post:
       tags:
@@ -538,10 +608,15 @@ paths:
             application/json:
               schema: {$ref: '#/components/schemas/readCardSuccess'}
         400:
-          description: Not Found
+          description: Bad Request
           content:
             application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+        500:
+          description: Client or Server Error
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ClientServerError'}
   /api/v2/readManual:
     post:
       tags:
@@ -572,10 +647,15 @@ paths:
             application/json:
               schema: {$ref: '#/components/schemas/readManualSuccess'}
         400:
-          description: Not Found
+          description: Bad Request
           content:
             application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+        500:
+          description: Client or Server Error
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ClientServerError'}
   /api/v3/authCard:
     post:
       tags:
@@ -604,10 +684,15 @@ paths:
             application/json:
               schema: {$ref: '#/components/schemas/authCardSuccess'}
         400:
-          description: Not Found
+          description: Bad Request
           content:
             application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+        500:
+          description: Client or Server Error
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ClientServerError'}
   /api/v3/authManual:
     post:
       tags:
@@ -638,10 +723,15 @@ paths:
             application/json:
               schema: {$ref: '#/components/schemas/authManualSuccess'}
         400:
-          description: Not Found
+          description: Bad Request
           content:
             application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+        500:
+          description: Client or Server Error
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ClientServerError'}
   /api/v3/tip:
     post:
       tags:
@@ -672,10 +762,15 @@ paths:
             application/json:
               schema: {$ref: '#/components/schemas/tipSuccess'}
         400:
-          description: Not Found
+          description: Bad Request
           content:
             application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+        500:
+          description: Client or Server Error
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ClientServerError'}
   /api/v3/printReceipt:
     post:
       tags:
@@ -704,10 +799,15 @@ paths:
             application/json:
               schema: {$ref: '#/components/schemas/printReceiptSuccess'}
         400:
-          description: Not Found
+          description: Bad Request
           content:
             application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
+              schema: {$ref: '#/components/schemas/BadRequestError'}
+        500:
+          description: Client or Server Error
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/ClientServerError'}
 components:
   parameters:
     Authorization:
@@ -2384,7 +2484,7 @@ components:
         }
     NotFoundError:
       x-model-version: 1.0
-      description: Error information
+      description: Bad Request
       properties:
         errorMessage: {
           description: 'Information specific to a propery or attribute.',
@@ -2396,9 +2496,42 @@ components:
           type: string,
           example: 4
         }
+    ClientServerError:
+      x-model-version: 1.0
+      description: A 500 response indicates a client or server error. The response includes an error code, which corresponds to one or more specific error messages that describe the error.
+      properties:
+        errorMessage: { 
+          description: 'Information specific to a propery or attribute.',
+          type: string,
+        }
+        errorCode: {
+          description: 'Associated Error Code',
+          type: string,
+        }
+      example: {
+            "errorCode": 1,
+            "errorMessage": "Terminal request timed out",
+            "authResponse": {
+                 "token" : "9445123546981111",
+                 "expiry" : "0224",
+                 "name" : "John Doe",
+                 "batchid" : "100",
+                 "retref" : "173006146691",
+                 "avsresp" : "Y",
+                 "respproc" : "RPCT",
+                 "amount" : "1.00",
+                 "resptext" : "Approval",
+                 "authcode" : "909443",
+                 "respcode" : "00",
+                 "merchid" : "1234",
+                 "cvvresp" : "",
+                 "respstat": "A",
+                 "orderId": "C032UQ82820315-20180422141315"    
+              }  
+          }
     BadRequestError:
       x-model-version: 1.0
-      description: Error information
+      description: Bad Request
       properties:
         errorMessage: {
           description: 'Information specific to a propery or attribute.',
