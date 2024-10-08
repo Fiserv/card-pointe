@@ -79,16 +79,6 @@ paths:
           content:
             application/json:
               schema: {$ref: '#/components/schemas/tokenResponse'}
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
 
   /merchant:
     post: 
@@ -124,26 +114,11 @@ paths:
         - in: header
           $ref: '#/components/parameters/Authorization'
       responses:
-        200: 
+        201: 
           description: Success
           content:
             application/json:
               schema: {$ref: '#/components/schemas/merchantCreateSuccessfulResponse'}
-              examples:
-                Successful Response:
-                  $ref: '#/components/examples/SuccessfulMerchantCreateResponse'
-                Unsuccessful Response:
-                  $ref: '#/components/examples/UnsuccesfulMerchantCreateResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
 
   /merchant/{merchantId}:
     get: 
@@ -181,16 +156,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/merchantGetResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
     put:
       tags: 
         - Endpoints
@@ -230,16 +195,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/merchantPutResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /merchant/{merchantId}/status:
     get: 
       tags: 
@@ -270,16 +225,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/merchantGetStatusResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /merchant/{merchantId}/signature:
     put: 
       tags: 
@@ -310,16 +255,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/signaturePutResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
     get: 
       tags: 
         - Endpoints
@@ -349,16 +284,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/signatureGetResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
     delete: 
       tags: 
         - Endpoints
@@ -392,16 +317,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/signatureDeleteResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /merchant/{merchantId}/attachment:
     put:
       tags: 
@@ -438,16 +353,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/attachmentResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /equipmentCatalog/list:
     get:
       tags: 
@@ -499,16 +404,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/equipmentResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /order:
     post:
       tags: 
@@ -537,16 +432,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/orderPOSTResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /order/{orderId}:
     get:
       tags: 
@@ -577,16 +462,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/orderGETResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
     put:
       tags: 
         - Endpoints
@@ -622,16 +497,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/orderPUTResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /order/list:
     get:
       tags: 
@@ -672,16 +537,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/listorderResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /order/{orderId}/cancel:
     post:
       tags: 
@@ -712,16 +567,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/orderCANCELResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /merchant/{merchantId}/customfields:
     put:
       tags: 
@@ -756,16 +601,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/orderCANCELResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
     get:
       tags: 
         - Endpoints
@@ -799,16 +634,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/customFieldsGETResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /merchant/{merchantId}/ownerSiteUser:
     put:
       tags: 
@@ -849,16 +674,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/ownerSiteUserUpdateResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
     get:
       tags: 
         - Endpoints
@@ -892,16 +707,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/ownerSiteUserGETResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /lookup/amexProgramAssetCodes:
     get:
       tags: 
@@ -927,16 +732,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/amexProgramResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /lookup/attachmentTypeCodes:
     get:
       tags: 
@@ -962,16 +757,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/attachmentTypeResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /lookup/backEndPlatformCodes:
     get:
       tags: 
@@ -997,16 +782,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/backendPlatformResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /lookup/bankAcctTypes:
     get:
       tags: 
@@ -1032,16 +807,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/bankAcctTypesResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /lookup/billToCodes:
     get:
       tags: 
@@ -1067,16 +832,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/billToResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /lookup/billToDetailCodes:
     get:
       tags: 
@@ -1102,16 +857,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/billToDetailsResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /lookup/billingFrequencyCodes:
     get:
       tags: 
@@ -1137,16 +882,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/billingFrequencyResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /lookup/cloverSecurityBundleCodes:
     get:
       tags: 
@@ -1172,16 +907,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/cloverSecurityBundleResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /lookup/countryCodes:
     get:
       tags: 
@@ -1207,16 +932,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/countryResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /lookup/discoverProgramCodes:
     get:
       tags: 
@@ -1242,16 +957,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/discoverProgramResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /lookup/equipmentSupplierCodes:
     get:
       tags: 
@@ -1277,16 +982,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/equipmentSupplierResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /lookup/equipmentTypeCodes:
     get:
       tags: 
@@ -1312,16 +1007,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/equipmentTypesResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /lookup/frontEndPlatformCodes:
     get:
       tags: 
@@ -1347,16 +1032,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/frontEndPlatformResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /lookup/interchangeTypeCodes:
     get:
       tags: 
@@ -1382,16 +1057,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/interchangeTypeResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /lookup/orderStatusCodes:
     get:
       tags: 
@@ -1417,16 +1082,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/orderStatusResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /lookup/ownershipTypes:
     get:
       tags: 
@@ -1452,16 +1107,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/ownershipTypesResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /lookup/pciProgramCodes:
     get:
       tags: 
@@ -1487,16 +1132,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/pciProgramResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /lookup/refundPolicyCodes:
     get:
       tags: 
@@ -1522,16 +1157,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/refundPolicyResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /lookup/serviceProvidedInCodes:
     get:
       tags: 
@@ -1557,16 +1182,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/serviceProvidedResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /lookup/shippingCarrierCodes:
     get:
       tags: 
@@ -1592,16 +1207,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/shippingCarrierResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /lookup/shippingMethodCodes:
     get:
       tags: 
@@ -1627,16 +1232,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/shippingMethodResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /lookup/stateCodes:
     get:
       tags: 
@@ -1662,16 +1257,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/stateResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /lookup/transarmorTokenTypeCodes:
     get:
       tags: 
@@ -1697,16 +1282,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/transarmorTokenTypeResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
   /lookup/whenCustomerChargedCodes:
     get:
       tags: 
@@ -1732,16 +1307,6 @@ paths:
             application/json:
               schema: 
                 $ref: '#/components/schemas/whenCustomerChargedResponse'
-        400:
-          description: Not Found
-          content:
-            application/json:
-              schema: {$ref: '#/components/schemas/NotFoundError'}
-        404:
-          description: Bad Request
-          content:  
-            application/json:
-              schema: {$ref: '#/components/schemas/BadRequestError'}
 components:
   schemas:
     amexProgramResponse:
@@ -3752,6 +3317,9 @@ components:
           $ref: '#/components/schemas/merchantId'
         errors:
           $ref: '#/components/schemas/errors'
+      example: 
+        merchantId: 213456789
+        errors: null
     merchantId:
       type: string
       maxLength: 19
