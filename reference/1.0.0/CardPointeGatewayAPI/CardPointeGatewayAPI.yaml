@@ -449,8 +449,8 @@ paths:
           content:  
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
-  /cardconnect/rest/voidByOrderId/{merchid}/{orderid}/{amount}:
-    get:
+  /cardconnect/rest/voidByOrderId:
+    post:
       tags:
         - voidByOrderId Endpoint Definition
       x-group-name: CardPointe Gateway API
@@ -465,34 +465,14 @@ paths:
         Partial voids are not supported for debit transactions. If you specify a partial void amount for a debit transaction, the entire amount is voided. Omit the amount or specify the full amount for a debit void.
         
         It is strongly recommended that you use a unique order ID for every transaction, if you are using order IDs. Doing so allows you to more easily and accurately retrieve data on all transactions.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/voidByOrderIdRequest'
       parameters:
-      - in: path
-        name: merchid
-        required: true
-        schema:
-          $ref: '#/components/schemas/merchidResp'
-      - in: path
-        name: orderid
-        required: true
-        schema:
-          $ref: '#/components/schemas/orderId'
-      - in: path
-        name: amount
-        required: true
-        schema:
-          description: |
-            Optional. If omitted or equal to $0, the full amount is voided.
-
-            If no capture has taken place (setlstat:Authorized), you can specify a partial amount to void to reduce the amount of the authorization.
-            
-            Note: Partial voids are not supported for debit transactions. If you specify a partial void amount for a debit transaction, the entire amount is voided. Omit the amount or specify the full amount for a debit void.
-          example: " "
-          type: integer
-          maxLength: 12
-      - in: header
-        $ref: '#/components/parameters/ContentTypeHeader'
-      - in: header
-        $ref: '#/components/parameters/Authorization'
+        - {$ref: '#/components/parameters/ContentTypeHeader'}
+        - {$ref: '#/components/parameters/Authorization'}
       responses:
         200: 
           description: Success
@@ -958,47 +938,6 @@ components:
       in: header
       required: true
       description: The specific Merchant ID for the funding data you want returned.
-    TimestampHeader:
-      x-model-version: 1.0
-      name: Timestamp
-      schema: {type: integer, format: int64}
-      in: header
-      required: true
-      description: Epoch timestamp in milliseconds in the request from a client system.
-        Used for authorization header generation and time limit (5 minutes).
-    MessageDigestHeader:
-      x-model-version: 1.0
-      name: Message-Digest
-      schema: {
-        type: string,
-        default: "Message-Digest"
-       }
-      in: header
-      required: false
-      description: Needed only from customer browser or app to the API in Hosted Payment
-        Page requests.
-    AcceptLanguageHeader:
-      x-model-version: 1.0
-      name: Accept-Language
-      schema: {
-        type: string,
-        default: "Accept-Language"
-       }
-      in: header
-      required: false
-      description: The Accept Language header contains information about the language
-        preference of a user. This HTTP header is useful to multilingual sites for
-        deciding the best language to serve to the client. For example en-US or fr-CA.
-    ApiKeyHeader:
-      x-model-version: 1.0
-      name: Api-Key
-      schema: {
-        type: string,
-        default: "Api-Key"
-       }
-      in: header
-      required: true
-      description: API key provided to the merchant associating the requests with the appropriate app in the Developer Portal.
     ContentTypeHeader:
       name: Content-Type
       schema:
@@ -1006,85 +945,6 @@ components:
       in: header
       required: true
       description: application/json
-    AccountParam:
-      x-model-version: 1.0
-      name: account
-      schema: {
-          type: string,
-          default: "4444333322221111"
-        }
-      in: header
-      required: false
-      description: This field is required only if devicedata is absent. It must contain either a clear or encrypted payment account number (PAN) or an ACH routing and account number string in the format <routing>/<account> for eCheck transactions.
-                    If encryptionhandler is provided, the account is treated as an encrypted PAN.
-    DeviceDataParam:
-      x-model-version: 1.0
-      name: devicedata
-      schema: {
-          type: string
-          }
-      in: header
-      description: This field is required only if account is absent.
-    CVVParam:
-      x-model-version: 1.0
-      name: cvv
-      schema: {
-          type: number,
-        }
-      in: header
-      description: Card Verification Value (CVV)
-    ExpiryParam:
-      x-model-version: 1.0
-      name: expiry
-      schema:
-        {
-          type: number,
-        }
-      in: header
-      description: Expiration date
-    SigParam:
-      x-model-version: 1.0
-      name: signature
-      schema:
-        {
-          type: string,
-        }
-      in: header
-      description: Signature data is the form of a Base64-encoded, Gzipped bitmap (BMP)
-    EncryptHandleParam:
-      x-model-version: 1.0
-      name: encryptionhandler
-      schema:
-        {
-          type: string,
-        }
-      in: header
-      description: Encryption Handler. Either RSA, EX_APPLE_PAY, EX_GOOGLE_PAY
-    UniqueParam:
-      x-model-version: 1.0
-      name: unique
-      schema:
-        {
-          type: boolean,
-        }
-      in: header
-      description: Specifies whether a unique token should be generated. Defaults to false.
-    ErrorCode:
-      x-model-version: 1.0
-      name: errorcode
-      schema:
-        type: integer
-      in: header
-      description: An error code that displays signifying the importance of error codes.
-    MessageParam:
-      x-model-version: 1.0
-      name: message
-      schema:
-        {
-          type: string,
-        }
-      in: header
-      description: A message to send in the ping request and receive in the response. The value can be blank, however the message field must be included in the request.
   schemas:
     securedstid:
       type: string
@@ -3348,6 +3208,24 @@ components:
           $ref: '#/components/schemas/resptext'
         receipt:
           $ref: '#/components/schemas/receipt'
+    voidByOrderIdRequest:
+      x-model-version: 1.0
+      description: voidByOrderId Request
+      properties:
+        merchid:
+          $ref: '#/components/schemas/merchid'
+        orderid:
+          $ref: '#/components/schemas/orderId'
+        amount:
+          example: “10.00”
+          type: integer
+          maxLength: 12
+          description: |
+            Optional. If omitted or equal to $0, the full amount is voided.
+
+            If no capture has taken place (setlstat:Authorized), you can specify a partial amount to void to reduce the amount of the authorization.
+            
+            Note: Partial voids are not supported for debit transactions. If you specify a partial void amount for a debit transaction, the entire amount is voided. Omit the amount or specify the full amount for a debit void.
     voidByOrderIdResponse:
       x-model-version: 1.0
       description: voidByOrderIdResponse
