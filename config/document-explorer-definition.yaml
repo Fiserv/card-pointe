@@ -53,7 +53,7 @@
       link: docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md
 - sections:
   - title: CardPointe Unattended
-    link: CardPointeUnattendedDeveloperGuide.md
+    link: docs/documentation/CardPointeUnattendedDeveloperGuide.md
 - sections:
   - title: CardSecure
     sections:
