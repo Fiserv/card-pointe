@@ -30,7 +30,7 @@ See our documentation on the [Postman Collection for the CoPilot API]() for more
 
 Click the button below to download the collection:
 
-> [CardPointe Only Boarding Postman Collection](/assets/files/CardPointe-OnlyBoarding.postman_collection.json)
+> [CardPointe Only Boarding Postman Collection](https://raw.githubusercontent.com/Fiserv/card-pointe/main/assets/files/CardPointe-OnlyBoarding.postman_collection.json)
 
 # Limitations
 
