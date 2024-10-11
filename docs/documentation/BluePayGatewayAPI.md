@@ -76,7 +76,6 @@ Payment.js allows merchants working with various First Data APIs and gateways to
 These third-party WordPress plugins are compatible with the BluePay Gateway. 
 
 - [Pledged Plugins WooCommerce Plugin](https://pledgedplugins.com/products/bluepay-payment-gateway-woocommerce/)
-- [WP eCommerce Gold Cart](https://wpecommerce.org/news/gold-cart-api-key-requests-issue/)
 - [Tribulant WordPress Shopping Cart Plugin](https://tribulant.com/plugins/view/10/wordpress-shopping-cart-plugin)
 
 ## **Plugins available via CDI**
