@@ -2893,7 +2893,8 @@ components:
             {"udf1": "value1"},
             {"udf2": "value2"}, 
             {"custommerchant": "ABC Company"},
-            {"customphone": "888-888-8888"}
+            {"customphone": "888-888-8888"},
+            {"customproduct": "John's Office Supplies"}
           ]
     fundingtxnid:
       description: The <code>fundingmasterid</code> associated with the transaction.
@@ -3731,7 +3732,8 @@ components:
             {"udf1": "value1"},
             {"udf2": "value2"}, 
             {"custommerchant": "ABC Company"},
-            {"customphone": "888-888-8888"}
+            {"customphone": "888-888-8888"},
+            {"customproduct": "John's Office Supplies"}
           ]
     voidable:
       type: string
