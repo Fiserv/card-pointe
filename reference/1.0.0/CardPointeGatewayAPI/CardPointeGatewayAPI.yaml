@@ -3725,15 +3725,13 @@ components:
           customproduct:
             $ref: '#/components/schemas/customproduct'
       example:
+        "userfields":
           [
-            {
-              "udf0": "value0",
-              "udf1": "value1",
-              "udf2": "value2", 
-              "custommerchant": "C Company",
-              "customphone": "888-888-8888",
-              "customproduct": "John's Office Supplies"
-            }
+            {"udf0": "value0"},
+            {"udf1": "value1"},
+            {"udf2": "value2"}, 
+            {"custommerchant": "ABC Company"},
+            {"customphone": "888-888-8888"}
           ]
     voidable:
       type: string
