@@ -1,7 +1,6 @@
 # CardPointe Integrated Terminal Surcharge Guide (Beta)
 <!-- theme: warning -->
 > This solution is currently in a closed beta, and not available for general use. Contact your account manager for more information
-
 ## Overview
 
 Surcharging allows merchants to add a "% checkout fee" to a credit card transaction, paid by the cardholder, to help cover the merchant’s credit card processing fees.
