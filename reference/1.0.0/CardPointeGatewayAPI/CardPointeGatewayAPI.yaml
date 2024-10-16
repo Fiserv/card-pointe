@@ -274,7 +274,7 @@ paths:
 
         Partial voids are not supported for debit transactions. If you specify a partial void amount for a debit transaction, the entire amount is voided. Omit the amount or specify the full amount for a debit void.
 
-        You can retrieve the status of a transaction using the [inquire](../api/?type=get&path=/cardconnect/rest/inquire) or [inquireByOrderid](../api/?type=get&path=/cardconnect/rest/inquireByOrderid/{merchid}/{orderid}/{set}) endpoint. 
+        You can retrieve the status of a transaction using the [inquire](../api/?type=get&path=/cardconnect/rest/inquire) or [inquireByOrderid](../api/?type=get&path=/cardconnect/rest/inquireByOrderid/{orderid}/{merchid}/{set}) endpoint. 
 
         The response includes a <code>voidable</code> field, which indicates whether or not the transaction can be voided.
 
@@ -394,7 +394,7 @@ paths:
           content:  
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
-  /cardconnect/rest/inquireByOrderid/{merchid}/{orderid}/{set}:
+  /cardconnect/rest/inquireByOrderid/{orderid}/{merchid}/{set}:
     get:
       tags:
         - inquireByOrderid Endpoint Definition
@@ -414,15 +414,15 @@ paths:
         If you have multiple MIDs and do not know which MID was used in the original transaction, you can omit the set parameter from the end of the request to optionally inquire on the order ID across all MIDs on the site.
       parameters:
       - in: path
-        name: merchid
-        required: true
-        schema:
-          $ref: '#/components/schemas/merchid'
-      - in: path
         name: orderid
         required: true
         schema:
           $ref: '#/components/schemas/orderId'
+      - in: path
+        name: merchid
+        required: true
+        schema:
+          $ref: '#/components/schemas/merchid'
       - in: path
         name: set
         required: true
