@@ -15,8 +15,9 @@ For merchants enrolled in the Merchant Surcharge Program, the CardPointe Gateway
 
 - The type of card presented
 - The cardholder's postal code (card-not-present only)
+- The Credit Card Surcharge Rate configured for the merchant account
 
-If the Gateway determines that the card used is not a credit card (for example, a debit card), or that the postal code associated with the account is a surcharge-restricted location, then the surcharge is waived. Otherwise, a 3% surcharge is automatically added to the subtotal amount.
+If the Gateway determines that the card used is not a credit card (for example, a debit card), or that the postal code associated with the account is a surcharge-restricted location, then the surcharge is waived. Otherwise, the Credit Card Surcharge Rateconfigured for the merchant account is automatically added to the subtotal amount.
 
 The CardPointe Integrated Terminal API has been updated with new request endpoints, to enable the terminal to display surcharging disclosures and optional itemized amount details to the cardholder. To enable these display features for your merchants enrolled in the Merchant Surcharge Program, you must update your integration to use the new payment endpoints.
 
@@ -32,7 +33,7 @@ You and your merchants are responsible for compliance with all state, local, and
 
 ### Receipts
 
-If you use a Clover Flex or Mini CardPointe Integrated Terminal, the receipt printed by the terminal now includes surcharge line items to display the subtotal, surcharge, and total amounts, as well as the following disclaimer:
+If you use a Clover Flex or Mini CardPointe Integrated Terminal, the receipt printed by the terminal now includes surcharge line items to display the subtotal, surcharge, and total amounts, as well as a disclaimer. For example:
 
 *To cover the cost of accepting credit cards, we collected a 3% credit card surcharge.*
 
@@ -117,7 +118,7 @@ The following table describes these new response fields:
 | Field	| Max Length | Type | Destination |
 | --- | --- | --- | --- |
 | `fee_format`	| 7	| AN | The surcharge format configured for the merchant account. Always `"percent"` when a surcharge is successfully applied to the transaction. Empty (`""`) if the surcharge was waived or bypassed. |
-| `fee_value`	| 3	| N	| The surcharge rate applied to the transaction.  Returns `"300"` when a surcharge is successfully applied and `"0"` if the surcharge was waived or bypassed. |
+| `fee_value`	| 3	| N	| The surcharge rate applied to the transaction, for example, `"300"` for a 3.0% surcharge, or `"0"` if the surcharge was waived or bypassed. |
 | `fee_type`	| 13	| AN | The type of fee applied to the transaction. Always `"SURCHRG"` when a surcharge is successfully applied. `"SURCHRG_WAIVED"` if the surcharge was waived or bypassed. |
 | `fee_amount`| 14	| N | The surcharge amount applied to the transaction, in dollars and cents. `"0.00"` if the surcharge was waived or bypassed. |
 | `fee_authcode` | 6 | N | Duplicate of the `authcode` field. |
