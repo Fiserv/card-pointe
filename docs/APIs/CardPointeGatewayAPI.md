@@ -94,9 +94,9 @@ The following resources are available to simplify your integration.
 
 ## Developer Guides 
 
-Our [Developer Guides](?path=docs/getting-started.md) provide additional information for integrating the CardPointe Gateway and related products and services.
+Our [Developer Guides](?path=docs/get-started.md) provide additional information for integrating the CardPointe Gateway and related products and services.
 
-You can browse the whole library at the [Developer Guides home page](?path=docs/getting-started.md), or jump right to the [CardPointe Gateway Developer Guides](?path=docs/documentation/CardPointeGatewayDeveloperGuides.md) to make the most of your CardPointe Gateway API integration.
+You can browse the whole library at the [Developer Guides home page](?path=docs/get-started.md), or jump right to the [CardPointe Gateway Developer Guides](?path=docs/documentation/CardPointeGatewayDeveloperGuides.md) to make the most of your CardPointe Gateway API integration.
 
 ## Sample Postman Collection 
 
