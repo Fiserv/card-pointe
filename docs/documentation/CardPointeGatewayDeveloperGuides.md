@@ -854,8 +854,6 @@ You can specify the following fields in a userFields object to include an order 
 
 | Field | Description |
 | --- | --- |
-| receiptOrderNote	| Use this field to provide a custom note to include on the receipt. |
-| receiptItems	| Use this field to provide custom item descriptors to include on the receipt. |
 | receiptHeader	| Use this field to override the header configured for your MID. |
 | receiptFooter	| Use this field to override the footer configured for your MID. |
 | receiptDba	| Use this field to override the DBA name configured for your MID. |
