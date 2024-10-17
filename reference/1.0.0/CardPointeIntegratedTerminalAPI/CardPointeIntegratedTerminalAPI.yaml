@@ -1576,11 +1576,9 @@ components:
           description: |
             A string of receipt and EMV tag data (when applicable) returned from the processor.
 
-            **Note**: This string is returned for both EMV and non-EMV transactions on the First Data Rapid Connect (RPCT) front end platform.
-
             This data returned should be presented on a receipt if applicable, and recorded with the transaction details for future reference.
 
-            See <a href=""../docs/?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md&branch=develop#accepting-pin-debit-cards"">Printing Receipts Using Authorization Data</a> in the <a href="../docs/?path=docs/APIs/CardPointeIntegratedTerminalAPI.md&branch=develop">CardPointe Integrated Terminal Developer Guides</a> for detailed information. 
+            See <a href=""../docs/?path=docs/documentation/CardPointeIntegratedTerminalDeveloperGuides.md#printing-receipts-using-authorization-data">Printing Receipts Using Authorization Data</a> in the <a href="../docs/?path=docs/APIs/CardPointeIntegratedTerminalAPI.md">CardPointe Integrated Terminal Developer Guides</a> for detailed information. 
           type: string 
           example: N/A
         tokenExpired:
