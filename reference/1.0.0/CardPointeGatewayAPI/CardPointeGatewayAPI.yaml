@@ -2887,7 +2887,6 @@ components:
             type: string
             description: The value of the field.
       example:
-        "userfields":
           [
             {"udf0": "value0"},
             {"udf1": "value1"},
@@ -3708,7 +3707,7 @@ components:
         
         The name and value fields can include any string value, and you can include as many fields as necessary; however, the total length of user defined fields, URL/JSON encoded, is limited to 4000 bytes, where 1 character is equal to 1 byte. 
         
-        If you use the CardPointe web application for transaction reporting, you must ensure that you pass your custom fields in an array, in the order that they are configured in the CardPointe application to ensure that the fields are populated correctly in the Transactions table. If there is no value for a field, you must include the field with an empty value (for example, "udf1":"") to preserve the expected order of the fields. If you pass the fields in an object, the order will not be preserved.
+        If you use the CardPointe web application for transaction reporting, you must ensure that you pass your custom fields in an array of individual JSON objects, in the order that they are configured in the CardPointe application to ensure that the fields are populated correctly in the Transactions table. If there is no value for a field, you must include the field with an empty value (for example, "udf1":"") to preserve the expected order of the fields. If you pass the fields in an object, the order will not be preserved.
         
         While the example is a JSON array, a JSON object version of userfields is also available.
       items:
@@ -3726,14 +3725,13 @@ components:
           customproduct:
             $ref: '#/components/schemas/customproduct'
       example:
-        "userfields":
           [
-            {"udf0": "value0"},
-            {"udf1": "value1"},
-            {"udf2": "value2"}, 
-            {"custommerchant": "ABC Company"},
-            {"customphone": "888-888-8888"},
-            {"customproduct": "John's Office Supplies"}
+            {"udf0" : "value0"},
+            {"udf1" : "value1"},
+            {"udf2" : "value2"}, 
+            {"custommerchant" : "ABC Company"},
+            {"customphone" : "888-888-8888"},
+            {"customproduct" : "John's Office Supplies"}
           ]
     voidable:
       type: string
