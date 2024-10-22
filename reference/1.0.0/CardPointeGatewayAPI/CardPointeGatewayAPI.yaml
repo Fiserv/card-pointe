@@ -250,7 +250,7 @@ paths:
           description: Success
           content:
             application/json:
-              schema: {$ref: '#/components/schemas/captureSuccess'}
+              schema: {$ref: '#/components/schemas/captureResponse'}
         400:
           description: Not Found
           content:
@@ -1529,6 +1529,8 @@ components:
           $ref: '#/components/schemas/accttype'
         userfields:
           $ref: "#/components/schemas/userfields"
+        invoiceid:
+          $ref: '#/components/schemas/invoiceid'
         ponumber:
           $ref: '#/components/schemas/ponumber'
         taxamnt:
@@ -1914,6 +1916,10 @@ components:
           $ref: '#/components/schemas/declineCategory'
         declineCategoryText:
           $ref: '#/components/schemas/declineCategoryText'
+        merchAdviceCode:
+          $ref: '#/components/schemas/merchAdviceCode'
+        merchAdviceText:
+          $ref: '#/components/schemas/merchAdviceText'
         authcode:
           $ref: '#/components/schemas/authcode'
         signature:
@@ -2190,6 +2196,8 @@ components:
           $ref: '#/components/schemas/accttype'
         userfields:
           $ref: "#/components/schemas/userfields"
+        invoiceid:
+          $ref: '#/components/schemas/invoiceid'
         ponumber:
           $ref: '#/components/schemas/ponumber'
         taxamnt:
@@ -2216,9 +2224,9 @@ components:
           $ref: '#/components/schemas/secureflag'
         securevalue:
           $ref: '#/components/schemas/securevalue'
-    captureSuccess:
+    captureResponse:
       x-model-version: 1.0
-      description: captureSuccess
+      description: captureResponse
       properties:
         merchid:
           $ref: '#/components/schemas/merchid'
@@ -3040,7 +3048,6 @@ components:
         Note: You may reattempt this transaction a maximum of 15 times in a 30-day period before incurring excessive reattempt fees, unless you receive an updated declineCategory of 1, in which case you should no longer reattempt this transaction.
     declineCategoryText:
       type: string
-      maxLength: 25
       description: |
         A text description of the declineCategory value.
 
@@ -3049,6 +3056,21 @@ components:
         * <code>Do not retry</code> - Returned for declineCategory 1.
         * <code>Wait to retry</code> - Returned for declineCategory 2.
         * <code>Fix the request and retry</code> - Returned for declineCategory 3. 
+    merchAdviceCode:
+      type: string
+      maxLength: 2
+      example: "06"
+      description: | 
+        A numeric decline category code, returned for declined recurring transactions using Visa and Mastercard accounts.
+        
+        See Merchant Advice Codes for more information.
+    merchAdviceText:
+      type: string
+      example: "Cardholder canceled recurring payment"
+      description: |
+        A text description of the corresponding <code>merchAdviceCode</code>, returned for declined recurring transactions using Visa and Mastercard accounts.
+        
+        See Merchant Advice Codes for more information.
     inquireResponse:
       x-model-version: 1.0
       description: inquire Response
@@ -3125,6 +3147,10 @@ components:
           $ref: '#/components/schemas/declineCategory'
         declineCategoryText:
           $ref: '#/components/schemas/declineCategoryText'
+        merchAdviceCode:
+          $ref: '#/components/schemas/merchAdviceCode'
+        merchAdviceText:
+          $ref: '#/components/schemas/merchAdviceText'
     inquireByOrderIDResponse:
       x-model-version: 1.0
       description: inquireByOrderID Response
@@ -3191,6 +3217,10 @@ components:
           $ref: '#/components/schemas/declineCategory'
         declineCategoryText:
           $ref: '#/components/schemas/declineCategoryText'
+        merchAdviceCode:
+          $ref: '#/components/schemas/merchAdviceCode'
+        merchAdviceText:
+          $ref: '#/components/schemas/merchAdviceText'
     invoiceid:
       maxLength: 12
       type: string
@@ -4169,16 +4199,6 @@ components:
         messages: [
           {"field": "token", "message": "token is missing or empty"},
           {"field":"postal", "message": "postal is missing or empty"}]
-    Successful:
-      value:
-        errorcode: 0,
-        data: "AAdoWZghKq4An1Pl0PJKDQfTQ"
-        message: "No error"
-    WrongVersion:
-      value:
-        type: 'integer'
-        code: '003'
-        message: 'Message'
     PaymentCardRequestExample:
       value:
         account: 4444333322221111
