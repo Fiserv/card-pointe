@@ -925,6 +925,53 @@ The CardPointe Gateway validates various parameters of an authorization request 
 | VANT     | 98       | C        | "Duplicate transaction"              |
 | VANT     | 99       | C        | "Cannot be performed as debit"       |
 
+## Visa Decline Category Codes
+To help merchants properly handle declined transactions and avoid excessive reattempt fees, Visa provides additional Decline Category Codes in the authorization response. These codes indicate whether or not the merchant should reattempt the transaction, and why. The CardPointe Gateway returns these values, when present in, the the `declineCategory` and `declineCategoryText` fields in the authorization response. 
+
+The following table describes each code, its corresponding text description, and some example cases.
+
+> See the [Visa Decline Rules and Responses support article](https://support.cardpointe.com/compliance/visa-decline-rules-and-responses/) for detailed information.
+
+| declineCategory | declineCategoryText | Reattempt Handling | Examples |
+| --- | --- | --- | --- |
+| 1   | The issuer will never approve. | In this case, you should **not** reattempt the transaction using the same account information; it will never be approved by the issuer. <br><br>Reattempting this transaction will incur a fee.<br><br>Instead, advise the cardholder to contact their issuer or provide an alternate payment method. | Some possible reasons for this code include:<br><br>*   The account has been closed.<br>    <br>*   The account has not been activated.<br>    <br>*   There is a stop payment order on this account. |
+| 2   | The issuer cannot approve at this time. | In this case, you may wait and retry this transaction at a later time; the issuer may approve the transaction on a future attempt.<br><br>_**Note**_: You may reattempt this transaction a maximum of 15 times in a 30-day period before incurring excessive reattempt fees, unless you receive an updated **declineCategory** of **1**, in which case you should no longer reattempt this transaction. | Some possible reasons for this code include:<br><br>*   The account has exceeded its daily transaction limit.<br>    <br>*   The cardholder exceeded the number of allowable PIN entry attempts.<br>    <br>*   The account currently has insufficient funds.<br>    <br>*   A system error occurred while authorizing the transaction. |
+| 3   | The issuer cannot approve based on details provided. | In this case, you can check the account information for errors, correct any invalid data, and reattempt the transaction using the corrected data; the issuer might approve the transaction if all errors are corrected.<br><br>_**Note**:_ You may reattempt this transaction a maximum of 15 times in a 30-day period before incurring excessive reattempt fees, unless you receive an updated **declineCategory** of **1**, in which case you should no longer reattempt this transaction. | Some possible reasons for this code include:<br><br>*   The account number is invalid.<br>    <br>*   The card is expired.<br>    <br>*   The CVV entered is incorrect.<br>    <br>*   The PIN entered is incorrect. |
+
+# Mastercard Merchant Advice Codes
+
+For declined recurring payments using a Mastercard or Visa account, the issuer returns a Merchant Advice Code, which the merchant can use in conjunction with the processor response to determine the appropriate course of action for handling the decline.
+
+The CardPointe Gateway returns these values and their text descriptions in the <code>merchAdviceCode</code> and <code>merchAdviceText</code> fields, respecticely, in the authorization response.
+
+The following table describes each code and corresponding text description and issuer.
+
+|     |     |     |
+| --- | --- | --- |
+| Card Brand | merchAdviceCode | merchAdviceText |
+| Mastercard | 01  | New account information available |
+|  | 02  | Retry after 3 days |
+|  | 03  | Account closed |
+|  | 04  | Token requirements not fulfilled for this token type |
+|  | 05  | Card account closed or fraud |
+|  | 06  | Cardholder canceled recurring payment |
+|  | 07  | Cancel specific payment |
+|  | 21  | Stop recurring for this merchant |
+|  | 22  | Merchant does not qualify for product code |
+|  | 24  | Retry after 1 hour |
+|  | 25  | Retry after 24 hours |
+|  | 26  | Retry after 2 days |
+|  | 27  | Retry after 4 days |
+|  | 28  | Retry after 6 days |
+|  | 29  | Retry after 8 days |
+|  | 30  | Retry after 10 days |
+| Visa | 02  | Cardholder blocked this payment |
+|  | 03  | Cardholder stopped all recurring for this merchant |
+|  | 21  | All recurring payments cancelled for this card |
+|  | R0  | Stop payment order |
+|  | R1  | Revocation of authorization order |
+|  | R3  | Revocation of all authorizations order |
+
 ## AVS Response Codes for First Data Platforms
 
 The most common AVS responses (`avsresp`) shared among the Rapid Connect, North, and Omaha processing platforms are categorized below.
