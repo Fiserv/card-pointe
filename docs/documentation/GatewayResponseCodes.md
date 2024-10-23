@@ -1082,6 +1082,8 @@ titles: Mastercard, Visa
 | 28  | Retry after 6 days |
 | 29  | Retry after 8 days |
 | 30  | Retry after 10 days |
+| 40  | Non-reloadable prepaid card |
+| 41  | Single-use virtual card |
 
 <!--
 type: tab
