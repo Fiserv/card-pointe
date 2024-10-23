@@ -355,7 +355,7 @@ paths:
           content:  
             application/json:
               schema: {$ref: '#/components/schemas/BadRequestError'}
-  /cardconnect/rest/inquire/{merchid}/{retref}:
+  /cardconnect/rest/inquire/{retref}/{merchid}:
     get:
       tags:
         - inquire Endpoint Definition
