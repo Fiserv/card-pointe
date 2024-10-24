@@ -4,6 +4,50 @@ The following entries describe changes to the [CardPointe Gateway API](?path=doc
 
 Visit status.cardconnect.com and **click subscribe to updates** to receive important release and status notifications.
 
+## Date Updated: 10/24/2024
+
+An update to the CardPointe Gateway will be deployed to the UAT environment on 10/28/2024, and to the Production environment on 11/2/2024.
+
+This update includes backend fixes and enhancements, as well as the following update.
+
+### Merchant Advice Codes
+
+For merchants on the First Data Rapid Connect and First Data North processing platforms, the authorization response now includes a Merchant Advice Code and description for declined Visa and Mastercard recurring payments.
+
+The authorization response includes the new <code>merchAdviceCode</code> and <code>merchAdviceText</code> fields, which provide the additional issuer response code and a text description to help merchants determine the appropriate action to take. 
+
+<!-- theme: danger -->
+> In order to prevent fraud, merchants should not share this information with the payer.
+
+The following table provides the new fields and possible values:
+
+| Card Brand | merchAdviceCode | merchAdviceText |
+| --- | --- | --- |
+| Mastercard | 01  | New account information available |
+|| 02  | Retry after 3 days |
+|| 03  | Account closed |
+|| 04  | Token requirements not fulfilled for this token type |
+|| 05  | Card account closed or fraud |
+|| 06  | Cardholder canceled recurring payment |
+|| 07  | Cancel specific payment |
+|| 21  | Stop recurring for this merchant |
+|| 22  | Merchant does not qualify for product code |
+|| 24  | Retry after 1 hour |
+|| 25  | Retry after 24 hours |
+|| 26  | Retry after 2 days |
+|| 27  | Retry after 4 days |
+|| 28  | Retry after 6 days |
+|| 29  | Retry after 8 days |
+|| 30  | Retry after 10 days |
+|| 40  | Non-reloadable prepaid card |
+|| 41  | Single-use virtual card |
+| Visa | 02  | Cardholder blocked this payment |
+|| 03  | Cardholder stopped all recurring for this merchant |
+|| 21  | All recurring payments cancelled for this card |
+|| R0  | Stop payment order |
+|| R1  | Revocation of authorization order |
+|| R3  | Revocation of all authorizations order |
+
 ## Date Updated: 7/13/2024
 
 An update to the CardPointe Gateway was deployed to the UAT environment on 7/8/2024 and to the Production environment on 7/13/2024.
