@@ -10,7 +10,7 @@ An update to the CardPointe Gateway will be deployed to the UAT environment on 1
 
 This update includes backend fixes and enhancements, as well as the following update.
 
-### Mastercard Merchant Advice Codes
+### Merchant Advice Codes
 
 For merchants on the First Data Rapid Connect and First Data North processing platforms, the authorization response now includes a Merchant Advice Code and description for declined Visa and Mastercard recurring payments.
 
