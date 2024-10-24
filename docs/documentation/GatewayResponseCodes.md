@@ -925,6 +925,179 @@ The CardPointe Gateway validates various parameters of an authorization request 
 | VANT     | 98       | C        | "Duplicate transaction"              |
 | VANT     | 99       | C        | "Cannot be performed as debit"       |
 
+## Visa Decline Category Codes
+To help merchants properly handle declined transactions and avoid excessive reattempt fees, Visa provides additional Decline Category Codes in the authorization response. These codes indicate whether or not the merchant should reattempt the transaction, and why. The CardPointe Gateway returns these values, when present in, the the `declineCategory` and `declineCategoryText` fields in the authorization response. 
+
+The following table describes each code, its corresponding text description, and some example cases.
+
+> See the [Visa Decline Rules and Responses support article](https://support.cardpointe.com/compliance/visa-decline-rules-and-responses/) for detailed information.
+
+| declineCategory | declineCategoryText | Reattempt Handling | Examples |
+| --- | --- | --- | --- |
+| 1   | The issuer will never approve. | In this case, you should **not** reattempt the transaction using the same account information; it will never be approved by the issuer. <br><br>Reattempting this transaction will incur a fee.<br><br>Instead, advise the cardholder to contact their issuer or provide an alternate payment method. | Some possible reasons for this code include:<br><br>*   The account has been closed.<br>    <br>*   The account has not been activated.<br>    <br>*   There is a stop payment order on this account. |
+| 2   | The issuer cannot approve at this time. | In this case, you may wait and retry this transaction at a later time; the issuer may approve the transaction on a future attempt.<br><br>_**Note**_: You may reattempt this transaction a maximum of 15 times in a 30-day period before incurring excessive reattempt fees, unless you receive an updated **declineCategory** of **1**, in which case you should no longer reattempt this transaction. | Some possible reasons for this code include:<br><br>*   The account has exceeded its daily transaction limit.<br>    <br>*   The cardholder exceeded the number of allowable PIN entry attempts.<br>    <br>*   The account currently has insufficient funds.<br>    <br>*   A system error occurred while authorizing the transaction. |
+| 3   | The issuer cannot approve based on details provided. | In this case, you can check the account information for errors, correct any invalid data, and reattempt the transaction using the corrected data; the issuer might approve the transaction if all errors are corrected.<br><br>_**Note**:_ You may reattempt this transaction a maximum of 15 times in a 30-day period before incurring excessive reattempt fees, unless you receive an updated **declineCategory** of **1**, in which case you should no longer reattempt this transaction. | Some possible reasons for this code include:<br><br>*   The account number is invalid.<br>    <br>*   The card is expired.<br>    <br>*   The CVV entered is incorrect.<br>    <br>*   The PIN entered is incorrect. |
+
+The following table displays the relationship between some typical processor decline responses and their respective Visa Decline Category codes:
+
+<!--
+type: tab
+titles: Chase Paymentech Salem (PMT), Chase Paymentech Tampa (PTAM), First Data North (FNOR), First Data Rapid Connect (RPCT), TSYS (VPS), Vantiv (VANT)
+-->
+
+| Processor Response Code | Description | Visa Decline Category Code |
+| --- | --- | --- |
+| 501 | "Pickup card" | 1   |
+| 502 | "Card reported lost" | 1   |
+| 596 | "Suspected fraud" | 1   |
+| 602 | "Invalid issuer code" | 1   |
+| 231 | "Invalid merchant code" | 2   |
+| 509 | "Over activity limit" | 2   |
+| 510 | "Over frequency limit" | 2   |
+| 522 | "Card expired" | 3   |
+| 591 | "Invalid card number" | 3   |
+
+<!--
+type: tab
+-->
+
+| Processor Response Code | Description | Visa Decline Category Code |
+| --- | --- | --- |
+| 04  | "Pick up card" | 1   |
+| 07  | "Suspected fraud" | 1   |
+| 12  | "Invalid transaction" | 1   |
+| 15  | "No such card issuer" | 1   |
+| 43  | "Lost/stolen card" | 1   |
+| 57  | "Invalid txn for card" | 1   |
+| 03  | "Invalid merchant" | 2   |
+| 09  | "Velocity limit exceeded" | 2   |
+| 19  | "Re-enter transaction" | 2   |
+| 14  | "Invalid card number" | 3   |
+| 54  | "Wrong expiration" | 3   |
+
+<!--
+type: tab
+-->
+
+| Processor Response Code | Description | Visa Decline Category Code |
+| --- | --- | --- |
+| 12  | "Invalid transaction" | 1   |
+| 57  | "Invalid txn for card" | 1   |
+| 63  | "Service not allowed" | 1   |
+| 03  | "Invalid merchant" | 2   |
+| 28  | "Please retry" | 2   |
+| 61  | "Exceeds withdrawal limit" | 2   |
+| 91  | "System error" | 2   |
+| 14  | "Invalid card number" | 3   |
+| 54  | "Wrong expiration" | 3   |
+
+<!--
+type: tab
+-->
+
+| Processor Response Code | Description | Visa Decline Category Code |
+| --- | --- | --- |
+| 102 | "Suspected fraud" | 1   |
+| 208 | "Lost card" | 1   |
+| 209 | "Stolen card" | 1   |
+| 704 | "Pick up card" | 1   |
+| 902 | "Invalid transaction" | 1   |
+| 109 | "Do no honor" | 2   |
+| 116 | "Not sufficient funds" | 2   |
+| 512 | "Service not allowed" | 2   |
+| 101 | "Expired card" | 3   |
+| 117 | "Incorrect PIN" | 3   |
+| 131 | "Invalid account number" | 3   |
+
+<!--
+type: tab
+-->
+
+| Processor Response Code | Description | Visa Decline Category Code |
+| --- | --- | --- |
+| 04  | "Pick up card" | 1   |
+| 07  | "Suspected fraud" | 1   |
+| 12  | "Invalid transaction" | 1   |
+| 15  | "No such card issuer" | 1   |
+| 41  | "Card reported lost" | 1   |
+| 43  | "Card reported stolen" | 1   |
+| 57  | "Invalid txn for card" | 1   |
+| 03  | "Invalid merchant" | 2   |
+| 19  | "Re-enter transaction" | 2   |
+| 51  | "Insufficient funds" | 2   |
+| 59  | "Service not allowed" | 2   |
+| 61  | "Exceeds withdrawal limit" | 2   |
+| 62  | "Invalid service code" | 2   |
+| 65  | "Activity limit exceeded" | 2   |
+| 75  | "PIN tries exceeded" | 2   |
+| 78  | "No account" | 2   |
+| 91  | "Issuer unavailable" | 2   |
+| 14  | "Invalid card number" | 3   |
+| 54  | "Wrong expiration" | 3   |
+| 55  | "Incorrect PIN | 3   |
+| 82  | "CVV incorrect" | 3   |
+
+<!--
+type: tab
+-->
+
+| Processor Response Code | Description | Visa Decline Category Code |
+| --- | --- | --- |
+| 07  | "Suspected fraud" | 1   |
+| 41  | "Pick up card - Lost" | 1   |
+| 03  | "Invalid merchant" | 2   |
+| 75  | "PIN try limit exceeded" | 2   |
+| 14  | "Invalid card number" | 3   |
+| 54  | "Expired card" | 3   |
+
+<!-- type: tab-end -->
+
+# Mastercard Merchant Advice Codes
+
+For declined recurring payments using a Mastercard or Visa account, the issuer returns a Merchant Advice Code, which the merchant can use in conjunction with the processor response to determine the appropriate course of action for handling the decline.
+
+The CardPointe Gateway returns these values and their text descriptions in the <code>merchAdviceCode</code> and <code>merchAdviceText</code> fields, respecticely, in the authorization response.
+
+The following table describes each code and corresponding text description and issuer.
+
+<!--
+type: tab
+titles: Mastercard, Visa
+-->
+| --- | --- |
+| merchAdviceCode | merchAdviceText |
+| 01  | New account information available |
+| 02  | Retry after 3 days |
+| 03  | Account closed |
+| 04  | Token requirements not fulfilled for this token type |
+| 05  | Card account closed or fraud |
+| 06  | Cardholder canceled recurring payment |
+| 07  | Cancel specific payment |
+| 21  | Stop recurring for this merchant |
+| 22  | Merchant does not qualify for product code |
+| 24  | Retry after 1 hour |
+| 25  | Retry after 24 hours |
+| 26  | Retry after 2 days |
+| 27  | Retry after 4 days |
+| 28  | Retry after 6 days |
+| 29  | Retry after 8 days |
+| 30  | Retry after 10 days |
+| 40  | Non-reloadable prepaid card |
+| 41  | Single-use virtual card |
+
+<!--
+type: tab
+-->
+
+| 02  | Cardholder blocked this payment |
+| 03  | Cardholder stopped all recurring for this merchant |
+| 21  | All recurring payments cancelled for this card |
+| R0  | Stop payment order |
+| R1  | Revocation of authorization order |
+| R3  | Revocation of all authorizations order |
+
+<!-- type: tab-end -->
+
 ## AVS Response Codes for First Data Platforms
 
 The most common AVS responses (`avsresp`) shared among the Rapid Connect, North, and Omaha processing platforms are categorized below.
