@@ -17,7 +17,7 @@ For merchants on the First Data Rapid Connect and First Data North processing pl
 The authorization response includes the new <code>merchAdviceCode</code> and <code>merchAdviceText</code> fields, which provide the additional issuer response code and a text description to help merchants determine the appropriate action to take. 
 
 <!-- theme: danger -->
-> In order to prevent fraud, merchants should not share this information with the payee.
+> In order to prevent fraud, merchants should not share this information with the payer.
 
 The following table provides the new fields and possible values:
 
